@@ -1,6 +1,10 @@
 # A.B.A.A
 Asmenio biudžeto analizės aplikacija
 
+## Įtraukta:
+ - Duombazė - MongoDb
+ - Framework - ReactJS
+
 ## Pagal SCRUM sistemą
  - Komandos nariai:
     - **Product Owner:** Justina https://github.com/JustinaBalse/, https://www.linkedin.com/in/justina-balse/;
