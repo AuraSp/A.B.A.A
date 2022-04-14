@@ -14,5 +14,5 @@ Asmenio biudžeto analizės aplikacija
        - Aura https://github.com/AuraSp, https://www.linkedin.com/in/aura%C5%A1pejerait%C4%97/;
 
 # MongoDB informacija 
-**username:** wilno;
-**password:** KfhV0Rww2JY7vCqc;
+ - **username:** wilno;
+ - **password:** KfhV0Rww2JY7vCqc;
