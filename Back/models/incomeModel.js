@@ -11,12 +11,9 @@ const incomesSchema = new mongoose.Schema({
   name: {
     type: String,
   }
-},
-
-  { collection: 'Users-Incomes-Info' }
-);
+});
 
 // Modelis DB lentelės pavadinimas
-const income = new mongoose.model(studentsSchema);
+const income = new mongoose.model('Users-Incomes-Info', incomesSchema);
 
 module.exports = income;
