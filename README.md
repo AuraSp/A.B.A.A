@@ -11,7 +11,7 @@ Asmenio biudžeto analizės aplikacija
        - Adam https://github.com/AdamRoomka, https://www.linkedin.com/in/adam-romaszewski-5232041b8/;
        - Albertas https://github.com/cable777;
        - Edgaras https://github.com/Edgaras-L;
-       - Aura https://github.com/AuraSp, https://www.linkedin.com/in/aura%C5%A1pejerait%C4%97/;
+       - Aura https://github.com/AuraSp, https://www.linkedin.com/in/auraspejeraite/;
 
 # MongoDB informacija 
  - **username:** wilno;
