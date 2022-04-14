@@ -12,7 +12,3 @@ Asmenio biudžeto analizės aplikacija
        - Albertas https://github.com/cable777;
        - Edgaras https://github.com/Edgaras-L;
        - Aura https://github.com/AuraSp, https://www.linkedin.com/in/auraspejeraite/;
-
-# MongoDB informacija 
- - **username:** wilno;
- - **password:** KfhV0Rww2JY7vCqc;
