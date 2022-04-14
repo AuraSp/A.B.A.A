@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 
+//Convert Date format to only date without time
+const Date = {
+  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
+};
 // DB schema
 const incomesSchema = new mongoose.Schema({
   amount: {
-    type: String,
+    type: Number,
   },
   date: {
     type: Date,
