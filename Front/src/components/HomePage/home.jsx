@@ -6,6 +6,7 @@ function Home() {
     <>
       <Link to="/incomeform">Income form</Link>
       <Link to="/allincomes">Incomes</Link>
+      <h1>Incomes</h1>
     </>
   )
 }
