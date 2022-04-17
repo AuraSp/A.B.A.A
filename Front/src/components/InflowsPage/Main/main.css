@@ -1,0 +1,27 @@
+.main {
+    height: auto;
+    background-color: #f0f1fa;
+}
+
+.main p {
+    flex-basis: 50%;
+    padding-left: 8em;
+}
+
+.main .button {
+    flex-basis: 50%;
+    align-self: center;
+}
+
+.main .button button {
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+.row>.inflows,
+.row>.outflows {
+    width: 80%;
+    background-color: whitesmoke;
+    border-radius: 20px;
+}

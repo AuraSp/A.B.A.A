@@ -4,11 +4,12 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Home from './components/HomePage/home';
-import Form from './components/AddIncomeForm/form';
-import Incomes from './components/AllIncomesPage/Incomes';
+import Home from './components/HomePage/Home';
+import Inflows from './components/InflowsPage/Inflows';
+import Login from './components/Login/Login';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
   return (
@@ -16,8 +17,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/incomeform" element={<Form />} />
-          <Route path="/allincomes" element={<Incomes />} />
+          <Route path="/inflows" element={<Inflows />} />
+          <Route path="/signup" element={<Login />} />
         </Routes>
       </Router>
     </div>
