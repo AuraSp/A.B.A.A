@@ -5,7 +5,7 @@ import {
   Route
 } from "react-router-dom";
 import Home from './components/HomePage/Home';
-import Inflows from './components/InflowsPage/Inflows';
+import BudgetMain from './components/BudgetPage/BudgetMain';
 import Login from './components/Login/Login';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,7 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/inflows" element={<Inflows />} />
+          <Route path="/budget" element={<BudgetMain />} />
           <Route path="/signup" element={<Login />} />
         </Routes>
       </Router>

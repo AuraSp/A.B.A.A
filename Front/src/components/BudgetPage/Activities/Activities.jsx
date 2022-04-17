@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Inflows from './Inflows/Inflows';
-import './main.css';
+import './activities.css';
 import Outflows from './Outflows/Outflows';
-import IncomeForm from '../AddIncomeForm/IncomeForm'
+import ActivitiesForm from './ActivitiesForm'
 
 function Main() {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +10,7 @@ function Main() {
     const togglePopup = () => {
         setIsOpen(!isOpen);
     }
+
 
     return (
         <div className='main row px-5'>
@@ -22,21 +23,16 @@ function Main() {
                 </div>
             </div>
             {/* first */}
-            <div className='inflows border border-2 border-danger my-5 mx-auto p-4 shadow'>
+            <div className='inflows border border-2 border-danger my-5 mx-auto p-5 shadow'>
                 <Inflows />
-                <div className='pe-5 text-end'>
-                    <span>0 Results</span>
-                </div>
+
             </div>
             {/* second */}
-            <div className='outflows border border-2 border-primary my-5 mx-auto p-4 shadow'>
+            <div className='outflows border border-2 border-primary my-5 mx-auto p-5 shadow'>
                 <Outflows />
-                <div className='pe-5 text-end'>
-                    <span>0 Results</span>
-                </div>
             </div>
             {isOpen &&
-                <IncomeForm
+                <ActivitiesForm
                     handlepopupClose={togglePopup}
                 />}
         </div>

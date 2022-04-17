@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-import './incomeform.css'
+import './activities.css'
 
-function Form({ handlepopupClose }) {
+function ActivitiesForm({ handlepopupClose }) {
 
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
@@ -16,13 +16,14 @@ function Form({ handlepopupClose }) {
     const [category, setCategory] = useState('');
 
     //Išsiuntimo į - linkas
-    let url = 'http://localhost:3000/api/v1/income';
+    let incomeurl = 'http://localhost:3000/api/v1/income';
 
     //Duomenų įvedimo informacija
     let data = {
-        amount: amount,
+        description: description,
+        category: category,
         date: date,
-        description: description
+        amount: amount
     }
 
     const budgetSchema = yup.object().shape({
@@ -36,7 +37,7 @@ function Form({ handlepopupClose }) {
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^(\d+(?:[\.\,]\d{1,1})?)$/, 'At least one number before comma/dot and after')
+            .matches(/^(\d+(?:[\.\,]\d{1,2})?)$/, 'At least one number before comma/dot and after')
             .typeError('Must be numbers')
             .required(),
         date: yup
@@ -45,12 +46,12 @@ function Form({ handlepopupClose }) {
             .min(new Date(1990, 1, 1), 'Cannot use past date')
             .max(new Date(), "Cannot use future date")
             .typeError('Date must be entered')
-            .required()
-        // category: yup
-        //     .string()
-        //     .nullable(false)
-        //     .strict()
-        //     .required('Must be chosen')
+            .required(),
+        category: yup
+            .string()
+            .nullable(false)
+            .strict()
+            .required('Must be chosen')
     })
 
     const {
@@ -63,7 +64,7 @@ function Form({ handlepopupClose }) {
     });
     //Duomenų siuntimas į duombazę
     const onSubmit = () => {
-        fetch(url,
+        fetch(incomeurl,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -81,25 +82,32 @@ function Form({ handlepopupClose }) {
             text: `New income has been created`,
             icon: 'success',
             confirmButtonText: 'Ok'
-        })
+        });
+        handlepopupClose(false);
         reset(
             setDescription(),
             setAmount(),
-            setDate()
-        )
+            setDate(),
+            setCategory()
+        );
     }
+
 
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
             <div className='formblock p-4'>
                 <div className='formtitle d-flex flex-row flex-nowrap pb-5 align-items-center p-4'>
-                    <span className='pb-1 px-1 border border-3 border-primary text-center'><GrTransaction /></span>
-                    <span className='fs-5 ms-2'>New Transaction</span>
-                    <span onClick={handlepopupClose} className='px-1 text-end'>x</span>
+                    <span className='border border-2 border-primary text-center'><GrTransaction /></span>
+                    <span className='font-bolder fs-5 ms-3'>New Transaction</span>
+                    <span onClick={handlepopupClose} className='px-1 text-end text-muted'>x</span>
                 </div>
-                <div className='d-flex flex-row flex-nowrap justify-content-between w-25 pb-4 ms-3'>
-                    <button className='outflowbtn bg-primary p-1 me-2'><BsArrowUpShort /></button><span>Outflows</span>
-                    <button className='inflowbtn bg-danger p-1 ms-3 me-2'><BsArrowDownShort /></button><span>Inflows</span>
+                <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
+                    <button
+
+                        className='outflowbtn p-1 me-2'><BsArrowUpShort /></button><span>Outflows</span>
+                    <button
+
+                        className='inflowbtn p-1 ms-3 me-2'><BsArrowDownShort /></button><span>Inflows</span>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>
                     <label className='text-start'>Description</label>
@@ -108,40 +116,45 @@ function Form({ handlepopupClose }) {
                         type='text'
                         placeholder='Example: Netflix Subscription or Amazon Order'
                         onChange={(e) => setDescription(e.target.value)}
-                        className='text-center rounded border p-1' />
-                    <p className='p-0'>{errors.description?.message}</p>
+                        className='text-center border' />
+                    <p className='p-0 text-danger'>{errors.description?.message}</p>
                     <div className='info d-flex flex-row my-4'>
                         <div className='amountblock d-flex flex-column'>
                             <label className='text-start'>Amount</label>
                             <input
                                 {...register('amount')}
                                 type='string'
-                                placeholder='35.00'
+                                placeholder='€35.00'
                                 onChange={(e) => setAmount(e.target.value)}
-                                className='text-center rounded border p-1' />
-                            <p className='p-0'>{errors.amount?.message}</p>
+                                className='text-center border' />
+                            <p className='p-0 text-danger'>{errors.amount?.message}</p>
                         </div>
                         <div className='dateblock d-flex flex-column'>
                             <label className='text-start'>Date</label>
                             <input
                                 {...register('date')}
                                 type='text'
-                                placeholder='04/07/2022'
+                                placeholder='04-07-2022'
                                 onChange={(e) => setDate(e.target.value)}
-                                className='text-center rounded border p-1' />
-                            <p className='p-0'>{errors.date?.message}</p>
+                                className='text-center border' />
+                            <p className='p-0 text-danger'>{errors.date?.message}</p>
                         </div>
                     </div>
                     <label className='text-start'>Category</label>
                     <select
+                        {...register('category')}
+                        onChange={(e) => setCategory(e.target.value)}
                         defaultValue=''
-                        className='border border-2 bg-transparent mb-5 p-1'>
-                        <option>Food</option>
+                        className='border bg-transparent mb-5 text-muted'>
+                        <option value='' disabled>--Choose your category--</option>
+                        <option value='Food'>Food</option>
+                        <option value='Rent'>Rent</option>
                     </select>
+                    <p className='p-0 text-danger'>{errors.category?.message}</p>
                     <div className='formfooter'>
                         <button
                             className='w-55 btn btn-primary'
-                            type='submit'>Submit
+                            type='submit'>Create
                         </button>
                     </div>
                 </form>
@@ -150,4 +163,4 @@ function Form({ handlepopupClose }) {
     )
 }
 
-export default Form
+export default ActivitiesForm
