@@ -5,22 +5,22 @@ const Date = {
   timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
 };
 // DB schema
-const incomesSchema = new mongoose.Schema({
-  descriptions: {
+const outcomesSchema = new mongoose.Schema({
+  name: {
     type: String,
   },
-  category: {
+  categorys: {
     type: String,
   },
-  dates: {
+  date: {
     type: Date,
   },
-  inamount: {
+  cost: {
     type: Number,
   }
 });
 
 // Modelis DB lentelės pavadinimas
-const income = new mongoose.model('Users-Incomes-Info', incomesSchema);
+const outcome = new mongoose.model('costs', outcomesSchema);
 
-module.exports = income;
+module.exports = outcome;

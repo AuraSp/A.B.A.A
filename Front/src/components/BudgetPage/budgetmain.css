@@ -1,7 +1,12 @@
-.sidemenu {
-    flex-basis: 20%;
-}
+
 
 .maincontent{
-    flex-basis: 80%;
+    flex-basis: 84%;
+    height: 80vh;
+}
+
+
+.sidemenu {
+    flex-basis: 16%;
+    height: 100vh;
 }

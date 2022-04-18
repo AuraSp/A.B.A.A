@@ -14,17 +14,11 @@ function ActivitiesForm({ handlepopupClose }) {
     const [date, setDate] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
+    const [outflows, setOutflows] = useState()
+    const [inflows, setInflows] = useState()
 
-    //Išsiuntimo į - linkas
     let incomeurl = 'http://localhost:3000/api/v1/income';
-
-    //Duomenų įvedimo informacija
-    let data = {
-        description: description,
-        category: category,
-        date: date,
-        amount: amount
-    }
+    let outcomeurl = 'http://localhost:3000/api/v1/outcome';
 
     const budgetSchema = yup.object().shape({
         description: yup
@@ -64,34 +58,74 @@ function ActivitiesForm({ handlepopupClose }) {
     });
     //Duomenų siuntimas į duombazę
     const onSubmit = () => {
-        fetch(incomeurl,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
+        if (inflows) {
+            console.log(inflows)
+            fetch(incomeurl,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        descriptions: description,
+                        category: category,
+                        dates: date,
+                        inamount: amount,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            Swal.fire({
+                title: 'Statement successful',
+                text: `New income has been created`,
+                icon: 'success',
+                confirmButtonText: 'Ok'
             });
-        Swal.fire({
-            title: 'Statement successful',
-            text: `New income has been created`,
-            icon: 'success',
-            confirmButtonText: 'Ok'
-        });
-        handlepopupClose(false);
-        reset(
-            setDescription(),
-            setAmount(),
-            setDate(),
-            setCategory()
-        );
+            handlepopupClose(false);
+            reset(
+                setDescription(),
+                setAmount(),
+                setDate(),
+                setCategory()
+            );
+        } else if (outflows) {
+            console.log(outflows)
+            fetch(outcomeurl,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: description,
+                        categorys: category,
+                        date: date,
+                        cost: amount,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            Swal.fire({
+                title: 'Statement successful',
+                text: `New outcome has been created`,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+            handlepopupClose(false);
+            reset(
+                setDescription(),
+                setAmount(),
+                setDate(),
+                setCategory()
+            );
+        }
     }
-
 
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
@@ -103,11 +137,11 @@ function ActivitiesForm({ handlepopupClose }) {
                 </div>
                 <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
                     <button
-
-                        className='outflowbtn p-1 me-2'><BsArrowUpShort /></button><span>Outflows</span>
+                        onClick={setOutflows}
+                        className={outflows ? 'outflowbtn p-1 me-2 bg-danger' : 'bg-none outflowbtn p-1 me-2'}><BsArrowUpShort /></button><span>Outflows</span>
                     <button
-
-                        className='inflowbtn p-1 ms-3 me-2'><BsArrowDownShort /></button><span>Inflows</span>
+                        onClick={setInflows}
+                        className={inflows ? 'inflowbtn p-1 ms-3 me-2 bg-primary' : 'bg-none inflowbtn p-1 ms-3 me-2'} ><BsArrowDownShort /></button><span>Inflows</span>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>
                     <label className='text-start'>Description</label>
@@ -145,13 +179,13 @@ function ActivitiesForm({ handlepopupClose }) {
                         {...register('category')}
                         onChange={(e) => setCategory(e.target.value)}
                         defaultValue=''
-                        className='border bg-transparent mb-5 text-muted'>
+                        className='border bg-transparent text-muted'>
                         <option value='' disabled>--Choose your category--</option>
                         <option value='Food'>Food</option>
                         <option value='Rent'>Rent</option>
                     </select>
                     <p className='p-0 text-danger'>{errors.category?.message}</p>
-                    <div className='formfooter'>
+                    <div className='formfooter mt-5'>
                         <button
                             className='w-55 btn btn-primary'
                             type='submit'>Create

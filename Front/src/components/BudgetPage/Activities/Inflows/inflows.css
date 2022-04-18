@@ -2,6 +2,11 @@ table tbody td {
     vertical-align: baseline;
 }
 
-tbody, td, tfoot, th, thead, tr {
-    border:2px grove;
+table {
+    width: 100%;
+    max-height: auto;
+}
+
+table thead tr {
+    border-bottom: 1px solid lightgrey;
 }

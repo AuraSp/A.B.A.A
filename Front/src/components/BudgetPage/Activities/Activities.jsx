@@ -14,23 +14,22 @@ function Main() {
 
     return (
         <div className='main row px-5'>
-            <div className='ps-3 pt-5 text-muted d-flex flex-row'>
-                <p className='m-0 w-50'>Here you can add transactions into your account. Transactions include payments, paychecks etc. Every transaction is either incoming (inflow) or outgoing (outflow) and must have description, the category of the budget you would like to assign it to, date and amount</p>
-                <div className='button text-end pe-5'>
+            <div className='h-25 ps-3 pt-3 text-muted d-flex flex-row align-middle'>
+                <p className='w-50 h-100'>Here you can add transactions into your account. Transactions include payments, paychecks etc. Every transaction is either incoming (inflow) or outgoing (outflow) and must have description, the category of the budget you would like to assign it to, date and amount</p>
+                <div className='button ps-5 w-50 h-100 text-center'>
                     <button
                         onClick={togglePopup}
-                        className='bg-primary text-light p-2'>+ Add Transaction</button>
+                        className='bg-primary text-light ps-3 pe-3 pt-2 pb-2'>+ Add Transaction</button>
                 </div>
             </div>
             {/* first */}
-            <div className='inflows border border-2 border-danger my-5 mx-auto p-5 shadow'>
+            <div className='inflows border border-2 border-danger mx-auto p-5 shadow'>
                 <Inflows />
-
             </div>
-            {/* second */}
+            {/* second
             <div className='outflows border border-2 border-primary my-5 mx-auto p-5 shadow'>
                 <Outflows />
-            </div>
+            </div> */}
             {isOpen &&
                 <ActivitiesForm
                     handlepopupClose={togglePopup}
