@@ -23,6 +23,8 @@ function ActivitiesForm({ handlepopupClose }) {
     const budgetSchema = yup.object().shape({
         description: yup
             .string()
+            .min(3, 'Must be at least 3 letters')
+            .max(12, 'Must be less than 12 letters')
             .nullable(false)
             .typeError('Invalid Input: Must be letters')
             .matches(/^[a-zA-ZĄąČčĘęĖėĮįŠšŲųŪūŽž\s]+$/, "Only letters are allowed for this field and no blank")
@@ -31,15 +33,15 @@ function ActivitiesForm({ handlepopupClose }) {
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^(\d+(?:[\.\,]\d{1,2})?)$/, 'At least one number before comma/dot and after')
-            .typeError('Must be numbers')
+            .matches(/^[1-9]\d*(((,\d{2}){1})?(\.\d{0,2})?)$/, 'Number bigger than 1 before comma/dot')
+            .typeError('Invalid Input: Must be numbers')
             .required(),
         date: yup
             .date()
             .nullable(false)
             .min(new Date(1990, 1, 1), 'Cannot use past date')
             .max(new Date(), "Cannot use future date")
-            .typeError('Date must be entered')
+            .typeError('Date must have yyyy-mm-dd format and no blank')
             .required(),
         category: yup
             .string()
@@ -138,10 +140,10 @@ function ActivitiesForm({ handlepopupClose }) {
                 <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
                     <button
                         onClick={setOutflows}
-                        className={outflows ? 'outflowbtn p-1 me-2 bg-danger' : 'bg-none outflowbtn p-1 me-2'}><BsArrowUpShort /></button><span>Outflows</span>
+                        className={outflows ? 'outflowbtn p-1 me-2 bg-danger' : 'outflowbtn p-1 me-2'}><BsArrowUpShort /></button><span>Outflows</span>
                     <button
                         onClick={setInflows}
-                        className={inflows ? 'inflowbtn p-1 ms-3 me-2 bg-primary' : 'bg-none inflowbtn p-1 ms-3 me-2'} ><BsArrowDownShort /></button><span>Inflows</span>
+                        className={inflows ? 'inflowbtn p-1 ms-3 me-2 bg-primary' : 'inflowbtn p-1 ms-3 me-2'} ><BsArrowDownShort /></button><span>Inflows</span>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>
                     <label className='text-start'>Description</label>
