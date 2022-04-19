@@ -1,0 +1,7 @@
+.sidemenu {
+    flex-basis: 20%;
+}
+
+.maincontent{
+    flex-basis: 80%;
+}

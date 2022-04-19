@@ -1,0 +1,10 @@
+table tbody td {
+    vertical-align: baseline;
+}
+
+tbody, td, tfoot, th, thead, tr {
+    border:2px grove;
+}
+input{
+    width: 120px;
+}
