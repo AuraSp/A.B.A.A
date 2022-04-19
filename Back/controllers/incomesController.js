@@ -1,14 +1,14 @@
-const Costs = require("./../models/costModel");
+const Incomes = require("./../models/incomeModel");
 
-// Gauti visas islaidas
-exports.getAllCosts = async (req, res) => {
+// Gauti visas pajamas
+exports.getAllIncomes = async (req, res) => {
   try {
-    const costs = await Costs.find();
+    const incomes = await Incomes.find();
     res.status(200).json({
       status: "success",
-      results: costs.length,
+      results: incomes.length,
       data: {
-        costs: costs,
+        incomes: incomes,
       },
     });
   } catch (err) {
@@ -19,14 +19,14 @@ exports.getAllCosts = async (req, res) => {
   }
 };
 
-// Sukurti islaida
-exports.createCost = async (req, res) => {
+// Sukurti pajamų išrašą
+exports.createIncome = async (req, res) => {
   try {
-    const newCost = await Costs.create(req.body);
+    const newIncome = await Incomes.create(req.body);
     res.status(201).json({
       status: "success",
       data: {
-        cost: newCost,
+        incomes: newIncome,
       },
     });
   } catch (err) {
@@ -37,14 +37,14 @@ exports.createCost = async (req, res) => {
   }
 };
 
-// Gauti islaida pagal ID
-exports.getCostById = async (req, res) => {
+// Gauti studentą pagal ID
+exports.getIncomeById = async (req, res) => {
   try {
-    const cost = await Costs.findById(req.params.id);
+    const income = await Incomes.findById(req.params.id);
     res.status(200).json({
       status: "success",
       data: {
-        cost: cost,
+        incomes: income,
       },
     });
   } catch (err) {

@@ -13,4 +13,5 @@ router.route("/").get(getAllCosts).post(createCost);
 router
   .route("/:id")
   .get(getCostById)
+
 module.exports = router;

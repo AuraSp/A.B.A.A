@@ -1,7 +1,8 @@
 const express = require("express");
 const { get } = require("http");
 
-const costsRoutes = require("./routes/costsRoutes");
+const IncomeRoutes = require("./routes/IncomeRoutes");
+const CostRoutes = require("./routes/CostRoutes");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(function(req, res, next) {
     next();
   });
 
-app.use("/api/v1/costs", costsRoutes);
+app.use("/api/v1/income", IncomeRoutes);
+app.use("/api/v1/cost", CostRoutes);
 
 module.exports = app;
