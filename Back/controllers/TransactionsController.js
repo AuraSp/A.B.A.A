@@ -1,14 +1,14 @@
-const Outcomes = require("./../models/outcomeModel");
+const Transactions = require("../models/TransactionsModel");
 
 // Gauti visas pajamas
-exports.getAllOutcomes = async (req, res) => {
+exports.getAllTransactions = async (req, res) => {
   try {
-    const outcomes = await Outcomes.find();
+    const transactions = await Transactions.find();
     res.status(200).json({
       status: "success",
-      results: outcomes.length,
+      results: transactions.length,
       data: {
-        outcomes: outcomes,
+        transactions: transactions,
       },
     });
   } catch (err) {
@@ -20,13 +20,13 @@ exports.getAllOutcomes = async (req, res) => {
 };
 
 // Sukurti pajamų išrašą
-exports.createOutcome = async (req, res) => {
+exports.createTransactions = async (req, res) => {
   try {
-    const newOutcome = await Outcomes.create(req.body);
+    const newTransactions = await Transactions.create(req.body);
     res.status(201).json({
       status: "success",
       data: {
-        outcomes: newOutcome,
+        transactions: newTransactions,
       },
     });
   } catch (err) {
@@ -38,13 +38,13 @@ exports.createOutcome = async (req, res) => {
 };
 
 // Gauti studentą pagal ID
-exports.getOutcomeById = async (req, res) => {
+exports.getTransactionsById = async (req, res) => {
   try {
-    const outcome = await Outcomes.findById(req.params.id);
+    const transactions = await Transactions.findById(req.params.id);
     res.status(200).json({
       status: "success",
       data: {
-        outcomes: outcome,
+        transactions: transactions,
       },
     });
   } catch (err) {
@@ -56,9 +56,9 @@ exports.getOutcomeById = async (req, res) => {
 };
 
 // Atnaujinti esamą studentą
-exports.updateOutcome = async (req, res) => {
+exports.updateTransactions = async (req, res) => {
   try {
-    const outcome = await Outcome.findByIdAndUpdate(req.params.id, req.body, {
+    const transactions = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
       // atnaujinus duomenis - gauti atnaujintą studento informaciją
       new: true,
       // papildomai patikrintų duomenis pagal DB schemą (studentModel)
@@ -68,7 +68,7 @@ exports.updateOutcome = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        outcome: outcome,
+        transactions: transactions,
       },
     });
   } catch (err) {
@@ -80,9 +80,9 @@ exports.updateOutcome = async (req, res) => {
 };
 
 // Pašalinti studentą pagal ID
-exports.deleteOutcome = async (req, res) => {
+exports.deleteTransactions = async (req, res) => {
   try {
-    await outcome.findByIdAndDelete(req.params.id);
+    await Transactions.findByIdAndDelete(req.params.id);
 
     res.status(204).json({
       status: "success",

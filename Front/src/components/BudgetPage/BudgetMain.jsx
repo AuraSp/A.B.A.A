@@ -4,8 +4,8 @@ import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import ActivitiesTable from './Activities/ActivitiesTable';
-import CreateFlowsForm from './Activities/CreateFlowsForm';
+import MainTable from './Activities/MainTable';
+import CreateUserDataForm from './Activities/CreateUserDataForm';
 
 import './budgetmain.css';
 
@@ -55,11 +55,11 @@ function BudgetMain() {
                         </div>
                     </div>
                     <div className='activitiestable border border-1 border-muted mx-auto my-4 p-5 shadow'>
-                        <ActivitiesTable
+                        <MainTable
                         />
                     </div>
                     {isOpen &&
-                        <CreateFlowsForm
+                        <CreateUserDataForm
                             handlepopupClose={togglePopup}
                         />}
                 </div>

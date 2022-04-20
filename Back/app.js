@@ -1,8 +1,7 @@
 const express = require("express");
 const { get } = require("http");
 
-const IncomeRoutes = require("./routes/IncomeRoutes");
-const OutcomeRoutes = require("./routes/OutcomeRoutes");
+const TransactionsRoutes = require("./routes/TransactionsRoutes");
 
 const app = express();
 
@@ -15,7 +14,6 @@ app.use(function(req, res, next) {
     next();
   });
 
-app.use("/api/v1/income", IncomeRoutes);
-app.use("/api/v1/outcome", OutcomeRoutes);
+app.use("/api/v1/users/", TransactionsRoutes);
 
 module.exports = app;

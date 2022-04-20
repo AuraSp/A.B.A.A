@@ -21,7 +21,6 @@ table thead tr {
 }
 
 .editinputs td select {
-    padding: 0.2em;
     text-align: center;
     outline: darkgrey;
     appearance: none;
