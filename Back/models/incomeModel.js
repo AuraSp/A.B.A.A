@@ -6,17 +6,17 @@ const Date = {
 };
 // DB schema
 const incomesSchema = new mongoose.Schema({
-  descriptions: {
+  description: {
     type: String,
   },
   category: {
     type: String,
   },
-  dates: {
+  date: {
     type: Date,
   },
   inamount: {
-    type: Number,
+    type: String,
   }
 });
 

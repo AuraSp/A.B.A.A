@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-import './activities.css'
+import '../budgetmain.css';
 
-function ActivitiesForm({ handlepopupClose }) {
+function CreateFlowsForm({ handlepopupClose }) {
 
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
@@ -33,7 +33,7 @@ function ActivitiesForm({ handlepopupClose }) {
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^[1-9]\d*(((,\d{2}){1})?(\.\d{0,2})?)$/, 'Number bigger than 1 before comma/dot')
+            .matches(/^[1-9]\d*((([,\.]\d{2}){1})?(\.\d{0,2})?)$/, 'Number bigger than 1 before comma/dot')
             .typeError('Invalid Input: Must be numbers')
             .required(),
         date: yup
@@ -67,10 +67,10 @@ function ActivitiesForm({ handlepopupClose }) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        descriptions: description,
+                        description: description,
                         category: category,
-                        dates: date,
-                        inamount: amount,
+                        date: date,
+                        inamount: amount.replace(",", "."),
                     })
                 })
                 .then(response => response.json())
@@ -93,7 +93,7 @@ function ActivitiesForm({ handlepopupClose }) {
                 setDate(),
                 setCategory()
             );
-        } else if (outflows) {
+        } else {
             console.log(outflows)
             fetch(outcomeurl,
                 {
@@ -101,7 +101,7 @@ function ActivitiesForm({ handlepopupClose }) {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         name: description,
-                        categorys: category,
+                        category: category,
                         date: date,
                         cost: amount,
                     })
@@ -199,4 +199,4 @@ function ActivitiesForm({ handlepopupClose }) {
     )
 }
 
-export default ActivitiesForm
+export default CreateFlowsForm

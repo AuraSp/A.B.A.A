@@ -1,12 +1,239 @@
+.maincontent {
+    flex-basis: 85%;
+    height: auto;
+    background-color: #e8e8e8dc;
+}
 
+.sidemenu {
+    flex-basis: 15%;
+    height: 100vh;
+    z-index: 1000;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 15px #aeaeae;
+    padding-left: 0;
+    padding-right: 0;
+}
 
-.maincontent{
-    flex-basis: 84%;
-    height: 80vh;
+.sidemenu a:nth-child(2) span,
+.sidemenu a:last-child span {
+    border-left: 5px solid #ffc107;
+    transition: 500ms linear;
+}
+
+.sidemenu a:nth-child(2),
+.sidemenu a:last-child {
+    transition: 500ms all;
+    width: 90%;
+}
+
+.sidemenu a:nth-child(2):hover,
+.sidemenu a:last-child:hover {
+    border-radius: 15px;
+    width: 110%;
+    background-color: #E8E8E8;
+    padding: 0;
+    transform: scale(1.1, 1.1);
+}
+
+.header {
+    background-color: whitesmoke;
+}
+
+.title {
+    font-weight: 400;
+    padding-left: 4em;
+}
+
+.account {
+    cursor: pointer;
+    position: relative;
+}
+
+.account span svg {
+    transition: 500ms all;
+}
+
+.acc-content {
+    background-color: whitesmoke;
+    position: absolute;
+    top: 4em;
+    right: 4em;
+    min-width: 7em;
+    min-height: 5em;
+    padding: 0.5em;
+}
+
+.main {
+    padding: 0 5em 0 5em;
+}
+.main p {
+    padding: 0 0 0 6em;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.main .button button:hover {
+    background-color: #004ec2;
+}
+
+.main .button button {
+    background-color: #0d6efd;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+.activitiestable {
+    width: 80%;
+    height: 100%;
+    background-color: whitesmoke;
+    border-radius: 20px;
+}
+
+.popupform {
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 1000;
+    background: #00000050;
+}
+
+.formblock {
+    background: #fff;
+    position: relative;
+    width: 38em;
+    height: 85vh;
+    border-radius: 10px;
 }
 
 
-.sidemenu {
-    flex-basis: 16%;
-    height: 100vh;
+.formblock .formtitle span:first-child,
+.formblock .formtitle span:last-child {
+    width: 6%;
+}
+
+.formblock .formtitle span:nth-child(2) {
+    width: 90%;
+}
+
+.formblock .formtitle span:last-child {
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.formtitle span:first-child {
+    font-size: 0.6em;
+    padding: 0.2em;
+    position: relative;
+}
+
+.formtitle span:first-child:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: #8080802f;
+    transform: scale(2.2, 2.4);
+}
+
+.formtitle span:first-child svg {
+    font-size: 1.5em;
+}
+
+.outflowbtn,
+.inflowbtn {
+    border-radius: 50%;
+    border: none;
+    position: relative;
+    transition: 500ms linear;
+}
+
+.outflowbtn {
+    background-color: #dc354680;
+}
+
+.inflowbtn {
+    background-color: #0d6dfd80;
+}
+
+.outflowbtn svg,
+.inflowbtn svg {
+    font-size: 1.5em;
+    color: #fff;
+}
+
+.outflowbtn:focus:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    padding: 0;
+    margin-left: 0;
+    transform: scale(1.3, 1.3);
+    border: 1px solid #dc3545;
+}
+
+.inflowbtn:focus:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    padding: 0;
+    margin-left: 0;
+    transform: scale(1.3, 1.3);
+    border: 1px solid #0d6efd;
+}
+
+.outflowbtn:hover {
+    background-color: #dc3545;
+}
+
+.inflowbtn:hover {
+    background-color: #0d6efd;
+
+}
+
+.formblock form label {
+    margin-left: 1.2em;
+    margin-bottom: 0.2em;
+}
+
+.formblock form input,
+.formblock form select {
+    width: 90%;
+    margin: 0 auto;
+    padding: 0.6em;
+    border-radius: 10px;
+    position: relative;
+    outline: none;
+}
+
+.amountblock,
+.dateblock {
+    margin: 0 auto;
+}
+
+select {
+    background-color: transparent;
+}
+
+.formblock form input p {
+    font-size: 0.5em;
+}
+
+.formfooter {
+    height: 10vh;
 }

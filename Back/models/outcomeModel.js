@@ -9,14 +9,14 @@ const outcomesSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-  categorys: {
+  category2: {
     type: String,
   },
-  date: {
+  date2: {
     type: Date,
   },
   cost: {
-    type: Number,
+    type: String,
   }
 });
 
