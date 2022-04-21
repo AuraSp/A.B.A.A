@@ -14,11 +14,10 @@ function CreateFlowsForm({ handlepopupClose }) {
     const [date, setDate] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [outflows, setOutflows] = useState()
-    const [inflows, setInflows] = useState()
+    const [incomes, setIncomes] = useState();
+    const [expenses, setExpenses] = useState();
 
-    let incomeurl = 'http://localhost:3000/api/v1/income';
-    let outcomeurl = 'http://localhost:3000/api/v1/outcome';
+    let url = 'http://localhost:3000/api/v1/users/';
 
     const budgetSchema = yup.object().shape({
         description: yup
@@ -60,9 +59,8 @@ function CreateFlowsForm({ handlepopupClose }) {
     });
     //Duomenų siuntimas į duombazę
     const onSubmit = () => {
-        if (inflows) {
-            console.log(inflows)
-            fetch(incomeurl,
+        if (incomes) {
+            fetch(url,
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -70,7 +68,7 @@ function CreateFlowsForm({ handlepopupClose }) {
                         description: description,
                         category: category,
                         date: date,
-                        inamount: amount.replace(",", "."),
+                        income: amount.replace(",", "."),
                     })
                 })
                 .then(response => response.json())
@@ -94,8 +92,7 @@ function CreateFlowsForm({ handlepopupClose }) {
                 setCategory()
             );
         } else {
-            console.log(outflows)
-            fetch(outcomeurl,
+            fetch(url,
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -103,7 +100,7 @@ function CreateFlowsForm({ handlepopupClose }) {
                         name: description,
                         category: category,
                         date: date,
-                        cost: amount,
+                        expense: amount.replace(",", "."),
                     })
                 })
                 .then(response => response.json())
@@ -139,11 +136,11 @@ function CreateFlowsForm({ handlepopupClose }) {
                 </div>
                 <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
                     <button
-                        onClick={setOutflows}
-                        className={outflows ? 'outflowbtn p-1 me-2 bg-danger' : 'outflowbtn p-1 me-2'}><BsArrowUpShort /></button><span>Outflows</span>
+                        onClick={setExpenses}
+                        className={expenses ? 'outflowbtn p-1 me-2 bg-danger' : 'outflowbtn p-1 me-2'}><BsArrowUpShort /></button><span>Outflows</span>
                     <button
-                        onClick={setInflows}
-                        className={inflows ? 'inflowbtn p-1 ms-3 me-2 bg-primary' : 'inflowbtn p-1 ms-3 me-2'} ><BsArrowDownShort /></button><span>Inflows</span>
+                        onClick={setIncomes}
+                        className={incomes ? 'inflowbtn p-1 ms-3 me-2 bg-primary' : 'inflowbtn p-1 ms-3 me-2'} ><BsArrowDownShort /></button><span>Inflows</span>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>
                     <label className='text-start'>Description</label>
