@@ -1,17 +1,17 @@
-const express = require("express");
+// const express = require("express");
 
-const {
-  getAllIncomes,
-  createIncome,
-  getIncomeById,
-} = require("../controllers/incomesController");
+// const {
+//   getAllIncomes,
+//   createIncome,
+//   getIncomeById,
+// } = require("../controllers/incomesController");
 
-const router = express.Router();
+// const router = express.Router();
 
-router.route("/").get(getAllIncomes).post(createIncome);
+// router.route("/").get(getAllIncomes).post(createIncome);
 
-router
-  .route("/:id")
-  .get(getIncomeById)
+// router
+//   .route("/:id")
+//   .get(getIncomeById)
 
-module.exports = router;
+// module.exports = router;

@@ -1,17 +1,17 @@
-const express = require("express");
+// const express = require("express");
 
-const {
-  getAllCosts,
-  createCost,
-  getCostById,
-} = require("../controllers/costsController");
+// const {
+//   getAllCosts,
+//   createCost,
+//   getCostById,
+// } = require("../controllers/costsController");
 
-const router = express.Router();
+// const router = express.Router();
 
-router.route("/").get(getAllCosts).post(createCost);
+// router.route("/").get(getAllCosts).post(createCost);
 
-router
-  .route("/:id")
-  .get(getCostById)
+// router
+//   .route("/:id")
+//   .get(getCostById)
 
-module.exports = router;
+// module.exports = router;
