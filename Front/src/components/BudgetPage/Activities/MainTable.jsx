@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserDataCard from './UserDataCard';
 import EditUserDataForm from './EditUserDataForm';
-
 import './activitiesmain.css';
 
 let url = 'http://localhost:3000/api/v1/users/';
@@ -19,7 +18,7 @@ function MainTable({ setAllData }) {
     const getUserTransactions = async () => {
         const response = await fetch(url);
         const userdata = await response.json();
-        setId(...userdata.data.transactions.map((data) => data._id));
+        setId(userdata.data.transactions.map((data) => data._id));
         setIncomes(...userdata.data.transactions.map((data) => data.income));
         setExpenses(...userdata.data.transactions.map((data) => data.expense));
         setLoading(false);
@@ -32,31 +31,25 @@ function MainTable({ setAllData }) {
 
     useEffect(() => {
         let tempAll = [...incomes, ...expenses];
-        setAll(tempAll);
+        setAll(tempAll, userId);
         setAllData(tempAll);
     }, [incomes, expenses])
 
-    function handleDelete(e, id, data) {
-        console.log(id)
-        e.preventDefault()
-        if (data.type === 'income') {
-            const dlt = incomes.filter((data) => data._id !== id);
-            console.log(id)
-            setId(dlt)
-            // fetch(`http://localhost:3000/api/v1/users/${'6261d47d397c0152a1d1484b'}`, {
-            //     method: 'DELETE'
-            // })
-            //     .then(() => console.log('success'));
-            // console.log('delete', id)
-        } else {
-            console.log(expenses);
-        }
+    function handleDelete(e, userId, id) {
+        e.preventDefault();
+        // const dlt = userId.filter((data) => data._id !== id);
+        fetch(`http://localhost:3000/api/v1/users/${userId}`, {
+            method: 'DELETE',
+        })
+            .then(() => console.log()
+            )
     }
 
     // //---OpenEditForm---//
     // const handleEdit = (e, data) => {
     //     e.preventDefault();
-    //     setEditId(data._id);
+
+    //     console.log(data)
     // };
 
     //---HandleStudentEdit---//
@@ -123,7 +116,6 @@ function MainTable({ setAllData }) {
                                         key={data._id}
                                         id={data._id}
                                         data={data}
-                                        userId={setId}
                                         // onEdit={handleEdit}
                                         onDelete={handleDelete}
                                     />
