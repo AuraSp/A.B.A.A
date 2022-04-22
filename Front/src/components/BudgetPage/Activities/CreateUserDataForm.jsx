@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { GrTransaction } from "react-icons/gr";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
@@ -8,16 +8,33 @@ import * as yup from "yup";
 
 import '../budgetmain.css';
 
-function CreateFlowsForm({ handlepopupClose }) {
+function CreateFlowsForm({ handlepopupClose, dataType }) {
+
 
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [incomes, setIncomes] = useState();
-    const [expenses, setExpenses] = useState();
+    const [incomes, setIncomes] = useState(false);
+    const [expenses, setExpenses] = useState(false);
+    const [userIncome, setUserIncome] = useState([]);
+    const [userExpense, setUserExpense] = useState([]);
 
-    let url = 'http://localhost:3000/api/v1/users/';
+    const getUserTransactions = async () => {
+        //Reikalingas user id
+        const response = await fetch(`http://localhost:3000/api/v1/users/${'6261d47d397c0152a1d1484b'}`);
+        const userdata = await response.json();
+        let tempIncome = [];
+        let tempExpense = [];
+        userdata.data.transactions.income.map((data) => tempIncome.push(data));
+        userdata.data.transactions.expense.map((data) => tempExpense.push(data));
+        setUserIncome(tempIncome);
+        setUserExpense(tempExpense);
+    }
+
+    useEffect(() => {
+        getUserTransactions();
+    }, [])
 
     const budgetSchema = yup.object().shape({
         description: yup
@@ -57,18 +74,25 @@ function CreateFlowsForm({ handlepopupClose }) {
     } = useForm({
         resolver: yupResolver(budgetSchema)
     });
+
     //Duomenų siuntimas į duombazę
     const onSubmit = () => {
         if (incomes) {
-            fetch(url,
+            let tempIncomes = userIncome;
+            tempIncomes.push({
+                description: description,
+                category: category,
+                date: date,
+                income: amount
+            })
+            setUserIncome(tempIncomes);
+            //Reikalingas User Id
+            fetch(`http://localhost:3000/api/v1/users/${'626177b613402d6a517b05f6'}`,
                 {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        description: description,
-                        category: category,
-                        date: date,
-                        income: amount.replace(",", "."),
+                        income: tempIncomes
                     })
                 })
                 .then(response => response.json())
@@ -78,29 +102,23 @@ function CreateFlowsForm({ handlepopupClose }) {
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-            Swal.fire({
-                title: 'Statement successful',
-                text: `New income has been created`,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            });
             handlepopupClose(false);
-            reset(
-                setDescription(),
-                setAmount(),
-                setDate(),
-                setCategory()
-            );
         } else {
-            fetch(url,
+            let tempExpense = userExpense;
+            tempExpense.push({
+                description: description,
+                category: category,
+                date: date,
+                expense: amount
+            })
+            setUserExpense(tempExpense);
+            //Reikalingas User Id
+            fetch(`http://localhost:3000/api/v1/users/${'626177b613402d6a517b05f6'}`,
                 {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        name: description,
-                        category: category,
-                        date: date,
-                        expense: amount.replace(",", "."),
+                        expense: tempExpense
                     })
                 })
                 .then(response => response.json())
@@ -110,22 +128,105 @@ function CreateFlowsForm({ handlepopupClose }) {
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-            Swal.fire({
-                title: 'Statement successful',
-                text: `New outcome has been created`,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            });
             handlepopupClose(false);
-            reset(
-                setDescription(),
-                setAmount(),
-                setDate(),
-                setCategory()
-            );
         }
+        // fetch(url,
+        //     {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({
+        //             type: dataType.income,
+        //             description: description,
+        //             category: category,
+        //             date: date,
+        //             income: amount.replace(",", "."),
+        //         })
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log('Success:', data);
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error:', error);
+        //     });
+
+
+        //     fetch(url,
+        //         {
+        //             method: 'POST',
+        //             headers: { 'Content-Type': 'application/json' },
+        //             body: JSON.stringify({
+        //                 description: description,
+        //                 category: category,
+        //                 date: date,
+        //                 income: amount.replace(",", "."),
+        //             })
+        //         })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log('Success:', data);
+        //         })
+        //         .catch((error) => {
+        //             console.error('Error:', error);
+        //         });
+        //     Swal.fire({
+        //         title: 'Statement successful',
+        //         text: `New income has been created`,
+        //         icon: 'success',
+        //         confirmButtonText: 'Ok'
+        //     });
+        //     handlepopupClose(false);
+        //     reset(
+        //         setDescription(),
+        //         setAmount(),
+        //         setDate(),
+        //         setCategory()
+        //     );
+        // } else {
+        //     fetch(url,
+        //         {
+        //             method: 'POST',
+        //             headers: { 'Content-Type': 'application/json' },
+        //             body: JSON.stringify({
+        //                 name: description,
+        //                 category: category,
+        //                 date: date,
+        //                 expense: amount.replace(",", "."),
+        //             })
+        //         })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log('Success:', data);
+        //         })
+        //         .catch((error) => {
+        //             console.error('Error:', error);
+        //         });
+        //     Swal.fire({
+        //         title: 'Statement successful',
+        //         text: `New outcome has been created`,
+        //         icon: 'success',
+        //         confirmButtonText: 'Ok'
+        //     });
+        //     handlepopupClose(false);
+        //     reset(
+        //         setDescription(),
+        //         setAmount(),
+        //         setDate(),
+        //         setCategory()
+        //     );
+
     }
 
+    const IncomesHandler = (e) => {
+        e.preventDefault()
+        setIncomes(true);
+        setExpenses(false);
+    };
+    const ExpensesHandler = (e) => {
+        e.preventDefault()
+        setIncomes(false);
+        setExpenses(true);
+    };
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
             <div className='formblock p-4'>
@@ -136,10 +237,10 @@ function CreateFlowsForm({ handlepopupClose }) {
                 </div>
                 <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
                     <button
-                        onClick={setExpenses}
+                        onClick={ExpensesHandler}
                         className={expenses ? 'outflowbtn p-1 me-2 bg-danger' : 'outflowbtn p-1 me-2'}><BsArrowUpShort /></button><span>Outflows</span>
                     <button
-                        onClick={setIncomes}
+                        onClick={IncomesHandler}
                         className={incomes ? 'inflowbtn p-1 ms-3 me-2 bg-primary' : 'inflowbtn p-1 ms-3 me-2'} ><BsArrowDownShort /></button><span>Inflows</span>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>

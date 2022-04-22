@@ -10,12 +10,13 @@ const {
 
 const router = express.Router();
 
-router.route("/").get(getAllTransactions).post(createTransactions);
+router.route("/").get(getAllTransactions);
+// .post(createTransactions)
 
 router
   .route("/:id")
   .get(getTransactionsById)
-  .put(updateTransactions)
+  .put(createTransactions)
   .delete(deleteTransactions);
 
 module.exports = router;

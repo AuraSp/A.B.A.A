@@ -21,16 +21,34 @@ exports.getAllTransactions = async (req, res) => {
 
 // Sukurti pajamų išrašą
 exports.createTransactions = async (req, res) => {
+  // try {
+  //   const newTransactions = await Transactions.create(req.body);
+  //   res.status(201).json({
+  //     status: "success",
+  //     data: {
+  //       transactions: newTransactions,
+  //     },
+  //   });
+  // } catch (err) {
+  //   res.status(400).json({
+  //     status: "fail",
+  //     message: err,
+  //   });
+  // }exports.updateTransactions = async (req, res) => {
   try {
-    const newTransactions = await Transactions.create(req.body);
-    res.status(201).json({
+    const transactions = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
       status: "success",
       data: {
-        transactions: newTransactions,
+        transactions: transactions,
       },
     });
   } catch (err) {
-    res.status(400).json({
+    res.status(404).json({
       status: "fail",
       message: err,
     });
@@ -59,9 +77,7 @@ exports.getTransactionsById = async (req, res) => {
 exports.updateTransactions = async (req, res) => {
   try {
     const transactions = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
-      // atnaujinus duomenis - gauti atnaujintą studento informaciją
       new: true,
-      // papildomai patikrintų duomenis pagal DB schemą (studentModel)
       runValidators: true,
     });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from "react-icons/io";
 import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
@@ -12,15 +12,20 @@ import './budgetmain.css';
 function BudgetMain() {
     const [accountpopup, setAccountPopUp] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [alldata, setAllData] = useState([]);
 
     const toggleAccPopup = () => {
         setAccountPopUp(!accountpopup);
     }
 
-
     const togglePopup = () => {
         setIsOpen(!isOpen);
     }
+
+    useEffect(() => {
+        alldata.map((type) => type.type)
+    }, [alldata])
+
 
     return (
         <div className='row d-flex flex-row flex-nowrap'>
@@ -56,11 +61,13 @@ function BudgetMain() {
                     </div>
                     <div className='activitiestable border border-1 border-muted mx-auto my-4 p-5 shadow'>
                         <MainTable
+                            setAllData={setAllData}
                         />
                     </div>
                     {isOpen &&
                         <CreateUserDataForm
                             handlepopupClose={togglePopup}
+                            dataType={alldata}
                         />}
                 </div>
             </div>

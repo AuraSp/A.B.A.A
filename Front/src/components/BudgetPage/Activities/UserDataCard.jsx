@@ -4,8 +4,7 @@ import { MdDelete } from "react-icons/md";
 
 import './activitiesmain.css';
 
-function UserDataCard({ id, data, onEdit, onDelete }) {
-
+function UserDataCard({ id, data, userId, onEdit, onDelete }) {
     return (
         <tr>
             <td className='fs-5 cardicons'><AiFillTags className={data.type === 'income' ? 'bg-danger p-1 fs-3' : 'bg-primary p-1 fs-3'} /></td>
@@ -15,7 +14,7 @@ function UserDataCard({ id, data, onEdit, onDelete }) {
             <td>{data.income}</td>
             <td>{data.expense}</td>
             <td className='buttons'>
-                <button onClick={(e) => onDelete(e, id)} className='btn border-0 me-1'><MdDelete /></button>
+                <button onClick={(e) => onDelete(e, id, userId, data)} className='btn border-0 me-1'><MdDelete /></button>
                 <button onClick={(e) => onEdit(e, data)} className='btn border-0 me-1'><AiFillEdit /></button>
             </td>
         </tr >
