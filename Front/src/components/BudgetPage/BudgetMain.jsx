@@ -1,44 +1,16 @@
-import Activities from './Activities/Activities';
-import { IoIosArrowDown } from "react-icons/io";
-import { MdAccountCircle } from "react-icons/md";
 import React, { useState, useEffect } from 'react';
-// import { IoIosArrowDown } from "react-icons/io";
-// import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
+import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import MainTable from './Activities/MainTable';
 import CreateUserDataForm from './Activities/CreateUserDataForm';
 
-
 import './budgetmain.css';
 
 function BudgetMain() {
-
-    return (
-        <div className='row d-flex flex-row flex-nowrap'>
-            <div className='sidemenu d-flex flex-column flex-wrap pt-4 shadow'>
-                <a className='border border-danger p-4 mb-5' href='#'>LOGO</a>
-                {/* <a className='rounded-circle border border-warning p-2 mt-4 mb-5' href='#'>ICON1</a> */}
-                <a className='border border-primary p-4 mt-5' href='#'>ICON2</a>
-                <a className='border border-secondary p-4 mt-5' href='#'>ICON3</a>
-            </div>
-            <div className='maincontent'>
-                <div className='header row shadow-sm'>
-                    <div className='d-flex flex-row justify-content-end py-4 border-bottom border-2 border-secondary'>
-                        <div className='fs-3 ps-1'><MdAccountCircle /></div>
-                        <div className='fs-3 ps-1'>user</div>
-                        <span className='fs-3 ps-2 pe-5'><IoIosArrowDown /></span>
-                    </div>
-                    <div className='ps-5 py-4'>
-                        <h4 className='title m-0'>Activities</h4>
-                    </div>
-                </div>
-                <Activities />
-        </div>
-    </div>
-    )
-    /* const [accountpopup, setAccountPopUp] = useState(false);
+    const [accountpopup, setAccountPopUp] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [alldata, setAllData] = useState([]);
 
@@ -52,10 +24,10 @@ function BudgetMain() {
 
     useEffect(() => {
         alldata.map((type) => type.type)
-    }, [alldata]) */
+    }, [alldata])
 
 
-    /* return (
+    return (
         <div className='row d-flex flex-row flex-nowrap'>
             <div className='sidemenu text-warning d-flex flex-column flex-wrap pt-1'>
                 <Link to="/" className='ps-4 mt-3 pt-2 text-decoration-none text-muted fs-5'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>LOGONAME</Link>
@@ -100,7 +72,7 @@ function BudgetMain() {
                 </div>
             </div>
         </div >
-    ) */
+    )
 }
 
 export default BudgetMain
