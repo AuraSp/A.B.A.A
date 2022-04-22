@@ -1,0 +1,61 @@
+table tbody td {
+    vertical-align: baseline;
+}
+
+table thead tr {
+    border-bottom: 1px solid lightgrey;
+}
+
+.cardicons svg {
+    border-radius: 50%;
+}
+
+.editinputs td input,
+.editinputs td select {
+    text-align: center;
+    border: 1px solid lightgrey;
+    background-color: transparent;
+    border-radius: 15px;
+    outline: darkgrey;
+    transition: 700ms all;
+}
+
+.editinputs td select {
+    text-align: center;
+    outline: darkgrey;
+    appearance: none;
+}
+
+.editinputs td input:focus,
+.editinputs td select:focus {
+    background: lightgrey;
+}
+
+tbody.text-center>tr>td {
+width: 100px;
+}
+
+
+.buttons button:first-child,
+.editbuttons button:first-child {
+    background-color: #ed99a2;
+    color: #dc3545;
+}
+
+.buttons button:first-child:hover,
+.editbuttons button:first-child:hover {
+    background-color: #dc3545;
+    color: #ffc107;
+}
+
+.buttons button:last-child,
+.editbuttons button:last-child {
+    background-color: #85b5fe;
+    color: #0d6efd;
+}
+
+.buttons button:last-child:hover,
+.editbuttons button:last-child:hover {
+    background-color: #0d6efd;
+    color: #ffc107;
+}
