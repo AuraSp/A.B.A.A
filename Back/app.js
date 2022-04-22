@@ -4,7 +4,6 @@ const { get } = require("http");
 
 const IncomeRoutes = require("./routes/IncomeRoutes");
 const CostRoutes = require("./routes/CostRoutes");
-=======
 const TransactionsRoutes = require("./routes/TransactionsRoutes");
 
 
@@ -22,7 +21,7 @@ app.use(function(req, res, next) {
 
 app.use("/api/v1/income", IncomeRoutes);
 app.use("/api/v1/cost", CostRoutes);
-=======
+
 app.use("/api/v1/users/", TransactionsRoutes);
 
 

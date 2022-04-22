@@ -14,12 +14,12 @@ function ActivitiesForm({ handlepopupClose }) {
     const [date, setDate] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [outflows, setOutflows] = useState('');
-    const [inflows, setInflows] = useState('');
+    // const [outflows, setOutflows] = useState('');
+    // const [inflows, setInflows] = useState('');
 
-    // Išsiuntimo į - linkas
-    let incomeurl = 'http://localhost:3000/api/v1/income';
-    let costurl = 'http://localhost:3000/api/v1/cost';
+    // // Išsiuntimo į - linkas
+    // let incomeurl = 'http://localhost:3000/api/v1/income';
+    // let costurl = 'http://localhost:3000/api/v1/cost';
 
     //Duomenų įvedimo informacija
     let data = {
@@ -94,65 +94,65 @@ function ActivitiesForm({ handlepopupClose }) {
        
     // }
 
-    const onSubmit = () => {
-        if(inflows){
-            fetch(incomeurl,
-                {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-            Swal.fire({
-                title: 'Statement successful',
-                text: `New income has been created`,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            });
-            handlepopupClose(false);
-            reset(
-                setDescription(),
-                setAmount(),
-                setDate(),
-                setCategory()
-            );
-        }else if(outflows){
-            fetch(costurl,
-                {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-            Swal.fire({
-                title: 'Statement successful',
-                text: `New income has been created`,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            });
-            handlepopupClose(false);
-            reset(
-                setDescription(),
-                setAmount(),
-                setDate(),
-                setCategory()
-            );
-        }
+    // const onSubmit = () => {
+    //     if(inflows){
+    //         fetch(incomeurl,
+    //             {
+    //                 method: 'POST',
+    //                 headers: { 'Content-Type': 'application/json' },
+    //                 body: JSON.stringify(data)
+    //             })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 console.log('Success:', data);
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Error:', error);
+    //             });
+    //         Swal.fire({
+    //             title: 'Statement successful',
+    //             text: `New income has been created`,
+    //             icon: 'success',
+    //             confirmButtonText: 'Ok'
+    //         });
+    //         handlepopupClose(false);
+    //         reset(
+    //             setDescription(),
+    //             setAmount(),
+    //             setDate(),
+    //             setCategory()
+    //         );
+    //     }else if(outflows){
+    //         fetch(costurl,
+    //             {
+    //                 method: 'POST',
+    //                 headers: { 'Content-Type': 'application/json' },
+    //                 body: JSON.stringify(data)
+    //             })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 console.log('Success:', data);
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Error:', error);
+    //             });
+    //         Swal.fire({
+    //             title: 'Statement successful',
+    //             text: `New income has been created`,
+    //             icon: 'success',
+    //             confirmButtonText: 'Ok'
+    //         });
+    //         handlepopupClose(false);
+    //         reset(
+    //             setDescription(),
+    //             setAmount(),
+    //             setDate(),
+    //             setCategory()
+    //         );
+    //     }
            
         
-    }
+    // }
 
     
 
@@ -164,13 +164,13 @@ function ActivitiesForm({ handlepopupClose }) {
                     <span className='font-bolder fs-5 ms-3'>New Transaction</span>
                     <span onClick={handlepopupClose} className='px-1 text-end text-muted'>x</span>
                 </div>
-                <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
+                {/* <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
                     <button onClick={setInflows}
                             className='inflowbtn p-1 me-2'><BsArrowUpShort /></button><span>Inflows</span>
                     <button onClick={setOutflows}
                         className='outflowbtn p-1 ms-3 me-2'><BsArrowDownShort /></button><span>Outflows</span>
-                </div>
-                <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>
+                </div> */}
+                <form  className='d-flex flex-column flex-wrap text-center'>
                     <label className='text-start'>Description</label>
                     <input
                         {...register('description')}

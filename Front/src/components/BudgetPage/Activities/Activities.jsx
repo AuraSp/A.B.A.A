@@ -23,14 +23,14 @@ function Main() {
                 </div>
             </div>
             {/* first */}
-            <div className='inflows border border-2 border-primary my-5 mx-auto p-5 shadow'>
+            {/* <div className='inflows border border-2 border-primary my-5 mx-auto p-5 shadow'>
                 <Inflows />
 
-            </div>
+            </div> */}
             {/* second */}
-            <div className='outflows border border-2 border-danger my-5 mx-auto p-5 shadow'>
+            {/* <div className='outflows border border-2 border-danger my-5 mx-auto p-5 shadow'>
                 <Outflows />
-            </div>
+            </div> */}
             {isOpen &&
                 <ActivitiesForm
                     handlepopupClose={togglePopup}

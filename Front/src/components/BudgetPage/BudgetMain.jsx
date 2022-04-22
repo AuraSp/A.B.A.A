@@ -1,12 +1,9 @@
-
-import React from 'react';
 import Activities from './Activities/Activities';
 import { IoIosArrowDown } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
-=======
 import React, { useState, useEffect } from 'react';
-import { IoIosArrowDown } from "react-icons/io";
-import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
+// import { IoIosArrowDown } from "react-icons/io";
+// import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
@@ -38,8 +35,10 @@ function BudgetMain() {
                     </div>
                 </div>
                 <Activities />
-=======
-    const [accountpopup, setAccountPopUp] = useState(false);
+        </div>
+    </div>
+    )
+    /* const [accountpopup, setAccountPopUp] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [alldata, setAllData] = useState([]);
 
@@ -53,10 +52,10 @@ function BudgetMain() {
 
     useEffect(() => {
         alldata.map((type) => type.type)
-    }, [alldata])
+    }, [alldata]) */
 
 
-    return (
+    /* return (
         <div className='row d-flex flex-row flex-nowrap'>
             <div className='sidemenu text-warning d-flex flex-column flex-wrap pt-1'>
                 <Link to="/" className='ps-4 mt-3 pt-2 text-decoration-none text-muted fs-5'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>LOGONAME</Link>
@@ -101,7 +100,7 @@ function BudgetMain() {
                 </div>
             </div>
         </div >
-    )
+    ) */
 }
 
 export default BudgetMain

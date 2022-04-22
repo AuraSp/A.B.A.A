@@ -5,9 +5,9 @@
 
 .maincontent{
     flex-basis: 80%;
-=======
+}
 html,
-body {
+body{
     margin: 0;
     display: block;
     height: 100%;
