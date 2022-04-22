@@ -1,12 +1,7 @@
 const express = require("express");
 const { get } = require("http");
 
-
-const IncomeRoutes = require("./routes/IncomeRoutes");
-const CostRoutes = require("./routes/CostRoutes");
-=======
-const TransactionsRoutes = require("./routes/TransactionsRoutes");
-
+const studentsRoutes = require("./routes/studentsRoutes");
 
 const app = express();
 
@@ -19,11 +14,6 @@ app.use(function(req, res, next) {
     next();
   });
 
-
-app.use("/api/v1/income", IncomeRoutes);
-app.use("/api/v1/cost", CostRoutes);
-=======
-app.use("/api/v1/users/", TransactionsRoutes);
-
+app.use("/api/v1/database", studentsRoutes);
 
 module.exports = app;

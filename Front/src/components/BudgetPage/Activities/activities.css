@@ -1,131 +1,58 @@
-
-.sidemenu {
-    flex-basis: 20%;
-}
-
-.maincontent{
-    flex-basis: 80%;
-=======
-html,
-body {
-    margin: 0;
-    display: block;
-    height: 100%;
-}
-
-.maincontent {
-    flex-basis: 85%;
-    min-height: 100vh;
-    background-color: #e8e8e8dc;
-}
-
-.sidemenu {
-    min-height: 100vh;
-    flex-basis: 15%;
-    z-index: 1000;
-    background-color: whitesmoke;
-    box-shadow: 3px 3px 15px #aeaeae;
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.sidemenu a:nth-child(2) span,
-.sidemenu a:last-child span {
-    border-left: 5px solid #ffc107;
-    transition: 500ms linear;
-}
-
-.sidemenu a:nth-child(2),
-.sidemenu a:last-child {
-    transition: 500ms all;
-    width: 90%;
-}
-
-.sidemenu a:nth-child(2):hover,
-.sidemenu a:last-child:hover {
-    border-radius: 15px;
-    width: 110%;
-    background-color: #E8E8E8;
+*,
+*:before,
+*:after {
     padding: 0;
-    transform: scale(1.1, 1.1);
-}
-
-.header {
-    background-color: whitesmoke;
-}
-
-.title {
-    font-weight: 400;
-    padding-left: 4em;
-}
-
-.account {
-    cursor: pointer;
-    position: relative;
-}
-
-.account span svg {
-    transition: 500ms all;
-}
-
-.acc-content {
-    background-color: whitesmoke;
-    position: absolute;
-    top: 4em;
-    right: 4em;
-    min-width: 7em;
-    min-height: 5em;
-    padding: 0.5em;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .main {
-    padding: 0 5em 0 5em;
+    height: auto;
+    background-color: #f0f1fa;
 }
 
 .main p {
-    padding: 0 0 0 6em;
-    margin: 0;
-    font-size: 0.9em;
+    flex-basis: 50%;
+    padding-left: 8em;
 }
 
-.main .button button:hover {
-    background-color: #004ec2;
+.main .button {
+    flex-basis: 50%;
+    align-self: center;
 }
 
 .main .button button {
-    background-color: #0d6efd;
     border-radius: 10px;
     outline: none;
     border: none;
 }
 
-.activitiestable {
+.row>.inflows,
+.row>.outflows {
     width: 80%;
-    height: 100%;
     background-color: whitesmoke;
     border-radius: 20px;
 }
 
 .popupform {
     position: fixed;
+    display: flex;
     justify-content: center;
     align-items: center;
     top: 0;
     left: 0;
-    width: 100%;
     min-height: 100vh;
     z-index: 1000;
     background: #00000050;
 }
 
 .formblock {
-    background: #fff;
     position: relative;
-    width: 38em;
-    height: 85vh;
+    background: #fff;
+    height: auto;
+    width: 35em;
     border-radius: 10px;
 }
-
 
 .formblock .formtitle span:first-child,
 .formblock .formtitle span:last-child {
