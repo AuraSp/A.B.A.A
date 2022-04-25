@@ -1,92 +1,82 @@
 import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import UserDataCard from './UserDataCard';
 import EditUserDataForm from './EditUserDataForm';
-
+import { deleteIncomeTransactions, deleteExpenseTransactions, getAllTransactions, updateTransactions } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
-
-let url = 'http://localhost:3000/api/v1/users/';
 
 function MainTable({ setAllData }) {
 
     const [loading, setLoading] = useState(true);
-    let [editId, setEditId] = useState('');
     const [incomes, setIncomes] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [all, setAll] = useState([]);
     const [userId, setId] = useState([]);
 
+
     //---FetchData---//
-    const getUserTransactions = async () => {
-        const response = await fetch(url);
-        const userdata = await response.json();
-        setId(...userdata.data.transactions.map((data) => data._id));
-        setIncomes(...userdata.data.transactions.map((data) => data.income));
-        setExpenses(...userdata.data.transactions.map((data) => data.expense));
-        setLoading(false);
-    }
-
     useEffect(() => {
-        getUserTransactions();
-
+        getAllTransactions().then((res) => {
+            const userdata = res.data.data.transactions; //Fetch all existing data from database
+            setId(...userdata.map((data) => data._id)); //Take User Id
+            setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
+            setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
+            setLoading(false);
+        });
     }, []);
 
     useEffect(() => {
-        let tempAll = [...incomes, ...expenses];
-        setAll(tempAll);
-        setAllData(tempAll);
+        let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
+        setAll(tempAll); //Give empty Object all temporarily data(everything inside it)
+        setAllData(tempAll); //Give empty Object all temporarily data(everything inside it) - to give data for creating
     }, [incomes, expenses])
 
-    function handleDelete(e, id, data) {
-        console.log(id)
-        e.preventDefault()
+
+    //---Delete by ID---//
+    const handleDelete = async (e, data, subId) => {
+        e.preventDefault();
+        setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
         if (data.type === 'income') {
-            const dlt = incomes.filter((data) => data._id !== id);
-            console.log(id)
-            setId(dlt)
-            // fetch(`http://localhost:3000/api/v1/users/${'6261d47d397c0152a1d1484b'}`, {
-            //     method: 'DELETE'
-            // })
-            //     .then(() => console.log('success'));
-            // console.log('delete', id)
+            console.log(data.type) //Check type
+            Swal.fire({
+                title: 'Statement remove',
+                text: 'Your income has been removed succesfully',
+                icon: 'success',
+                confirmButtonText: 'Great!'
+            });
+            await deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database
         } else {
-            console.log(expenses);
+            console.log(data.type) //Check type
+            Swal.fire({
+                title: 'Statement remove',
+                text: 'Your expense has been removed succesfully',
+                icon: 'success',
+                confirmButtonText: 'Great!'
+            });
+            await deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
         }
     }
 
-    // //---OpenEditForm---//
-    // const handleEdit = (e, data) => {
-    //     e.preventDefault();
-    //     setEditId(data._id);
-    // };
 
-    //---HandleStudentEdit---//
-    const submitEdit = (e, id, description, category, date, amount) => {
+    //---OpenEditForm---//
+    const handleEdit = (e, userId) => {
+        e.preventDefault();
+        setId(userId); //Open edit form on choosen transaction type
+        console.log(userId)
+    };
 
-        // fetch(url + editId, {
-        //     method: 'PUT',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({
-        //         description: description,
-        //         category: category,
-        //         date: date,
-        //         inamount: amount
-        //     })
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log('Success:', data);
-        //         getInflows()
-        //         cancelEdit();
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     })
-        // console.log(editId)
+
+    //---HandleEdit---//
+    const submitEdit = (e, userId, subId, description, category, date, amount) => {
+        e.preventDefault();
+        console.log(userId)
+        // updateTransactions(userId, { description: description })
     }
 
-    //---CancelStudentEdit---//
+
+    //---CancelEdit---//
     function cancelEdit() {
-        setEditId('')
+        setId('')
         console.log('canceling')
     }
 
@@ -110,21 +100,20 @@ function MainTable({ setAllData }) {
                     {!loading ?
                         all.map((data) => (
                             <>
-                                {editId === data._id ? (
+                                {userId === data._id ? (
                                     <EditUserDataForm
                                         key={data._id}
+                                        subId={data._id}
                                         data={data}
                                         onCancel={cancelEdit}
                                         onSubmit={submitEdit}
-                                        editId={editId}
                                     />
                                 ) : (
                                     <UserDataCard
                                         key={data._id}
-                                        id={data._id}
+                                        subId={data._id}
                                         data={data}
-                                        userId={setId}
-                                        // onEdit={handleEdit}
+                                        onEdit={handleEdit}
                                         onDelete={handleDelete}
                                     />
                                 )}
@@ -134,9 +123,50 @@ function MainTable({ setAllData }) {
                     }
                 </tbody>
             </table>
-
         </>
     )
 }
 
 export default MainTable
+
+    // const getUserTransactions = async () => {
+    //     const response = await fetch(url);
+    //     const userdata = await response.json();
+    //     setId(...userdata.data.transactions.map((data) => data._id));
+    //     setIncomes(...userdata.data.transactions.map((data) => data.income));
+    //     setExpenses(...userdata.data.transactions.map((data) => data.expense));
+    //     setLoading(false);
+    // }
+
+    // useEffect(() => {
+    //     getUserTransactions();
+
+    // }, []);
+
+    // useEffect(() => {
+    //     let tempAll = [...incomes, ...expenses];
+    //     setAll(tempAll);
+    //     setAllData(tempAll);
+    // }, [incomes, expenses])
+
+
+            // fetch(url + editId, {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({
+        //         description: description,
+        //         category: category,
+        //         date: date,
+        //         inamount: amount
+        //     })
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log('Success:', data);
+        //         getInflows()
+        //         cancelEdit();
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error:', error);
+        //     })
+        // console.log(editId)

@@ -17,7 +17,7 @@ function EditUserDataForm({ editId, data, onCancel, onSubmit }) {
 
     return (
         <tr className='editinputs text-center'>
-            <td className='fs-5 cardicons'><MdInventory className={data.type === 'income' ? 'bg-danger p-1 fs-3' : 'bg-primary p-1 fs-3'} /></td>
+            <td className='fs-5 cardicons'><MdInventory className={data.type === 'income' ? 'bg-primary p-1 fs-3 text-warning' : 'bg-danger p-1 fs-3 text-warning'} /></td>
             <td>
                 <input
                     className='w-75 text-center'
@@ -31,8 +31,8 @@ function EditUserDataForm({ editId, data, onCancel, onSubmit }) {
                 <select
                     className='w-75 text-center'
                     onChange={(e) => setCategory(e.target.value)}
-                    defaultValue={data.category}>
-                    <option value='' disabled>--Choose your category--</option>
+                >
+                    <option value={data.category}>{data.category}</option>
                     <option value='Food'>Food</option>
                     <option value='Rent'>Rent</option>
                 </select>
@@ -45,47 +45,31 @@ function EditUserDataForm({ editId, data, onCancel, onSubmit }) {
                     onChange={(e) => setDate(e.target.value)}>
                 </input>
             </td>
-            {/* {data.income ? (
-            <>
-                <td>
-                    <input
-                        className='w-75 text-center'
-                        type='text'
-                        defaultValue={data.income}
-                        onChange={(e) => setIncome(e.target.value)}>
-                    </input>
-                </td>
-                <td>hg</td>
-            </>
+            {data.income > 0 ? (
+                <>
+                    <td>
+                        <input
+                            className='w-75 text-center'
+                            type='text'
+                            defaultValue={data.income}
+                            onChange={(e) => setIncome(e.target.value)}>
+                        </input>
+                    </td>
+                    <td className='fw-bold fs-5'>-</td>
+                </>
             ) : (
-            <>
-                <td>in</td>
-                <td>
-                    <input
-                        className='w-75 text-center'
-                        type='text'
-                        defaultValue={data.expense}
-                        onChange={(e) => setExpense(e.target.value)}>
-                    </input>
-                </td>
-            </>
-            )} */}
-            <td>
-                <input
-                    className='w-75 text-center'
-                    type='text'
-                    defaultValue={data.income}
-                    onChange={(e) => setIncome(e.target.value)}>
-                </input>
-            </td>
-            <td>
-                <input
-                    className='w-75 text-center'
-                    type='text'
-                    defaultValue={data.expense}
-                    onChange={(e) => setExpense(e.target.value)}>
-                </input>
-            </td>
+                <>
+                    <td className='fw-bold fs-5'>-</td>
+                    <td>
+                        <input
+                            className='w-75 text-center'
+                            type='text'
+                            defaultValue={data.expense}
+                            onChange={(e) => setExpense(e.target.value)}>
+                        </input>
+                    </td>
+                </>
+            )}
             < td className='editbuttons' >
                 <button onClick={() => onCancel()} className='btn btn-danger border-0 me-1'><MdCancel /></button>
                 <button onClick={(e) => editFlows(e)} className='btn btn-secondary border-0 me-1'><MdOutlineCheckBox /></button>

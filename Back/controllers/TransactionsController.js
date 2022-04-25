@@ -1,14 +1,15 @@
+
 const Transactions = require("../models/TransactionsModel");
 
-// Gauti visas pajamas
-exports.getAllTransactions = async (req, res) => {
+              //======USER======//
+exports.getAllUsers = async (req, res) => {
   try {
-    const transactions = await Transactions.find();
+    const users = await Transactions.find();
     res.status(200).json({
       status: "success",
-      results: transactions.length,
+      results: users.length,
       data: {
-        transactions: transactions,
+        transactions: users,
       },
     });
   } catch (err) {
@@ -19,24 +20,64 @@ exports.getAllTransactions = async (req, res) => {
   }
 };
 
-// Sukurti pajamų išrašą
-exports.createTransactions = async (req, res) => {
+// router.route("/").get(getAllTransactions).post(createTransactions)
+exports.createNewUser = async (req, res) => {
+  try {
+    const newUsers = await Transactions.create(req.body);
+    res.status(201).json({
+      status: "success",
+      data: {
+        transactions: newUsers,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+  // exports.updateTransactions = async (req, res) => {
   // try {
-  //   const newTransactions = await Transactions.create(req.body);
-  //   res.status(201).json({
+  //   const transactions = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
+  //     new: true,
+  //     runValidators: true,
+  //   });
+
+  //   res.status(200).json({
   //     status: "success",
   //     data: {
-  //       transactions: newTransactions,
+  //       transactions: transactions,
   //     },
   //   });
   // } catch (err) {
-  //   res.status(400).json({
+  //   res.status(404).json({
   //     status: "fail",
   //     message: err,
   //   });
-  // }exports.updateTransactions = async (req, res) => {
+  // }
+};
+
+exports.getUserById = async (req, res) => {
   try {
-    const transactions = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
+    const users = await Transactions.findById(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: {
+        transactions: users,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const user = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
@@ -44,7 +85,7 @@ exports.createTransactions = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        transactions: transactions,
+        transactions: user,
       },
     });
   } catch (err) {
@@ -55,14 +96,24 @@ exports.createTransactions = async (req, res) => {
   }
 };
 
-// Gauti studentą pagal ID
-exports.getTransactionsById = async (req, res) => {
+
+              //======USER'S TRANSACTIONS======//
+exports.addNewIncome = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.params.subId);
   try {
-    const transactions = await Transactions.findById(req.params.id);
+    const updated = await Transactions.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { income: req.body } },
+      {
+        new: true,
+      }
+    );
+    console.log(updated);
     res.status(200).json({
       status: "success",
       data: {
-        transactions: transactions,
+        transactions: updated,
       },
     });
   } catch (err) {
@@ -73,18 +124,22 @@ exports.getTransactionsById = async (req, res) => {
   }
 };
 
-// Atnaujinti esamą studentą
-exports.updateTransactions = async (req, res) => {
+exports.addNewExpense = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.params.subId);
   try {
-    const transactions = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
+    const updated = await Transactions.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { expense: req.body } },
+      {
+        new: true,
+      }
+    );
+    console.log(updated);
     res.status(200).json({
       status: "success",
       data: {
-        transactions: transactions,
+        transactions: updated,
       },
     });
   } catch (err) {
@@ -95,14 +150,101 @@ exports.updateTransactions = async (req, res) => {
   }
 };
 
-// Pašalinti studentą pagal ID
-exports.deleteTransactions = async (req, res) => {
-  try {
-    await Transactions.findByIdAndDelete(req.params.id);
 
-    res.status(204).json({
+exports.deleteIncomeTransactions = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.params.subId);
+
+  try {
+    await Transactions.findOneAndUpdate(
+      { _id: req.params.id },
+      { $pull: { income: { _id: req.params.subId } } }
+    );
+    res.status(200).json({
       status: "success",
       data: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.deleteExpenseTransactions = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.params.subId);
+
+  try {
+    await Transactions.findOneAndUpdate(
+      { _id: req.params.id },
+      { $pull: { expense: { _id: req.params.subId } } }
+    );
+    res.status(200).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.findIncomesAndUpdate = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.params.subId);
+  console.log(req.body);
+  try {
+    const updateIncomes = await Transactions.findOneAndUpdate(
+      { _id: req.params.id, "income._id": req.params.subId },
+      {
+        $set: {
+          "income.$.description": req.body.description,
+          "income.$.category": req.body.category,
+          "income.$.date": req.body.date,
+          "income.$.income": req.body.income,
+        },
+      }
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        transactions: updateIncomes,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.findExpensesAndUpdate = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.params.subId);
+  console.log(req.body);
+  try {
+    const updateExpenses = await Transactions.findOneAndUpdate(
+      { _id: req.params.id, "expense._id": req.params.subId },
+      {
+        $set: {
+          "expense.$.description": req.body.description,
+          "expense.$.category": req.body.category,
+          "expense.$.date": req.body.date,
+          "expense.$.expense": req.body.expense,
+        },
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        transactions: updateExpenses,
+      },
     });
   } catch (err) {
     res.status(404).json({

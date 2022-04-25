@@ -7,9 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
 import '../budgetmain.css';
+import { getAllTransactions, createTransactions } from '../../../api/lib/TransactionsAPI';
 
-function CreateFlowsForm({ handlepopupClose, dataType }) {
-
+function CreateFlowsForm({ handlepopupClose, data, }) {
 
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
@@ -19,22 +19,34 @@ function CreateFlowsForm({ handlepopupClose, dataType }) {
     const [expenses, setExpenses] = useState(false);
     const [userIncome, setUserIncome] = useState([]);
     const [userExpense, setUserExpense] = useState([]);
+    const [userId, setId] = useState([]);
+    // let subId = data.map((data) => data._id);
+    // console.log(subId)
 
-    const getUserTransactions = async () => {
-        //Reikalingas user id
-        const response = await fetch(`http://localhost:3000/api/v1/users/${'6261d47d397c0152a1d1484b'}`);
-        const userdata = await response.json();
-        let tempIncome = [];
-        let tempExpense = [];
-        userdata.data.transactions.income.map((data) => tempIncome.push(data));
-        userdata.data.transactions.expense.map((data) => tempExpense.push(data));
-        setUserIncome(tempIncome);
-        setUserExpense(tempExpense);
-    }
-
+    // const getUserTransactions = async () => {
+    //     //Reikalingas user id
+    //     const response = await fetch(`http://localhost:3000/api/v1/users/${'userId'}`);
+    //     const userdata = await response.json();
+    //     let tempIncome = [];
+    //     let tempExpense = [];
+    //     userdata.data.transactions.income.map((data) => tempIncome.push(data));
+    //     userdata.data.transactions.expense.map((data) => tempExpense.push(data));
+    //     setUserIncome(tempIncome);
+    //     setUserExpense(tempExpense);
+    // }
     useEffect(() => {
-        getUserTransactions();
-    }, [])
+        getAllTransactions().then((res) => {
+            const userdata = res.data.data.transactions;
+            // const userId = userdata.map((data) => data._id);
+            let tempIncome = [];
+            let tempExpense = [];
+            tempIncome.push(userdata.map((data) => data.income));
+            tempExpense.push(userdata.map((data) => data.expense));
+            setId(...userdata.map((data) => data._id));
+            setUserIncome(tempIncome);
+            setUserExpense(tempExpense);
+        });
+    }, []);
 
     const budgetSchema = yup.object().shape({
         description: yup
@@ -76,44 +88,57 @@ function CreateFlowsForm({ handlepopupClose, dataType }) {
     });
 
     //Duomenų siuntimas į duombazę
-    const onSubmit = () => {
+    const onSubmit = (subId) => {
         if (incomes) {
             let tempIncomes = userIncome;
             tempIncomes.push({
                 description: description,
                 category: category,
                 date: date,
-                income: amount
+                income: amount.replace(",", ".")
             })
             setUserIncome(tempIncomes);
+            createTransactions(userId, subId, tempIncomes)
             //Reikalingas User Id
-            fetch(`http://localhost:3000/api/v1/users/${'626177b613402d6a517b05f6'}`,
-                {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        income: tempIncomes
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-            handlepopupClose(false);
+            // fetch(`http://localhost:3000/api/v1/users/${userId}`,
+            //     {
+            //         method: 'PUT',
+            //         headers: { 'Content-Type': 'application/json' },
+            //         body: JSON.stringify({
+            //             income: tempIncomes
+            //         })
+            //     })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         console.log('Success:', data);
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //     });
+            Swal.fire({
+                title: 'Statement successful',
+                text: `New income has been created`,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+            // handlepopupClose(false);
+            reset(
+                setDescription(),
+                setAmount(),
+                setDate(),
+                setCategory()
+            );
         } else {
             let tempExpense = userExpense;
             tempExpense.push({
                 description: description,
                 category: category,
                 date: date,
-                expense: amount
+                expense: amount.replace(",", "."),
             })
             setUserExpense(tempExpense);
             //Reikalingas User Id
-            fetch(`http://localhost:3000/api/v1/users/${'626177b613402d6a517b05f6'}`,
+            fetch(`http://localhost:3000/api/v1/users/${'userId'}`,
                 {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
@@ -128,93 +153,20 @@ function CreateFlowsForm({ handlepopupClose, dataType }) {
                 .catch((error) => {
                     console.error('Error:', error);
                 });
+            Swal.fire({
+                title: 'Statement successful',
+                text: `New oucome has been created`,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
             handlepopupClose(false);
+            reset(
+                setDescription(),
+                setAmount(),
+                setDate(),
+                setCategory()
+            );
         }
-        // fetch(url,
-        //     {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify({
-        //             type: dataType.income,
-        //             description: description,
-        //             category: category,
-        //             date: date,
-        //             income: amount.replace(",", "."),
-        //         })
-        //     })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log('Success:', data);
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     });
-
-
-        //     fetch(url,
-        //         {
-        //             method: 'POST',
-        //             headers: { 'Content-Type': 'application/json' },
-        //             body: JSON.stringify({
-        //                 description: description,
-        //                 category: category,
-        //                 date: date,
-        //                 income: amount.replace(",", "."),
-        //             })
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             console.log('Success:', data);
-        //         })
-        //         .catch((error) => {
-        //             console.error('Error:', error);
-        //         });
-        //     Swal.fire({
-        //         title: 'Statement successful',
-        //         text: `New income has been created`,
-        //         icon: 'success',
-        //         confirmButtonText: 'Ok'
-        //     });
-        //     handlepopupClose(false);
-        //     reset(
-        //         setDescription(),
-        //         setAmount(),
-        //         setDate(),
-        //         setCategory()
-        //     );
-        // } else {
-        //     fetch(url,
-        //         {
-        //             method: 'POST',
-        //             headers: { 'Content-Type': 'application/json' },
-        //             body: JSON.stringify({
-        //                 name: description,
-        //                 category: category,
-        //                 date: date,
-        //                 expense: amount.replace(",", "."),
-        //             })
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             console.log('Success:', data);
-        //         })
-        //         .catch((error) => {
-        //             console.error('Error:', error);
-        //         });
-        //     Swal.fire({
-        //         title: 'Statement successful',
-        //         text: `New outcome has been created`,
-        //         icon: 'success',
-        //         confirmButtonText: 'Ok'
-        //     });
-        //     handlepopupClose(false);
-        //     reset(
-        //         setDescription(),
-        //         setAmount(),
-        //         setDate(),
-        //         setCategory()
-        //     );
-
     }
 
     const IncomesHandler = (e) => {

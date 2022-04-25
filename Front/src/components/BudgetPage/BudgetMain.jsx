@@ -23,9 +23,8 @@ function BudgetMain() {
     }
 
     useEffect(() => {
-        alldata.map((type) => type.type)
+        alldata.map((data) => data)
     }, [alldata])
-
 
     return (
         <div className='row d-flex flex-row flex-nowrap'>
@@ -67,7 +66,7 @@ function BudgetMain() {
                     {isOpen &&
                         <CreateUserDataForm
                             handlepopupClose={togglePopup}
-                            dataType={alldata}
+                            data={alldata}
                         />}
                 </div>
             </div>
