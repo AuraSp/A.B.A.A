@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import UserDataCard from './UserDataCard';
 import EditUserDataForm from './EditUserDataForm';
-import { deleteIncomeTransactions, deleteExpenseTransactions, getAllTransactions, updateTransactions } from '../../../api/lib/TransactionsAPI';
+import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, updateTransactions } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
 
 function MainTable({ setAllData }) {
@@ -13,10 +13,9 @@ function MainTable({ setAllData }) {
     const [all, setAll] = useState([]);
     const [userId, setId] = useState([]);
 
-
     //---FetchData---//
     useEffect(() => {
-        getAllTransactions().then((res) => {
+        getAllUsers().then((res) => {
             const userdata = res.data.data.transactions; //Fetch all existing data from database
             setId(...userdata.map((data) => data._id)); //Take User Id
             setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
@@ -35,24 +34,49 @@ function MainTable({ setAllData }) {
     //---Delete by ID---//
     const handleDelete = async (e, data, subId) => {
         e.preventDefault();
-        setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
         if (data.type === 'income') {
             console.log(data.type) //Check type
-            Swal.fire({
-                title: 'Statement remove',
-                text: 'Your income has been removed succesfully',
-                icon: 'success',
-                confirmButtonText: 'Great!'
-            });
+            Swal
+                .fire({
+                    title: 'Are you sure?',
+                    text: 'This data will be lost forever',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Delete',
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Swal
+                            .fire('Your income has been removed succesfully!', '', 'Success!')
+
+                        setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
+
+                    } else if (result.isDenied) {
+                        Swal.close()
+                    }
+                })
             await deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database
         } else {
             console.log(data.type) //Check type
-            Swal.fire({
-                title: 'Statement remove',
-                text: 'Your expense has been removed succesfully',
-                icon: 'success',
-                confirmButtonText: 'Great!'
-            });
+            Swal
+                .fire({
+                    title: 'Are you sure?',
+                    text: 'This data will be lost forever',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Delete',
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Swal
+                            .fire('Your expense has been removed succesfully!', '', 'Success!')
+
+                        setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
+
+                    } else if (result.isDenied) {
+                        Swal.close()
+                    }
+                })
             await deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
         }
     }

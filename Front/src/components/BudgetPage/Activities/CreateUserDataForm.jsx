@@ -7,9 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
 import '../budgetmain.css';
-import { getAllTransactions, createTransactions } from '../../../api/lib/TransactionsAPI';
+import { getAllUsers, addNewIncome, addNewExpense } from '../../../api/lib/TransactionsAPI';
 
-function CreateFlowsForm({ handlepopupClose, data, }) {
+function CreateFlowsForm({ handlepopupClose, }) {
 
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
@@ -17,34 +17,12 @@ function CreateFlowsForm({ handlepopupClose, data, }) {
     const [category, setCategory] = useState('');
     const [incomes, setIncomes] = useState(false);
     const [expenses, setExpenses] = useState(false);
-    const [userIncome, setUserIncome] = useState([]);
-    const [userExpense, setUserExpense] = useState([]);
     const [userId, setId] = useState([]);
-    // let subId = data.map((data) => data._id);
-    // console.log(subId)
 
-    // const getUserTransactions = async () => {
-    //     //Reikalingas user id
-    //     const response = await fetch(`http://localhost:3000/api/v1/users/${'userId'}`);
-    //     const userdata = await response.json();
-    //     let tempIncome = [];
-    //     let tempExpense = [];
-    //     userdata.data.transactions.income.map((data) => tempIncome.push(data));
-    //     userdata.data.transactions.expense.map((data) => tempExpense.push(data));
-    //     setUserIncome(tempIncome);
-    //     setUserExpense(tempExpense);
-    // }
     useEffect(() => {
-        getAllTransactions().then((res) => {
-            const userdata = res.data.data.transactions;
-            // const userId = userdata.map((data) => data._id);
-            let tempIncome = [];
-            let tempExpense = [];
-            tempIncome.push(userdata.map((data) => data.income));
-            tempExpense.push(userdata.map((data) => data.expense));
-            setId(...userdata.map((data) => data._id));
-            setUserIncome(tempIncome);
-            setUserExpense(tempExpense);
+        getAllUsers().then((res) => {
+            const userdata = res.data.data.transactions; //Fetch all existing data from database
+            setId(...userdata.map((data) => data._id)); //Take User Id
         });
     }, []);
 
@@ -61,7 +39,7 @@ function CreateFlowsForm({ handlepopupClose, data, }) {
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^[1-9]\d*((([,\.]\d{2}){1})?(\.\d{0,2})?)$/, 'Number bigger than 1 before comma/dot')
+            .matches(/^[1-9]\d*((([,\.]\d{2}){1})?(\.\d{0,2})?)$/, 'Number to be bigger than 1 before comma/dot')
             .typeError('Invalid Input: Must be numbers')
             .required(),
         date: yup
@@ -88,84 +66,45 @@ function CreateFlowsForm({ handlepopupClose, data, }) {
     });
 
     //Duomenų siuntimas į duombazę
-    const onSubmit = (subId) => {
+    const onSubmit = async (data) => {
         if (incomes) {
-            let tempIncomes = userIncome;
-            tempIncomes.push({
-                description: description,
-                category: category,
-                date: date,
-                income: amount.replace(",", ".")
-            })
-            setUserIncome(tempIncomes);
-            createTransactions(userId, subId, tempIncomes)
-            //Reikalingas User Id
-            // fetch(`http://localhost:3000/api/v1/users/${userId}`,
-            //     {
-            //         method: 'PUT',
-            //         headers: { 'Content-Type': 'application/json' },
-            //         body: JSON.stringify({
-            //             income: tempIncomes
-            //         })
-            //     })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         console.log('Success:', data);
-            //     })
-            //     .catch((error) => {
-            //         console.error('Error:', error);
-            //     });
+            console.log(data);
+
             Swal.fire({
                 title: 'Statement successful',
                 text: `New income has been created`,
                 icon: 'success',
                 confirmButtonText: 'Ok'
             });
-            // handlepopupClose(false);
-            reset(
-                setDescription(),
-                setAmount(),
-                setDate(),
-                setCategory()
-            );
-        } else {
-            let tempExpense = userExpense;
-            tempExpense.push({
-                description: description,
-                category: category,
-                date: date,
-                expense: amount.replace(",", "."),
-            })
-            setUserExpense(tempExpense);
-            //Reikalingas User Id
-            fetch(`http://localhost:3000/api/v1/users/${'userId'}`,
-                {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        expense: tempExpense
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-            Swal.fire({
-                title: 'Statement successful',
-                text: `New oucome has been created`,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            });
+
+            await addNewIncome(data, userId);
+
             handlepopupClose(false);
             reset(
                 setDescription(),
                 setAmount(),
                 setDate(),
                 setCategory()
-            );
+            )
+        } else {
+            console.log(data)
+
+            Swal.fire({
+                title: 'Statement successful',
+                text: `New income has been created`,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+
+            await addNewExpense(data, userId);
+
+            handlepopupClose(false);
+            reset(
+                setDescription(),
+                setAmount(),
+                setDate(),
+                setCategory()
+            )
         }
     }
 
@@ -179,6 +118,7 @@ function CreateFlowsForm({ handlepopupClose, data, }) {
         setIncomes(false);
         setExpenses(true);
     };
+
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
             <div className='formblock p-4'>
