@@ -19,7 +19,7 @@ const {
 const router = express.Router();
 
 //User
-router.route("/").get(getAllUsers).post(createNewUser);
+router.route("/").get(getAllUsers);
 router.route("/:id").get(getUserById).patch(updateUser);
 router.route("/:id/user/update").patch(updateUser);
 
@@ -33,5 +33,28 @@ router.route("/:id/expense/update/:subId").patch(findExpensesAndUpdate);
 router.route("/:id/user/addNewIncome").patch(addNewIncome);
 router.route("/:id/user/addNewExpense").patch(addNewExpense);
 
+//Auth
+// app.get("/login", (req, res) => {
+//   res.render("login");
+// });
+// app.post("/login", passport.authenticate("local", {
+//   successRedirect: "/userprofile",
+//   failureRedirect: "/login"
+// }), function (req, res) {
 
+// });
+
+router.route('/register').post(createNewUser)
+// app.post("/register", (req, res) => {
+
+//   User.register(new User({ name: req.body.name }), req.body.password, function (err, user) {
+//     if (err) {
+//       console.log(err);
+//       res.render("register");
+//     }
+//     passport.authenticate("local")(req, res, function () {
+//       res.redirect("/login");
+//     })
+//   })
+// })
 module.exports = router;

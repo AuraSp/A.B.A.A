@@ -6,7 +6,18 @@ export async function getAllUsers() {
     const res = await axiosClient.get('/');
     return res;
 }
-export const createNewUser = (data) => axiosClient.patch('/', JSON.stringify(data));
+
+export const createNewUser = (data) => axiosClient.post('/register/', JSON.stringify(data));
+// return res.redirect(/home)
+
+// export async function createNewUser() {
+//     if (req.isAuthenticated()) {
+//         return next();
+//     }
+//     res.redirect("/login");
+// }
+
+export const updateUser = (data) => axiosClient.patch('/', JSON.stringify(data));
 
 
 

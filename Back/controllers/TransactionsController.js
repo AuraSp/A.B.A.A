@@ -1,7 +1,8 @@
 
+const e = require("express");
 const Transactions = require("../models/TransactionsModel");
 
-              //======USER======//
+//======USER======//
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await Transactions.find();
@@ -22,6 +23,7 @@ exports.getAllUsers = async (req, res) => {
 
 // router.route("/").get(getAllTransactions).post(createTransactions)
 exports.createNewUser = async (req, res) => {
+  console.log(req.body)
   try {
     const newUsers = await Transactions.create(req.body);
     res.status(201).json({
@@ -36,25 +38,16 @@ exports.createNewUser = async (req, res) => {
       message: err,
     });
   }
-  // exports.updateTransactions = async (req, res) => {
-  // try {
-  //   const transactions = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
-  //     new: true,
-  //     runValidators: true,
-  //   });
 
-  //   res.status(200).json({
-  //     status: "success",
-  //     data: {
-  //       transactions: transactions,
-  //     },
-  //   });
-  // } catch (err) {
-  //   res.status(404).json({
-  //     status: "fail",
-  //     message: err,
-  //   });
-  // }
+
+
+  //   name: name
+  //   email: email
+  // password: psw
+
+  // limit: kuriant naujus transaction irasus
+  // income: createnewIncome
+  // expense:createNewExpense
 };
 
 exports.getUserById = async (req, res) => {
@@ -97,7 +90,7 @@ exports.updateUser = async (req, res) => {
 };
 
 
-              //======USER'S TRANSACTIONS======//
+//======USER'S TRANSACTIONS======//
 exports.addNewIncome = async (req, res) => {
   console.log(req.params.id);
   console.log(req.params.subId);
