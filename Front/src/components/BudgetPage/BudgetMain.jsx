@@ -1,31 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from "react-icons/io";
+import { IoFilterOutline } from "react-icons/io5";
 import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import MainTable from './Activities/MainTable';
 import CreateUserDataForm from './Activities/CreateUserDataForm';
+import SortTable from './Activities/SortTable';
 
 import './budgetmain.css';
 
 function BudgetMain() {
     const [accountpopup, setAccountPopUp] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [filterpopup, setFilterPopup] = useState(false);
     const [alldata, setAllData] = useState([]);
 
-    const toggleAccPopup = () => {
+    //User account menu popup
+    const toggleAccountPopup = () => {
         setAccountPopUp(!accountpopup);
     }
-
-    const togglePopup = () => {
+    //User add transactions popup
+    const toggleAddPopup = () => {
         setIsOpen(!isOpen);
+    }
+    //User filter transactions popup
+    const toggleFilterPopup = () => {
+        setFilterPopup(!filterpopup);
     }
 
     useEffect(() => {
-        alldata.map((type) => type.type)
+        alldata.map((data) => data)
     }, [alldata])
-
 
     return (
         <div className='row d-flex flex-row flex-nowrap'>
@@ -36,7 +43,7 @@ function BudgetMain() {
             </div>
             <div className='maincontent'>
                 <div className='header'>
-                    <div onClick={toggleAccPopup} className='account d-flex flex-row justify-content-end py-4 border-bottom'>
+                    <div onClick={toggleAccountPopup} className='account d-flex flex-row justify-content-end py-4 border-bottom'>
                         <div className='fs-3 ps-1 pe-1'><MdAccountCircle /></div>
                         <div className='fs-3 ps-1 pe-1'>user</div>
                         <span className='fs-3 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
@@ -55,10 +62,19 @@ function BudgetMain() {
                         <p className='w-50'>Here you can add transactions into your account. Transactions include payments, paychecks etc. Every transaction is either incoming (inflow) or outgoing (outflow) and must have description, the category of the budget you would like to assign it to, date and amount</p>
                         <div className='button ps-5 pt-4 w-50 text-center'>
                             <button
-                                onClick={togglePopup}
+                                onClick={toggleFilterPopup}
+                                className='text-center me-2 pe-2 ps-2 pb-2 pt-2 border border-secondary'><IoFilterOutline className='fs-4 bg-none' /></button>
+                            <button
+                                onClick={toggleAddPopup}
                                 className='text-light ps-3 pe-3 pt-2 pb-2'>+ Add Transaction</button>
                         </div>
                     </div>
+                    <div>{filterpopup &&
+                        <SortTable
+                            handlefilterpopupClose={toggleFilterPopup
+                            }
+                        />
+                    }</div>
                     <div className='activitiestable border border-1 border-muted mx-auto my-4 p-5 shadow'>
                         <MainTable
                             setAllData={setAllData}
@@ -66,8 +82,8 @@ function BudgetMain() {
                     </div>
                     {isOpen &&
                         <CreateUserDataForm
-                            handlepopupClose={togglePopup}
-                            dataType={alldata}
+                            handlepopupClose={toggleAddPopup}
+                            data={alldata}
                         />}
                 </div>
             </div>

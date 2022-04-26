@@ -1,17 +1,15 @@
-const mongoose = require("mongoose");
 
-//Convert Date format to only date without time
-const Date = {
-  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
-};
+const mongoose = require("mongoose");
+var bcrypt = require('bcryptjs');
+SALT_WORK_FACTOR = 10;
 // DB schema
 
 const IncomesSchema = mongoose.Schema(
   {
-    description: { type: String },
+    description: { type: String, trim: true, },
     category: { type: String },
     date: { type: Date },
-    income: { type: Number, required: true },
+    amount: { type: Number, required: true },
     type: { type: String, default: "income" },
   },
   { timestamps: true }
@@ -19,10 +17,10 @@ const IncomesSchema = mongoose.Schema(
 
 const ExpensesSchema = mongoose.Schema(
   {
-    description: { type: String },
+    description: { type: String, trim: true, },
     category: { type: String },
     date: { type: Date },
-    expense: { type: Number, required: true },
+    amount: { type: Number, required: true },
     type: { type: String, default: "expense" },
   },
   { timestamps: true }
@@ -60,6 +58,31 @@ const usersSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+usersSchema.pre('save', function (next) {
+  var user = this
+  // only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
+
+  // generate a salt
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    if (err) return next(err);
+    // hash the password using our new salt
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err);
+      // override the cleartext password with the hashed one
+      user.password = hash;
+      next();
+    });
+  });
+})
+
+usersSchema.methods.comparePassword = function (candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
 
 // Modelis DB lentelės pavadinimas
 const TransactionsModel = new mongoose.model('Users', usersSchema);
