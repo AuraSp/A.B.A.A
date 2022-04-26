@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import UserDataCard from './UserDataCard';
 import EditUserDataForm from './EditUserDataForm';
-import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, updateTransactions } from '../../../api/lib/TransactionsAPI';
+import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
 
 function MainTable({ setAllData }) {
@@ -91,10 +91,9 @@ function MainTable({ setAllData }) {
 
 
     //---HandleEdit---//
-    const submitEdit = (e, userId, subId, description, category, date, amount) => {
+    const submitEdit = (e, userId, subId) => {
         e.preventDefault();
         console.log(userId)
-        // updateTransactions(userId, { description: description })
     }
 
 
@@ -152,45 +151,3 @@ function MainTable({ setAllData }) {
 }
 
 export default MainTable
-
-    // const getUserTransactions = async () => {
-    //     const response = await fetch(url);
-    //     const userdata = await response.json();
-    //     setId(...userdata.data.transactions.map((data) => data._id));
-    //     setIncomes(...userdata.data.transactions.map((data) => data.income));
-    //     setExpenses(...userdata.data.transactions.map((data) => data.expense));
-    //     setLoading(false);
-    // }
-
-    // useEffect(() => {
-    //     getUserTransactions();
-
-    // }, []);
-
-    // useEffect(() => {
-    //     let tempAll = [...incomes, ...expenses];
-    //     setAll(tempAll);
-    //     setAllData(tempAll);
-    // }, [incomes, expenses])
-
-
-            // fetch(url + editId, {
-        //     method: 'PUT',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({
-        //         description: description,
-        //         category: category,
-        //         date: date,
-        //         inamount: amount
-        //     })
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log('Success:', data);
-        //         getInflows()
-        //         cancelEdit();
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     })
-        // console.log(editId)

@@ -42,12 +42,6 @@ function CreateFlowsForm({ handlepopupClose, }) {
             .matches(/^[1-9]\d*((([,\.]\d{2}){1})?(\.\d{0,2})?)$/, 'Number to be bigger than 1 before comma/dot')
             .typeError('Invalid Input: Must be numbers')
             .required(),
-        // expense: yup
-        //     .string()
-        //     .nullable(false)
-        //     .matches(/^[1-9]\d*((([,\.]\d{2}){1})?(\.\d{0,2})?)$/, 'Number to be bigger than 1 before comma/dot')
-        //     .typeError('Invalid Input: Must be numbers')
-        //     .required(),
         date: yup
             .date()
             .nullable(false)
@@ -131,17 +125,17 @@ function CreateFlowsForm({ handlepopupClose, }) {
         <div className='popupform d-flex flex-column flex-nowrap'>
             <div className='formblock p-4'>
                 <div className='formtitle d-flex flex-row flex-nowrap pb-5 align-items-center p-4'>
-                    <span className='border border-2 border-primary text-center'><GrTransaction /></span>
-                    <span className='font-bolder fs-5 ms-3'>New Transaction</span>
+                    <span className='border border-3 border-primary text-center'><GrTransaction /></span>
+                    <h4 className='ms-5'>New Transaction</h4>
                     <span onClick={handlepopupClose} className='px-1 text-end text-muted'>x</span>
                 </div>
                 <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
                     <button
                         onClick={ExpensesHandler}
-                        className={expenses ? 'outflowbtn p-1 me-2 bg-danger' : 'outflowbtn p-1 me-2'}><BsArrowUpShort /></button><span>Expense</span>
+                        className={expenses ? 'outflowbtn bg-danger' : 'outflowbtn'}><BsArrowUpShort /></button><span className='w-auto me-3'>Expense</span>
                     <button
                         onClick={IncomesHandler}
-                        className={incomes ? 'inflowbtn p-1 ms-3 me-2 bg-primary' : 'inflowbtn p-1 ms-3 me-2'} ><BsArrowDownShort /></button><span>Income</span>
+                        className={incomes ? 'inflowbtn bg-primary' : 'inflowbtn'} ><BsArrowDownShort /></button><span className='w-auto'>Income</span>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>
                     <label className='text-start'>Description</label>
