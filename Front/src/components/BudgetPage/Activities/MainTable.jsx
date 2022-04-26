@@ -80,7 +80,7 @@ function MainTable({ setAllData }) {
             await deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
         }
     }
-    
+
     //---OpenEditForm---//
     const handleEdit = (e, userId) => {
         e.preventDefault();
@@ -103,7 +103,9 @@ function MainTable({ setAllData }) {
     }
 
     return (
-        <>
+        <>{all.length === 0 ? (
+            <p className='fs-5 text-center'>You have no transactions added</p>
+        ) : (
             <table className='table table-borderless m-auto'>
                 <thead className='thead text-center'>
                     <tr className='text-secondary'>
@@ -116,8 +118,8 @@ function MainTable({ setAllData }) {
                         <th className='text-muted'>
                             <span>{all.length} Results</span>
                         </th>
-                    </tr>
-                </thead>
+                    </tr >
+                </thead >
                 <tbody className='text-center'>
                     {!loading ?
                         all.map((data) => (
@@ -144,7 +146,9 @@ function MainTable({ setAllData }) {
                         : <tr><td className='loader'>Loading...</td></tr>
                     }
                 </tbody>
-            </table>
+            </table >
+        )
+        }
         </>
     )
 }

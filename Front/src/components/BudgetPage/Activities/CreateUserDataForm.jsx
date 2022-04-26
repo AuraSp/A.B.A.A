@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { GrTransaction } from "react-icons/gr";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
+import { RiMoneyEuroCircleLine } from "react-icons/ri";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -67,18 +68,18 @@ function CreateFlowsForm({ handlepopupClose, }) {
 
     //Duomenų siuntimas į duombazę
     const onSubmit = async (data, amount) => {
-      
+
         if (incomes) {
-          
+
             Swal.fire({
-                title: 'Statement successful',
+                title: 'Statement successful!',
                 text: `New income has been created`,
                 icon: 'success',
                 confirmButtonText: 'Ok'
             });
 
             await addNewIncome(data, userId);
-          
+
             handlepopupClose(false);
             reset(
                 setDescription(),
@@ -86,11 +87,11 @@ function CreateFlowsForm({ handlepopupClose, }) {
                 setDate(),
                 setCategory()
             )
-        } else {
-           
+        } else if (expenses) {
+
             Swal.fire({
-                title: 'Statement successful',
-                text: `New expense has been created`,
+                title: 'Statement successful!',
+                text: 'New expense has been created',
                 icon: 'success',
                 confirmButtonText: 'Ok'
             })
@@ -104,6 +105,14 @@ function CreateFlowsForm({ handlepopupClose, }) {
                 setDate(),
                 setCategory()
             )
+        } else {
+
+            Swal.fire({
+                title: 'Statement unsuccessful!',
+                text: 'You have to choose one of the transactions type',
+                icon: 'warning',
+                confirmButtonText: 'Choose'
+              })
         }
     }
 
@@ -118,21 +127,32 @@ function CreateFlowsForm({ handlepopupClose, }) {
         setExpenses(true);
     };
 
+    const options = [
+        { value: 'Withdrawals', text: 'Cash Withdrawals' },
+        { value: 'Clothes', text: 'Clothes/Shoes' },
+        { value: 'Food', text: 'Food/Drinks' },
+        { value: 'Electronics', text: 'Electronics' },
+        { value: 'Gifts', text: 'Gifts' },
+        { value: 'Home Maintenance', text: 'Home Maintenance' },
+        { value: 'Bills', text: 'Bills/Taxes' },
+        { value: 'Rent', text: 'House Rent' },
+        { value: 'Savings', text: 'Savings' }
+    ]
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
             <div className='formblock p-4'>
                 <div className='formtitle d-flex flex-row flex-nowrap pb-5 align-items-center p-4'>
-                    <span className='border border-3 border-primary text-center'><GrTransaction /></span>
+                    <div className='border border-3 border-primary rounded text-center'><GrTransaction /></div>
                     <h4 className='ms-5'>New Transaction</h4>
                     <span onClick={handlepopupClose} className='px-1 text-end text-muted'>x</span>
                 </div>
-                <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
+                <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-4'>
                     <button
                         onClick={ExpensesHandler}
-                        className={expenses ? 'outflowbtn bg-danger' : 'outflowbtn'}><BsArrowUpShort /></button><span className='w-auto me-3'>Expense</span>
+                        className={expenses ? 'outflowbtn bg-danger me-2' : 'outflowbtn me-2'}><BsArrowUpShort /></button><span className='w-auto me-3'>Expense</span>
                     <button
                         onClick={IncomesHandler}
-                        className={incomes ? 'inflowbtn bg-primary' : 'inflowbtn'} ><BsArrowDownShort /></button><span className='w-auto'>Income</span>
+                        className={incomes ? 'inflowbtn bg-primary me-2' : 'inflowbtn me-2'} ><BsArrowDownShort /></button><span className='w-auto'>Income</span>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>
                     <label className='text-start'>Description</label>
@@ -149,7 +169,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                             <input
                                 {...register('amount')}
                                 type='string'
-                                placeholder='€35.00'
+                                placeholder='35.00'
                                 onChange={(e) => setAmount(e.target.value)}
                                 className='border' />
                             <p className='p-0 text-danger'>{errors.amount?.message}</p>
@@ -172,15 +192,25 @@ function CreateFlowsForm({ handlepopupClose, }) {
                         defaultValue=''
                         className='border bg-transparent text-muted'>
                         <option value='' disabled>--Choose your category--</option>
-                        <option value='Food'>Food</option>
-                        <option value='Rent'>Rent</option>
+                        {options.map(item => {
+                            return (<option key={item.value} value={item.value}>{item.text}</option>);
+                        })}
                     </select>
                     <p className='p-0 text-danger'>{errors.category?.message}</p>
-                    <div className='formfooter mt-5'>
-                        <button
-                            className='w-55 btn btn-primary'
-                            type='submit'>Create
-                        </button>
+                    <div className='formfooter d-flex flex-row flex-wrap mt-5'>
+                        <div className='me-4'>
+                            <button
+                                className='w-55 btn text-light'
+                                type='submit'>Create
+                            </button>
+                        </div>
+                        <div className='me-4'>
+                            <button
+                                className='w-55 btn text-dark'
+                                onClick={handlepopupClose}
+                                type='submit'>Cancel
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div >
