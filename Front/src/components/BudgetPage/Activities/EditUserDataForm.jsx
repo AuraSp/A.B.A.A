@@ -41,20 +41,20 @@ function EditUserDataForm({ editId, data, onCancel, onSubmit }) {
                 <input
                     className='w-75 text-center'
                     type='text'
-                    defaultValue={data.date}
+                    defaultValue={data.date.slice(0, 10)}
                     onChange={(e) => setDate(e.target.value)}>
                 </input>
             </td>
-            {data.income > 0 ? (
+            {data.type === 'income' ? (
                 <>
                     <td>
                         <input
                             className='w-75 text-center'
                             type='text'
-                            defaultValue={data.income}
+                            defaultValue={data.amount}
                             onChange={(e) => setIncome(e.target.value)}>
                         </input>
-                    </td>
+                    </td >
                     <td className='fw-bold fs-5'>-</td>
                 </>
             ) : (
@@ -64,12 +64,13 @@ function EditUserDataForm({ editId, data, onCancel, onSubmit }) {
                         <input
                             className='w-75 text-center'
                             type='text'
-                            defaultValue={data.expense}
+                            defaultValue={data.amount}
                             onChange={(e) => setExpense(e.target.value)}>
                         </input>
                     </td>
                 </>
-            )}
+            )
+            }
             < td className='editbuttons' >
                 <button onClick={() => onCancel()} className='btn btn-danger border-0 me-1'><MdCancel /></button>
                 <button onClick={(e) => editFlows(e)} className='btn btn-secondary border-0 me-1'><MdOutlineCheckBox /></button>
