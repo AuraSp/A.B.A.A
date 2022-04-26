@@ -67,11 +67,9 @@ function CreateFlowsForm({ handlepopupClose, }) {
 
     //Duomenų siuntimas į duombazę
     const onSubmit = async (data, amount) => {
-        console.log(incomes);
-        console.log(expenses);
-        console.log(data);
+      
         if (incomes) {
-            console.log(data);
+          
             Swal.fire({
                 title: 'Statement successful',
                 text: `New income has been created`,
@@ -80,17 +78,16 @@ function CreateFlowsForm({ handlepopupClose, }) {
             });
 
             await addNewIncome(data, userId);
-
+          
             handlepopupClose(false);
             reset(
                 setDescription(),
-                // setAmount(),
+                setAmount(),
                 setDate(),
                 setCategory()
             )
         } else {
-            // data.push({ amount: expense })
-
+           
             Swal.fire({
                 title: 'Statement successful',
                 text: `New expense has been created`,
@@ -103,7 +100,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
             handlepopupClose(false);
             reset(
                 setDescription(),
-                // setAmount(),
+                setAmount(),
                 setDate(),
                 setCategory()
             )

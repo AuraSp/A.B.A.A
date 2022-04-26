@@ -80,8 +80,7 @@ function MainTable({ setAllData }) {
             await deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
         }
     }
-
-
+    
     //---OpenEditForm---//
     const handleEdit = (e, userId) => {
         e.preventDefault();
