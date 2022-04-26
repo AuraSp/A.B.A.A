@@ -198,7 +198,7 @@ exports.findIncomesAndUpdate = async (req, res) => {
           "income.$.description": req.body.description,
           "income.$.category": req.body.category,
           "income.$.date": req.body.date,
-          "income.$.income": req.body.income,
+          "income.$.amount": req.body.amount,
         },
       }
     );
@@ -229,7 +229,7 @@ exports.findExpensesAndUpdate = async (req, res) => {
           "expense.$.description": req.body.description,
           "expense.$.category": req.body.category,
           "expense.$.date": req.body.date,
-          "expense.$.expense": req.body.expense,
+          "expense.$.amount": req.body.amount,
         },
       }
     );

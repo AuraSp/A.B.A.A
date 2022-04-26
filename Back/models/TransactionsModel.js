@@ -2,7 +2,12 @@
 const mongoose = require("mongoose");
 var bcrypt = require('bcryptjs');
 SALT_WORK_FACTOR = 10;
+
 // DB schema
+
+const Date = {
+  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
+};
 
 const IncomesSchema = mongoose.Schema(
   {
