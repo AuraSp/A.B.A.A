@@ -47,7 +47,7 @@ function MainTable({ setAllData }) {
                 .then((result) => {
                     if (result.isConfirmed) {
                         Swal
-                            .fire('Your income has been removed succesfully!', '', 'Success!')
+                            .fire('Your income has been removed succesfully!', '', 'success')
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
@@ -69,7 +69,7 @@ function MainTable({ setAllData }) {
                 .then((result) => {
                     if (result.isConfirmed) {
                         Swal
-                            .fire('Your expense has been removed succesfully!', '', 'Success!')
+                            .fire('Your expense has been removed succesfully!', '', 'success')
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 

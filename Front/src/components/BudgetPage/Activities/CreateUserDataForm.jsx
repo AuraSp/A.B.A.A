@@ -42,6 +42,12 @@ function CreateFlowsForm({ handlepopupClose, }) {
             .matches(/^[1-9]\d*((([,\.]\d{2}){1})?(\.\d{0,2})?)$/, 'Number to be bigger than 1 before comma/dot')
             .typeError('Invalid Input: Must be numbers')
             .required(),
+        // expense: yup
+        //     .string()
+        //     .nullable(false)
+        //     .matches(/^[1-9]\d*((([,\.]\d{2}){1})?(\.\d{0,2})?)$/, 'Number to be bigger than 1 before comma/dot')
+        //     .typeError('Invalid Input: Must be numbers')
+        //     .required(),
         date: yup
             .date()
             .nullable(false)
@@ -66,10 +72,12 @@ function CreateFlowsForm({ handlepopupClose, }) {
     });
 
     //Duomenų siuntimas į duombazę
-    const onSubmit = async (data) => {
+    const onSubmit = async (data, amount) => {
+        console.log(incomes);
+        console.log(expenses);
+        console.log(data);
         if (incomes) {
             console.log(data);
-
             Swal.fire({
                 title: 'Statement successful',
                 text: `New income has been created`,
@@ -82,16 +90,16 @@ function CreateFlowsForm({ handlepopupClose, }) {
             handlepopupClose(false);
             reset(
                 setDescription(),
-                setAmount(),
+                // setAmount(),
                 setDate(),
                 setCategory()
             )
         } else {
-            console.log(data)
+            // data.push({ amount: expense })
 
             Swal.fire({
                 title: 'Statement successful',
-                text: `New income has been created`,
+                text: `New expense has been created`,
                 icon: 'success',
                 confirmButtonText: 'Ok'
             })
@@ -101,7 +109,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
             handlepopupClose(false);
             reset(
                 setDescription(),
-                setAmount(),
+                // setAmount(),
                 setDate(),
                 setCategory()
             )
@@ -130,10 +138,10 @@ function CreateFlowsForm({ handlepopupClose, }) {
                 <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center w-25 pb-4 ms-3'>
                     <button
                         onClick={ExpensesHandler}
-                        className={expenses ? 'outflowbtn p-1 me-2 bg-danger' : 'outflowbtn p-1 me-2'}><BsArrowUpShort /></button><span>Outflows</span>
+                        className={expenses ? 'outflowbtn p-1 me-2 bg-danger' : 'outflowbtn p-1 me-2'}><BsArrowUpShort /></button><span>Expense</span>
                     <button
                         onClick={IncomesHandler}
-                        className={incomes ? 'inflowbtn p-1 ms-3 me-2 bg-primary' : 'inflowbtn p-1 ms-3 me-2'} ><BsArrowDownShort /></button><span>Inflows</span>
+                        className={incomes ? 'inflowbtn p-1 ms-3 me-2 bg-primary' : 'inflowbtn p-1 ms-3 me-2'} ><BsArrowDownShort /></button><span>Income</span>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>
                     <label className='text-start'>Description</label>
@@ -142,7 +150,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                         type='text'
                         placeholder='Example: Netflix Subscription or Amazon Order'
                         onChange={(e) => setDescription(e.target.value)}
-                        className='text-center border' />
+                        className='border' />
                     <p className='p-0 text-danger'>{errors.description?.message}</p>
                     <div className='info d-flex flex-row my-4'>
                         <div className='amountblock d-flex flex-column'>
@@ -152,7 +160,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                                 type='string'
                                 placeholder='€35.00'
                                 onChange={(e) => setAmount(e.target.value)}
-                                className='text-center border' />
+                                className='border' />
                             <p className='p-0 text-danger'>{errors.amount?.message}</p>
                         </div>
                         <div className='dateblock d-flex flex-column'>
@@ -162,7 +170,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                                 type='text'
                                 placeholder='04-07-2022'
                                 onChange={(e) => setDate(e.target.value)}
-                                className='text-center border' />
+                                className='border' />
                             <p className='p-0 text-danger'>{errors.date?.message}</p>
                         </div>
                     </div>

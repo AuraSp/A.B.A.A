@@ -2,11 +2,6 @@
 const mongoose = require("mongoose");
 var bcrypt = require('bcryptjs');
 SALT_WORK_FACTOR = 10;
-
-//Convert Date format to only date without time
-const Date = {
-  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
-};
 // DB schema
 
 const IncomesSchema = mongoose.Schema(
@@ -14,7 +9,7 @@ const IncomesSchema = mongoose.Schema(
     description: { type: String, trim: true, },
     category: { type: String },
     date: { type: Date },
-    income: { type: Number, required: true },
+    amount: { type: Number, required: true },
     type: { type: String, default: "income" },
   },
   { timestamps: true }
@@ -25,7 +20,7 @@ const ExpensesSchema = mongoose.Schema(
     description: { type: String, trim: true, },
     category: { type: String },
     date: { type: Date },
-    expense: { type: Number, required: true },
+    amount: { type: Number, required: true },
     type: { type: String, default: "expense" },
   },
   { timestamps: true }
