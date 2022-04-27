@@ -12,10 +12,7 @@ import { getAllUsers, addNewIncome, addNewExpense } from '../../../api/lib/Trans
 
 function CreateFlowsForm({ handlepopupClose, }) {
 
-    const [amount, setAmount] = useState('');
-    const [date, setDate] = useState('');
-    const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
+
     const [incomes, setIncomes] = useState(false);
     const [expenses, setExpenses] = useState(false);
     const [userId, setId] = useState([]);
@@ -31,16 +28,15 @@ function CreateFlowsForm({ handlepopupClose, }) {
         description: yup
             .string()
             .min(3, 'Must be at least 3 letters')
-            .max(12, 'Must be less than 12 letters')
+            .max(30, 'Must be less than 12 letters')
             .nullable(false)
             .typeError('Invalid Input: Must be letters')
-            .matches(/^[a-zA-ZĄąČčĘęĖėĮįŠšŲųŪūŽž\s]+$/, "Only letters are allowed for this field and no blank")
             .strict()
             .required('Must enter description'),
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^[1-9]\d*((([,\.]\d{2}){1})?(\.\d{0,2})?)$/, 'Number to be bigger than 1 before comma/dot')
+            .matches(/^[1-9]\d*((([.]\d{2}){1})?(\.\d{0,2})?)$/, 'Number to be bigger than 1 before dot and no commas')
             .typeError('Invalid Input: Must be numbers')
             .required(),
         date: yup
@@ -67,8 +63,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
     });
 
     //Duomenų siuntimas į duombazę
-    const onSubmit = async (data, amount) => {
-
+    const onSubmit = async (data) => {
         if (incomes) {
 
             Swal.fire({
@@ -81,12 +76,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
             await addNewIncome(data, userId);
 
             handlepopupClose(false);
-            reset(
-                setDescription(),
-                setAmount(),
-                setDate(),
-                setCategory()
-            )
+            reset('')
         } else if (expenses) {
 
             Swal.fire({
@@ -99,12 +89,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
             await addNewExpense(data, userId);
 
             handlepopupClose(false);
-            reset(
-                setDescription(),
-                setAmount(),
-                setDate(),
-                setCategory()
-            )
+            reset('')
         } else {
 
             Swal.fire({
@@ -112,7 +97,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                 text: 'You have to choose one of the transactions type',
                 icon: 'warning',
                 confirmButtonText: 'Choose'
-              })
+            })
         }
     }
 
@@ -160,7 +145,6 @@ function CreateFlowsForm({ handlepopupClose, }) {
                         {...register('description')}
                         type='text'
                         placeholder='Example: Netflix Subscription or Amazon Order'
-                        onChange={(e) => setDescription(e.target.value)}
                         className='border' />
                     <p className='p-0 text-danger'>{errors.description?.message}</p>
                     <div className='info d-flex flex-row my-4'>
@@ -170,7 +154,6 @@ function CreateFlowsForm({ handlepopupClose, }) {
                                 {...register('amount')}
                                 type='string'
                                 placeholder='35.00'
-                                onChange={(e) => setAmount(e.target.value)}
                                 className='border' />
                             <p className='p-0 text-danger'>{errors.amount?.message}</p>
                         </div>
@@ -178,9 +161,9 @@ function CreateFlowsForm({ handlepopupClose, }) {
                             <label className='text-start'>Date</label>
                             <input
                                 {...register('date')}
-                                type='text'
-                                placeholder='04-07-2022'
-                                onChange={(e) => setDate(e.target.value)}
+                                type='date'
+                                min='1990-01-01'
+                                max='2030-01-01'
                                 className='border' />
                             <p className='p-0 text-danger'>{errors.date?.message}</p>
                         </div>
@@ -188,7 +171,6 @@ function CreateFlowsForm({ handlepopupClose, }) {
                     <label className='text-start'>Category</label>
                     <select
                         {...register('category')}
-                        onChange={(e) => setCategory(e.target.value)}
                         defaultValue=''
                         className='border bg-transparent text-muted'>
                         <option value='' disabled>--Choose your category--</option>

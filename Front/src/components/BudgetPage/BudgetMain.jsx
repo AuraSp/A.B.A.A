@@ -48,7 +48,7 @@ function BudgetMain() {
                         <div className='fs-3 ps-1 pe-1'>user</div>
                         <span className='fs-3 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
                         {accountpopup &&
-                            <div class="acc-content shadow rounded">
+                            <div className="acc-content shadow rounded">
                                 <p className='text-muted'>Sign out</p>
                             </div>
                         }
