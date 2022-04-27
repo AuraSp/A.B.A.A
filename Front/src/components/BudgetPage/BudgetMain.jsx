@@ -37,10 +37,10 @@ function BudgetMain() {
     return (
         <div className='row d-flex flex-row flex-nowrap'>
             <div className='sidemenu text-warning d-flex flex-column flex-wrap pt-1'>
-                <Link to="/" className='ps-4 mt-3 pt-2 text-decoration-none text-muted fs-5'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>LOGONAME</Link>
-                <div className='ps-4 p-3 mt-5 fs-5'></div>
+                <Link to="/" className='ps-4 mt-3 pt-2 text-decoration-none text-mute'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>LOGONAME</Link>
+                <div className='p-1 mt-5'></div>
                 {/* <Link to="/dashboard" className='ps-4 p-3 mt-5 fs-5 text-decoration-none text-muted' href='#'><span className='text-center text-primary p-1 me-3'><MdOutlineDashboardCustomize /></span>Dashboard</Link> */}
-                <Link to="/budget" className='ps-4 p-3 fs-5 text-decoration-none text-muted' href='#'><span className='text-center text-primary p-1 me-3 text-decoration-none'><AiOutlineTransaction /></span>Activities</Link>
+                <Link to="/budget" className='p-3 text-decoration-none text-muted' href='#'><span className='text-center text-primary p-1 me-3 text-decoration-none'><AiOutlineTransaction /></span>Activities</Link>
             </div>
             <div className='maincontent'>
                 <div className='header'>
@@ -55,7 +55,7 @@ function BudgetMain() {
                         }
                     </div>
                     <div className='ps-5 py-4'>
-                        <h4 className='title m-0 d-block'>Activities</h4>
+                        <h5 className='title m-0 d-block'>Activities</h5>
                     </div>
                 </div>
                 <div className='main pt-3'>
@@ -67,7 +67,7 @@ function BudgetMain() {
                                 className='text-center me-2 pe-2 ps-2 pb-2 pt-2 border border-secondary'><IoFilterOutline className='fs-4 bg-none' /></button> */}
                             <button
                                 onClick={toggleAddPopup}
-                                className='text-light ps-3 pe-3 pt-2 pb-2'>+ Pridėti transakcijas</button>
+                                className='add text-light ps-3 pe-3 pt-2 pb-2'>+ Pridėti transakcijas</button>
                         </div>
                     </div>
                     <div>

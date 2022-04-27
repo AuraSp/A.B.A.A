@@ -75,36 +75,38 @@ body {
 }
 
 .main p {
-    padding: 0 0 0 6em;
+    padding: 0 0 0 5em;
     margin: 0;
-    font-size: 0.9em;
+    font-size: 0.7em;
 }
 
-.main .button button:last-child:hover {
-    background-color: #004ec2;
-}
-
-.main .button button:first-child:hover {
-    background-color: #e6e6e6;
-    color: grey;
-}
-
-.main .button button:first-child {
-    background-color: #f5f5f5;
-    color: #989898;
-    border-radius: 10px;
-    outline: none;
-}
-
-.main .button button:last-child {
+.main .button .add {
     background-color: #0d6efd;
+    font-size: 0.8em;
     border-radius: 10px;
     outline: none;
     border: none;
 }
 
+.main .button .add:hover {
+    background-color: #004ec2;
+}
+
+/*filter*/
+/* .main .button button:first-child:hover {
+    background-color: #e6e6e6;
+    color: grey;
+} */
+
+/* .main .button button:first-child {
+    background-color: #f5f5f5;
+    color: #989898;
+    border-radius: 10px;
+    outline: none;
+} */
+
 .activitiestable {
-    width: 80%;
+    width: 90%;
     height: 100%;
     background-color: whitesmoke;
     border-radius: 20px;
