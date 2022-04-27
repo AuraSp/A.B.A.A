@@ -1,5 +1,6 @@
 table tbody td {
     vertical-align: baseline;
+    width:1000px;
 }
 
 table thead tr {
@@ -20,19 +21,16 @@ table thead tr {
     transition: 700ms all;
 }
 
-.editinputs td select {
+.editinputs td>select {
     text-align: center;
     outline: darkgrey;
     appearance: none;
+    min-width: 100%;
 }
 
 .editinputs td input:focus,
 .editinputs td select:focus {
     background: lightgrey;
-}
-
-tbody.text-center>tr>td {
-    width: 100px;
 }
 
 

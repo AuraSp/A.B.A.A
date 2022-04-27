@@ -118,7 +118,7 @@ function MainTable({ setAllData }) {
             <table className='table table-borderless m-auto'>
                 <thead className='thead text-center'>
                     <tr className='text-secondary'>
-                        <th></th>
+                        <th className='inputsizes'></th>
                         <th>Description</th>
                         <th>Category</th>
                         <th>Date</th>
