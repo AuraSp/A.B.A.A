@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import UserDataCard from './UserDataCard';
 import EditUserDataForm from './EditUserDataForm';
-import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findExpensesAndUpdate, findIncomesAndUpdate } from '../../../api/lib/TransactionsAPI';
+import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
 
 function MainTable({ setAllData }) {
@@ -82,18 +82,19 @@ function MainTable({ setAllData }) {
     }
 
     //---OpenEditForm---//
-    const handleEdit = (e, userId) => {
+    const handleEdit = (e, subId) => {
         e.preventDefault();
-        setId(userId); //Open edit form on choosen transaction type
-        console.log(userId)
+        setId(subId); //Open edit form on choosen transaction type
     };
 
 
     //---HandleEdit---//
-    const submitEdit = async (e, userId, subId) => {
-        e.preventDefault();
-        console.log(userId)
-        await findIncomesAndUpdate(userId, subId)
+    const submitEdit = async (id, subId, data) => {
+        await findIncomesAndUpdate(id, subId, data)
+        getAllUsers()
+        //  await findExpensesAndUpdate(id, subId, data)
+        //  getAllUsers(id)
+        //  setId(id)
     }
 
 
@@ -129,6 +130,7 @@ function MainTable({ setAllData }) {
                                     <EditUserDataForm
                                         key={data._id}
                                         subId={data._id}
+                                        id={"6266dba0a9fa9d50d4af77bb"}
                                         data={data}
                                         onCancel={cancelEdit}
                                         onSubmit={submitEdit}

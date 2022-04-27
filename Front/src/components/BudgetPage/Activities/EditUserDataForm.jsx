@@ -3,16 +3,21 @@ import { MdCancel, MdInventory, MdOutlineCheckBox } from "react-icons/md";
 
 import './activitiesmain.css';
 
-function EditUserDataForm({ editId, data, onCancel, onSubmit }) {
+function EditUserDataForm({ data, id, subId, onCancel, onSubmit }) {
     const [description, setDescription] = useState(data.description)
     const [category, setCategory] = useState(data.category);
     const [date, setDate] = useState(data.date);
-    const [income, setIncome] = useState(data.income);
-    const [expense, setExpense] = useState(data.expense);
+    const [amount, setAmount] = useState(data.amount);
 
     const editFlows = (e) => {
         e.preventDefault();
-        onSubmit(e, description, category, date, income, expense)
+        let dataSet = {
+            description: description,
+            category: category,
+            date: date,
+            amount: amount,
+        };
+        onSubmit(id, subId, dataSet)
     }
 
     return (
@@ -50,9 +55,9 @@ function EditUserDataForm({ editId, data, onCancel, onSubmit }) {
                     <td>
                         <input
                             className='w-75 text-center'
-                            type='text'
+                            type='number'
                             defaultValue={data.amount}
-                            onChange={(e) => setIncome(e.target.value)}>
+                            onChange={(e) => setAmount(e.target.value)}>
                         </input>
                     </td >
                     <td className='fw-bold fs-5'>-</td>
@@ -63,9 +68,9 @@ function EditUserDataForm({ editId, data, onCancel, onSubmit }) {
                     <td>
                         <input
                             className='w-75 text-center'
-                            type='text'
+                            type='number'
                             defaultValue={data.amount}
-                            onChange={(e) => setExpense(e.target.value)}>
+                            onChange={(e) => setAmount(e.target.value)}>
                         </input>
                     </td>
                 </>
