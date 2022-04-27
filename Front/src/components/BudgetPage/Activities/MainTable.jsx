@@ -12,6 +12,7 @@ function MainTable({ setAllData }) {
     const [expenses, setExpenses] = useState([]);
     const [all, setAll] = useState([]);
     const [userId, setId] = useState([]);
+    const [render, setRender] = useState(false)
 
     //---FetchData---//
     useEffect(() => {
@@ -22,7 +23,7 @@ function MainTable({ setAllData }) {
             setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
             setLoading(false);
         });
-    }, []);
+    }, [render]);
 
     useEffect(() => {
         let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
@@ -99,6 +100,7 @@ function MainTable({ setAllData }) {
                 getAllUsers());
             setId()
         }
+        setRender(prevState => !prevState)
     }
 
 
