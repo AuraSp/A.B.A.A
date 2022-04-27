@@ -20,7 +20,7 @@ function Register() {
       <input name='name' type='text' placeholder='name' onChange={(e) => setName(e.target.value)}></input>
       <input name='email' type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)}></input>
       <input name='password' type='password' placeholder='password' onChange={(e) => setPassword(e.target.value)}></input>
-      <button type='submit' value='register'>Register</button>
+      <button type='submit' value='register'>Registracija</button>
     </form>
   )
 }

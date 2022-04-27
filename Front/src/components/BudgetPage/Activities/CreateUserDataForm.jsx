@@ -175,13 +175,13 @@ function CreateFlowsForm({ handlepopupClose, }) {
                             <p className=' p-0 text-danger'>{errors.date?.message}</p>
                         </div>
                     </div>
-                    <label className='text-start'>Kategorija</label>
+                    <label className='text-start'>Kategoriją</label>
                     <select
                         {...register('category')}
                         defaultValue=''
                         onChange={(e) => setCategory(e.target.value)}
                         className='border bg-transparent text-muted'>
-                        <option value='' disabled>--Pasirinkite kategorija--</option>
+                        <option value='' disabled>--Pasirinkite kategoriją--</option>
                         {options.map(item => {
                             return (<option key={item.value} value={item.value}>{item.text}</option>);
                         })}

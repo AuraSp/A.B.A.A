@@ -119,13 +119,13 @@ function MainTable({ setAllData }) {
                 <thead className='thead text-center'>
                     <tr className='text-secondary'>
                         <th></th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Date</th>
-                        <th>Inflows</th>
-                        <th>Outflows</th>
+                        <th>Aprašymas</th>
+                        <th>Kategorija</th>
+                        <th>Data</th>
+                        <th>Pajamos</th>
+                        <th>Išlaidos</th>
                         <th className='text-muted'>
-                            <span>{all.length} Results</span>
+                            <span>{all.length} Rezultatai</span>
                         </th>
                     </tr >
                 </thead >
