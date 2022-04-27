@@ -191,7 +191,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit' id="btn" disabled={ !description || !amount || !date || !category}>Sukūrti
+                                type='submit' id="btn" disabled={ !description || !amount || !date || !category }>Sukūrti
                             </button>
                         </div>
                         <div className='me-4'>
