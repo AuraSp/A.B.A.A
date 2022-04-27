@@ -125,7 +125,7 @@ function MainTable({ setAllData }) {
                         <th>Pajamos</th>
                         <th>Išlaidos</th>
                         <th className='text-muted'>
-                            <span>{all.length} Rezultatai</span>
+                            <span>{all.length} {all.length < 10 ? 'Rezultatai' : 'Rezultatų'}</span>
                         </th>
                     </tr >
                 </thead >
