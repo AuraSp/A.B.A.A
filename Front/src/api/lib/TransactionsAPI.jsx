@@ -27,8 +27,8 @@ export const updateUser = (data) => axiosClient.patch('/', JSON.stringify(data))
 
 
 //User's transactions
-export const deleteIncomeTransactions = (userId, subId) => axiosClient.patch(`/${userId}/income/delete/${subId}`);
-export const deleteExpenseTransactions = (userId, subId) => axiosClient.patch(`/${userId}/expense/delete/${subId}`);
+export async function deleteIncomeTransactions(userId, subId) { await axiosClient.patch(`/${userId}/income/delete/${subId}`) };
+export async function deleteExpenseTransactions(userId, subId) { await axiosClient.patch(`/${userId}/expense/delete/${subId}`) };
 
 export const findIncomesAndUpdate = (id, subId, data) => axiosUser.patch(`/${id}/income/update/${subId}`, JSON.stringify(data));
 export const findExpensesAndUpdate = (id, subId, data) => axiosUser.patch(`/${id}/expense/update/${subId}`, JSON.stringify(data));
