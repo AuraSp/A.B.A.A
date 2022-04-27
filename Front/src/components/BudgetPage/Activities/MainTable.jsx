@@ -89,16 +89,13 @@ function MainTable({ setAllData }) {
 
 
     //---HandleEdit---//
-    const submitEdit = async (id, subId, data, defaultData) => {
-        if (defaultData.type === 'income') {
-            await findIncomesAndUpdate(id, subId, data).then(() =>
-                getAllUsers());
-            setId()
-        } else {
-            await findExpensesAndUpdate(id, subId, data).then(() =>
-                getAllUsers());
-            setId()
-        }
+    const submitEdit = async (id, subId, data) => {
+        await findIncomesAndUpdate(id, subId, data).then(() =>
+            getAllUsers());
+        setId()
+        await findExpensesAndUpdate(id, subId, data).then(() =>
+            getAllUsers());
+        setId()
     }
 
 
