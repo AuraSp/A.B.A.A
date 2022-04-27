@@ -32,7 +32,7 @@ function MainTable({ setAllData }) {
 
 
     //---Delete by ID---//
-    const handleDelete = async (e, data, subId) => {
+    const handleDelete = (e, data, subId) => {
         e.preventDefault();
         if (data.type === 'income') {
             console.log(data.type) //Check type
@@ -51,11 +51,11 @@ function MainTable({ setAllData }) {
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
+                        deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database
                     } else if (result.isDenied) {
                         Swal.close()
                     }
                 })
-            await deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database
         } else {
             console.log(data.type) //Check type
             Swal
@@ -73,11 +73,11 @@ function MainTable({ setAllData }) {
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
+                        deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
                     } else if (result.isDenied) {
                         Swal.close()
                     }
                 })
-            await deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
         }
     }
 
@@ -89,19 +89,23 @@ function MainTable({ setAllData }) {
 
 
     //---HandleEdit---//
-    const submitEdit = async (id, subId, data) => {
-        await findIncomesAndUpdate(id, subId, data)
-        getAllUsers()
-        //  await findExpensesAndUpdate(id, subId, data)
-        //  getAllUsers(id)
-        //  setId(id)
+    const submitEdit = async (id, subId, data, defaultData) => {
+        if (defaultData.type === 'income') {
+            await findIncomesAndUpdate(id, subId, data).then(() =>
+                getAllUsers());
+            setId()
+        } else {
+            await findExpensesAndUpdate(id, subId, data).then(() =>
+                getAllUsers());
+            setId()
+        }
     }
 
 
     //---CancelEdit---//
     function cancelEdit() {
-        setId('')
-        console.log('canceling')
+        setId('');
+        console.log('canceling');
     }
 
     return (
@@ -131,7 +135,7 @@ function MainTable({ setAllData }) {
                                         key={data._id}
                                         subId={data._id}
                                         id={"6266dba0a9fa9d50d4af77bb"}
-                                        data={data}
+                                        defaultData={data}
                                         onCancel={cancelEdit}
                                         onSubmit={submitEdit}
                                     />
