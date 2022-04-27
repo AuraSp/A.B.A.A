@@ -150,7 +150,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder='Pavyzdys: Netflix abonementas ar Amazon užsakymas'
                         className='border' />
-                    <p className='p-0 text-danger'>{errors.description?.message}</p>
+                    <p className='error p-0 text-danger'>{errors.description?.message}</p>
                     <div className='info d-flex flex-row my-4'>
                         <div className='amountblock d-flex flex-column'>
                             <label className='text-start'>Suma</label>
@@ -160,7 +160,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                                 onChange={(e) => setAmount(e.target.value)}
                                 placeholder='35.00'
                                 className='border' />
-                            <p className='p-0 text-danger'>{errors.amount?.message}</p>
+                            <p className=' p-0 text-danger'>{errors.amount?.message}</p>
                         </div>
                         <div className='dateblock d-flex flex-column'>
                             <label className='text-start'>Data</label>
@@ -172,7 +172,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                                 max='2030-01-01'
                                 pattern="[0-9]{4}-[0-9]{2}"
                                 className='border' ></input>
-                            <p className='p-0 text-danger'>{errors.date?.message}</p>
+                            <p className=' p-0 text-danger'>{errors.date?.message}</p>
                         </div>
                     </div>
                     <label className='text-start'>Kategorija</label>
@@ -186,7 +186,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                             return (<option key={item.value} value={item.value}>{item.text}</option>);
                         })}
                     </select>
-                    <p className='p-0 text-danger'>{errors.category?.message}</p>
+                    <p className=' p-0 text-danger'>{errors.category?.message}</p>
                     <div className='formfooter d-flex flex-row flex-wrap mt-5'>
                         <div className='me-4'>
                             <button

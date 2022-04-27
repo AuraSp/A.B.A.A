@@ -113,7 +113,7 @@ function MainTable({ setAllData }) {
 
     return (
         <>{all.length === 0 ? (
-            <p className='fs-5 text-center'>You have no transactions added</p>
+            <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
         ) : (
             <table className='table table-borderless m-auto'>
                 <thead className='thead text-center'>
@@ -154,7 +154,7 @@ function MainTable({ setAllData }) {
                                 )}
                             </React.Fragment>
                         ))
-                        : <tr><td className='loader'>Loading...</td></tr>
+                        : <tr><td className='loader'>Laukiama...</td></tr>
                     }
                 </tbody>
             </table >
