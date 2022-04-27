@@ -16,6 +16,10 @@ function CreateFlowsForm({ handlepopupClose, }) {
     const [incomes, setIncomes] = useState(false);
     const [expenses, setExpenses] = useState(false);
     const [userId, setId] = useState([]);
+    const [description, setDescription] = useState("");
+    const [amount, setAmount] = useState("");
+    const [date, setDate] = useState("");
+    const [category, setCategory] = useState("");
 
     useEffect(() => {
         getAllUsers().then((res) => {
@@ -143,6 +147,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                     <input
                         {...register('description')}
                         type='text'
+                        onChange={(e) => setDescription(e.target.value)}
                         placeholder='Pavyzdys: Netflix abonementas ar Amazon užsakymas'
                         className='border' />
                     <p className='p-0 text-danger'>{errors.description?.message}</p>
@@ -152,6 +157,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                             <input
                                 {...register('amount')}
                                 type='string'
+                                onChange={(e) => setAmount(e.target.value)}
                                 placeholder='35.00'
                                 className='border' />
                             <p className='p-0 text-danger'>{errors.amount?.message}</p>
@@ -161,6 +167,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                             <input
                                 {...register('date')}
                                 type='date'
+                                onChange={(e) => setDate(e.target.value)}
                                 min='1990-01-01'
                                 max='2030-01-01'
                                 pattern="[0-9]{4}-[0-9]{2}"
@@ -172,6 +179,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                     <select
                         {...register('category')}
                         defaultValue=''
+                        onChange={(e) => setCategory(e.target.value)}
                         className='border bg-transparent text-muted'>
                         <option value='' disabled>--Pasirinkite kategorija--</option>
                         {options.map(item => {
@@ -183,7 +191,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit'>Sukūrti
+                                type='submit' id="btn" disabled={ !description || !amount || !date || !category}>Sukūrti
                             </button>
                         </div>
                         <div className='me-4'>
@@ -195,7 +203,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                         </div>
                     </div>
                 </form>
-            </div >
+            </div>
         </div >
     )
 }
