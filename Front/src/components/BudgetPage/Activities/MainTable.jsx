@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import UserDataCard from './UserDataCard';
 import EditUserDataForm from './EditUserDataForm';
-import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers } from '../../../api/lib/TransactionsAPI';
+import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findExpensesAndUpdate, findIncomesAndUpdate } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
 
 function MainTable({ setAllData }) {
@@ -90,9 +90,10 @@ function MainTable({ setAllData }) {
 
 
     //---HandleEdit---//
-    const submitEdit = (e, userId, subId) => {
+    const submitEdit = async (e, userId, subId) => {
         e.preventDefault();
         console.log(userId)
+        await findIncomesAndUpdate(userId, subId)
     }
 
 
