@@ -69,12 +69,13 @@ function BudgetMain() {
                                 className='text-light ps-3 pe-3 pt-2 pb-2'>+ Add Transaction</button>
                         </div>
                     </div>
-                    <div>{filterpopup &&
-                        <SortTable
-                            handlefilterpopupClose={toggleFilterPopup
-                            }
-                        />
-                    }</div>
+                    <div>
+                        {filterpopup &&
+                            <SortTable
+                                handlefilterpopupClose={toggleFilterPopup
+                                }
+                            />
+                        }</div>
                     <div className='activitiestable border border-1 border-muted mx-auto my-4 p-5 shadow'>
                         <MainTable
                             setAllData={setAllData}
