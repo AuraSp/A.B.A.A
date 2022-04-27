@@ -72,11 +72,11 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                             onChange={(e) => setAmount(e.target.value)}>
                         </input>
                     </td >
-                    <td className='fw-bold fs-5'>-</td>
+                    <td>-</td>
                 </>
             ) : (
                 <>
-                    <td className='fw-bold fs-5'>-</td>
+                    <td>-</td>
                     <td>
                         <input
                             className='w-75 text-center'
