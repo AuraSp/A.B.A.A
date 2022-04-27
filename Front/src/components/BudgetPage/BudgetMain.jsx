@@ -48,7 +48,7 @@ function BudgetMain() {
                         <div className='fs-3 ps-1 pe-1'>user</div>
                         <span className='fs-3 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
                         {accountpopup &&
-                            <div class="acc-content shadow rounded">
+                            <div className="acc-content shadow rounded">
                                 <p className='text-muted'>Sign out</p>
                             </div>
                         }
@@ -69,12 +69,13 @@ function BudgetMain() {
                                 className='text-light ps-3 pe-3 pt-2 pb-2'>+ Add Transaction</button>
                         </div>
                     </div>
-                    <div>{filterpopup &&
-                        <SortTable
-                            handlefilterpopupClose={toggleFilterPopup
-                            }
-                        />
-                    }</div>
+                    <div>
+                        {filterpopup &&
+                            <SortTable
+                                handlefilterpopupClose={toggleFilterPopup
+                                }
+                            />
+                        }</div>
                     <div className='activitiestable border border-1 border-muted mx-auto my-4 p-5 shadow'>
                         <MainTable
                             setAllData={setAllData}

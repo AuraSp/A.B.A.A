@@ -127,19 +127,19 @@ body {
 .formblock {
     background: #fff;
     position: relative;
-    width: 38em;
-    height: 68vh;
+    width: 36em;
+    height: auto;
     border-radius: 10px;
 }
 
 
 .formblock .formtitle span:first-child,
 .formblock .formtitle span:last-child {
-    width: 6%;
+    width: 8%;
 }
 
 .formblock .formtitle h4 {
-    width: 90%;
+    width: 92%;
 }
 
 .formblock .formtitle span:last-child {
@@ -147,25 +147,30 @@ body {
     font-size: 1.5em;
 }
 
-.formtitle span:first-child {
+.formtitle div {
+    padding-left: 0.1em;
+    padding-right: 0.1em;
     position: relative;
 }
 
-.formtitle span:first-child:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 50%;
-    background: #8080802f;
-    transform: scale(2.1, 2.1);
+.formtitle div:first-child svg {
+    width: 90%;
+    height: auto;
+    font-weight: 900;
+    font-size: 1.4em;
+    padding-bottom: 0.1em;
 }
 
-.formtitle span:first-child svg {
-    width: 100%;
-    height: auto;
+
+.formtitle div:first-child:before {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    right: -58%;
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    background: #8080802f;
 }
 
 .outflowbtn,
@@ -224,5 +229,29 @@ select {
 }
 
 .formfooter {
-    height: 10vh;
+    height: 8vh;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    align-items: center;
+    justify-content: end;
+}
+
+div.me-4:nth-child(1)>button:nth-child(1) {
+    background-color: #0d6efd;
+    transition: 500ms linear;
+    font-size: 1.1em;
+}
+
+div.me-4:nth-child(1)>button:nth-child(1):hover {
+    background-color: #004ec2;
+}
+
+div.me-4:nth-child(2)>button:nth-child(1) {
+    background-color: #d6d6d6d2;
+    transition: 500ms linear;
+    font-size: 1.1em;
+}
+
+div.me-4:nth-child(2)>button:nth-child(1):hover {
+    background-color: #c5c5c5d2;
 }
