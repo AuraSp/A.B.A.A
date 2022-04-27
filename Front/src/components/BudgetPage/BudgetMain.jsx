@@ -37,10 +37,10 @@ function BudgetMain() {
     return (
         <div className='row d-flex flex-row flex-nowrap'>
             <div className='sidemenu text-warning d-flex flex-column flex-wrap pt-1'>
-                <Link to="/" className='ps-4 mt-3 pt-2 text-decoration-none text-mute'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>LOGONAME</Link>
+                <Link to="/" className='ps-4 mt-3 pt-2 text-decoration-none text-mute'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>BudgetSimple</Link>
                 <div className='p-1 mt-5'></div>
                 {/* <Link to="/dashboard" className='ps-4 p-3 mt-5 fs-5 text-decoration-none text-muted' href='#'><span className='text-center text-primary p-1 me-3'><MdOutlineDashboardCustomize /></span>Dashboard</Link> */}
-                <Link to="/budget" className='p-3 text-decoration-none text-muted' href='#'><span className='text-center text-primary p-1 me-3 text-decoration-none'><AiOutlineTransaction /></span>Activities</Link>
+                <Link to="/budget" className='p-3 text-decoration-none text-muted' href='#'><span className='text-center text-primary p-1 me-3 text-decoration-none'><AiOutlineTransaction /></span>Veikla</Link>
             </div>
             <div className='maincontent'>
                 <div className='header'>
@@ -50,17 +50,17 @@ function BudgetMain() {
                         {/* <span className='fs-3 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span> */}
                         {accountpopup &&
                             <div className="acc-content shadow rounded">
-                                <p className='text-muted'>Sign out</p>
+                                <p className='text-muted'>Atsijungti</p>
                             </div>
                         }
                     </div>
                     <div className='ps-5 py-4'>
-                        <h5 className='title m-0 d-block'>Activities</h5>
+                        <h5 className='title m-0 d-block'>Veikla</h5>
                     </div>
                 </div>
                 <div className='main pt-3'>
                     <div className='ps-3 text-muted d-flex flex-row'>
-                        <p className='w-50'>Here you can add transactions into your account. Transactions include payments, paychecks etc. Every transaction is either incoming (inflow) or outgoing (outflow) and must have description, the category of the budget you would like to assign it to, date and amount</p>
+                        <p className='w-50'>Čia galite atlikti tam tikras sąskaitos operacijas. Sandoriai apima mokėjimus, darbo užmokesčių suvestines ir t.t. Kiekviena operacija yra gaunama (įplauka) arba siunčiama (ištaka) ir turi turėti aprašymą, biudžeto kategoriją, kurią norite priskirti, datą ir sumą.</p>
                         <div className='button ps-5 pt-4 w-50 text-center'>
                             {/* <button
                                 onClick={toggleFilterPopup}

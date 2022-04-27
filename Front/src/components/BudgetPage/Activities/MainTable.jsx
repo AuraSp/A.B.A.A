@@ -118,14 +118,14 @@ function MainTable({ setAllData }) {
             <table className='table table-borderless m-auto'>
                 <thead className='thead text-center'>
                     <tr className='text-secondary'>
-                        <th className='inputsizes'></th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Date</th>
-                        <th>Inflows</th>
-                        <th>Outflows</th>
+                        <th></th>
+                        <th>Aprašymas</th>
+                        <th>Kategorija</th>
+                        <th>Data</th>
+                        <th>Pajamos</th>
+                        <th>Išlaidos</th>
                         <th className='text-muted'>
-                            <span>{all.length} Results</span>
+                            <span>{all.length} {all.length < 10 ? 'Rezultatai' : 'Rezultatų'}</span>
                         </th>
                     </tr >
                 </thead >
