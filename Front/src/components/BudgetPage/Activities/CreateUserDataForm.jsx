@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { GrTransaction } from "react-icons/gr";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
-import { RiMoneyEuroCircleLine } from "react-icons/ri";
+//import { RiMoneyEuroCircleLine } from "react-icons/ri";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -27,12 +27,11 @@ function CreateFlowsForm({ handlepopupClose, }) {
     const budgetSchema = yup.object().shape({
         description: yup
             .string()
-            .min(3, 'Must be at least 3 letters')
-            .max(30, 'Must be less than 12 letters')
+            .min(2, 'Galimas minimalus 2-ties raidžių kiekis')
+            .max(30, 'Galimas maksimalus 30-ties raidžių kiekis')
             .nullable(false)
-            .typeError('Invalid Input: Must be letters')
             .strict()
-            .required('Must enter description'),
+            .required(),
         amount: yup
             .string()
             .nullable(false)
@@ -164,7 +163,8 @@ function CreateFlowsForm({ handlepopupClose, }) {
                                 type='date'
                                 min='1990-01-01'
                                 max='2030-01-01'
-                                className='border' />
+                                required pattern="[0-9]{4}-[0-9]{2}"
+                                className='border' ></input>
                             <p className='p-0 text-danger'>{errors.date?.message}</p>
                         </div>
                     </div>
