@@ -19,6 +19,18 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
         onSubmit(id, subId, dataSet, defaultData)
     }
 
+    const options = [
+        { value: 'Withdrawals', text: 'Cash Withdrawals' },
+        { value: 'Clothes', text: 'Clothes/Shoes' },
+        { value: 'Food', text: 'Food/Drinks' },
+        { value: 'Electronics', text: 'Electronics' },
+        { value: 'Gifts', text: 'Gifts' },
+        { value: 'Home Maintenance', text: 'Home Maintenance' },
+        { value: 'Bills', text: 'Bills/Taxes' },
+        { value: 'Rent', text: 'House Rent' },
+        { value: 'Savings', text: 'Savings' }
+    ]
+
     return (
         <tr className='editinputs text-center'>
             <td className='fs-5 cardicons'><MdInventory className={defaultData.type === 'income' ? 'bg-primary p-1 fs-3 text-warning' : 'bg-danger p-1 fs-3 text-warning'} /></td>
@@ -37,8 +49,9 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                     onChange={(e) => setCategory(e.target.value)}
                 >
                     <option value={defaultData.category}>{defaultData.category}</option>
-                    <option value='Food'>Food</option>
-                    <option value='Rent'>Rent</option>
+                    {options.map(item => {
+                        return (<option key={item.value} value={item.value}>{item.text}</option>);
+                    })}
                 </select>
             </td>
             <td>

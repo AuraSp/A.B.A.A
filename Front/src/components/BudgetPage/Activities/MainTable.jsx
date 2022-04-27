@@ -11,18 +11,21 @@ function MainTable({ setAllData }) {
     const [incomes, setIncomes] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [all, setAll] = useState([]);
+    const [editId, setEditId] = useState([]);
     const [userId, setId] = useState([]);
+    const [render, setRender] = useState(false);
 
     //---FetchData---//
     useEffect(() => {
         getAllUsers().then((res) => {
             const userdata = res.data.data.transactions; //Fetch all existing data from database
-            setId(...userdata.map((data) => data._id)); //Take User Id
+            setEditId(...userdata.map((data) => data._id)); //Take User Id
+            setId(...userdata.map((data) => data._id));
             setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
             setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
             setLoading(false);
         });
-    }, []);
+    }, [render]);
 
     useEffect(() => {
         let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
@@ -84,24 +87,27 @@ function MainTable({ setAllData }) {
     //---OpenEditForm---//
     const handleEdit = (e, subId) => {
         e.preventDefault();
-        setId(subId); //Open edit form on choosen transaction type
+        setEditId(subId); //Open edit form on choosen transaction type
     };
 
 
     //---HandleEdit---//
     const submitEdit = async (id, subId, data) => {
+        console.log(id, subId, data)
         await findIncomesAndUpdate(id, subId, data).then(() =>
             getAllUsers());
-        setId()
+        setEditId()
         await findExpensesAndUpdate(id, subId, data).then(() =>
             getAllUsers());
-        setId()
+        setEditId()
+
+        setRender(prevState => !prevState)
     }
 
 
     //---CancelEdit---//
     function cancelEdit() {
-        setId('');
+        setEditId('');
         console.log('canceling');
     }
 
@@ -125,27 +131,28 @@ function MainTable({ setAllData }) {
                 </thead >
                 <tbody className='text-center'>
                     {!loading ?
-                        all.map((data) => (
-                            <>
-                                {userId === data._id ? (
+                        all.map((filterData) => (
+
+                            <React.Fragment key={filterData._id}>
+                                {editId === filterData._id ? (
                                     <EditUserDataForm
-                                        key={data._id}
-                                        subId={data._id}
-                                        id={"6266dba0a9fa9d50d4af77bb"}
-                                        defaultData={data}
+                                        subId={filterData._id}
+                                        id={userId}
+                                        defaultData={filterData}
                                         onCancel={cancelEdit}
                                         onSubmit={submitEdit}
                                     />
                                 ) : (
+
                                     <UserDataCard
-                                        key={data._id}
-                                        subId={data._id}
-                                        data={data}
+                                        subId={filterData._id}
+                                        data={filterData}
                                         onEdit={handleEdit}
                                         onDelete={handleDelete}
                                     />
+
                                 )}
-                            </>
+                            </React.Fragment>
                         ))
                         : <tr><td className='loader'>Loading...</td></tr>
                     }
