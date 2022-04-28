@@ -101,11 +101,9 @@ function MainTable({ setAllData, render, setRender }) {
         console.log(id, subId, data)
         await findIncomesAndUpdate(id, subId, data).then(() =>
             getAllUsers());
-        setEditId()
         await findExpensesAndUpdate(id, subId, data).then(() =>
             getAllUsers());
-        setEditId()
-
+            
         setRender(prevState => !prevState)
     }
 

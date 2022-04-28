@@ -17,8 +17,9 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
     const [userId, setId] = useState([]);
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
-    const [date, setDate] = useState("");
     const [category, setCategory] = useState("");
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed).toISOString().substring(0, 10);
 
     useEffect(() => {
         getAllUsers().then((res) => {
@@ -156,7 +157,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                             <input
                                 {...register('amount')}
                                 onChange={(e) => setAmount(e.target.value)}
-                                placeholder='35.00'
+                                placeholder='0.00'
                                 className='border' />
                             <p className=' p-0 text-danger'>{errors.amount?.message}</p>
                         </div>
@@ -165,7 +166,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                             <input
                                 {...register('date')}
                                 type='date'
-                                onChange={(e) => setDate(e.target.value)}
+                                defaultValue={today}
                                 min='1990-01-01'
                                 max='2030-01-01'
                                 pattern="[0-9]{4}-[0-9]{2}"
@@ -189,7 +190,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit' id="btn" disabled={!description || !amount || !date || !category}>Sukūrti
+                                type='submit' id="btn" disabled={!description || !amount || !category}>Sukūrti
                             </button>
                         </div>
                         <div className='me-4'>

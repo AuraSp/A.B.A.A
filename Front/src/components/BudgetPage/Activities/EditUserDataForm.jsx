@@ -25,11 +25,11 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
     const options = [
         { value: 'Išsiėmimas', text: 'Pinigų išsiėmimas' },
         { value: 'Drabužiai', text: 'Rūbai/Batai' },
-        { value: 'Maistas', text: 'Maistas/Gėrimai' },
+        { value: 'Maistas/Gėrimai', text: 'Maistas/Gėrimai' },
         { value: 'Elektronika', text: 'Elektronika' },
         { value: 'Dovanos', text: 'Dovanos' },
         { value: 'Namų priežiūra', text: 'Namų priežiūra' },
-        { value: 'Sąskaitos', text: 'Sąskaitos/Mokesčiai' },
+        { value: 'Sąskaitos/Mokesčiai', text: 'Sąskaitos/Mokesčiai' },
         { value: 'Nuoma', text: 'Namo nuoma' },
         { value: 'Santaupos', text: 'Santaupos' }
     ]
