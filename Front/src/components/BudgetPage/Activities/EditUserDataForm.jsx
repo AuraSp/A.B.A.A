@@ -45,14 +45,19 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^[1-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
+            .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .strict()
             .required(),
         date: yup
             .date()
             .nullable(false)
             .min(new Date(1989, 12, 31), 'Data negali būti senesnė nei 1989 metų')
-            .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos")
+            .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos"),
+        category: yup
+            .string()
+            .nullable(false)
+            .strict()
+            .required('Pasirinkimas privalomas!')
     })
 
 
@@ -83,6 +88,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                 </td>
                 <td>
                     <select
+                     {...register('category')}
                         className='w-75 text-center'
                         onChange={(e) => setCategory(e.target.value)}
                     >
