@@ -19,7 +19,6 @@ function UserDataCard({ subId, data, onEdit, onDelete }) {
                 <button onClick={(e) => onEdit(e, subId)} className='btn border-0 me-1'><AiFillEdit /></button>
             </td>
         </tr >
-
     )
 }
 
