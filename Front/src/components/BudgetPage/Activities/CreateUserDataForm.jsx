@@ -17,7 +17,6 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
     const [userId, setId] = useState([]);
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
-    const [date, setDate] = useState("");
     const [category, setCategory] = useState("");
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
@@ -43,18 +42,16 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
             .matches(/^[1-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .strict()
             .required(),
+            category: yup
+            .string()
+            .nullable(false)
+            .strict()
+            .required('Pasirinkimas privalomas!'),
         date: yup
             .date()
             .nullable(false)
             .min(new Date(1989, 10, 10))
             .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos")
-            .typeError('Data privaloma!')
-            .required(),
-        category: yup
-            .string()
-            .nullable(false)
-            .strict()
-            .required('Pasirinkimas privalomas!')
     })
 
     const {
@@ -168,7 +165,6 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                                 {...register('date')}
                                 type='date'
                                 defaultValue={today}
-                                 onChange={(e) => setDate(e.target.value)}
                                 min='1990-01-01'
                                 max='2030-01-01'
                                 pattern="[0-9]{4}-[0-9]{2}"
@@ -192,7 +188,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit' id="btn" disabled={!description || !amount || !date || !category}>Sukūrti
+                                type='submit' id="btn" disabled={!description || !amount || !category}>Sukūrti
                             </button>
                         </div>
                         <div className='me-4'>
