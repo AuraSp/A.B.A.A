@@ -5,7 +5,7 @@ import EditUserDataForm from './EditUserDataForm';
 import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
 
-function MainTable({ setAllData }) {
+function MainTable({ setAllData, render, setRender }) {
 
     const [loading, setLoading] = useState(true);
     const [incomes, setIncomes] = useState([]);
@@ -13,7 +13,6 @@ function MainTable({ setAllData }) {
     const [all, setAll] = useState([]);
     const [editId, setEditId] = useState([]);
     const [userId, setId] = useState([]);
-    const [render, setRender] = useState(false);
 
     //---FetchData---//
     useEffect(() => {
@@ -41,16 +40,17 @@ function MainTable({ setAllData }) {
             console.log(data.type) //Check type
             Swal
                 .fire({
-                    title: 'Are you sure?',
-                    text: 'This data will be lost forever',
+                    title: 'Ar tikrai norite pašalinti?',
+                    text: 'Šio išrašo informacija bus prarasta negražinamai',
                     icon: 'question',
                     showCancelButton: true,
-                    confirmButtonText: 'Delete',
+                    cancelButtonText: 'Atšaukti',
+                    confirmButtonText: 'Panaikinti',
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
                         Swal
-                            .fire('Your income has been removed succesfully!', '', 'success')
+                            .fire('Jūsų pajamų išrašas sėkmingai pašalintas!', '', 'success')
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
@@ -63,16 +63,21 @@ function MainTable({ setAllData }) {
             console.log(data.type) //Check type
             Swal
                 .fire({
-                    title: 'Are you sure?',
-                    text: 'This data will be lost forever',
+                    title: 'Ar tikrai norite pašalinti?',
+                    text: 'Šio išrašo informacija bus prarasta negražinamai',
                     icon: 'question',
                     showCancelButton: true,
-                    confirmButtonText: 'Delete',
+                    cancelButtonText: 'Atšaukti',
+                    confirmButtonText: 'Panaikinti',
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
                         Swal
-                            .fire('Your expense has been removed succesfully!', '', 'success')
+                            .fire({
+                                title: 'Jūsų išlaidų išrašas sėkmingai pašalintas!',
+                                icon: 'success',
+                                confirmButtonText: 'Puiku!'
+                            })
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
@@ -134,6 +139,7 @@ function MainTable({ setAllData }) {
                         all.map((filterData) => (
 
                             <React.Fragment key={filterData._id}>
+
                                 {editId === filterData._id ? (
                                     <EditUserDataForm
                                         subId={filterData._id}
@@ -143,7 +149,6 @@ function MainTable({ setAllData }) {
                                         onSubmit={submitEdit}
                                     />
                                 ) : (
-
                                     <UserDataCard
                                         subId={filterData._id}
                                         data={filterData}
@@ -152,6 +157,7 @@ function MainTable({ setAllData }) {
                                     />
 
                                 )}
+
                             </React.Fragment>
                         ))
                         : <tr><td className='loader'>Laukiama...</td></tr>

@@ -39,9 +39,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                     className='w-75 text-center'
                     type='text'
                     defaultValue={defaultData.description}
-                    onChange={(e) => setDescription(e.target.value)}
-                >
-                </input>
+                />
             </td>
             <td>
                 <select
@@ -90,7 +88,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             }
             < td className='editbuttons' >
                 <button onClick={() => onCancel()} className='btn btn-danger border-0 me-1'><MdCancel /></button>
-                <button onClick={(e) => editFlows(e)} className='btn btn-secondary border-0 me-1'><MdOutlineCheckBox /></button>
+                <button onClick={() => editFlows()} className='btn btn-secondary border-0 me-1' type='submit'><MdOutlineCheckBox /></button>
             </td >
         </tr >
     )

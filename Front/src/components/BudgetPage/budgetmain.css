@@ -74,7 +74,7 @@ body {
     padding: 0 5em 0 5em;
 }
 
-.main p {
+.main p:first-child {
     padding: 0 0 0 5em;
     margin: 0;
     font-size: 0.7em;

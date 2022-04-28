@@ -10,8 +10,7 @@ import * as yup from "yup";
 import '../budgetmain.css';
 import { getAllUsers, addNewIncome, addNewExpense } from '../../../api/lib/TransactionsAPI';
 
-function CreateFlowsForm({ handlepopupClose, }) {
-
+function CreateFlowsForm({ handlepopupClose, render, setRender }) {
 
     const [incomes, setIncomes] = useState(false);
     const [expenses, setExpenses] = useState(false);
@@ -66,7 +65,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
 
     //Duomenų siuntimas į duombazę
     const onSubmit = async (data) => {
-        if (incomes) {
+        if (incomes) { // if choosen incomes type button
 
             Swal.fire({
                 title: 'Išrašas sėkmingas!',
@@ -75,11 +74,10 @@ function CreateFlowsForm({ handlepopupClose, }) {
                 confirmButtonText: 'Puiku!'
             });
 
-            await addNewIncome(data, userId);
-
-            handlepopupClose(false);
-            reset('')
-        } else if (expenses) {
+            await addNewIncome(data, userId).then(setRender(!render)); //send data into database(depending on current UserId)
+            handlepopupClose(false); //close create-pop-up after submit
+            reset(''); //reset input values
+        } else if (expenses) { // if choosen incomes type button
 
             Swal.fire({
                 title: 'Išrašas sėkmingas!',
@@ -88,10 +86,10 @@ function CreateFlowsForm({ handlepopupClose, }) {
                 confirmButtonText: 'Puiku!'
             })
 
-            await addNewExpense(data, userId);
+            await addNewExpense(data, userId).then(setRender(!render)); //send data into database(depending on current UserId)
 
-            handlepopupClose(false);
-            reset('')
+            handlepopupClose(false); //close create-pop-up after submit
+            reset(''); //reset input values
         } else {
 
             Swal.fire({
@@ -191,7 +189,7 @@ function CreateFlowsForm({ handlepopupClose, }) {
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit' id="btn" disabled={ !description || !amount || !date || !category }>Sukūrti
+                                type='submit' id="btn" disabled={!description || !amount || !date || !category}>Sukūrti
                             </button>
                         </div>
                         <div className='me-4'>
