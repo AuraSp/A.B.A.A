@@ -137,7 +137,7 @@ function MainTable({ setAllData, render, setRender }) {
                             <th>Pajamos</th>
                             <th>Išlaidos</th>
                             <th className='text-muted'>
-                                <span>{all.length} {all.length < 10 ? 'Rezultatai' : 'Rezultatų'}</span>
+                                <span>{all.length} {all.length < 10 && all.length > 1 ? 'Rezultatai' : all.length === 1 ? 'Rezultatas' : 'Rezultatų'}</span>
                             </th>
                         </tr >
                     </thead >
