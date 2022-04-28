@@ -38,7 +38,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^[1-9]\d*(((.\d{2}){1})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
+            .matches(/^[1-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .strict()
             .required(),
         date: yup
@@ -125,6 +125,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
         { value: 'Santaupos', text: 'Santaupos' }
     ]
 
+    let today = new Date().toISOString().substr(0, 10);
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
             <div className='formblock p-4'>
@@ -165,7 +166,8 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                             <input
                                 {...register('date')}
                                 type='date'
-                                onChange={(e) => setDate(e.target.value)}
+                                defaultValue={today}
+                                 onChange={(e) => setDate(e.target.value)}
                                 min='1990-01-01'
                                 max='2030-01-01'
                                 pattern="[0-9]{4}-[0-9]{2}"
@@ -201,7 +203,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                         </div>
                     </div>
                 </form>
-            </div>
+            </div >
         </div >
     )
 }

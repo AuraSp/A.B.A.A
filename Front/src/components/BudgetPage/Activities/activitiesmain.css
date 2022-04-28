@@ -9,6 +9,10 @@ table thead tr {
     border-bottom: 1px solid lightgrey;
 }
 
+tbody.text-center>tr:nth-child(1)>td:nth-child(3) {
+    min-width: 18%;
+}
+
 .cardicons svg {
     border-radius: 50%;
 }
@@ -31,7 +35,6 @@ table thead tr {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    min-width: 60%;
 }
 
 .editinputs>td:nth-child(4) {

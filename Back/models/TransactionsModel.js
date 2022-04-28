@@ -6,7 +6,7 @@ SALT_WORK_FACTOR = 10;
 // DB schema
 
 const Date = {
-  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
+  timestamps: { currentTime: () => new Date() },
 };
 
 const IncomesSchema = mongoose.Schema(

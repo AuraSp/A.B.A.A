@@ -45,7 +45,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^[1-9]\d*(((.\d{2}){1})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
+            .matches(/^[1-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .strict()
             .required(),
         date: yup
@@ -59,7 +59,6 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors }
     } = useForm({
         resolver: yupResolver(budgetSchema)
