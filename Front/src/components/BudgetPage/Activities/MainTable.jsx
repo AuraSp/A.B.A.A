@@ -120,50 +120,60 @@ function MainTable({ setAllData, render, setRender }) {
         <>{all.length === 0 ? (
             <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
         ) : (
-            <table className='table table-borderless m-auto'>
-                <thead className='thead text-center'>
-                    <tr className='text-secondary'>
-                        <th></th>
-                        <th>Aprašymas</th>
-                        <th>Kategorija</th>
-                        <th>Data</th>
-                        <th>Pajamos</th>
-                        <th>Išlaidos</th>
-                        <th className='text-muted'>
-                            <span>{all.length} {all.length < 10 ? 'Rezultatai' : 'Rezultatų'}</span>
-                        </th>
-                    </tr >
-                </thead >
-                <tbody className='text-center'>
-                    {!loading ?
-                        all.map((filterData) => (
+            <>
+                <div className='main-exp text-dark text-end'>
+                    <div>
+                        <p className='exp text-secondary'>Pajamos</p>
+                    </div>
+                    <div>
+                        <p className='exp text-secondary'>Išlaidos</p>
+                    </div>
+                </div>
+                <table className='table table-borderless m-auto'>
+                    <thead className='thead text-center'>
+                        <tr className='text-secondary'>
+                            <th></th>
+                            <th>Aprašymas</th>
+                            <th>Kategorija</th>
+                            <th>Data</th>
+                            <th>Pajamos</th>
+                            <th>Išlaidos</th>
+                            <th className='text-muted'>
+                                <span>{all.length} {all.length < 10 ? 'Rezultatai' : 'Rezultatų'}</span>
+                            </th>
+                        </tr >
+                    </thead >
+                    <tbody className='text-center'>
+                        {!loading ?
+                            all.map((filterData) => (
 
-                            <React.Fragment key={filterData._id}>
+                                <React.Fragment key={filterData._id}>
 
-                                {editId === filterData._id ? (
-                                    <EditUserDataForm
-                                        subId={filterData._id}
-                                        id={userId}
-                                        defaultData={filterData}
-                                        onCancel={cancelEdit}
-                                        onSubmit={submitEdit}
-                                    />
-                                ) : (
-                                    <UserDataCard
-                                        subId={filterData._id}
-                                        data={filterData}
-                                        onEdit={handleEdit}
-                                        onDelete={handleDelete}
-                                    />
+                                    {editId === filterData._id ? (
+                                        <EditUserDataForm
+                                            subId={filterData._id}
+                                            id={userId}
+                                            defaultData={filterData}
+                                            onCancel={cancelEdit}
+                                            onSubmit={submitEdit}
+                                        />
+                                    ) : (
+                                        <UserDataCard
+                                            subId={filterData._id}
+                                            data={filterData}
+                                            onEdit={handleEdit}
+                                            onDelete={handleDelete}
+                                        />
 
-                                )}
+                                    )}
 
-                            </React.Fragment>
-                        ))
-                        : <tr><td className='loader'>Laukiama...</td></tr>
-                    }
-                </tbody>
-            </table >
+                                </React.Fragment>
+                            ))
+                            : <tr><td className='loader'>Laukiama...</td></tr>
+                        }
+                    </tbody>
+                </table >
+            </>
         )
         }
         </>

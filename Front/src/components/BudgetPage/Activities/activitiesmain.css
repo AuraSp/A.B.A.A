@@ -1,6 +1,8 @@
 table tbody td {
     vertical-align: baseline;
     width: 1000px;
+    padding: 0.1em;
+    position: relative;
 }
 
 table thead tr {
@@ -18,23 +20,28 @@ table thead tr {
     background-color: transparent;
     border-radius: 15px;
     outline: darkgrey;
-    transition: 700ms all;
+    -webkit-transition: 700ms all;
+    -o-transition: 700ms all;
+    padding: 0.1em;
 }
 
 .editinputs td>select {
     text-align: center;
     outline: darkgrey;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
-    min-width: 80%;
+    min-width: 60%;
 }
 
-.date {
-    min-width: 15%;
+.editinputs>td:nth-child(4) {
+    max-width: 50px;
 }
 
 .editinputs td>input[type=date] {
     -webkit-appearance: none;
-    font-size: 0.9em;
+    font-size: 1em;
+    color: #000;
 }
 
 .editinputs td input:focus,
@@ -75,20 +82,86 @@ table thead tr {
     position: relative;
 }
 
-.error1, .error2, .error3, .error4 {
+.error1,
+.error2,
+.error3,
+.error4 {
     position: absolute;
-    width: 13em;
+    width: 12em;
     height: 7em;
     font-size: 1em;
-    color: #000;
+    color: rgb(98, 0, 0);
     background-color: #ebebeb;
     text-align: center;
     display: block;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+    font-weight: 500;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
 }
 
-.error1, .error3, .error4 {
-    left: 0;
+.error1 {
+    left: 1em;
     bottom: -8em;
+}
+
+.error3 {
+    left: 0.8em;
+    bottom: -8em;
+}
+
+.error4 {
+    left: 0.5em;
+    bottom: -8em;
+}
+
+.error1::before,
+.error2::before,
+.error3::before,
+.error4::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -12px;
+    border-width: 12px;
+    border-radius: 2px;
+    border-style: solid;
+    border-color: transparent transparent #c6c6c6 transparent;
+}
+
+.main-exp {
+    position: absolute;
+    display: flex;
+    flex-flow: row nowrap;
+    transform: translate(110vh, -3vh);
+}
+
+.main-exp div {
+    width: 100%;
+    padding-right: 5em;
+}
+
+.main-exp div>.exp {
+    position: relative;
+    font-size: 1em;
+}
+
+.main-exp p:before {
+    content: '';
+    position: absolute;
+    border-radius: 20px;
+    width: 2em;
+    height: 0.4em;
+    top: 0.5em;
+}
+
+.main-exp>div:nth-child(1)>p:nth-child(1):before {
+    background-color: #0d6efd;
+    right: 4em;
+}
+
+.main-exp>div:nth-child(2)>p:nth-child(1):before {
+    background-color: #dc3545;
+    right: 3.6em;
 }

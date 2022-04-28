@@ -38,7 +38,8 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^[1-9]\d*(((.\d{2}){1})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
+            .matches(/^[1-9]\d*(((.\d{2}){1})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
+            .strict()
             .required(),
         date: yup
             .date()
@@ -154,7 +155,6 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                             <label className='text-start'>Suma</label>
                             <input
                                 {...register('amount')}
-                                type='string'
                                 onChange={(e) => setAmount(e.target.value)}
                                 placeholder='35.00'
                                 className='border' />

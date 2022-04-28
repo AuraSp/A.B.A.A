@@ -61,7 +61,7 @@ function BudgetMain() {
                 </div>
                 <div className='main pt-3'>
                     <div className='ps-3 text-muted d-flex flex-row'>
-                        <p className='w-50'>Čia galite atlikti tam tikras sąskaitos operacijas. Sandoriai apima mokėjimus, darbo užmokesčių suvestines ir t.t. Kiekviena operacija yra gaunama (įplauka) arba siunčiama (ištaka) ir turi turėti aprašymą, biudžeto kategoriją, kurią norite priskirti, datą ir sumą.</p>
+                        <p className='firsttext w-50'>Čia galite atlikti tam tikras sąskaitos operacijas. Sandoriai apima mokėjimus, darbo užmokesčių suvestines ir t.t. Kiekviena operacija yra gaunama (įplauka) arba siunčiama (ištaka) ir turi turėti aprašymą, biudžeto kategoriją, kurią norite priskirti, datą ir sumą.</p>
                         <div className='button ps-5 pt-4 w-50 text-center'>
                             {/* <button
                                 onClick={toggleFilterPopup}
