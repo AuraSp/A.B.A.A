@@ -17,6 +17,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
     const [userId, setId] = useState([]);
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
+    const [date, setDate] = useState("");
     const [category, setCategory] = useState("");
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
@@ -126,7 +127,6 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
         { value: 'Santaupos', text: 'Santaupos' }
     ]
 
-    let today = new Date().toISOString().substr(0, 10);
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
             <div className='formblock p-4'>
