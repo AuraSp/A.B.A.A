@@ -31,7 +31,8 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
         { value: 'Namų priežiūra', text: 'Namų priežiūra' },
         { value: 'Sąskaitos/Mokesčiai', text: 'Sąskaitos/Mokesčiai' },
         { value: 'Nuoma', text: 'Namo nuoma' },
-        { value: 'Santaupos', text: 'Santaupos' }
+        { value: 'Santaupos', text: 'Santaupos' },
+        { value: 'Alga', text: 'Alga' }
     ]
 
     const budgetSchema = yup.object().shape({
@@ -88,7 +89,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                 </td>
                 <td>
                     <select
-                     {...register('category')}
+                        {...register('category')}
                         className='w-75 text-center'
                         onChange={(e) => setCategory(e.target.value)}
                     >

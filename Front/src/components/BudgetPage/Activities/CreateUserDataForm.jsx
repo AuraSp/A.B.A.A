@@ -43,16 +43,19 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
             .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .strict()
             .required(),
-            category: yup
+        category: yup
             .string()
             .nullable(false)
             .strict()
             .required('Pasirinkimas privalomas!'),
-        date: yup
-            .date()
-            .nullable(false)
-            .min(new Date(1989, 10, 10))
-            .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos")
+        // date: yup
+        //     .string()
+        //     .nullable(false)
+        //     .min(new Date(1989, 10, 10))
+        //     .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos")
+        //     .matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, 'Data privalo būti ne vėlesnė kaip šios dienos')
+        //     .strict()
+        //     .required()
     })
 
     const {
@@ -122,7 +125,8 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
         { value: 'Namų priežiūra', text: 'Namų priežiūra' },
         { value: 'Sąskaitos/Mokesčiai', text: 'Sąskaitos/Mokesčiai' },
         { value: 'Nuoma', text: 'Namo nuoma' },
-        { value: 'Santaupos', text: 'Santaupos' }
+        { value: 'Santaupos', text: 'Santaupos' },
+        { value: 'Alga', text: 'Alga' }
     ]
 
     return (
@@ -169,7 +173,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                                 defaultValue={today}
                                 min='1990-01-01'
                                 max='2030-01-01'
-                                pattern="[0-9]{4}-[0-9]{2}"
+                                pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
                                 className='border' ></input>
                             <p className=' p-0 text-danger'>{errors.date?.message}</p>
                         </div>
