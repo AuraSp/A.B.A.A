@@ -18,7 +18,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
-    const [date, setDate] = useState("");
+    // const [date, setDate] = useState("");
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
 
@@ -43,19 +43,17 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
             .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .strict()
             .required(),
+        // date: yup
+        //     .date()  
+        //     .nullable(false)
+        //     .min(new Date(1990, 1, 1), 'Data negali būti senesnė nei 1989 metų')
+        //     .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos")
+        //     .required(),
         category: yup
             .string()
             .nullable(false)
             .strict()
-            .required('Pasirinkimas privalomas!'),
-        // date: yup
-        //     .string()
-        //     .nullable(false)
-        //     .min(new Date(1989, 10, 10))
-        //     .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos")
-        //     .matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, 'Data privalo būti ne vėlesnė kaip šios dienos')
-        //     .strict()
-        //     .required()
+            .required('Pasirinkimas privalomas!')
     })
 
     const {
@@ -129,6 +127,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
         { value: 'Alga', text: 'Alga' }
     ]
 
+
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
             <div className='formblock p-4'>
@@ -168,7 +167,6 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                             <label className='text-start'>Data</label>
                             <input
                                 {...register('date')}
-                                onChange={(e) => setDate(e.target.value)}
                                 type='date'
                                 defaultValue={today}
                                 min='1990-01-01'
@@ -194,7 +192,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit' id="btn" disabled={!description || !amount || !date || !category}>Sukūrti
+                                type='submit' id="btn" disabled={!description || !amount || !category}>Sukūrti
                             </button>
                         </div>
                         <div className='me-4'>
