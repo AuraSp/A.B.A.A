@@ -7,46 +7,66 @@ import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 
 
 const FullBudget = ({ data }) => {
-  console.log(data)
-  let amounts = data.map((data) => data.amount)
-  let types = data.map((data) => data.type)
-  if (types === 'expense') {
-    console.log(data.type) //Check type
-  }
 
-  const series = [1, 2, 3];
-  const options = {
+  console.log(data)
+
+
+  const series = [34];
+
+  const option = {
     chart: {
       type: 'donut',
+      animations: {
+        animateGradually: {
+          enabled: true
+        }
+      }
     },
     plotOptions: {
       pie: {
         startAngle: -90,
         endAngle: 90,
-        offsetY: 15,
-      }
-    },
-    grid: {
-      padding: {
-        bottom: -100
-      }
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        chart: {
-          width: '100%'
-        },
-        legend: {
-          horizontalAlign: 'right',
-          onItemHover: {
-            highlightDataSeries: true
+        customScale: 1,
+        donut: {
+          size: '70%'
+        }
+      },
+      legend: {
+        show: false,
+      },
+      grid: {
+        padding: {
+          bottom: -100
+        }
+      },
+      stroke: {
+        show: false,
+      },
+      dataLabels: {
+        enabled: false,
+        enabed: false,
+      },
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: '100%'
           },
         }
-      }
-    }]
+      }]
+    }
   }
 
+  const options = {
+    plotOptions: {
+      stroke: {
+        show: true,
+      },
+      dataLabels: {
+        enabled: false,
+      }
+    }
+  }
   // const ex = {
   //   fieldSeparator: ',',
   //   quoteStrings: '"',
@@ -74,7 +94,7 @@ const FullBudget = ({ data }) => {
 
   return (
     <>
-      <ApexCharts options={options} series={series} type='donut' width={450} height={300} />
+      <ApexCharts options={options} series={series} type='donut' width={300} height={300} />
       {/* <PieChart width={800} height={400}>
         <Pie
           data={data}
