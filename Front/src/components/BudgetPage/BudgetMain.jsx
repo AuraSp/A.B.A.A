@@ -63,15 +63,14 @@ function BudgetMain() {
                 </div>
                 <div className='main pt-3'>
                     <div className='activitiestable border border-1 border-muted mx-auto my-4 p-5 shadow text-muted bg-dark d-flex flex-row'>
-                    <FullBudget />
-                        <div className='ps-3 d-flex flex-row flex-wrap'>
-                            <div className='netbalance d-flex flex-column flex-wrap'><span><MdAccountBalance /></span><span>Grynasis balansas</span><span>€13000</span></div>
-                            <div className='balancesummary d-flex flex-row flex-wrap fs-5'>
+                        {/* <div className='balancesummary d-flex flex-row flex-wrap fs-5'>
                                 <div><span><BsArrowUpShort className='bg-danger text-center p-1' /><span>€345</span></span></div>
                                 <div><span><BsArrowDownShort className='bg-primary text-center p-1' />€345</span></div>
                                 <div><span><HiOutlineDatabase className='bg-warning text-center p-1' />Likutis</span></div>
-                            </div>
-                        </div>
+                            </div> */}
+                        <FullBudget
+                            data={alldata}
+                        />
                         <div className='button ps-5 pt-4 w-50 text-center'>
                             <button
                                 onClick={toggleFilterPopup}

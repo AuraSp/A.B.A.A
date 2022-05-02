@@ -18,7 +18,6 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
-    const [date, setDate] = useState("");
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
 
@@ -168,7 +167,6 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                             <label className='text-start'>Data</label>
                             <input
                                 {...register('date')}
-                                onChange={(e) => setDate(e.target.value)}
                                 type='date'
                                 defaultValue={today}
                                 min='1990-01-01'
@@ -194,7 +192,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit' id="btn" disabled={!description || !amount || !date || !category}>Sukūrti
+                                type='submit' id="btn" disabled={!description || !amount || !category}>Sukūrti
                             </button>
                         </div>
                         <div className='me-4'>
