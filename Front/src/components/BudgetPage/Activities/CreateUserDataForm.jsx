@@ -42,19 +42,17 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
             .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .strict()
             .required(),
+        // date: yup
+        //     .date()  
+        //     .nullable(false)
+        //     .min(new Date(1990, 1, 1), 'Data negali būti senesnė nei 1989 metų')
+        //     .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos")
+        //     .required(),
         category: yup
             .string()
             .nullable(false)
             .strict()
-            .required('Pasirinkimas privalomas!'),
-        // date: yup
-        //     .string()
-        //     .nullable(false)
-        //     .min(new Date(1989, 10, 10))
-        //     .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos")
-        //     .matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, 'Data privalo būti ne vėlesnė kaip šios dienos')
-        //     .strict()
-        //     .required()
+            .required('Pasirinkimas privalomas!')
     })
 
     const {
@@ -128,6 +126,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
         { value: 'Alga', text: 'Alga' }
     ]
 
+
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
             <div className='formblock p-4'>
@@ -184,7 +183,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                         className='border bg-transparent text-muted'>
                         <option value='' disabled>--Pasirinkite kategoriją--</option>
                         {options.map(item => {
-                            return (<option key={item.value} value={item.value}>{item.text}</option>);
+                            return (<option key={item.value} value={item.value}>{item.text}</option>)
                         })}
                     </select>
                     <p className=' p-0 text-danger'>{errors.category?.message}</p>
