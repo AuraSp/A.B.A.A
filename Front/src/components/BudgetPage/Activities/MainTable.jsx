@@ -5,12 +5,13 @@ import EditUserDataForm from './EditUserDataForm';
 import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
 
-function MainTable({ setAllData }) {
+function MainTable({ setAllData, render, setRender }) {
 
     const [loading, setLoading] = useState(true);
     const [incomes, setIncomes] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [all, setAll] = useState([]);
+    const [editId, setEditId] = useState([]);
     const [userId, setId] = useState([]);
     const [render, setRender] = useState(false)
 
@@ -18,7 +19,8 @@ function MainTable({ setAllData }) {
     useEffect(() => {
         getAllUsers().then((res) => {
             const userdata = res.data.data.transactions; //Fetch all existing data from database
-            setId(...userdata.map((data) => data._id)); //Take User Id
+            setEditId(...userdata.map((data) => data._id)); //Take User Id
+            setId(...userdata.map((data) => data._id));
             setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
             setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
             setLoading(false);
@@ -39,16 +41,21 @@ function MainTable({ setAllData }) {
             console.log(data.type) //Check type
             Swal
                 .fire({
-                    title: 'Are you sure?',
-                    text: 'This data will be lost forever',
+                    title: 'Ar tikrai norite pašalinti?',
+                    text: 'Šio įrašo informacija bus prarasta negražinamai',
                     icon: 'question',
                     showCancelButton: true,
-                    confirmButtonText: 'Delete',
+                    cancelButtonText: 'Atšaukti',
+                    confirmButtonText: 'Panaikinti',
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
                         Swal
-                            .fire('Your income has been removed succesfully!', '', 'success')
+                            .fire({
+                                title: 'Jūsų pajamų įrašas sėkmingai pašalintas!',
+                                icon: 'success',
+                                confirmButtonText: 'Puiku!'
+                            })
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
@@ -61,16 +68,21 @@ function MainTable({ setAllData }) {
             console.log(data.type) //Check type
             Swal
                 .fire({
-                    title: 'Are you sure?',
-                    text: 'This data will be lost forever',
+                    title: 'Ar tikrai norite pašalinti?',
+                    text: 'Šio išrašo informacija bus prarasta negražinamai',
                     icon: 'question',
                     showCancelButton: true,
-                    confirmButtonText: 'Delete',
+                    cancelButtonText: 'Atšaukti',
+                    confirmButtonText: 'Panaikinti',
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
                         Swal
-                            .fire('Your expense has been removed succesfully!', '', 'success')
+                            .fire({
+                                title: 'Jūsų išlaidų išrašas sėkmingai pašalintas!',
+                                icon: 'success',
+                                confirmButtonText: 'Puiku!'
+                            })
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
@@ -85,11 +97,12 @@ function MainTable({ setAllData }) {
     //---OpenEditForm---//
     const handleEdit = (e, subId) => {
         e.preventDefault();
-        setId(subId); //Open edit form on choosen transaction type
+        setEditId(subId); //Open edit form on choosen transaction type
     };
 
 
     //---HandleEdit---//
+<<<<<<< HEAD
     const submitEdit = async (id, subId, data, defaultData) => {
         if (defaultData.type === 'income') {
             await findIncomesAndUpdate(id, subId, data).then(() =>
@@ -100,62 +113,83 @@ function MainTable({ setAllData }) {
                 getAllUsers());
             setId()
         }
+=======
+    const submitEdit = async (id, subId, data) => {
+        console.log(id, subId, data)
+        await findIncomesAndUpdate(id, subId, data).then(() =>
+            getAllUsers());
+        await findExpensesAndUpdate(id, subId, data).then(() =>
+            getAllUsers());
+
+>>>>>>> 88b1f2f29b39799f592c6131d15a09112647ee63
         setRender(prevState => !prevState)
     }
 
 
     //---CancelEdit---//
     function cancelEdit() {
-        setId('');
+        setEditId('');
         console.log('canceling');
     }
 
     return (
         <>{all.length === 0 ? (
-            <p className='fs-5 text-center'>You have no transactions added</p>
+            <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
         ) : (
-            <table className='table table-borderless m-auto'>
-                <thead className='thead text-center'>
-                    <tr className='text-secondary'>
-                        <th></th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Date</th>
-                        <th>Inflows</th>
-                        <th>Outflows</th>
-                        <th className='text-muted'>
-                            <span>{all.length} Results</span>
-                        </th>
-                    </tr >
-                </thead >
-                <tbody className='text-center'>
-                    {!loading ?
-                        all.map((data) => (
-                            <>
-                                {userId === data._id ? (
-                                    <EditUserDataForm
-                                        key={data._id}
-                                        subId={data._id}
-                                        id={"6266dba0a9fa9d50d4af77bb"}
-                                        defaultData={data}
-                                        onCancel={cancelEdit}
-                                        onSubmit={submitEdit}
-                                    />
-                                ) : (
-                                    <UserDataCard
-                                        key={data._id}
-                                        subId={data._id}
-                                        data={data}
-                                        onEdit={handleEdit}
-                                        onDelete={handleDelete}
-                                    />
-                                )}
-                            </>
-                        ))
-                        : <tr><td className='loader'>Loading...</td></tr>
-                    }
-                </tbody>
-            </table >
+            <>
+                <div className='d-flex flex-row flex-nowrap w-100 text-center'> {/*main exp*/}
+                    <div>
+                        <span className='p-0 m-0 text-secondary'>Pajamos</span> {/* exp*/}
+                    </div>
+                    <div>
+                        <span className='p-0 m-0 text-secondary'>Išlaidos</span> {/* exp*/}
+                    </div>
+                </div>
+                <table className='table table-borderless m-auto'>
+                    <thead className='thead text-center'>
+                        <tr className='text-secondary'>
+                            <th></th>
+                            <th>Aprašymas</th>
+                            <th>Kategorija</th>
+                            <th>Data</th>
+                            <th>Pajamos</th>
+                            <th>Išlaidos</th>
+                            <th className='text-muted'>
+                                <span>{all.length} {all.length < 10 && all.length > 1 ? 'Rezultatai' : all.length === 1 ? 'Rezultatas' : 'Rezultatų'}</span>
+                            </th>
+                        </tr >
+                    </thead >
+                    <tbody className='text-center'>
+                        {!loading ?
+                            all.map((filterData) => (
+
+                                <React.Fragment key={filterData._id}>
+
+                                    {editId === filterData._id ? (
+                                        <EditUserDataForm
+                                            subId={filterData._id}
+                                            id={userId}
+                                            defaultData={filterData}
+                                            onCancel={cancelEdit}
+                                            onSubmit={submitEdit}
+                                        />
+                                    ) : (
+                                        <UserDataCard
+                                            subId={filterData._id}
+                                            data={filterData}
+                                            onEdit={handleEdit}
+                                            onDelete={handleDelete}
+                                        />
+
+                                    )}
+
+                                </React.Fragment>
+                            ))
+                            : <tr><td className='loader'>Laukiama...</td></tr>
+                        }
+                    </tbody>
+                </table >
+            </>
         )
         }
         </>

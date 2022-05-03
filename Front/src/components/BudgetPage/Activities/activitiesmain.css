@@ -1,9 +1,16 @@
 table tbody td {
     vertical-align: baseline;
+    width: 1000px;
+    padding: 0.1em;
+    position: relative;
 }
 
 table thead tr {
     border-bottom: 1px solid lightgrey;
+}
+
+tbody.text-center>tr:nth-child(1)>td:nth-child(3) {
+    min-width: 18%;
 }
 
 .cardicons svg {
@@ -17,22 +24,32 @@ table thead tr {
     background-color: transparent;
     border-radius: 15px;
     outline: darkgrey;
-    transition: 700ms all;
+    -webkit-transition: 700ms all;
+    -o-transition: 700ms all;
+    padding: 0.1em;
 }
 
-.editinputs td select {
+.editinputs td>select {
     text-align: center;
     outline: darkgrey;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
+}
+
+.editinputs>td:nth-child(4) {
+    max-width: 650px;
+}
+
+.editinputs td>input[type=date] {
+    -webkit-appearance: none;
+    font-size: 1em;
+    color: #000;
 }
 
 .editinputs td input:focus,
 .editinputs td select:focus {
     background: lightgrey;
-}
-
-tbody.text-center>tr>td {
-    width: 100px;
 }
 
 
@@ -58,4 +75,95 @@ tbody.text-center>tr>td {
 .editbuttons button:last-child:hover {
     background-color: #0d6efd;
     color: #ffc107;
+}
+
+.text-yellow {
+    color: #f2d98f;
+}
+
+.editinputs>td {
+    position: relative;
+}
+
+.error1,
+.error2,
+.error3,
+.error4 {
+    position: absolute;
+    width: 12em;
+    height: 7em;
+    font-size: 1em;
+    color: rgb(98, 0, 0);
+    background-color: #ebebeb;
+    text-align: center;
+    display: block;
+    font-weight: 500;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.error1 {
+    left: 0.5em;
+    bottom: -8em;
+}
+
+.error3 {
+    left: 0.8em;
+    bottom: -8em;
+}
+
+.error4 {
+    left: 0.2em;
+    bottom: -8em;
+}
+
+.error1::before,
+.error2::before,
+.error3::before,
+.error4::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -12px;
+    border-width: 12px;
+    border-radius: 2px;
+    border-style: solid;
+    border-color: transparent transparent #c6c6c6 transparent;
+}
+
+.navigation {
+    width: 1px;
+    border: 1px solid red;
+}
+/* 
+.main-exp div {
+    width: 100%;
+    padding-right: 4em;
+}
+
+.main-exp div>.exp {
+    position: relative;
+    font-size: 1em;
+}
+
+.main-exp p:before {
+    content: '';
+    position: absolute;
+    border-radius: 20px;
+    width: 2em;
+    height: 0.4em;
+    top: 0.6em;
+}
+
+.main-exp>div:nth-child(1)>p:nth-child(1):before {
+    background-color: #0d6efd;
+    right: 4em;
+} */
+
+.main-exp>div:nth-child(2)>p:nth-child(1):before {
+    background-color: #dc3545;
+    right: 3.6em;
 }
