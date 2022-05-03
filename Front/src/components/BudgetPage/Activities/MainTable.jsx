@@ -41,7 +41,7 @@ function MainTable({ setAllData, render, setRender }) {
             Swal
                 .fire({
                     title: 'Ar tikrai norite pašalinti?',
-                    text: 'Šio išrašo informacija bus prarasta negražinamai',
+                    text: 'Šio įrašo informacija bus prarasta negražinamai',
                     icon: 'question',
                     showCancelButton: true,
                     cancelButtonText: 'Atšaukti',
@@ -50,7 +50,11 @@ function MainTable({ setAllData, render, setRender }) {
                 .then((result) => {
                     if (result.isConfirmed) {
                         Swal
-                            .fire('Jūsų pajamų išrašas sėkmingai pašalintas!', '', 'success')
+                            .fire({
+                                title: 'Jūsų pajamų įrašas sėkmingai pašalintas!',
+                                icon: 'success',
+                                confirmButtonText: 'Puiku!'
+                            })
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 

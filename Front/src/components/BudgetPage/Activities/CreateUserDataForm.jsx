@@ -158,7 +158,9 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                             <input
                                 {...register('amount')}
                                 onChange={(e) => setAmount(e.target.value)}
+                                type='number'
                                 placeholder='0.00'
+                                step="0.01"
                                 className='border' />
                             <p className=' p-0 text-danger'>{errors.amount?.message}</p>
                         </div>

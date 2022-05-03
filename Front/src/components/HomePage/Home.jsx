@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import FullBudget from '../BudgetPage/Charts/FullBudget';
 
 function Home() {
   return (

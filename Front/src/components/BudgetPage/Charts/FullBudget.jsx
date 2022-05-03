@@ -1,47 +1,61 @@
 import React from "react";
 // import 'chart.js/auto';
 // import { Doughnut } from 'react-chartjs-2';
-import ApexCharts from 'apexcharts'
+import ApexCharts from 'react-apexcharts'
 // import { ExportToCsv } from 'export-to-csv';
 
 
 const FullBudget = ({ data }) => {
 
   const series = [34, 45, 54];
-
+  let name = 'name'
+  let value = 'value'
   const options = {
     chart: {
+      legend: {
+        show: false,
+      },
       type: 'donut',
       animations: {
         animateGradually: {
-          enabled: false,
+          enabled: true,
         }
       }
+    },
+    legend: {
+      show: false,
+    },
+    stroke: {
+      show: false,
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    sparkline: {
+      enabled: false
     },
     plotOptions: {
       pie: {
         startAngle: -90,
         endAngle: 90,
         donut: {
-          size: '70%'
-        }
-      },
-      legend: {
-        show: false
-      },
-      sparkline: {
-        enabled: false
+          size: '70%',
+          labels: {
+            show: true,
+            name: {
+              name
+            },
+            value: {
+              value
+            }
+          },
+        },
+        expandOnClick: false,
       },
       grid: {
         padding: {
-          bottom: 100
+          bottom: -100
         }
-      },
-      stroke: {
-        show: false,
-      },
-      dataLabels: {
-        enabled: false,
       },
     }
   }
@@ -64,12 +78,7 @@ const FullBudget = ({ data }) => {
 
   return (
     <>
-      <ApexCharts
-        options={options}
-        series={series}
-        type='donut'
-        width={400}
-        height={400}
+      <ApexCharts options={options} series={series} type='donut' width={400} height={400}
       />
     </>
   );
