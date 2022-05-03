@@ -134,13 +134,11 @@ tbody.text-center>tr:nth-child(1)>td:nth-child(3) {
     border-color: transparent transparent #c6c6c6 transparent;
 }
 
-.main-exp {
-    position: absolute;
-    display: flex;
-    flex-flow: row nowrap;
-    transform: translate(113vh, -4vh);
+.navigation {
+    width: 1px;
+    border: 1px solid red;
 }
-
+/* 
 .main-exp div {
     width: 100%;
     padding-right: 4em;
@@ -163,7 +161,7 @@ tbody.text-center>tr:nth-child(1)>td:nth-child(3) {
 .main-exp>div:nth-child(1)>p:nth-child(1):before {
     background-color: #0d6efd;
     right: 4em;
-}
+} */
 
 .main-exp>div:nth-child(2)>p:nth-child(1):before {
     background-color: #dc3545;

@@ -1,24 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 // import 'chart.js/auto';
 // import { Doughnut } from 'react-chartjs-2';
-import ApexCharts from 'react-apexcharts';
-import { ExportToCsv } from 'export-to-csv';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import ApexCharts from 'apexcharts'
+// import { ExportToCsv } from 'export-to-csv';
 
 
 const FullBudget = ({ data }) => {
 
-  console.log(data)
+  const series = [34, 45, 54];
 
-
-  const series = [34];
-
-  const option = {
+  const options = {
     chart: {
       type: 'donut',
       animations: {
         animateGradually: {
-          enabled: true
+          enabled: false,
         }
       }
     },
@@ -26,17 +22,19 @@ const FullBudget = ({ data }) => {
       pie: {
         startAngle: -90,
         endAngle: 90,
-        customScale: 1,
         donut: {
           size: '70%'
         }
       },
       legend: {
-        show: false,
+        show: false
+      },
+      sparkline: {
+        enabled: false
       },
       grid: {
         padding: {
-          bottom: -100
+          bottom: 100
         }
       },
       stroke: {
@@ -44,29 +42,10 @@ const FullBudget = ({ data }) => {
       },
       dataLabels: {
         enabled: false,
-        enabed: false,
       },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: '100%'
-          },
-        }
-      }]
     }
   }
 
-  const options = {
-    plotOptions: {
-      stroke: {
-        show: true,
-      },
-      dataLabels: {
-        enabled: false,
-      }
-    }
-  }
   // const ex = {
   //   fieldSeparator: ',',
   //   quoteStrings: '"',
@@ -83,36 +62,15 @@ const FullBudget = ({ data }) => {
 
   // csvExporter.generateCsv(series);
 
-  // const data = [
-  //   { name: 'Group A', value: 400 },
-  //   { name: 'Group B', value: 300 },
-  //   { name: 'Group C', value: 300 },
-  //   { name: 'Group D', value: 200 },
-  // ];
-  // const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-
   return (
     <>
-      <ApexCharts options={options} series={series} type='donut' width={300} height={300} />
-      {/* <PieChart width={800} height={400}>
-        <Pie
-          data={data}
-          cx={420}
-          cy={200}
-          startAngle={180}
-          endAngle={0}
-          innerRadius={60}
-          outerRadius={80}
-          fill="#8884d8"
-          paddingAngle={5}
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart> */}
+      <ApexCharts
+        options={options}
+        series={series}
+        type='donut'
+        width={400}
+        height={400}
+      />
     </>
   );
 };

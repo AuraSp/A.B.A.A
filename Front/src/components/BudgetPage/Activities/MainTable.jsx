@@ -103,7 +103,7 @@ function MainTable({ setAllData, render, setRender }) {
             getAllUsers());
         await findExpensesAndUpdate(id, subId, data).then(() =>
             getAllUsers());
-            
+
         setRender(prevState => !prevState)
     }
 
@@ -119,12 +119,12 @@ function MainTable({ setAllData, render, setRender }) {
             <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
         ) : (
             <>
-                <div className='main-exp text-dark text-end'>
+                <div className='d-flex flex-row flex-nowrap w-100 text-center'> {/*main exp*/}
                     <div>
-                        <p className='exp text-secondary'>Pajamos</p>
+                        <span className='p-0 m-0 text-secondary'>Pajamos</span> {/* exp*/}
                     </div>
                     <div>
-                        <p className='exp text-secondary'>Išlaidos</p>
+                        <span className='p-0 m-0 text-secondary'>Išlaidos</span> {/* exp*/}
                     </div>
                 </div>
                 <table className='table table-borderless m-auto'>
