@@ -122,8 +122,9 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                             <input
                                 {...register('amount')}
                                 className='w-75 text-center'
-                                type='string'
+                                type='number'
                                 min='0'
+                                step="0.01"
                                 defaultValue={defaultData.amount}
                                 onChange={(e) => setAmount(e.target.value)}>
                             </input>
@@ -139,8 +140,9 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                             <input
                                 {...register('amount')}
                                 className='w-75 text-center'
-                                type='string'
+                                type='number'
                                 min='0'
+                                step="0.01"
                                 defaultValue={defaultData.amount}
                                 onChange={(e) => setAmount(e.target.value)}>
                             </input>
