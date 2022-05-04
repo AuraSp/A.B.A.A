@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import MainTable from './Veikla/MainTable';
 import CreateUserDataForm from './Veikla/CreateUserDataForm';
 import SortTable from './Veikla/SortTable';
+import { ExportToCsv } from 'export-to-csv';
 
 import './budgetmain.css';
 import FullBudget from './Charts/FullBudget';
@@ -35,6 +36,37 @@ function BudgetMain() {
     useEffect(() => {
         alldata.map((data) => data)
     }, [alldata])
+
+    //---ExpensesConverterIntoFormat-.csv---//
+    const exportOptions = {
+        fieldSeparator: ',',
+        quoteStrings: '',
+        decimalSeparator: '.',
+        showLabels: true,
+        showTitle: true,
+        title: 'IŠLAIDŲ KOPIJA',
+        filename: 'Išlaidų dokumentinė kopija',
+        useTextFile: false,
+        useBom: true,
+        useKeysAsHeaders: false,
+    };
+    const download = (alldata) => {
+        const expenses = alldata.filter(item => item.type === 'expense');
+        const csvExporter = new ExportToCsv(exportOptions);
+
+        let data = [];
+        for (let i = 0; i < expenses.length; i++) {
+            console.log(expenses[i]);
+            data.push(
+                {
+                    'Tipas': expenses[i].type,
+                    'Aprašymas': expenses[i].description,
+                    'Kategorija': expenses[i].category
+                },
+            )
+        }
+        csvExporter.generateCsv(data);
+    }
 
     return (
         <div className='row d-flex flex-row flex-nowrap'>
@@ -92,9 +124,11 @@ function BudgetMain() {
                             <button
                                 onClick={toggleAddPopup}
                                 className='add text-light ps-3 pe-3 pt-2 pb-2'>+ Pridėti transakcijas</button>
+                            <button onClick={() => download(alldata)}
+                            >CSV</button>
                         </div>
                     </div>
-                   <>
+                    <>
                         {filterpopup &&
                             <SortTable
                                 handlefilterpopupClose={toggleFilterPopup

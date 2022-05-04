@@ -17,6 +17,7 @@ const FullBudget = ({ data }) => {
   var i = 0;
   for (i = 0; i < incomeAmount.length; i++) {
     incomeTotalSum += incomeAmount[i];
+    incomeTotalSum += incomeAmount[i];
   }
   let expenseTotalSum = 0;
   for (i = 0; i < expenseAmount.length; i++) {
@@ -26,7 +27,13 @@ const FullBudget = ({ data }) => {
   let balance = 0;
   balance = incomeTotalSum - expenseTotalSum;
 
-  const series = [balance, Math.trunc(incomeTotalSum), Math.trunc(expenseTotalSum)]
+  let minusBalance = balance;
+  if (balance < 0) {
+    minusBalance += incomeTotalSum;
+    console.log(minusBalance)
+  }
+
+  const series = [balance, minusBalance, Math.trunc(incomeTotalSum), Math.trunc(expenseTotalSum)]
 
   const options = {
     chart: {
@@ -37,29 +44,6 @@ const FullBudget = ({ data }) => {
           enabled: true
         },
       },
-      toolbar: {
-        show: true,
-        offsetX: 0,
-        offsetY: 0,
-        tools: {
-          download: true,
-          pan: true
-        },
-        export: {
-          csv: {
-            filename: 'Išlaidos',
-            columnDelimiter: '|',
-            headerCategory: 'Kategorija',
-            headerValue: 'Suma',
-            dateFormatter(timestamp) {
-              return new Date(timestamp).toDateString()
-            }
-          },
-          svg: {
-            show: false
-          }
-        }
-      },
       dropShadow: {
         enabled: true,
         top: 0,
@@ -68,11 +52,11 @@ const FullBudget = ({ data }) => {
         opacity: 1
       }
     },
-    labels: ['Visas balansas', 'Pajamos', 'Išlaidos'],
+    labels: ['Likutis', 'Minusas', 'Pajamos', 'Išlaidos'],
     legend: {
       show: false
     },
-    colors: ['#ffc107', '#0d6efd', '#dc3545'],
+    colors: ['#ffc107', '#000', '#0d6efd', '#dc3545'],
     stroke: {
       show: false
     },
@@ -128,30 +112,6 @@ const FullBudget = ({ data }) => {
     }]
   }
 
-  var data = [
-    {
-      name: 'Išlaidos',
-      amount: expenseTotalSum,
-    },
-  ];
-
-  const ex = {
-    fieldSeparator: ',',
-    quoteStrings: '"',
-    decimalSeparator: '.',
-    showLabels: true,
-    showTitle: true,
-    title: 'Kakutis',
-    useTextFile: false,
-    useBom: true,
-    useKeysAsHeaders: true
-  };
-  const download = () => {
-    const csvExporter = new ExportToCsv(ex);
-
-    csvExporter.generateCsv(data);
-  }
-
 
   return (
     <>
@@ -161,8 +121,7 @@ const FullBudget = ({ data }) => {
       <div className='col-lg-4 col-md-6 col-sm-12 balancesummary d-flex flex-row flex-wrap fs-5'>
         <div><span><BsArrowUpShort className='bg-danger text-center p-1' /><span>{Math.trunc(expenseTotalSum)}</span></span></div>
         <div><span><BsArrowDownShort className='bg-primary text-center p-1' />{Math.trunc(incomeTotalSum)}</span></div>
-        <div><span><HiOutlineDatabase className='bg-warning text-center p-1' />Likutis</span></div>
-        <button onClick={download}></button>
+        <div><span><HiOutlineDatabase className='bg-warning text-center p-1' />{Math.trunc(balance)}</span></div>
       </div>
     </>
   );
