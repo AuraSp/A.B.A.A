@@ -84,7 +84,8 @@ function MainTable({ setAllData, render, setRender }) {
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
-                        deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
+                        deleteExpenseTransactions(userId, subId)
+                        //Delete choosen transaction type form database
                     } else if (result.isDenied) {
                         Swal.close()
                     }

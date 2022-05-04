@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ApexCharts from 'react-apexcharts';
-import { MdAccountCircle, MdOutlineDashboardCustomize, MdAccountBalance } from "react-icons/md";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
-import { AiOutlineTransaction } from "react-icons/ai";
 import { HiOutlineDatabase } from "react-icons/hi";
 // import { ExportToCsv } from 'export-to-csv';
-import './s.css'
+import './s.css';
+import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findIncomesAndUpdate, findExpensesAndUpdate, addNewIncome } from '../../../api/lib/TransactionsAPI';
+
 const FullBudget = ({ data }) => {
 
   const income = data.filter(item => item.type === 'income');
   const expense = data.filter(item => item.type === 'expense');
-
   const incomeAmount = income.map((amount) => amount.amount)
   const expenseAmount = expense.map((amount) => amount.amount)
 
@@ -24,9 +23,12 @@ const FullBudget = ({ data }) => {
     expenseTotalSum += expenseAmount[i];
   }
 
-  const series = [Math.trunc(incomeTotalSum), Math.trunc(expenseTotalSum)];
+  let fullAmount = 4000;
+  const series = [fullAmount, Math.trunc(incomeTotalSum), Math.trunc(expenseTotalSum)]
+
   const options = {
     chart: {
+      id: 'barQuarter',
       type: 'donut',
       animations: {
         animateGradually: {
@@ -43,7 +45,6 @@ const FullBudget = ({ data }) => {
         },
         export: {
           csv: {
-            series: [Math.trunc(expenseTotalSum)],
             filename: 'Išlaidos',
             columnDelimiter: '|',
             headerCategory: 'Kategorija',
@@ -53,7 +54,7 @@ const FullBudget = ({ data }) => {
             }
           },
           svg: {
-            show:false
+            show: false
           }
         }
       },
@@ -65,11 +66,11 @@ const FullBudget = ({ data }) => {
         opacity: 1
       }
     },
-    labels: ['Pajamos', 'Išlaidos'],
+    labels: ['Visas balansas', 'Pajamos', 'Išlaidos'],
     legend: {
       show: false
     },
-    colors: ['#0d6efd', '#dc3545'],
+    colors: ['#222', '#0d6efd', '#dc3545'],
     stroke: {
       show: false
     },
@@ -104,6 +105,9 @@ const FullBudget = ({ data }) => {
         bottom: -130
       }
     },
+    noData: {
+      text: 'Loading...'
+    },
     responsive: [{
       breakpoint: 480,
       options: {
@@ -114,21 +118,8 @@ const FullBudget = ({ data }) => {
     }]
   }
 
-  // const ex = {
-  //   fieldSeparator: ',',
-  //   quoteStrings: '"',
-  //   decimalSeparator: '.',
-  //   showLabels: true,
-  //   showTitle: true,
-  //   title: 'My Awesome CSV',
-  //   useTextFile: false,
-  //   useBom: true,
-  //   useKeysAsHeaders: true
-  // };
 
-  // const csvExporter = new ExportToCsv(ex);
 
-  // csvExporter.generateCsv(series);
 
   return (
     <>
@@ -145,3 +136,19 @@ const FullBudget = ({ data }) => {
 };
 
 export default FullBudget;
+
+  // const ex = {
+  //   fieldSeparator: ',',
+  //   quoteStrings: '"',
+  //   decimalSeparator: '.',
+  //   showLabels: true,
+  //   showTitle: true,
+  //   title: 'My Awesome CSV',
+  //   useTextFile: false,
+  //   useBom: true,
+  //   useKeysAsHeaders: true
+  // };
+
+  // const csvExporter = new ExportToCsv(ex);
+
+  // csvExporter.generateCsv(series);

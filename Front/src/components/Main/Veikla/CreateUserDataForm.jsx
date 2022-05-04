@@ -76,7 +76,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                 confirmButtonText: 'Puiku!'
             });
 
-            await addNewIncome(data, userId).then(setRender(!render)); //send data into database(depending on current UserId)
+            await addNewIncome(data, userId).then(setRender(!render))            //send data into database(depending on current UserId)
             handlepopupClose(false); //close create-pop-up after submit
             reset(''); //reset input values
         } else if (expenses) { // if choosen incomes type button
