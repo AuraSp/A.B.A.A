@@ -95,14 +95,23 @@ const FullBudget = ({ data }) => {
         endAngle: 90,
         donut: {
           size: '75%',
-          customScale: 0.8
+          customScale: 0.8,
+          labels: {
+            show: true,
+            name: {
+              show: true
+            },
+            value: {
+              show: true
+            },
+          }
         },
         // expandOnClick: false,
       }
     },
     grid: {
       padding: {
-        bottom: -130
+        bottom: -100
       }
     },
     noData: {
