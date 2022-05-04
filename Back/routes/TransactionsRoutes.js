@@ -6,7 +6,8 @@ const {
   createNewUser,
   getUserById,
   updateUser,
-
+  getEmail,
+  
   //User's transactions
   deleteIncomeTransactions,
   deleteExpenseTransactions,

@@ -137,7 +137,7 @@ function MainTable({ setAllData, render, setRender }) {
             <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
         ) : (
             <>
-                <div className='d-flex flex-row flex-nowrap w-100 text-center'> {/*main exp*/}
+                <div className='d-flex flex-row flex-nowrap justify-content-end w-100 pb-2 main-exp'>
                     <div>
                         <span className='p-0 m-0 text-secondary'>Pajamos</span> {/* exp*/}
                     </div>
@@ -154,7 +154,7 @@ function MainTable({ setAllData, render, setRender }) {
                             <th>Data</th>
                             <th>Pajamos</th>
                             <th>Išlaidos</th>
-                            <th className='text-muted'>
+                            <th className='text-secondar'>
                                 <span>{all.length} {all.length < 10 && all.length > 1 ? 'Rezultatai' : all.length === 1 ? 'Rezultatas' : 'Rezultatų'}</span>
                             </th>
                         </tr >

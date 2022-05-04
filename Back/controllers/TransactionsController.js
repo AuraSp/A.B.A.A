@@ -1,5 +1,3 @@
-
-const e = require("express");
 const Transactions = require("../models/TransactionsModel");
 
 //======USER======//

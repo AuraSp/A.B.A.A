@@ -57,24 +57,28 @@ tbody.text-center>tr:nth-child(1)>td:nth-child(3) {
 .editbuttons button:first-child {
     background-color: #ed99a2;
     color: #dc3545;
+    transition: 500ms linear;
 }
 
 .buttons button:first-child:hover,
 .editbuttons button:first-child:hover {
     background-color: #dc3545;
     color: #ffc107;
+    transition: 500ms linear;
 }
 
 .buttons button:last-child,
 .editbuttons button:last-child {
     background-color: #85b5fe;
     color: #0d6efd;
+    transition: 500ms linear;
 }
 
 .buttons button:last-child:hover,
 .editbuttons button:last-child:hover {
     background-color: #0d6efd;
     color: #ffc107;
+    transition: 500ms linear;
 }
 
 .text-yellow {
@@ -138,32 +142,27 @@ tbody.text-center>tr:nth-child(1)>td:nth-child(3) {
     width: 1px;
     border: 1px solid red;
 }
-/* 
-.main-exp div {
-    width: 100%;
-    padding-right: 4em;
+
+div.justify-content-end:nth-child(1) > div:nth-child(2) {
+    margin: 0 2em;
 }
 
-.main-exp div>.exp {
-    position: relative;
-    font-size: 1em;
-}
-
-.main-exp p:before {
+.main-exp>div:nth-child(1)>span:before {
     content: '';
-    position: absolute;
-    border-radius: 20px;
-    width: 2em;
-    height: 0.4em;
-    top: 0.6em;
+    display: inline-flex;
+    width: 2.2em;
+    height: 0.7em;
+    border-radius: 15px;
+    margin: 0 0.2em;
+    background-color: #0d6efd;
 }
 
-.main-exp>div:nth-child(1)>p:nth-child(1):before {
-    background-color: #0d6efd;
-    right: 4em;
-} */
-
-.main-exp>div:nth-child(2)>p:nth-child(1):before {
+.main-exp>div:nth-child(2)>span:before {
+    content: '';
+    display: inline-flex;
+    width: 2.2em;
+    height: 0.7em;
+    border-radius: 15px;
+    margin: 0 0.2em;
     background-color: #dc3545;
-    right: 3.6em;
 }
