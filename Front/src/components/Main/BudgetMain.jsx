@@ -94,13 +94,14 @@ function BudgetMain() {
                                 className='add text-light ps-3 pe-3 pt-2 pb-2'>+ Pridėti transakcijas</button>
                         </div>
                     </div>
-                    <div>
+                   <>
                         {filterpopup &&
                             <SortTable
                                 handlefilterpopupClose={toggleFilterPopup
                                 }
                             />
-                        }</div>
+                        }
+                    </>
                     <div className='activitiestable border border-1 border-muted mx-auto my-4 p-5 shadow w-100'>
                         <MainTable
                             setAllData={setAllData}
