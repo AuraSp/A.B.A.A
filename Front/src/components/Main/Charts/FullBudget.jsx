@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ApexCharts from 'react-apexcharts';
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { HiOutlineDatabase } from "react-icons/hi";
-// import { ExportToCsv } from 'export-to-csv';
+import { ExportToCsv } from 'export-to-csv';
 import './s.css';
 import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findIncomesAndUpdate, findExpensesAndUpdate, addNewIncome } from '../../../api/lib/TransactionsAPI';
 
@@ -23,8 +23,10 @@ const FullBudget = ({ data }) => {
     expenseTotalSum += expenseAmount[i];
   }
 
-  let fullAmount = 4000;
-  const series = [fullAmount, Math.trunc(incomeTotalSum), Math.trunc(expenseTotalSum)]
+  let balance = 0;
+  balance = incomeTotalSum - expenseTotalSum;
+
+  const series = [balance, Math.trunc(incomeTotalSum), Math.trunc(expenseTotalSum)]
 
   const options = {
     chart: {
@@ -70,7 +72,7 @@ const FullBudget = ({ data }) => {
     legend: {
       show: false
     },
-    colors: ['#222', '#0d6efd', '#dc3545'],
+    colors: ['#ffc107', '#0d6efd', '#dc3545'],
     stroke: {
       show: false
     },
@@ -95,7 +97,7 @@ const FullBudget = ({ data }) => {
         endAngle: 90,
         donut: {
           size: '75%',
-          customScale: 0.8,
+          customScale: 0.2,
           labels: {
             show: true,
             name: {
@@ -110,7 +112,7 @@ const FullBudget = ({ data }) => {
     },
     grid: {
       padding: {
-        bottom: -100
+        bottom: -50
       }
     },
     noData: {
@@ -126,7 +128,29 @@ const FullBudget = ({ data }) => {
     }]
   }
 
+  var data = [
+    {
+      name: 'Išlaidos',
+      amount: expenseTotalSum,
+    },
+  ];
 
+  const ex = {
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalSeparator: '.',
+    showLabels: true,
+    showTitle: true,
+    title: 'Kakutis',
+    useTextFile: false,
+    useBom: true,
+    useKeysAsHeaders: true
+  };
+  const download = () => {
+    const csvExporter = new ExportToCsv(ex);
+
+    csvExporter.generateCsv(data);
+  }
 
 
   return (
@@ -138,25 +162,10 @@ const FullBudget = ({ data }) => {
         <div><span><BsArrowUpShort className='bg-danger text-center p-1' /><span>{Math.trunc(expenseTotalSum)}</span></span></div>
         <div><span><BsArrowDownShort className='bg-primary text-center p-1' />{Math.trunc(incomeTotalSum)}</span></div>
         <div><span><HiOutlineDatabase className='bg-warning text-center p-1' />Likutis</span></div>
+        <button onClick={download}></button>
       </div>
     </>
   );
 };
 
 export default FullBudget;
-
-  // const ex = {
-  //   fieldSeparator: ',',
-  //   quoteStrings: '"',
-  //   decimalSeparator: '.',
-  //   showLabels: true,
-  //   showTitle: true,
-  //   title: 'My Awesome CSV',
-  //   useTextFile: false,
-  //   useBom: true,
-  //   useKeysAsHeaders: true
-  // };
-
-  // const csvExporter = new ExportToCsv(ex);
-
-  // csvExporter.generateCsv(series);
