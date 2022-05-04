@@ -106,7 +106,6 @@ const FullBudget = ({ data }) => {
             },
           }
         },
-        // expandOnClick: false,
       }
     },
     grid: {
