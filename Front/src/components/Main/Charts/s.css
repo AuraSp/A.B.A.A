@@ -1,0 +1,20 @@
+ 
+.apexcharts-menu-icon > svg {
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+}
+
+div.apexcharts-toolbar {
+    height: auto;
+    max-width: auto;
+    padding: 0;
+    text-align: center;
+}
+
+div.apexcharts-menu-icon{
+    height: 2em;
+    width: 100%;
+}

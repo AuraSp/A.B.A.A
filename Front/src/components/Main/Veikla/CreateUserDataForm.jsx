@@ -41,6 +41,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
             .nullable(false)
             .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .strict()
+            .typeError('fvefveve')
             .required(),
         // date: yup
         //     .date()  
@@ -75,7 +76,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
                 confirmButtonText: 'Puiku!'
             });
 
-            await addNewIncome(data, userId).then(setRender(!render)); //send data into database(depending on current UserId)
+            await addNewIncome(data, userId).then(setRender(!render))            //send data into database(depending on current UserId)
             handlepopupClose(false); //close create-pop-up after submit
             reset(''); //reset input values
         } else if (expenses) { // if choosen incomes type button

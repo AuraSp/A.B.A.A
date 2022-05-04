@@ -33,7 +33,6 @@ function MainTable({ setAllData, render, setRender }) {
         setAllData(tempAll); //Give empty Object all temporarily data(everything inside it) - to give data for creating
     }, [incomes, expenses])
 
-
     //---Delete by ID---//
     const handleDelete = (e, data, subId) => {
         e.preventDefault();
@@ -86,7 +85,8 @@ function MainTable({ setAllData, render, setRender }) {
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
-                        deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
+                        deleteExpenseTransactions(userId, subId)
+                        //Delete choosen transaction type form database
                     } else if (result.isDenied) {
                         Swal.close()
                     }
@@ -131,6 +131,18 @@ function MainTable({ setAllData, render, setRender }) {
         setEditId('');
         console.log('canceling');
     }
+
+    function sortByDate(a, b) {
+        if (a.createdAt < b.createdAt) {
+            return 1;
+        }
+        if (a.createdAt > b.createdAt) {
+            return -1;
+        }
+        return 0;
+    }
+
+    all.sort(sortByDate);
 
     return (
         <>{all.length === 0 ? (
