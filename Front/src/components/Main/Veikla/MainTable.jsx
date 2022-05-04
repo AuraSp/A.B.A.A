@@ -128,7 +128,9 @@ function MainTable({ setAllData, render, setRender }) {
         return 0;
     }
 
+    //---SortByCreationDate---//
     all.sort(sortByDate);
+
 
     return (
         <>{all.length === 0 ? (
