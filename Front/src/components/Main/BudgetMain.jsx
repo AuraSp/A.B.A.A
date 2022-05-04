@@ -68,6 +68,10 @@ function BudgetMain() {
         csvExporter.generateCsv(data);
     }
 
+    // function search(rows){
+    //     return rows.filter(row => row.categor.toLowerCase().indexOf(categor) > -1)
+    // }
+
     return (
         <div className='row d-flex flex-row flex-nowrap'>
             <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap pt-1'>
@@ -131,8 +135,7 @@ function BudgetMain() {
                     <>
                         {filterpopup &&
                             <SortTable
-                                handlefilterpopupClose={toggleFilterPopup
-                                }
+                                handlefilterpopupClose={toggleFilterPopup}
                             />
                         }
                     </>

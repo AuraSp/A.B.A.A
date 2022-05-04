@@ -130,8 +130,6 @@ function MainTable({ setAllData, render, setRender }) {
 
     //---SortByCreationDate---//
     all.sort(sortByDate);
-
-
     return (
         <>{all.length === 0 ? (
             <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
