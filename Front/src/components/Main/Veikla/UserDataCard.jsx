@@ -12,8 +12,8 @@ function UserDataCard({ subId, data, onEdit, onDelete }) {
             <td>{data.description}</td>
             <td>{data.category}</td>
             <td className='date'>{data.date.slice(0, 10)}</td>
-            <td><span>{data.type === 'income' ? '€' : '-'}</span> {data.type === 'income' ? data.amount : ''}</td>
-            <td><span>{data.type === 'expense' ? '€' : '-'}</span> {data.type === 'expense' ? data.amount : ''}</td>
+            <td className={data.type === 'income' ? 'text-primary' : 'text-danger'}><span>{data.type === 'income' ? '-' : '-'}</span>{data.type === 'income' ? data.amount + '€': ''}</td>
+            <td className={data.type === 'expense' ? 'text-danger' : 'text-primary'}><span>{data.type === 'expense' ? '-' : '-'}</span>{data.type === 'expense' ? data.amount + '€' : ''}</td>
             <td className='buttons'>
                 <button onClick={(e) => onDelete(e, data, subId)} className='btn border-0 me-1'><MdDelete /></button>
                 <button onClick={(e) => onEdit(e, subId)} className='btn border-0 me-1'><AiFillEdit /></button>

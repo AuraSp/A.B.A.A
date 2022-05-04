@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from "react-icons/io";
 import { IoFilterOutline } from "react-icons/io5";
-import { MdAccountCircle, MdOutlineDashboardCustomize, MdAccountBalance } from "react-icons/md";
-import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
+import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
-import { HiOutlineDatabase } from "react-icons/hi";
 import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import MainTable from './Activities/MainTable';
-import CreateUserDataForm from './Activities/CreateUserDataForm';
-import SortTable from './Activities/SortTable';
+import MainTable from './Veikla/MainTable';
+import CreateUserDataForm from './Veikla/CreateUserDataForm';
+import SortTable from './Veikla/SortTable';
 
 import './budgetmain.css';
 import FullBudget from './Charts/FullBudget';
@@ -48,16 +46,25 @@ function BudgetMain() {
             <div className='maincontent'>
                 <div className='header'>
                     {/* Visible on medium and small screens */}
-                    <div onClick={toggleAccountPopup} className='account d-lg-none d-md-flex d-sm-flex flex-row justify-content-end py-4 border-bottom'>
-                        <div className='fs-5 ps-1 pe-1'><MdAccountCircle /></div>
-                        <div className='fs-5 ps-1 pe-1'>user</div>
-                        <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
-                        {accountpopup &&
-                            <div className="acc-content shadow rounded">
-                                <p className='text-muted'>Atsijungti</p>
+
+                    <nav className="d-lg-none d-md-flex d-sm-flex flex-column flex-wrap navbar border-bottom">
+                        <Link to="/" className='w-100 p-2 fs-5 text-decoration-none text-muted text-center'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>BudgetSimple</Link>
+                        <div className='links d-flex flex-row justify-content-center fs-5'>
+                            <Link to="/dashboard" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Dashboard</Link>
+                            <Link to="/budget" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span>Veikla</Link>
+                            <div onClick={toggleAccountPopup} className='account d-flex flex-row justify-content-end p-3'>
+                                <div className='fs-5 ps-1 pe-1 text-warning border-bottom border-warning'><MdAccountCircle /></div>
+                                <div className='fs-5 ps-1 pe-1 text-muted'>User</div>
+                                <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
+                                {accountpopup &&
+                                    <div className="acc-content shadow rounded">
+                                        <p className='text-muted'>Atsijungti</p>
+                                    </div>
+                                }
                             </div>
-                        }
-                    </div>
+                        </div>
+                    </nav>
+
                     {/* Visible on large screens */}
                     <div onClick={toggleAccountPopup} className='account d-lg-flex d-md-none d-sm-none flex-row justify-content-end py-4 border-bottom'>
                         <div className='fs-5 ps-1 pe-1'><MdAccountCircle /></div>
@@ -74,15 +81,10 @@ function BudgetMain() {
                     </div>
                 </div>
                 <div className='main pt-3'>
-                    <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-5 shadow text-muted bg-dark d-flex flex-row'>
-                        <div className='col-lg-4 col-md-6 col-sm-12 d-flex flex-row flex-wrap fs-5'>
-                            <FullBudget />
-                        </div>
-                        <div className='col-lg-4 col-md-6 col-sm-12 balancesummary d-flex flex-row flex-wrap fs-5'>
-                            <div><span><BsArrowUpShort className='bg-danger text-center p-1' /><span>€345</span></span></div>
-                            <div><span><BsArrowDownShort className='bg-primary text-center p-1' />€345</span></div>
-                            <div><span><HiOutlineDatabase className='bg-warning text-center p-1' />Likutis</span></div>
-                        </div>
+                    <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
+                        <FullBudget
+                            data={alldata}
+                        />
                         <div className='col-lg-4 col-md-12 col-sm-12 button ps-5 pt-4 text-center'>
                             <button
                                 onClick={toggleFilterPopup}

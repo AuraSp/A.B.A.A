@@ -41,6 +41,7 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
             .nullable(false)
             .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .strict()
+            .typeError('fvefveve')
             .required(),
         // date: yup
         //     .date()  
