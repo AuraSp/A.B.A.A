@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
 
 
     
-function SortTable(e) { 
+function SortTable(e, render) { 
   // e.prevendDefault()
-const timeElapsed = Date.now();
+    const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
+
+    const [expenses, setExpenses] = useState([]);
+
+    useEffect(() => {
+      getAllUsers().then((res) => {
+          const userdata = res.data.data.transactions; //Fetch all existing data from database
+          //setEditId(...userdata.map((data) => data._id)); //Take User Id
+          //setId(...userdata.map((data) => data._id));
+          //setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
+          setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
+         // setLoading(false);
+      });
+  }, [render]);
 
     function searchDate() {
       var input_startDate, input_stopDate, table, tr, i;

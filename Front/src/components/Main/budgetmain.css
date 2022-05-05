@@ -34,11 +34,16 @@ body {
     width: 90%;
 }
 
+.sidemenu a:first-child {
+    color: rgb(112, 103, 50);
+}
+
+
 .sidemenu a:nth-child(2):hover,
 .sidemenu a:last-child:hover {
     border-radius: 15px;
-    width: 110%;
-    background-color: #E8E8E8;
+    width: 105%;
+    background-color: #cfcfcf;
     padding: 0;
     transform: scale(1.1, 1.1);
 }
@@ -93,61 +98,64 @@ body {
     font-size: 1em;
 }
 
-.balancesummary {
-    font-size: 1em;
-    position: relative;
-}
-
-.balancesummary div:first-child>span:first-child>svg,
-.balancesummary div:nth-child(2)>span:first-child>svg,
-.balancesummary div:last-child>span:first-child>svg {
-    width: 2em;
-    height: 2em;
-    border-radius: 50%;
-}
-
-.balancesummary svg {
-    color: white;
-}
-
 .main {
     padding: 0 5em 0 5em;
 }
 
-.main .firsttext {
-    padding: 0 0 0 5em;
-    margin: 0;
-    font-size: 0.7em;
+.main .button div:first-child,
+.main .button div:nth-child(2),
+.main .button div:last-child {
+    width: 33%;
 }
 
-.main .button .add {
-    background-color: #0d6efd;
-    font-size: 0.8em;
-    border-radius: 10px;
-    outline: none;
+.main .button button {
     border: none;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    font-size: 1.5em;
+    background-color: lightslategrey;
+    transition: 500ms linear;
 }
 
-.main .button .add:hover {
-    background-color: #004ec2;
+.button>div svg {
+    color: #fff;
 }
 
-/*filter*/
-.main .button button:first-child:hover {
-    background-color: #e6e6e6;
-    color: grey;
+.button>div:nth-child(1)>span:nth-child(2),
+.button>div:nth-child(2)>span:nth-child(2),
+.button>div:nth-child(3)>span:nth-child(2) {
+    font-size: 1.3em;
+    color: rgb(77, 77, 77);
 }
 
-.main .button button:first-child {
-    background-color: #f5f5f5;
-    color: #989898;
-    border-radius: 10px;
-    outline: none;
+.filter,
+.add,
+.download {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.main .filter:hover {
+    background-color: rgb(66, 66, 66);
+    box-shadow: 0 0 30px rgb(66, 66, 66);
+}
+
+.main .add:hover {
+    background-color: rgb(50, 60, 112);
+    box-shadow: 0 0 30px rgb(50, 60, 112);
+}
+
+.main .download:hover {
+    background-color: rgb(112, 103, 50);
+    box-shadow: 0 0 30px rgb(112, 103, 50);
+}
+
+.main .activitiestable:first-of-type {
+    background-color: rgba(167, 167, 167, 0.192);
 }
 
 .activitiestable {
     height: 100%;
-    background-color: whitesmoke;
     border-radius: 20px;
     font-size: 0.8em;
 }

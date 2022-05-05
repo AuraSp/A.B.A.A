@@ -3,11 +3,14 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoFilterOutline } from "react-icons/io5";
 import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
+import { FaFileCsv } from "react-icons/fa";
+import { RiAddFill } from "react-icons/ri";
 import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import MainTable from './Veikla/MainTable';
 import CreateUserDataForm from './Veikla/CreateUserDataForm';
 import SortTable from './Veikla/SortTable';
+import { ExportToCsv } from 'export-to-csv';
 
 import './budgetmain.css';
 import FullBudget from './Charts/FullBudget';
@@ -36,10 +39,41 @@ function BudgetMain() {
         alldata.map((data) => data)
     }, [alldata])
 
+    //---ExpensesConverterIntoFormat-.csv---//
+    const exportOptions = {
+        fieldSeparator: ',',
+        quoteStrings: '',
+        decimalSeparator: '.',
+        showLabels: true,
+        showTitle: true,
+        title: 'IŠLAIDŲ KOPIJA',
+        filename: 'Išlaidų dokumentinė kopija',
+        useTextFile: false,
+        useBom: true,
+        useKeysAsHeaders: false,
+    };
+    const download = (alldata) => {
+        const expenses = alldata.filter(item => item.type === 'expense');
+        const csvExporter = new ExportToCsv(exportOptions);
+
+        let data = [];
+        for (let i = 0; i < expenses.length; i++) {
+            console.log(expenses[i]);
+            data.push(
+                {
+                    'Tipas': expenses[i].type,
+                    'Aprašymas': expenses[i].description,
+                    'Kategorija': expenses[i].category
+                },
+            )
+        }
+        csvExporter.generateCsv(data);
+    }
+
     return (
         <div className='row d-flex flex-row flex-nowrap'>
             <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap pt-1'>
-                <Link to="/" className='ps-4 mt-3 pt-2 pb-1 text-decoration-none text-mute'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>BudgetSimple</Link>
+                <Link to="/" className='ps-4 mt-3 pt-2 pb-1 text-decoration-none '><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></Link>
                 <Link to="/dashboard" className='p-3 mt-5 text-decoration-none text-muted'><span className='text-center text-primary p-1 me-3'><MdOutlineDashboardCustomize /></span>Dashboard</Link>
                 <Link to="/budget" className='p-3 text-decoration-none text-muted'><span className='text-center text-primary p-1 me-3 text-decoration-none'><AiOutlineTransaction /></span>Veikla</Link>
             </div>
@@ -81,27 +115,43 @@ function BudgetMain() {
                     </div>
                 </div>
                 <div className='main pt-3'>
-                    <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
+                    <div className='row activitiestable mx-auto my-4 shadow text-muted d-flex flex-row'>
                         <FullBudget
                             data={alldata}
                         />
-                        <div className='col-lg-4 col-md-12 col-sm-12 button ps-5 pt-4 text-center'>
-                            <button
-                                onClick={toggleFilterPopup}
-                                className='text-center me-2 pe-2 ps-2 pb-1 pt-1 border border-secondary'><IoFilterOutline className='fs-4 bg-none' /></button>
-                            <button
-                                onClick={toggleAddPopup}
-                                className='add text-light ps-3 pe-3 pt-2 pb-2'>+ Pridėti transakcijas</button>
+                        <div className='button col-lg-4 col-md-6 col-sm-12 d-flex flex-row flex-wrap align-content-center justify-content-center'>
+                            <div className="h-25 text-center">
+                                <button
+                                    onClick={toggleFilterPopup}
+                                    className='btn filter text-center p-1 me-2'>
+                                    <span><IoFilterOutline /></span>
+                                </button><span>Filtruoti</span>
+                            </div>
+                            <div className="h-25 text-center">
+                                <button
+                                    onClick={toggleAddPopup}
+                                    className='btn add text-center p-1 me-2'>
+                                    <span><RiAddFill /></span>
+                                </button><span>Pridėti įrašą</span>
+                            </div>
+                            <div className="h-25 text-center me-1">
+                                <button
+                                    onClick={() => download(alldata)}
+                                    className='btn download text-center p-1 me-2'>
+                                    <span><FaFileCsv /></span>
+                                </button><span>Eksportuoti</span>
+                            </div>
                         </div>
                     </div>
-                    <div>
+                    <>
                         {filterpopup &&
                             <SortTable
                                 handlefilterpopupClose={toggleFilterPopup
                                 }
                             />
-                        }</div>
-                    <div className='activitiestable border border-1 border-muted mx-auto my-4 p-5 shadow w-100'>
+                        }
+                    </>
+                    <div className='activitiestable border border-1 border-muted mx-auto p-5 shadow w-100'>
                         <MainTable
                             setAllData={setAllData}
                             render={render}
