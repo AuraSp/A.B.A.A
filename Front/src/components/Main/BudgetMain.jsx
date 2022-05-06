@@ -22,6 +22,8 @@ function BudgetMain() {
     const [alldata, setAllData] = useState([]);
     const [render, setRender] = useState(false);
 
+    
+
     //User account menu popup
     const toggleAccountPopup = () => {
         setAccountPopUp(!accountpopup);
@@ -37,7 +39,12 @@ function BudgetMain() {
 
     useEffect(() => {
         alldata.map((data) => data)
+        click(expenses)
     }, [alldata])
+
+
+    const expenses = alldata.filter(item => item.type === 'expense');
+
 
     //---ExpensesConverterIntoFormat-.csv---//
     const exportOptions = {
@@ -52,10 +59,9 @@ function BudgetMain() {
         useBom: true,
         useKeysAsHeaders: false,
     };
-    const download = (alldata) => {
-        const expenses = alldata.filter(item => item.type === 'expense');
+    const download = (expenses) => {   
+          
         const csvExporter = new ExportToCsv(exportOptions);
-
         let data = [];
         for (let i = 0; i < expenses.length; i++) {
             console.log(expenses[i]);
@@ -69,6 +75,33 @@ function BudgetMain() {
         }
         csvExporter.generateCsv(data);
     }
+    function click(expenses) {
+        var input_startDate, input_stopDate, i;
+        // get the values and convert to date
+        input_startDate = new Date(document.getElementById("date-start"));
+        input_stopDate = new Date(document.getElementById("date-stop"));
+
+        let td_date = [];
+        for (i = 0; i < expenses.length; i++) {
+          // you need to get the text and convert to date
+         td_date.push(expenses[i]); 
+          // now you can compare dates correctly
+          if (td_date) {
+            if (td_date >= input_startDate && td_date <= input_stopDate) {
+              // show the row by setting the display property
+              console.log("true")
+            //   expenses[i].style.display = 'table-row;';
+            } else {
+                console.log(false)
+              // hide the row by setting the display property
+            //   expenses[i].style.display = 'none';
+            }
+          }
+      
+        }
+      }
+    
+
 
     return (
         <div className='row d-flex flex-row flex-nowrap'>
@@ -146,6 +179,7 @@ function BudgetMain() {
                     <>
                         {filterpopup &&
                             <SortTable
+                                searchDate={click}
                                 handlefilterpopupClose={toggleFilterPopup
                                 }
                             />

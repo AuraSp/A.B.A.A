@@ -5,7 +5,7 @@ import EditUserDataForm from './EditUserDataForm';
 import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
 
-function MainTable({ setAllData, render, setRender }) {
+function MainTable({ setAllData, render, setRender}) {
 
     const [loading, setLoading] = useState(true);
     const [incomes, setIncomes] = useState([]);
@@ -131,7 +131,8 @@ function MainTable({ setAllData, render, setRender }) {
     //---SortByCreationDate---//
     all.sort(sortByDate);
 
-
+  
+      
     return (
         <>{all.length === 0 ? (
             <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
