@@ -26,6 +26,7 @@ body {
 .sidemenu a:last-child span {
     border-left: 5px solid #ffc107;
     transition: 500ms linear;
+    margin-right: 1em;
 }
 
 .sidemenu a:nth-child(2),
@@ -102,50 +103,41 @@ body {
     padding: 0 5em 0 5em;
 }
 
-.main .button div:first-child,
-.main .button div:nth-child(2),
-.main .button div:last-child {
-    width: 33%;
-}
-
-.main .button button {
+.button button {
     border: none;
+    border-radius: 50%;
     width: 2em;
     height: 2em;
-    border-radius: 50%;
-    font-size: 1.5em;
     background-color: lightslategrey;
     transition: 500ms linear;
 }
 
-.button>div svg {
-    color: #fff;
+.button div:first-child,
+.button div:nth-child(2),
+.button div:last-child {
+    width: 33%;
+    transition: 500ms linear;
 }
 
-.button>div:nth-child(1)>span:nth-child(2),
-.button>div:nth-child(2)>span:nth-child(2),
-.button>div:nth-child(3)>span:nth-child(2) {
-    font-size: 1.3em;
-    color: rgb(77, 77, 77);
+.button svg {
+    color: white;
 }
 
-.filter,
-.add,
-.download {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+.button button {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
-.main .filter:hover {
+.button>div:nth-child(1)>button:nth-child(1):hover {
     background-color: rgb(66, 66, 66);
     box-shadow: 0 0 30px rgb(66, 66, 66);
 }
 
-.main .add:hover {
+.button>div:nth-child(2)>button:nth-child(1):hover {
     background-color: rgb(50, 60, 112);
     box-shadow: 0 0 30px rgb(50, 60, 112);
 }
 
-.main .download:hover {
+.button>div:nth-child(3)>button:nth-child(1):hover {
     background-color: rgb(112, 103, 50);
     box-shadow: 0 0 30px rgb(112, 103, 50);
 }
@@ -310,4 +302,40 @@ div.me-4:nth-child(2)>button:nth-child(1) {
 
 div.me-4:nth-child(2)>button:nth-child(1):hover {
     background-color: #afafafd2;
+}
+
+@media screen and (min-width: 900px) and (max-width: 1585px) {
+    .sidemenu a:first-child {
+        text-align: center;
+        width: 100%;
+    }
+
+    .main .button div:first-child,
+    .main .button div:nth-child(2),
+    .main .button div:last-child {
+        width: 15em;
+    }
+
+    .sidemenu a:nth-child(2) span:first-of-type,
+    .sidemenu a:last-child span:first-of-type {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .mt-5>span:nth-child(2),
+    a span:nth-child(2) {
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+        border: 0;
+    }
+
+    .mt-5>span:nth-child(2):hover,
+    a span:nth-child(2):hover {
+        border-radius: 0;
+        width: 105%;
+        background-color: #cfcfcf;
+        padding: 0;
+        transform: none;
+    }
 }

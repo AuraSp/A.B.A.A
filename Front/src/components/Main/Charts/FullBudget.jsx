@@ -104,11 +104,16 @@ const FullBudget = ({ data }) => {
       text: 'Loading...'
     },
     responsive: [{
-      breakpoint: 480,
+      breakpoint: 1324,
       options: {
         chart: {
-          width: 200
-        }
+          height: 250
+        },
+        grid: {
+          padding: {
+            bottom: -50
+          }
+        },
       }
     }]
   }
@@ -117,13 +122,17 @@ const FullBudget = ({ data }) => {
   return (
     <>
 
-      <div className='balancesummary col-lg-4 col-md-6 col-sm-12 d-flex flex-row flex-wrap align-content-center justify-content-center'>
-        <div className="h-25 text-center"><span><BsArrowUpShort className='bg-danger text-center p-1' /><span className="ms-2">{Math.trunc(expenseTotalSum) + '€'}</span></span></div>
-        <div className="h-25 text-center"><span><BsArrowDownShort className='bg-primary text-center p-1' /><span className="ms-2">{Math.trunc(incomeTotalSum) + '€'}</span></span></div>
-        <div className="h-25 text-center"><span><HiOutlineDatabase className='bg-warning text-center p-1' /><span className="ms-2">{Math.trunc(balance) + '€'}</span></span></div>
+      <div className='balancesummary col-lg-4 col-md-12 col-sm-12 d-flex flex-row flex-wrap align-content-center justify-content-center'>
+        <div className="h-25 text-center d-inline">
+          <span><BsArrowUpShort className='bg-danger text-center p-1' />
+            <span className="ms-2">{Math.trunc(expenseTotalSum) + '€'}</span>
+          </span>
+        </div>
+        <div className="h-25 text-center d-inline"><span><BsArrowDownShort className='bg-primary text-center p-1' /><span className="ms-2">{Math.trunc(incomeTotalSum) + '€'}</span></span></div>
+        <div className="h-25 text-center d-inline"><span><HiOutlineDatabase className='bg-warning text-center p-1' /><span className="ms-2">{Math.trunc(balance) + '€'}</span></span></div>
       </div>
 
-      <div className='chart col-lg-4 col-md-6 col-sm-12 d-flex flex-row flex-wrap fs-5'>
+      <div className='chart col-lg-4 col-md-12 col-sm-12 d-flex flex-row flex-wrap fs-5'>
         <ApexCharts options={options} series={series} type='donut' width='100%' height={300} />
       </div>
 

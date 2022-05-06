@@ -74,8 +74,8 @@ function BudgetMain() {
         <div className='row d-flex flex-row flex-nowrap'>
             <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap pt-1'>
                 <Link to="/" className='ps-4 mt-3 pt-2 pb-1 text-decoration-none '><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></Link>
-                <Link to="/dashboard" className='p-3 mt-5 text-decoration-none text-muted'><span className='text-center text-primary p-1 me-3'><MdOutlineDashboardCustomize /></span>Dashboard</Link>
-                <Link to="/budget" className='p-3 text-decoration-none text-muted'><span className='text-center text-primary p-1 me-3 text-decoration-none'><AiOutlineTransaction /></span>Veikla</Link>
+                <Link to="/dashboard" className='p-3 mt-5 text-decoration-none text-muted'><span className='text-center text-primary p-1'><MdOutlineDashboardCustomize /></span><span className='border-0'>Dashboard</span></Link>
+                <Link to="/budget" className='p-3 text-decoration-none text-muted'><span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span><span className='border-0'>Veikla</span></Link>
             </div>
             <div className='maincontent'>
                 <div className='header'>
@@ -119,27 +119,31 @@ function BudgetMain() {
                         <FullBudget
                             data={alldata}
                         />
-                        <div className='button col-lg-4 col-md-6 col-sm-12 d-flex flex-row flex-wrap align-content-center justify-content-center'>
-                            <div className="h-25 text-center">
+                        {/* <div className='button col-lg-4 col-md-6 col-sm-12 d-flex flex-row flex-wrap align-content-center justify-content-center'> */}
+                        <div className='button col-lg-4 col-md-12 col-sm-12 d-flex flex-row flex-wrap align-content-center justify-content-center'>
+                            <div className="h-25 ms-1 text-center d-inline">
                                 <button
                                     onClick={toggleFilterPopup}
-                                    className='btn filter text-center p-1 me-2'>
-                                    <span><IoFilterOutline /></span>
-                                </button><span>Filtruoti</span>
+                                    className='btn me-3 text-center p-0'>
+                                    <IoFilterOutline className='text-center' />
+                                </button>
+                                <span>Filtruoti įrašą</span>
                             </div>
-                            <div className="h-25 text-center">
+                            <div className="h-25 text-center d-inline">
                                 <button
                                     onClick={toggleAddPopup}
-                                    className='btn add text-center p-1 me-2'>
-                                    <span><RiAddFill /></span>
-                                </button><span>Pridėti įrašą</span>
+                                    className='btn me-3 text-center p-0'>
+                                    <RiAddFill className='text-center' />
+                                </button>
+                                <span>Pridėti įrašą</span>
                             </div>
-                            <div className="h-25 text-center me-1">
+                            <div className="h-25 text-center d-inline">
                                 <button
                                     onClick={() => download(alldata)}
-                                    className='btn download text-center p-1 me-2'>
-                                    <span><FaFileCsv /></span>
-                                </button><span>Eksportuoti</span>
+                                    className='btn me-3 text-center p-0'>
+                                    <FaFileCsv className='text-center' />
+                                </button>
+                                <span>Eksportuoti</span>
                             </div>
                         </div>
                     </div>
