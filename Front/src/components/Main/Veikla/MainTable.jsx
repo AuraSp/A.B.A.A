@@ -5,7 +5,7 @@ import EditUserDataForm from './EditUserDataForm';
 import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
 
-function MainTable({ setAllData, render, setRender }) {
+function MainTable({ setAllData, render, setRender,filterCategory }) {
 
     const [loading, setLoading] = useState(true);
     const [incomes, setIncomes] = useState([]);
@@ -13,6 +13,8 @@ function MainTable({ setAllData, render, setRender }) {
     const [all, setAll] = useState([]);
     const [editId, setEditId] = useState([]);
     const [userId, setId] = useState([]);
+
+    
 
     //---FetchData---//
     useEffect(() => {
@@ -128,8 +130,15 @@ function MainTable({ setAllData, render, setRender }) {
         return 0;
     }
 
+    function filterByCategory(user) {
+        return user.category === filterCategory
+    }
+
     //---SortByCreationDate---//
     all.sort(sortByDate);
+    console.log(filterCategory)
+    
+    
     return (
         <>{all.length === 0 ? (
             <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
@@ -159,8 +168,7 @@ function MainTable({ setAllData, render, setRender }) {
                     </thead >
                     <tbody className='text-center'>
                         {!loading ?
-                            all.map((filterData) => (
-
+                            all.map((filterData) => ( 
                                 <React.Fragment key={filterData._id}>
 
                                     {editId === filterData._id ? (

@@ -19,6 +19,8 @@ function BudgetMain() {
     const [filterpopup, setFilterPopup] = useState(false);
     const [alldata, setAllData] = useState([]);
     const [render, setRender] = useState(false);
+    const [category, setCategory] = useState();
+
 
     //User account menu popup
     const toggleAccountPopup = () => {
@@ -31,6 +33,10 @@ function BudgetMain() {
     //User filter transactions popup
     const toggleFilterPopup = () => {
         setFilterPopup(!filterpopup);
+    }
+
+    const callbackFunction = (category) => {
+        setCategory(category)
     }
 
     useEffect(() => {
@@ -136,6 +142,7 @@ function BudgetMain() {
                         {filterpopup &&
                             <SortTable
                                 handlefilterpopupClose={toggleFilterPopup}
+                                parentCallback={callbackFunction}
                             />
                         }
                     </>
@@ -144,6 +151,7 @@ function BudgetMain() {
                             setAllData={setAllData}
                             render={render}
                             setRender={setRender}
+                            filterCategory={category}
                         />
                     </div>
                     {isOpen &&
