@@ -112,13 +112,6 @@ function MainTable({ setAllData, render, setRender, filterCategory }) {
         }
         return 0;
     }
-    function filterByCategory(user) {
-        if (user.category === filterCategory){
-            console.log(all.map((filterData) => (filterData.category === filterCategory ? "yes" : 'no')));
-        } else{
-            return 0;
-        }
-    }
     //---SortByCreationDate---//
     all.sort(sortByDate);
     return (
