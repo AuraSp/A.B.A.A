@@ -176,7 +176,7 @@ function MainTable({ setAllData, render, setRender, filterCategory }) {
                                                 onDelete={handleDelete}
                                             />
                                             ) : (
-                                                <div></div>
+                                                <></>
                                             )
                                         )
                                     )
