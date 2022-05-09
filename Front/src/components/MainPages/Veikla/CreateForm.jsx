@@ -1,32 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { GrTransaction } from "react-icons/gr";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
-//import { RiMoneyEuroCircleLine } from "react-icons/ri";
+import { addNewIncome, addNewExpense } from '../../../api/lib/TransactionsAPI';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-import '../budgetmain.css';
-import { getAllUsers, addNewIncome, addNewExpense } from '../../../api/lib/TransactionsAPI';
+import './Styles/create.css';
 
-function CreateFlowsForm({ handlepopupClose, render, setRender }) {
+function CreateForm({ handlepopupClose, userId, render, setRender }) {
 
     const [incomes, setIncomes] = useState(false);
     const [expenses, setExpenses] = useState(false);
-    const [userId, setId] = useState([]);
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
-
-    useEffect(() => {
-        getAllUsers().then((res) => {
-            const userdata = res.data.data.transactions; //Fetch all existing data from database
-            setId(...userdata.map((data) => data._id)); //Take User Id
-        });
-    }, []);
 
     const budgetSchema = yup.object().shape({
         description: yup
@@ -43,12 +34,6 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
             .strict()
             .typeError('fvefveve')
             .required(),
-        // date: yup
-        //     .date()  
-        //     .nullable(false)
-        //     .min(new Date(1990, 1, 1), 'Data negali būti senesnė nei 1989 metų')
-        //     .max(new Date(), "Data privalo būti ne vėlesnė kaip šios dienos")
-        //     .required(),
         category: yup
             .string()
             .nullable(false)
@@ -211,4 +196,4 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
     )
 }
 
-export default CreateFlowsForm
+export default CreateForm

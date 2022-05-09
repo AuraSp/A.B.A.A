@@ -4,13 +4,20 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-import './activitiesmain.css';
+
+import './Styles/edit.css';
 
 function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
     const [description, setDescription] = useState(defaultData.description)
     const [category, setCategory] = useState(defaultData.category);
     const [date, setDate] = useState(defaultData.date);
     const [amount, setAmount] = useState(defaultData.amount);
+
+    const [editpopup, setEditPopUp] = useState(false);
+
+    const toggleEditPopUp = () => {
+        setEditPopUp(!editpopup)
+    }
 
     const editFlows = () => {
         let dataSet = {
@@ -78,7 +85,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
 
                     <input
                         {...register('description')}
-                        className='w-75 text-center'
+                        className='text-center'
                         type='text'
                         pattern='^[A-Z0-9]{6}$'
                         defaultValue={defaultData.description}
@@ -90,7 +97,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                 <td>
                     <select
                         {...register('category')}
-                        className='w-75 text-center'
+                        className='text-center'
                         onChange={(e) => setCategory(e.target.value)}
                     >
                         <option value={defaultData.category}>{defaultData.category}</option>
@@ -104,7 +111,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                 <td>
                     <input
                         {...register('date')}
-                        className='w-75 text-center'
+                        className='text-center'
                         type='date'
                         defaultValue={defaultData.date.slice(0, 10)}
                         min='1989-12-31'
@@ -121,7 +128,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                         <td>
                             <input
                                 {...register('amount')}
-                                className='w-75 text-center'
+                                className='text-center'
                                 type='string'
                                 min='0'
                                 defaultValue={defaultData.amount}
@@ -130,15 +137,15 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                             {errors.amount &&
                                 <p className='error4 p-1 pt-2'>{errors.amount?.message}</p>}
                         </td >
-                        <td>-</td>
+                        <td className='w-0'>-</td>
                     </>
                 ) : (
                     <>
-                        <td>-</td>
+                        <td className='w-0'>-</td>
                         <td>
                             <input
                                 {...register('amount')}
-                                className='w-75 text-center'
+                                className='text-center'
                                 type='string'
                                 min='0'
                                 defaultValue={defaultData.amount}
@@ -150,9 +157,24 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                     </>
                 )
                 }
-                < td className='editbuttons' >
-                    <button onClick={() => onCancel()} className='btn btn-danger border-0 me-1' form='my_form'><MdCancel /></button>
-                    <button onClick={handleSubmit(editFlows)} className='btn btn-secondary border-0 me-1' type='submit'><MdOutlineCheckBox /></button>
+                < td className='editbuttons'>
+                    <button onClick={() => onCancel()} className='btn border-0 me-1'><MdCancel /></button>
+                    <button onClick={handleSubmit(editFlows)} className='btn border-0 me-1' type='submit'><MdOutlineCheckBox /></button>
+                    <button onClick={toggleEditPopUp} className='btn bg-transparent text-dark'>...</button>
+                    {editpopup &&
+                        <div className='tools-content'>
+                            <div>
+                                <button onClick={() => onCancel()} className='btn bg-transparent border-0'><MdCancel className='text-danger me-3' />
+                                    <span className='text-secondary'>Atšaukti</span>
+                                </button>
+                            </div>
+                            <div>
+                                <button onClick={handleSubmit(editFlows)} className='btn bg-transparent border-0'><MdOutlineCheckBox className='text-primary me-3' />
+                                    <span className='text-secondary'>Koreguoti</span>
+                                </button>
+                            </div>
+                        </div>
+                    }
                 </td >
             </tr >
         </>

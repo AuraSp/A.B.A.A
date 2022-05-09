@@ -1,0 +1,80 @@
+.buttons button:first-child {
+    background-color: #ed99a2;
+    color: #dc3545;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+}
+
+.buttons button:first-child:hover {
+    background-color: #dc3545;
+    color: #ffc107;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+}
+
+.buttons button:nth-child(2) {
+    background-color: #85b5fe;
+    color: #0d6efd;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+}
+
+.buttons button:nth-child(2):hover {
+    background-color: #0d6efd;
+    color: #ffc107;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+}
+
+.cardicons svg {
+    border-radius: 50%;
+}
+
+.editbuttons>button:nth-child(3) {
+    cursor: pointer;
+    position: relative;
+    display: none;
+}
+
+.tools-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column wrap;
+            flex-flow: column wrap;
+    background-color: rgb(224, 224, 224);
+    position: absolute;
+    text-align: left;
+    top: 4.2em;
+    right: 3.5em;
+    border-radius: 5px;
+    padding: 8px 0.8em;
+    min-width: 12em;
+    min-height: 8em;
+    z-index: 1;
+    font-size: 0.9em;
+}
+
+.tools-content button {
+    width: auto;
+    height: auto;
+}
+
+.tools-content button span {
+    font-size: 0.8em;
+}
+
+@media screen and (min-width:576px) and (max-width: 967px) {
+
+    .editbuttons>button:nth-child(3) {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+    }
+}

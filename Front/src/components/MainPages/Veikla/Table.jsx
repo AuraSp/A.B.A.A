@@ -1,38 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Swal from 'sweetalert2';
-import UserDataCard from './UserDataCard';
-import EditUserDataForm from './EditUserDataForm';
-import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
-import './activitiesmain.css';
+import Card from './Card';
+import EditForm from './EditForm';
+import { getAllUsers, deleteIncomeTransactions, deleteExpenseTransactions, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
+import ApexCharts from '../Charts/ActivitiesChart';
+import series from '../Charts/ActivitiesChart';
+import SetSeries from '../Charts/ActivitiesChart';
+import './Styles/table.css';
 
-function MainTable({ setAllData, render, setRender}) {
+function Table({ setAll, all, setEditId, editId, userId, loading, setRender }) {
 
-    const [loading, setLoading] = useState(true);
-    const [incomes, setIncomes] = useState([]);
-    const [expenses, setExpenses] = useState([]);
-    const [all, setAll] = useState([]);
-    const [editId, setEditId] = useState([]);
-    const [userId, setId] = useState([]);
 
-    //---FetchData---//
-    useEffect(() => {
-        getAllUsers().then((res) => {
-            const userdata = res.data.data.transactions; //Fetch all existing data from database
-            setEditId(...userdata.map((data) => data._id)); //Take User Id
-            setId(...userdata.map((data) => data._id));
-            setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
-            setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
-            setLoading(false);
-        });
-    }, [render]);
-
-    useEffect(() => {
-        let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
-        setAll(tempAll); //Give empty Object all temporarily data(everything inside it)
-        setAllData(tempAll); //Give empty Object all temporarily data(everything inside it) - to give data for creating
-    }, [incomes, expenses])
-
-    //---Delete by ID---//
     const handleDelete = (e, data, subId) => {
         e.preventDefault();
         if (data.type === 'income') {
@@ -57,7 +35,8 @@ function MainTable({ setAllData, render, setRender}) {
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
-                        deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database
+                        deleteIncomeTransactions(userId, subId).then(()=> SetSeries(series)) //Delete choosen transaction type form database
+                        
                     } else if (result.isDenied) {
                         Swal.close()
                     }
@@ -104,7 +83,9 @@ function MainTable({ setAllData, render, setRender}) {
     const submitEdit = async (id, subId, data) => {
         console.log(id, subId, data)
         await findIncomesAndUpdate(id, subId, data).then(() =>
-            getAllUsers());
+            getAllUsers()
+        );
+
         await findExpensesAndUpdate(id, subId, data).then(() =>
             getAllUsers());
 
@@ -118,6 +99,7 @@ function MainTable({ setAllData, render, setRender}) {
         console.log('canceling');
     }
 
+    //---SortByCreationDate---//
     function sortByDate(a, b) {
         if (a.createdAt < b.createdAt) {
             return 1;
@@ -128,17 +110,14 @@ function MainTable({ setAllData, render, setRender}) {
         return 0;
     }
 
-    //---SortByCreationDate---//
     all.sort(sortByDate);
 
-  
-      
     return (
         <>{all.length === 0 ? (
             <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
         ) : (
             <>
-                <div className='d-flex flex-row flex-nowrap justify-content-end w-100 pb-2 main-exp'>
+                <div className='d-flex flex-row flex-nowrap justify-content-end w-100 pb-2 pt-2 main-exp'>
                     <div>
                         <span className='p-0 m-0 text-secondary'>Pajamos</span> {/* exp*/}
                     </div>
@@ -146,7 +125,7 @@ function MainTable({ setAllData, render, setRender}) {
                         <span className='p-0 m-0 text-secondary'>Išlaidos</span> {/* exp*/}
                     </div>
                 </div>
-                <table className='table table-borderless m-auto'>
+                <table className='table table-borderless mx-auto'>
                     <thead className='thead text-center'>
                         <tr className='text-secondary'>
                             <th></th>
@@ -155,7 +134,7 @@ function MainTable({ setAllData, render, setRender}) {
                             <th>Data</th>
                             <th>Pajamos</th>
                             <th>Išlaidos</th>
-                            <th className='text-secondar'>
+                            <th className='text-secondary'>
                                 <span>{all.length} {all.length < 10 && all.length > 1 ? 'Rezultatai' : all.length === 1 ? 'Rezultatas' : 'Rezultatų'}</span>
                             </th>
                         </tr >
@@ -167,7 +146,7 @@ function MainTable({ setAllData, render, setRender}) {
                                 <React.Fragment key={filterData._id}>
 
                                     {editId === filterData._id ? (
-                                        <EditUserDataForm
+                                        <EditForm
                                             subId={filterData._id}
                                             id={userId}
                                             defaultData={filterData}
@@ -175,7 +154,7 @@ function MainTable({ setAllData, render, setRender}) {
                                             onSubmit={submitEdit}
                                         />
                                     ) : (
-                                        <UserDataCard
+                                        <Card
                                             subId={filterData._id}
                                             data={filterData}
                                             onEdit={handleEdit}
@@ -197,4 +176,4 @@ function MainTable({ setAllData, render, setRender}) {
     )
 }
 
-export default MainTable
+export default Table

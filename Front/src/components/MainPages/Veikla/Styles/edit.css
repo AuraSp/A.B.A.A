@@ -1,0 +1,182 @@
+.editinputs td {
+    margin: 0;
+    position: relative;
+}
+
+.editinputs td input,
+.editinputs td select {
+    text-align: center;
+    border: 2px solid rgb(164, 164, 164);
+    background-color: transparent;
+    border-radius: 15px;
+    outline: darkgrey;
+    -webkit-transition: 700ms all;
+    -o-transition: 700ms all;
+    padding: 0.1em;
+}
+
+.editinputs>td:nth-child(3),
+.editinputs>td:nth-child(4),
+.editinputs>td:nth-child(5),
+.editinputs>td:nth-child(6) {
+    max-width: 8em;
+}
+
+.editinputs>td:nth-child(2) input,
+.editinputs>td:nth-child(5) input,
+.editinputs>td:nth-child(6) input {
+    width: 100%;
+}
+
+.editinputs td>input[type=date] {
+    -webkit-appearance: none;
+    font-size: 1em;
+    color: #000;
+    width: 100%;
+}
+
+.editinputs td>select {
+    text-align: center;
+    outline: darkgrey;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+}
+
+.editinputs td input:focus,
+.editinputs td select:focus {
+    background: lightgrey;
+}
+
+.editbuttons button:first-child {
+    background-color: #ed99a2;
+    color: #dc3545;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+}
+
+.buttons button:first-child:hover,
+.editbuttons button:first-child:hover {
+    background-color: #dc3545;
+    color: #ffc107;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+}
+
+.editbuttons button:nth-child(2) {
+    background-color: #85b5fe;
+    color: #0d6efd;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+}
+
+.editbuttons button:nth-child(2):hover,
+.editbuttons button:nth-child(2):hover {
+    background-color: #0d6efd;
+    color: #ffc107;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+}
+
+.text-yellow {
+    color: #f2d98f;
+}
+
+.error1,
+.error2,
+.error3,
+.error4 {
+    position: absolute;
+    width: 12em;
+    height: 7em;
+    font-size: 1em;
+    color: rgb(98, 0, 0);
+    background-color: #ebebeb;
+    text-align: center;
+    display: block;
+    font-weight: 500;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.error1 {
+    left: 0.5em;
+    bottom: -8em;
+}
+
+.error3 {
+    left: 0.8em;
+    bottom: -8em;
+}
+
+.error4 {
+    left: 0.2em;
+    bottom: -8em;
+}
+
+.error1::before,
+.error2::before,
+.error3::before,
+.error4::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -12px;
+    border-width: 12px;
+    border-radius: 2px;
+    border-style: solid;
+    border-color: transparent transparent #c6c6c6 transparent;
+}
+
+.buttons>button:nth-child(3) {
+    cursor: pointer;
+    position: relative;
+    display: none;
+}
+
+.tools-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column wrap;
+    flex-flow: column wrap;
+    background-color: rgb(224, 224, 224);
+    position: absolute;
+    text-align: left;
+    top: 4.2em;
+    right: 3.5em;
+    border-radius: 5px;
+    padding: 8px 0.8em;
+    min-width: 12em;
+    min-height: 8em;
+    z-index: 1;
+    font-size: 0.9em;
+}
+
+.tools-content button {
+    width: auto;
+    height: auto;
+}
+
+.tools-content button span {
+    font-size: 0.8em;
+}
+
+@media screen and (min-width:576px) and (max-width: 967px) {
+
+    .buttons>button:nth-child(3) {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+    }
+}

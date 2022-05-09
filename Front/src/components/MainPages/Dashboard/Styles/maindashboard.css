@@ -1,0 +1,66 @@
+
+@media screen and (min-width:576px) and (max-width: 767px) {
+    .main {
+        padding: 0 2em 0 2em;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width: 1370px) {
+
+    .sidemenu a:first-child {
+        padding: 0;
+    }
+
+    .sidemenu a:first-child span {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+    }
+
+    .sidemenu a:nth-child(2):hover,
+    .sidemenu a:last-child:hover {
+        width: 100%;
+        background-color: none;
+        -webkit-transform: none;
+        -ms-transform: none;
+            transform: none;
+        border-radius: 0;
+        background-color: transparent;
+    }
+
+    .sidemenu a:nth-child(2),
+    .sidemenu a:last-child {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidemenu a:nth-child(2) span:first-of-type,
+    .sidemenu a:last-child span:first-of-type {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        border: none;
+        margin: 0;
+    }
+
+    .sidemenu a:nth-child(2)>span:nth-child(2),
+    .sidemenu a:last-child>span:nth-child(2) {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        margin: 0;
+    }
+}

@@ -1,0 +1,83 @@
+table th:first-of-type,
+table th:nth-of-type(4),
+table th:nth-of-type(5),
+table th:nth-of-type(6),
+table th:last-of-type {
+    width: 8em;
+}
+
+table th:nth-of-type(2),
+table th:nth-of-type(3) {
+    width: 12em;
+}
+
+table tbody td {
+    vertical-align: baseline;
+    position: relative;
+}
+
+table thead tr {
+    border-bottom: 1px solid lightgrey;
+}
+
+.main-exp>div:nth-child(1)>span:before {
+    content: '';
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 2.2em;
+    height: 0.7em;
+    border-radius: 15px;
+    margin: 0 0.2em;
+    background-color: #0d6efd;
+}
+
+.main-exp>div:nth-child(2)>span:before {
+    content: '';
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 2.2em;
+    height: 0.7em;
+    border-radius: 15px;
+    margin: 0 0.2em;
+    background-color: #dc3545;
+}
+
+div.justify-content-end:nth-child(1)>div:nth-child(2) {
+    margin: 0 2em;
+}
+
+@media screen and (min-width:576px) and (max-width: 767px) {
+
+    tr.text-secondary>th:nth-child(1),
+    tbody.text-center>tr td:first-child,
+    tbody.text-center>tr td:nth-child(7)>button:first-child,
+    tbody.text-center>tr td:nth-child(7)>button:nth-child(2) {
+        display: none;
+    }
+
+    th.text-secondary>span:nth-child(1) {
+        font-size: 0.9em;
+    }
+
+    table th:last-of-type {
+        width: 5em;
+    }
+}
+
+@media screen and (min-width:767px) and (max-width: 967px) {
+
+    tr.text-secondary>th:nth-child(1),
+    tbody.text-center>tr td:first-child,
+    tbody.text-center>tr td:nth-child(7)>button:first-child,
+    tbody.text-center>tr td:nth-child(7)>button:nth-child(2) {
+        display: none;
+    }
+
+    table th:nth-of-type(5),
+    table th:nth-of-type(6),
+    table th:last-of-type {
+        width: 5em;
+    }
+}
