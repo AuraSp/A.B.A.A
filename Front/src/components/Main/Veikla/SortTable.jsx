@@ -1,7 +1,5 @@
 import React from 'react';
 import './activitiesmain.css';
-
-
 class SortTable extends React.Component
 {
   constructor(props) {
@@ -28,8 +26,6 @@ class SortTable extends React.Component
   }
   render()
   {
-
-
     return (
       <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
         <label className='text-start'>Kategoriją</label>
@@ -46,6 +42,4 @@ class SortTable extends React.Component
     )
   }
 }
-
-
 export default SortTable
