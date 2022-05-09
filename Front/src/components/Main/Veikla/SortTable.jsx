@@ -7,6 +7,7 @@ class SortTable extends React.Component
     this.state = {
       category: "React",
       options:[
+        { value: '', text: 'Visos kategorijos' },
         { value: 'Išsiėmimas', text: 'Pinigų išsiėmimas' },
         { value: 'Drabužiai', text: 'Rūbai/Batai' },
         { value: 'Maistas/Gėrimai', text: 'Maistas/Gėrimai' },
