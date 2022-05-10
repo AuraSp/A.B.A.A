@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { GiWallet } from "react-icons/gi";
+import Dashboard from './Dashboard.png';
 
 import './Home.css'
 
 function Home() {
   return (
     <>
-      <div className='container-fluid'>
+      <div className='container-fluid home-page'>
         <div className="row d-flex justify-content-between">
           <div className="col-4">
             <Link to="/" className='text-warning mt-3 pt-2 pb-1 text-decoration-none fs-3'>
@@ -18,7 +19,6 @@ function Home() {
             
           
           <div className="col-5 d-flex justify-content-end my-2 me-3">
-            <Link to="/dashboard" className="m-2 mt-2 btn btn-warning">Dashboard</Link>
             <Link to="/signin" className='m-2 mt-2 btn btn-light'>Log in</Link>
             <Link to="/signup" className='m-2 mt-2 btn btn-primary'>Sign up</Link>
           </div>
@@ -45,6 +45,7 @@ function Home() {
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet dicta fugiat nemo pariatur dolores, sed id autem iusto tempora. Fuga sed voluptates molestias! Iure sequi eligendi odio at perspiciatis dolores.
               </p>
+              <Link to="/dashboard"><img src={Dashboard} className="w-100 mb-5" alt="Dashboard" /></Link>
             </div>
           </div>
         </div>
