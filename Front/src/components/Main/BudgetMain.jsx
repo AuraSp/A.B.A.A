@@ -21,6 +21,8 @@ function BudgetMain() {
     const [filterpopup, setFilterPopup] = useState(false);
     const [alldata, setAllData] = useState([]);
     const [render, setRender] = useState(false);
+    const [category, setCategory] = useState();
+
 
     //User account menu popup
     const toggleAccountPopup = () => {
@@ -33,6 +35,10 @@ function BudgetMain() {
     //User filter transactions popup
     const toggleFilterPopup = () => {
         setFilterPopup(!filterpopup);
+    }
+
+    const callbackFunction = (category) => {
+        setCategory(category)
     }
 
     useEffect(() => {
@@ -69,6 +75,10 @@ function BudgetMain() {
         }
         csvExporter.generateCsv(data);
     }
+
+    // function search(rows){
+    //     return rows.filter(row => row.categor.toLowerCase().indexOf(categor) > -1)
+    // }
 
     return (
         <div className='row d-flex flex-row flex-nowrap'>
@@ -150,8 +160,8 @@ function BudgetMain() {
                     <>
                         {filterpopup &&
                             <SortTable
-                                handlefilterpopupClose={toggleFilterPopup
-                                }
+                                handlefilterpopupClose={toggleFilterPopup}
+                                parentCallback={callbackFunction}
                             />
                         }
                     </>
@@ -160,6 +170,7 @@ function BudgetMain() {
                             setAllData={setAllData}
                             render={render}
                             setRender={setRender}
+                            filterCategory={category}
                         />
                     </div>
                     {isOpen &&
