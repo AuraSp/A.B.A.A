@@ -8,7 +8,7 @@ import series from '../Charts/ActivitiesChart';
 import SetSeries from '../Charts/ActivitiesChart';
 import './Styles/table.css';
 
-function Table({ setAll, all, setEditId, editId, userId, loading, setRender }) {
+function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory }) {
 
 
     const handleDelete = (e, data, subId) => {
@@ -35,8 +35,8 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender }) {
 
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
-                        deleteIncomeTransactions(userId, subId).then(()=> SetSeries(series)) //Delete choosen transaction type form database
-                        
+                        deleteIncomeTransactions(userId, subId).then(() => SetSeries(series)) //Delete choosen transaction type form database
+
                     } else if (result.isDenied) {
                         Swal.close()
                     }
@@ -144,7 +144,6 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender }) {
                             all.map((filterData) => (
 
                                 <React.Fragment key={filterData._id}>
-
                                     {editId === filterData._id ? (
                                         <EditForm
                                             subId={filterData._id}
@@ -153,16 +152,27 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender }) {
                                             onCancel={cancelEdit}
                                             onSubmit={submitEdit}
                                         />
-                                    ) : (
+                                    ) : (!filterCategory ? (
                                         <Card
                                             subId={filterData._id}
                                             data={filterData}
                                             onEdit={handleEdit}
                                             onDelete={handleDelete}
                                         />
-
-                                    )}
-
+                                    ) : (
+                                        filterData.category === filterCategory && filterData.type === "expense" ? (
+                                            <Card
+                                                subId={filterData._id}
+                                                data={filterData}
+                                                onEdit={handleEdit}
+                                                onDelete={handleDelete}
+                                            />
+                                        ) : (
+                                            <></>
+                                        )
+                                    )
+                                    )
+                                    }
                                 </React.Fragment>
                             ))
                             : <tr><td className='loader'>Laukiama...</td></tr>

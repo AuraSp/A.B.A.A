@@ -9,7 +9,8 @@ import { RiAddFill } from "react-icons/ri";
 import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import CreateForm from './CreateForm';
-import SortTable from './SortTable';
+import SortCategory from './SortCategory';
+import SortByDate from './SortByDate';
 import { ExportToCsv } from 'export-to-csv';
 import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 import ActivitiesChart from '../Charts/ActivitiesChart';
@@ -18,11 +19,13 @@ import Table from './Table';
 import './Styles/maincontent.css';
 
 function MainContainer() {
+    //Pop up
     const [accountpopup, setAccountPopUp] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [filterpopup, setFilterPopup] = useState(false);
     const [utilitiespopup, setUtilitiesPopUp] = useState(false);
 
+    //Data
     const [loading, setLoading] = useState(true);
     const [incomes, setIncomes] = useState([]);
     const [expenses, setExpenses] = useState([]);
@@ -31,6 +34,8 @@ function MainContainer() {
     const [userId, setId] = useState([]);
     const [render, setRender] = useState(false);
 
+    //Filters
+    const [category, setCategory] = useState();
     const [firstDate, setFirstDate] = useState('');
     const [lastDate, setLastDate] = useState('');
 
@@ -38,18 +43,26 @@ function MainContainer() {
     const toggleAccountPopup = () => {
         setAccountPopUp(!accountpopup);
     }
+
     //User add transactions popup
     const toggleAddPopup = () => {
         setIsOpen(!isOpen);
     }
+
     //User filter transactions popup
     const toggleFilterPopup = () => {
         setFilterPopup(!filterpopup);
     }
+
     //User balance utilities popup
     const toggleUtilitiesPopUp = () => {
         setUtilitiesPopUp(!utilitiespopup)
     }
+
+    const callbackFunction = (category) => {
+        setCategory(category)
+    }
+
     //---FetchData---//
     useEffect(() => {
         getAllUsers().then((res) => {
@@ -68,14 +81,14 @@ function MainContainer() {
     }, [incomes, expenses])
 
     const searchDate = () => {
-        // for (let i = 0; i < expenses.length; i++) {
-        //     let date = expenses.map((data) => data.date)
+        for (let i = 0; i < expenses.length; i++) {
+            let date = expenses.map((data) => data.date)
 
-        //     if (date === firstDate) {
-        //         expenses.map((data) => data.date === firstDate)
-        //         console.log(date)
-        //     }
-        // }
+            if (date === firstDate) {
+                expenses.map((data) => data.date === firstDate)
+                console.log(date)
+            }
+        }
         var updateList = [...all];
         updateList = updateList.filter((item) => {
             return item.date === firstDate
@@ -235,13 +248,17 @@ function MainContainer() {
                             </div>
                         </div>
                         {filterpopup &&
-                            <SortTable
-                                searchDate={searchDate}
-                                setFirstDate={setFirstDate}
-                                setLastDate={setLastDate}
-                                handlefilterpopupClose={toggleFilterPopup
-                                }
-                            />
+                            <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
+                                <SortCategory
+                                    handlefilterpopupClose={toggleFilterPopup}
+                                    parentCallback={callbackFunction}
+                                />
+                                <SortByDate
+                                    searchDate={searchDate}
+                                    setFirstDate={setFirstDate}
+                                    setLastDate={setLastDate}
+                                />
+                            </div>
                         }
                         <div className='row activitiestable mx-auto my-4 shadow text-muted d-flex flex-row'>
                             <Table
@@ -253,6 +270,7 @@ function MainContainer() {
                                 loading={loading}
                                 setRender={setRender}
                                 render={render}
+                                filterCategory={category}
                             // setSeries={setSeries}
                             // series={series}
 

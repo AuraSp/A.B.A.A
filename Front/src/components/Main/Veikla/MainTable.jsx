@@ -4,16 +4,14 @@ import UserDataCard from './UserDataCard';
 import EditUserDataForm from './EditUserDataForm';
 import { deleteIncomeTransactions, deleteExpenseTransactions, getAllUsers, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
 import './activitiesmain.css';
-
-function MainTable({ setAllData, render, setRender }) {
-
+import { MdTableRows } from 'react-icons/md';
+function MainTable({ setAllData, render, setRender, filterCategory }) {
     const [loading, setLoading] = useState(true);
     const [incomes, setIncomes] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [all, setAll] = useState([]);
     const [editId, setEditId] = useState([]);
     const [userId, setId] = useState([]);
-
     //---FetchData---//
     useEffect(() => {
         getAllUsers().then((res) => {
@@ -25,7 +23,6 @@ function MainTable({ setAllData, render, setRender }) {
             setLoading(false);
         });
     }, [render]);
-
     useEffect(() => {
         let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
         setAll(tempAll); //Give empty Object all temporarily data(everything inside it)
@@ -54,9 +51,7 @@ function MainTable({ setAllData, render, setRender }) {
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
-
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
-
                         deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database
                     } else if (result.isDenied) {
                         Swal.close()
@@ -81,9 +76,7 @@ function MainTable({ setAllData, render, setRender }) {
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
-
                         setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
-
                         deleteExpenseTransactions(userId, subId)
                         //Delete choosen transaction type form database
                     } else if (result.isDenied) {
@@ -99,7 +92,6 @@ function MainTable({ setAllData, render, setRender }) {
         setEditId(subId); //Open edit form on choosen transaction type
     };
 
-
     //---HandleEdit---//
     const submitEdit = async (id, subId, data) => {
         console.log(id, subId, data)
@@ -107,17 +99,14 @@ function MainTable({ setAllData, render, setRender }) {
             getAllUsers());
         await findExpensesAndUpdate(id, subId, data).then(() =>
             getAllUsers());
-
         setRender(prevState => !prevState)
-    }
-
+    };
 
     //---CancelEdit---//
     function cancelEdit() {
         setEditId('');
         console.log('canceling');
     }
-
     function sortByDate(a, b) {
         if (a.createdAt < b.createdAt) {
             return 1;
@@ -126,12 +115,10 @@ function MainTable({ setAllData, render, setRender }) {
             return -1;
         }
         return 0;
-    }
+    };
 
     //---SortByCreationDate---//
     all.sort(sortByDate);
-
-
     return (
         <>{all.length === 0 ? (
             <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
@@ -161,10 +148,8 @@ function MainTable({ setAllData, render, setRender }) {
                     </thead >
                     <tbody className='text-center'>
                         {!loading ?
-                            all.map((filterData) => (
-
+                            all.map((filterData) => ( 
                                 <React.Fragment key={filterData._id}>
-
                                     {editId === filterData._id ? (
                                         <EditUserDataForm
                                             subId={filterData._id}
@@ -173,16 +158,27 @@ function MainTable({ setAllData, render, setRender }) {
                                             onCancel={cancelEdit}
                                             onSubmit={submitEdit}
                                         />
-                                    ) : (
-                                        <UserDataCard
-                                            subId={filterData._id}
-                                            data={filterData}
-                                            onEdit={handleEdit}
-                                            onDelete={handleDelete}
-                                        />
-
-                                    )}
-
+                                    ) : (!filterCategory ? (
+                                            <UserDataCard
+                                                subId={filterData._id}
+                                                data={filterData}
+                                                onEdit={handleEdit}
+                                                onDelete={handleDelete}
+                                            />
+                                        ) : (
+                                            filterData.category === filterCategory && filterData.type === "expense" ? (
+                                            <UserDataCard
+                                                subId={filterData._id}
+                                                data={filterData}
+                                                onEdit={handleEdit}
+                                                onDelete={handleDelete}
+                                            />
+                                            ) : (
+                                                <></>
+                                            )
+                                        )
+                                    )
+                                }
                                 </React.Fragment>
                             ))
                             : <tr><td className='loader'>Laukiama...</td></tr>
