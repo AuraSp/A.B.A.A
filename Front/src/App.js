@@ -4,26 +4,28 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Home from './components/HomePage/Home';
-import Main from './components/Main/BudgetMain';
-import Login from './components/Login/Login';
 import Dashboard from './components/Main/Dashboard/Dashboard';
+import Home from './components/HomePage/Home';
+import Login from './components/AccountPages/Login';
+import Register from './components/AccountPages/Register';
+import MainContainer from './components/Main/Veikla/MainContainer';
+import ErrorPage from './components/ErrorPages/ErrorPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
   return (
-    <div className='container-fluid'>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/budget" element={<Main />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/signup" element={<Login />} />
-        </Routes>
-      </Router>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/*" element={<ErrorPage />} />
+        <Route path="/veikla" element={<MainContainer />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/signup" element={<Register />} />
+      </Routes>
+    </Router>
   )
 }
 

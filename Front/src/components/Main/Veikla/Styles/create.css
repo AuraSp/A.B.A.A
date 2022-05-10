@@ -1,0 +1,167 @@
+
+.popupform {
+    position: fixed;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-line-pack: center;
+        align-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    background: #00000050;
+}
+
+.formblock {
+    background: #fff;
+    position: relative;
+    width: 38em;
+    height: auto;
+    border-radius: 10px;
+}
+
+.formblock .formtitle span:first-child,
+.formblock .formtitle span:last-child {
+    width: 8%;
+}
+
+.formblock .formtitle h4 {
+    width: 92%;
+}
+
+.formblock .formtitle span:last-child {
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.formtitle div {
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+    position: relative;
+}
+
+.formtitle div:first-child svg {
+    width: 90%;
+    height: auto;
+    font-weight: 900;
+    font-size: 1.3em;
+    padding-bottom: 0.1em;
+}
+
+.formtitle div:first-child:before {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    right: -62%;
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    background: #8080802f;
+}
+
+.outflowbtn,
+.inflowbtn {
+    border-radius: 50%;
+    border: none;
+    position: relative;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+    background-color: lightgrey;
+}
+
+.outflowbtn svg,
+.inflowbtn svg {
+    color: #fff;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 500;
+    height: auto;
+}
+
+.outflowbtn:hover {
+    background-color: #dc3545;
+}
+
+.inflowbtn:hover {
+    background-color: #0d6efd;
+
+}
+
+.formblock form label {
+    margin-left: 1.5em;
+    margin-bottom: 0.2em;
+}
+
+.formblock form input,
+.formblock form select {
+    width: 95%;
+    margin: 0 auto;
+    padding: 0.6em;
+    border-radius: 10px;
+    position: relative;
+    outline: none;
+    -webkit-appearance: none;
+    -webkit-box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.295);
+            box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.295);
+    color: rgb(90, 90, 90);
+}
+
+.amountblock,
+.dateblock {
+    width: 47%;
+    margin: 0 auto;
+}
+
+input[type='date'] {
+    color: rgb(90, 90, 90);
+}
+
+.formblock select {
+    background-color: transparent;
+    -webkit-appearance: none;
+    -webkit-box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.295);
+            box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.295);
+    outline: none;
+}
+
+.formfooter {
+    height: 8vh;
+    border-radius: 10px;
+    background-color: rgb(235, 235, 235);
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: end;
+}
+
+div.me-4:nth-child(1)>button:nth-child(1) {
+    background-color: #0d6efd;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+    font-size: 1.1em;
+}
+
+div.me-4:nth-child(1)>button:nth-child(1):hover {
+    background-color: #0041a3;
+}
+
+div.me-4:nth-child(2)>button:nth-child(1) {
+    background-color: #d6d6d6d2;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+    font-size: 1.1em;
+}
+
+div.me-4:nth-child(2)>button:nth-child(1):hover {
+    background-color: #afafafd2;
+} 
