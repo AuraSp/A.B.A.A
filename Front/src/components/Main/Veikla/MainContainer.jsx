@@ -176,7 +176,7 @@ function MainContainer() {
                                 </div>
                             }
                         </div>
-                        <div className='ps-5 py-4'>
+                        <div className='ps-5 py-4 w-75'>
                             <h5 className='title m-0 d-block'>Veikla</h5>
                         </div>
                     </div>
