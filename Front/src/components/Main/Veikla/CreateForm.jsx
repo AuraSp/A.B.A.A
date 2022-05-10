@@ -157,9 +157,10 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                                 type='date'
                                 defaultValue={today}
                                 min='1990-01-01'
-                                max='2030-01-01'
+                                max={today}
                                 pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
-                                className='border' ></input>
+                                className='border' >
+                            </input>
                             <p className=' p-0 text-danger'>{errors.date?.message}</p>
                         </div>
                     </div>
