@@ -8,7 +8,7 @@ import series from '../Charts/ActivitiesChart';
 import SetSeries from '../Charts/ActivitiesChart';
 import './Styles/table.css';
 
-function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory }) {
+function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory, firstDate, lastDate }) {
 
 
     const handleDelete = (e, data, subId) => {
@@ -101,6 +101,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
 
     //---SortByCreationDate---//
     function sortByDate(a, b) {
+        
         if (a.createdAt < b.createdAt) {
             return 1;
         }
@@ -111,6 +112,9 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
     }
 
     all.sort(sortByDate);
+
+    console.log(all.map((filterData) => filterData.date >= firstDate && filterData.date <= lastDate ? "yes" : "no" ))
+    console.log(firstDate);
 
     return (
         <>{all.length === 0 ? (
@@ -160,7 +164,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                             onDelete={handleDelete}
                                         />
                                     ) : (
-                                        filterData.category === filterCategory && filterData.type === "expense" ? (
+                                        filterData.category === filterCategory && filterData.date === firstDate && filterData.type === "expense" ? (
                                             <Card
                                                 subId={filterData._id}
                                                 data={filterData}

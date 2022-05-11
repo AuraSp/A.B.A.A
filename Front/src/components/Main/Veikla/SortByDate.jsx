@@ -4,7 +4,7 @@ export default function SortByDate({ searchDate, setFirstDate, setLastDate }) {
 
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
-
+    
 
     return (
         <>

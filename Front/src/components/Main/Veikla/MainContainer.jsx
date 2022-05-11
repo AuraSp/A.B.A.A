@@ -80,21 +80,21 @@ function MainContainer() {
         setAll(tempAll); //Give empty Object all temporarily data(everything inside it)
     }, [incomes, expenses])
 
-    const searchDate = () => {
-        for (let i = 0; i < expenses.length; i++) {
-            let date = expenses.map((data) => data.date)
+    // const searchDate = () => {
+    //     for (let i = 0; i < expenses.length; i++) {
+    //         let date = expenses.map((data) => data.date)
 
-            if (date === firstDate) {
-                expenses.map((data) => data.date === firstDate)
-                console.log(date)
-            }
-        }
-        var updateList = [...all];
-        updateList = updateList.filter((item) => {
-            return item.date === firstDate
-        })
-        return setAll(updateList)
-    }
+    //         if (date === firstDate) {
+    //             expenses.map((data) => data.date === firstDate)
+    //             console.log(date)
+    //         }
+    //     }
+    //     var updateList = [...all];
+    //     updateList = updateList.filter((item) => {
+    //         return item.date === firstDate
+    //     })
+    //     return setAll(updateList)
+    // }
     //---ExpensesConverterIntoFormat-.csv---//
     const exportOptions = {
         fieldSeparator: ',',
@@ -254,7 +254,7 @@ function MainContainer() {
                                     parentCallback={callbackFunction}
                                 />
                                 <SortByDate
-                                    searchDate={searchDate}
+                                    // searchDate={searchDate}
                                     setFirstDate={setFirstDate}
                                     setLastDate={setLastDate}
                                 />
@@ -271,6 +271,8 @@ function MainContainer() {
                                 setRender={setRender}
                                 render={render}
                                 filterCategory={category}
+                                firstDate={firstDate}
+                                lastDate={lastDate}
                             // setSeries={setSeries}
                             // series={series}
 
