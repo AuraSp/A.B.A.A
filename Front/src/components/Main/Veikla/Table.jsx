@@ -113,8 +113,13 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
 
     all.sort(sortByDate);
 
-    console.log(all.map((filterData) => filterData.date >= firstDate && filterData.date <= lastDate ? "yes" : "no" ))
-    console.log(firstDate);
+    console.log(all.map((filterData) => !firstDate && !lastDate && filterData.category === filterCategory && filterData.type === "expense"
+    || !filterCategory && filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" 
+    || filterData.category === filterCategory && filterData.type === "expense" && filterData.date >= firstDate && filterData.date <= lastDate ? "yes" : "no" ))
+
+
+    console.log("Pradzia: " + firstDate);
+    console.log("Pabaiga: " + lastDate);
 
     return (
         <>{all.length === 0 ? (
@@ -156,7 +161,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                             onCancel={cancelEdit}
                                             onSubmit={submitEdit}
                                         />
-                                    ) : (!filterCategory ? (
+                                    ) : (!filterCategory  ? (
                                         <Card
                                             subId={filterData._id}
                                             data={filterData}
@@ -164,7 +169,9 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                             onDelete={handleDelete}
                                         />
                                     ) : (
-                                        filterData.category === filterCategory && filterData.date === firstDate && filterData.type === "expense" ? (
+                                        !firstDate && !lastDate && filterData.category === filterCategory && filterData.type === "expense"
+                                        || filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" 
+                                        || filterData.category === filterCategory && filterData.type === "expense" && filterData.date >= firstDate && filterData.date <= lastDate ? (
                                             <Card
                                                 subId={filterData._id}
                                                 data={filterData}
