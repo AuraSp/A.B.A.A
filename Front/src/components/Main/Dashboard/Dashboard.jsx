@@ -30,7 +30,7 @@ function Dashboard() {
 
   return (
     <div className='container-fluid p-0 m-0'>
-      <div className='row d-flex flex-row flex-nowrap'>
+      <div className='row d-flex flex-row flex-nowrap p-0 m-0'>
         <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap'>
           <Link to="/" className='mt-3 pt-2 pb-1 text-decoration-none'><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></Link>
 
@@ -44,7 +44,7 @@ function Dashboard() {
             <span>Veikla</span>
           </Link>
         </div>
-        <div className='maincontent'>
+        <div className='maincontent p-0 m-0'>
           <div className='header'>
             {/* Visible on medium and small screens */}
 
