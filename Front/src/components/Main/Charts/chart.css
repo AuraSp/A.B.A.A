@@ -55,6 +55,10 @@ transition: 500ms linear;
         width: 18em;
     }
 
+    .balancesummary div:first-child {
+        margin-right: 0.5em;
+    }
+
     .balancesummary div:first-child,
     .balancesummary div:nth-child(2),
     .balancesummary div:last-child {

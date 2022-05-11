@@ -86,10 +86,10 @@ function Dashboard() {
               <div className='d-flex flex-row position-relative'>
                 <h5 className='w-100 p-0 m-0'>Balansas</h5>
               </div>
-              {/* <ActivitiesChart
+              <ActivitiesChart
                 expenses={expenses}
                 incomes={incomes}
-              /> */}
+              />
             </div>
           </div>
         </div>
