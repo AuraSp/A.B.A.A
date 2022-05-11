@@ -214,12 +214,12 @@ function MainContainer() {
                                     </div>
                                 }
                             </div>
-                            <ActivitiesChart
+                            {/* <ActivitiesChart
                                 expenses={expenses}
                                 incomes={incomes}
                             // setSeries={setSeries}
                             //  series={series}
-                            />
+                            /> */}
                             <div className='button col-lg-4 col-md-12 d-sm-none d-md-none d-lg-flex flex-row flex-wrap align-content-center justify-content-center p-md-3 mt-md-2'>
                                 <div className="h-25 text-center">
                                     <button
