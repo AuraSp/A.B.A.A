@@ -24,19 +24,27 @@ function Home() {
           </div>
         </div>
         <div className="sidemenu">
-          
-          <div className="container">
-            <div className="row m-4">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-2">
+                OOGA
+              </div>
+              <div className="col-8">
+              <div className="container-fluid">
+            <div className="row m-4 pt-4">
               <h2>Text</h2>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam corporis eius laborum unde magni itaque, earum fuga nihil sequi vitae fugit provident quasi nisi commodi repellat obcaecati ducimus ipsa reprehenderit. Voluptatibus obcaecati animi qui veniam fugit nesciunt temporibus et. Cum dolore facilis sit totam iure eligendi excepturi porro quis harum inventore blanditiis obcaecati velit autem aut veritatis ad, id quasi. Minus non necessitatibus rerum harum dignissimos recusandae qui, natus, et dolorum sed quas nulla excepturi perspiciatis! Tempora illo dolore debitis suscipit ab excepturi sunt voluptates facilis dolores! Eum, ab veniam.
+                Biudžetas yra viena iš svarbiausių jūsų finansinio planavimo priemonių. Neturėdami biudžeto galite rizikuoti per daug išleisti. Gali būti sunkiau pasiekti svarbius finansinius tikslus, pvz., sutaupyti skubios pagalbos fondui ar įsigyti būstą, kai neturite biudžeto, pagal kurį galėtumėte nukreipti išlaidas.
               </p>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, voluptas iure deserunt maxime corporis magni ratione eaque vel molestias dignissimos non omnis. Sed natus error ut, autem dicta necessitatibus libero! Dolorem fuga quasi aspernatur temporibus at incidunt beatae, sapiente officia cum accusamus ratione eos expedita corporis dolore eius maiores id labore tempore tenetur et? Optio nulla alias quis nam temporibus?
+                Biudžeto sudarymo meno įvaldymas prasideda nuo svarbiausių gero biudžeto komponentų supratimo. Kurdami namų ūkio biudžetą nepamirškite įtraukti šių devynių funkcijų.
               </p>
               <div className='col-5'>
+                <h3>Accurate Spending Categories</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit in animi, ratione consequuntur eius sed unde nam odio? Reprehenderit unde ullam rem. Aspernatur nemo voluptatum animi praesentium. Architecto, sit? Autem. Quod distinctio illum inventore autem quam eos porro, aliquam fuga doloremque alias assumenda voluptate cupiditate numquam illo veniam, corporis mollitia sequi corrupti perspiciatis sed eveniet! Voluptatem ad accusamus voluptates quasi.</p>
+                  Nors biudžeto darbalapiai gali būti naudingas išteklius nustatant biudžetą, jie gali visiškai neatitikti jūsų išlaidų įpročių. Kurdami biudžetą sutelkite dėmesį į išlaidų kategorijas, kurios atspindi, kur eina jūsų pinigai. Išlaidų stebėjimas naudojant biudžeto sudarymo programą yra geras būdas suprasti savo mėnesio išlaidas.
+                </p>
+                <h3>Pakanka išlaidų kategorijų</h3>
                 <p>
                   Inventore aliquid ullam qui voluptas id ad sequi mollitia corrupti dicta sapiente, fugit nihil consequatur enim, esse nostrum. Quisquam similique voluptatem quae iusto dolorem quasi voluptatum consequatur maxime esse incidunt.
                 </p>
@@ -48,6 +56,13 @@ function Home() {
               <Link to="/dashboard"><img src={Dashboard} className="w-100 mb-5" alt="Dashboard" /></Link>
             </div>
           </div>
+              </div>
+              <div className="col-2">
+                BOOGA
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </>

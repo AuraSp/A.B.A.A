@@ -12,7 +12,7 @@ function Dashboard() {
 
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
-  const [render, setRender] = useState(false);
+  const [render] = useState(false);
 
   //User account menu popup
   const toggleAccountPopup = () => {

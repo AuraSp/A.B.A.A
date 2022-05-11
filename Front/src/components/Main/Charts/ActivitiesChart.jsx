@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ApexCharts from 'react-apexcharts';
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { HiOutlineDatabase } from "react-icons/hi";

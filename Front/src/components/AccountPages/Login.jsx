@@ -3,7 +3,7 @@ import { createNewUser } from '../../api/lib/TransactionsAPI';
 
 function Register() {
 
-  let [seePassword, setSeePassword] = useState('password');
+  // let [seePassword, setSeePassword] = useState('password');
   let [name, setName] = useState('');
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');

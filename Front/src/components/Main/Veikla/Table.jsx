@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import Card from './Card';
 import EditForm from './EditForm';
 import { getAllUsers, deleteIncomeTransactions, deleteExpenseTransactions, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
-import ApexCharts from '../Charts/ActivitiesChart';
+// import ApexCharts from '../Charts/ActivitiesChart';
 import series from '../Charts/ActivitiesChart';
 import SetSeries from '../Charts/ActivitiesChart';
 import './Styles/table.css';
