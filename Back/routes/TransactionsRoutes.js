@@ -1,4 +1,6 @@
 const express = require("express");
+const { verifySignUp } = require("../middleware");
+const controller = require("../controllers/auth.controller");
 
 const {
   //User
@@ -15,6 +17,8 @@ const {
   addNewIncome,
   addNewExpense,
 } = require("../controllers/TransactionsController");
+
+const {signup} = require("../controllers/auth.controller")
 
 const router = express.Router();
 
@@ -44,7 +48,14 @@ router.route("/:id/user/addNewExpense").patch(addNewExpense);
 
 // });
 
-router.route('/register').post(createNewUser)
+router.route('/auth/signup').post([
+  verifySignUp.checkDuplicateUsernameOrEmail,
+  verifySignUp.checkRolesExisted
+],
+controller.signup)
+
+router.route("/auth/signin").post(controller.signin);
+
 // app.post("/register", (req, res) => {
 
 //   User.register(new User({ name: req.body.name }), req.body.password, function (err, user) {

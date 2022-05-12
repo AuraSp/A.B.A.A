@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 import './activitiesmain.css';
 
 function UserDataCard({ subId, data, onEdit, onDelete }) {
+    console.log(data)
 
     return (
         <tr>

@@ -13,19 +13,27 @@ function MainTable({ setAllData, render, setRender }) {
     const [all, setAll] = useState([]);
     const [editId, setEditId] = useState([]);
     const [userId, setId] = useState([]);
-    const [render, setRender] = useState(false)
+
+
+    let text = localStorage.getItem("user");
+    let obj = JSON.parse(text)
+
 
     //---FetchData---//
     useEffect(() => {
         getAllUsers().then((res) => {
+
             const userdata = res.data.data.transactions; //Fetch all existing data from database
-            setEditId(...userdata.map((data) => data._id)); //Take User Id
-            setId(...userdata.map((data) => data._id));
-            setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
-            setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
+            let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
+            setEditId(...userAllIds.map((data) => data._id === obj)); //Take User Id for edit
+
+            setId(...userAllIds.map((data) => data._id)); //Take User Id
+            setIncomes(...userAllIds.map((data) => data.income)); //Take all User's incomes
+            setExpenses(...userAllIds.map((data) => data.expense)); //Take all User's expenses
             setLoading(false);
         });
     }, [render]);
+    console.log(userId, incomes, expenses)
 
     useEffect(() => {
         let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
@@ -102,18 +110,6 @@ function MainTable({ setAllData, render, setRender }) {
 
 
     //---HandleEdit---//
-<<<<<<< HEAD
-    const submitEdit = async (id, subId, data, defaultData) => {
-        if (defaultData.type === 'income') {
-            await findIncomesAndUpdate(id, subId, data).then(() =>
-                getAllUsers());
-            setId()
-        } else {
-            await findExpensesAndUpdate(id, subId, data).then(() =>
-                getAllUsers());
-            setId()
-        }
-=======
     const submitEdit = async (id, subId, data) => {
         console.log(id, subId, data)
         await findIncomesAndUpdate(id, subId, data).then(() =>
@@ -121,7 +117,6 @@ function MainTable({ setAllData, render, setRender }) {
         await findExpensesAndUpdate(id, subId, data).then(() =>
             getAllUsers());
 
->>>>>>> 88b1f2f29b39799f592c6131d15a09112647ee63
         setRender(prevState => !prevState)
     }
 
@@ -144,6 +139,8 @@ function MainTable({ setAllData, render, setRender }) {
 
     //---SortByCreationDate---//
     all.sort(sortByDate);
+
+    
 
 
     return (
@@ -174,6 +171,7 @@ function MainTable({ setAllData, render, setRender }) {
                         </tr >
                     </thead >
                     <tbody className='text-center'>
+                       
                         {!loading ?
                             all.map((filterData) => (
 
@@ -196,6 +194,7 @@ function MainTable({ setAllData, render, setRender }) {
                                         />
 
                                     )}
+                                    
 
                                 </React.Fragment>
                             ))

@@ -33,6 +33,9 @@ function BudgetMain() {
         setFilterPopup(!filterpopup);
     }
 
+    let getVardas = localStorage.getItem("name")
+    let vardas = getVardas.replace(/['"]+/g, '')
+
     useEffect(() => {
         alldata.map((data) => data)
     }, [alldata])
@@ -100,7 +103,7 @@ function BudgetMain() {
                     {/* Visible on large screens */}
                     <div onClick={toggleAccountPopup} className='account d-lg-flex d-md-none d-sm-none flex-row justify-content-end py-4 border-bottom'>
                         <div className='fs-5 ps-1 pe-1'><MdAccountCircle /></div>
-                        <div className='fs-5 ps-1 pe-1'>user</div>
+                        <div className='fs-5 ps-1 pe-1'>{vardas}</div>
                         <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
                         {accountpopup &&
                             <div className="acc-content shadow rounded">

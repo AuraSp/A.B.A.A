@@ -1,5 +1,9 @@
 import axiosClient from '../apiTransactions';
 import axiosUser from '../apiTransactions'
+import axios from "axios"
+import useLoggedUser from '../../components/useLoggedUser'; 
+
+
 
 //User
 export async function getAllUsers() {
@@ -7,7 +11,30 @@ export async function getAllUsers() {
     return res;
 }
 
-export const createNewUser = (data) => axiosClient.post('/register/', JSON.stringify(data));
+export const createNewUser = (name, password, email, data) => axiosClient.post('/auth/signup', {
+    username: name,
+    password: password,
+    email: email
+  })
+  .then((response) => {
+    console.log(response);
+  });
+
+  export const loginUser = (name, password, email, data) => axiosClient.post('/auth/signin', {
+    username: name,
+    password: password
+    // email: email
+  })
+  .then((response) => {
+    localStorage.setItem("user",  JSON.stringify(response.data.id))
+    localStorage.setItem("name",  JSON.stringify(response.data.username))
+  });
+  
+  export const signout = () => axios.post('http://localhost:3000/api/auth/signout')
+  .then((response) => {
+    console.log(response);
+  });
+  
 // return res.redirect(/home)
 
 // export async function createNewUser() {
@@ -17,13 +44,13 @@ export const createNewUser = (data) => axiosClient.post('/register/', JSON.strin
 //     res.redirect("/login");
 // }
 
+// const register = async (e, data) => {
+//     e.preventDefault();
+
+//     await createNewUser(name, password, email)
+//   }
+
 export const updateUser = (data) => axiosClient.patch('/', JSON.stringify(data));
-
-
-
-
-
-
 
 
 //User's transactions

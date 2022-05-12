@@ -21,10 +21,14 @@ function CreateFlowsForm({ handlepopupClose, render, setRender }) {
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
 
+    let text = localStorage.getItem("user");
+    let obj = JSON.parse(text);
+
     useEffect(() => {
         getAllUsers().then((res) => {
             const userdata = res.data.data.transactions; //Fetch all existing data from database
-            setId(...userdata.map((data) => data._id)); //Take User Id
+            let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
+            setId(...userAllIds.map((data) => data._id)); //Take User Id
         });
     }, []);
 

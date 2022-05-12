@@ -1,28 +1,91 @@
-import React, { useState } from 'react'
-import { createNewUser } from '../../api/lib/TransactionsAPI';
+import { useRef, useState, useEffect, useContext } from 'react';
+// import AuthContext from "./context/AuthProvider";
+import useLoggedUser from '../useLoggedUser';
+import axios from "axios"
+import {loginUser, signout} from "../../api/lib/TransactionsAPI"
+// import axios from './api/axios';
+const LOGIN_URL = '/auth';
 
-function Register() {
+const Login = () => {
+    // const { setAuth } = useContext(AuthContext);
+    const userRef = useRef();
+    const errRef = useRef();
 
-  let [seePassword, setSeePassword] = useState('password');
-  let [name, setName] = useState('');
-  let [email, setEmail] = useState('');
-  let [password, setPassword] = useState('');
+    const [name, setUser] = useState('');
+    const [password, setPwd] = useState('');
+    const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState(false);
 
+    const {loggedUser, setLoggedUser} = useLoggedUser();
 
-  const register = async (e, data) => {
-    e.preventDefault();
-    console.log(name, email, password)
+    useEffect(() => {
+        userRef.current.focus();
+    }, [])
 
-    await createNewUser(data)
-  }
-  return (
-    <form onSubmit={(e) => { register(e) }}>
-      <input name='name' type='text' placeholder='name' onChange={(e) => setName(e.target.value)}></input>
-      <input name='email' type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)}></input>
-      <input name='password' type='password' placeholder='password' onChange={(e) => setPassword(e.target.value)}></input>
-      <button type='submit' value='register'>Registracija</button>
-    </form>
-  )
+    useEffect(() => {
+        setErrMsg('');
+    }, [name, password])
+
+    const handleSubmit = async (e, data) => {
+        e.preventDefault();
+            
+            await loginUser(name, password)
+            setSuccess(true)
+    }
+    const logout = async (e) =>{
+        e.preventDefault();
+        await signout()
+    }
+
+    return (
+        <>
+            {success ? (
+                <section>
+                    <h1>Jūs prisijungėte! </h1>
+                    <br />
+                    <p>
+                        <a href="#">Į pagrindinį</a>
+                        <button onClick={logout} > Atsijungti</button>
+                    </p>
+                </section>
+            ) : (
+                <section>
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <h1>Prisijungimas</h1>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="username">El. paštas:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setUser(e.target.value)}
+                            value={name}
+                            required
+                        />
+
+                        <label htmlFor="password">Slaptažodis:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={password}
+                            required
+                        />
+                        <button>Prisijungimas</button>
+                    </form>
+                    <p>
+                            
+                        Reikia paskyros?<br />
+                        <span className="line">
+                            {/*put router link here*/}
+                            <a href="#">Užsiregistruokite</a>
+                        </span>
+                    </p>
+                </section>
+            )}
+        </>
+    )
 }
 
-export default Register
+export default Login
