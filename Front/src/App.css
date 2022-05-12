@@ -1,3 +1,4 @@
+
 *,
 *:before,
 *:after {
@@ -5,7 +6,7 @@
     margin: 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    scroll-width: none;
+    scrollbar-width: none;
 }
 
 .row>* {
@@ -13,4 +14,22 @@
     margin: 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    scrollbar-width: none;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    max-width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
