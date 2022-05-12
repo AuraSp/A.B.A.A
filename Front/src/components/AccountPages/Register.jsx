@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import axios from './api/axios';
 import { createNewUser } from '../../api/lib/TransactionsAPI';
@@ -49,21 +50,21 @@ const Register = () => {
     const handleSubmit = async  (e, data) => {
           e.preventDefault();
       
-          await createNewUser(name, password, email)
+          await createNewUser(name, password)
           setSuccess(true)
         }
 
     return (
-        <>
+        <div className='login'>
             {success ? (
-                <section>
+                <section className="prisijungimas rounded">
                     <h1>Užsiregistruota sėkmingai!</h1>
                     <p>
-                        <a href="#">Prisijunkite</a>
+                    <Link to="/login">Prisijunkite</Link>
                     </p>
                 </section>
             ) : (
-                <section>
+                <section className="prisijungimas rounded">
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>Registracija</h1>
                     <form onSubmit={handleSubmit}>
@@ -89,10 +90,10 @@ const Register = () => {
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Nuo 4 iki 20 simbolių.<br />
                             Turi prasidėti raide.<br />
-                            Raidės, skaičiai ir brukšniai yra leidžiami .
+                            Raidės, skaičiai ir brukšniai yra leidžiami.
                         </p>
 
-                          <label htmlFor="email">
+                          {/* <label htmlFor="email">
                             El. paštas:
                             <br/>
                           <input
@@ -105,7 +106,7 @@ const Register = () => {
                           >
                           
                           </input>
-                          </label>
+                          </label> */}
 
                         <label htmlFor="password">
                             Slaptažodis:
@@ -152,18 +153,21 @@ const Register = () => {
                             Slaptažodžiai turi sutapti.
                         </p>
 
-                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>Registruotis</button>
+                        <button className='btn btn-light mt-1' disabled={!validName || !validPwd || !validMatch ? true : false}>Registruotis</button>
                     </form>
                     <p>
                         Jau užsiregistravote?<br />
                         <span className="line">
-                            {/*put router link here*/}
-                            <a href="#">Prisijunkite</a>
+                        <Link to="/login">Prisijunkite</Link>
+                        </span>
+                        <br/>
+                        <span>
+                        <Link to="/">Grįžti į pagrindinį</Link>
                         </span>
                     </p>
                 </section>
             )}
-        </>
+        </div>
     )
 }
 

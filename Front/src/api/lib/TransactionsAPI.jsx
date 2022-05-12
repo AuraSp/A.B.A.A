@@ -10,8 +10,7 @@ export async function getAllUsers() {
 
 export const createNewUser = (name, password, email, data) => axiosClient.post('/auth/signup', {
     username: name,
-    password: password,
-    email: email
+    password: password
   })
   .then((response) => {
     console.log(response);

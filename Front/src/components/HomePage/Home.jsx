@@ -19,15 +19,15 @@ function Home() {
             
           
           <div className="col-5 d-flex justify-content-end my-2 me-3">
-            <Link to="/login" className='m-2 mt-2 btn btn-light'>Log in</Link>
-            <Link to="/signup" className='m-2 mt-2 btn btn-primary'>Sign up</Link>
+            <Link to="/login" className='m-2 mt-2 btn btn-warning'>Prisijungimas</Link>
+            <Link to="/signup" className='m-2 mt-2 btn btn-primary'>Registracija</Link>
           </div>
         </div>
         <div className="sidemenu">
           <div className="container-fluid">
             <div className="row">
               <div className="col-2">
-                OOGA
+                 
               </div>
               <div className="col-8">
               <div className="container-fluid">
@@ -58,7 +58,7 @@ function Home() {
           </div>
               </div>
               <div className="col-2">
-                BOOGA
+                 
               </div>
             </div>
           </div>

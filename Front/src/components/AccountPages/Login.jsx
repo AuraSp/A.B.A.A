@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useContext } from 'react';
-// import AuthContext from "./context/AuthProvider";
+import {Link} from "react-router-dom"
 import axios from "axios"
 import {loginUser, signout} from "../../api/lib/TransactionsAPI"
 // import axios from './api/axios';
@@ -29,29 +29,26 @@ const Login = () => {
             
             await loginUser(name, password)
             setSuccess(true)
-    }
-    const logout = async (e) =>{
-        e.preventDefault();
-        await signout()
-    }
+            setTimeout(function(){
+                window.location.href = 'http://localhost:3001/veikla';
+             }, 3500);
+            }
 
     return (
-        <>
+        <div className='login'>
             {success ? (
-                <section>
+                <section className='prisijungimas rounded'>
                     <h1>Jūs prisijungėte! </h1>
+                    <h4>Prašau palaukite</h4>
                     <br />
-                    <p>
-                        <a href="#">Į pagrindinį</a>
-                        <button onClick={logout} > Atsijungti</button>
-                    </p>
+                   
                 </section>
             ) : (
-                <section>
+                <section className='prisijungimas rounded'>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>Prisijungimas</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">El. paštas:</label>
+                        <label htmlFor="username">Slapyvardis:</label>
                         <input
                             type="text"
                             id="username"
@@ -70,19 +67,22 @@ const Login = () => {
                             value={password}
                             required
                         />
-                        <button>Prisijungimas</button>
+                        <button className='btn btn-light mt-1'>Prisijungimas</button>
                     </form>
                     <p>
                             
                         Reikia paskyros?<br />
                         <span className="line">
-                            {/*put router link here*/}
-                            <a href="#">Užsiregistruokite</a>
+                        <Link to="/signup">Užsiregistruokite</Link>
+                        </span>
+                        <br/>
+                        <span>
+                        <Link to="/">Grįžti į pagrindinį</Link>
                         </span>
                     </p>
                 </section>
             )}
-        </>
+        </div>
     )
 }
 

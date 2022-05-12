@@ -16,6 +16,16 @@ body {
     min-height: 100vh;
     background-color: dodgerblue;
 }
+.login {
+    background-color: aliceblue;
+    height: 100vh;
+}
+.prisijungimas {
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .App {
   display: flex;
