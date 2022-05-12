@@ -1,25 +1,35 @@
+
 *,
 *:before,
 *:after {
     padding: 0;
     margin: 0;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    scrollbar-width: none;
 }
 
-.row > * {
+.row>* {
     padding: 0;
     margin: 0;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    scrollbar-width: none;
 }
 
-html,
 body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    width: 100vw;
+    max-width: 100%;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    scrollbar-width: none;
-    scroll-behavior:smooth;
-}
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  

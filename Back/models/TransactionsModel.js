@@ -53,9 +53,6 @@ const usersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    balance: {
-      type: Number,
-    },
 
     limit: [LimitSchema],
     income: [IncomesSchema],

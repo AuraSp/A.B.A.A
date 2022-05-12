@@ -3,9 +3,7 @@ import Swal from 'sweetalert2';
 import Card from './Card';
 import EditForm from './EditForm';
 import { getAllUsers, deleteIncomeTransactions, deleteExpenseTransactions, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
-// import ApexCharts from '../Charts/ActivitiesChart';
-import series from '../Charts/ActivitiesChart';
-import SetSeries from '../Charts/ActivitiesChart';
+
 import './Styles/table.css';
 
 function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory, firstDate, lastDate }) {
@@ -13,8 +11,8 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
 
     const handleDelete = (e, data, subId) => {
         e.preventDefault();
+        console.log(data.type) //Check type
         if (data.type === 'income') {
-            console.log(data.type) //Check type
             Swal
                 .fire({
                     title: 'Ar tikrai norite pašalinti?',
@@ -33,10 +31,10 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 confirmButtonText: 'Puiku!'
                             })
 
-                        setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
 
-                        deleteIncomeTransactions(userId, subId).then(() => SetSeries(series)) //Delete choosen transaction type form database
-
+                        deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database;
+                        setAll(all.filter((data) => data._id !== subId))
+                        setRender(prevState => !prevState)
                     } else if (result.isDenied) {
                         Swal.close()
                     }
@@ -61,10 +59,9 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 confirmButtonText: 'Puiku!'
                             })
 
-                        setAll(all.filter((data) => data._id !== subId)); //Delete choosen transaction type from users eyes
-
-                        deleteExpenseTransactions(userId, subId)
-                        //Delete choosen transaction type form database
+                        deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
+                        setAll(all.filter((data) => data._id !== subId))
+                        setRender(prevState => !prevState)
                     } else if (result.isDenied) {
                         Swal.close()
                     }

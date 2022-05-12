@@ -38,10 +38,9 @@ function MainContainer() {
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
     //Filters
     const [category, setCategory] = useState();
+
     const [firstDate, setFirstDate] = useState();
     const [lastDate, setLastDate] = useState(today);
-
-    
 
     //User account menu popup
     const toggleAccountPopup = () => {
@@ -84,21 +83,6 @@ function MainContainer() {
         setAll(tempAll); //Give empty Object all temporarily data(everything inside it)
     }, [incomes, expenses])
 
-    // const searchDate = () => {
-    //     for (let i = 0; i < expenses.length; i++) {
-    //         let date = expenses.map((data) => data.date)
-
-    //         if (date === firstDate) {
-    //             expenses.map((data) => data.date === firstDate)
-    //             console.log(date)
-    //         }
-    //     }
-    //     var updateList = [...all];
-    //     updateList = updateList.filter((item) => {
-    //         return item.date === firstDate
-    //     })
-    //     return setAll(updateList)
-    // }
     //---ExpensesConverterIntoFormat-.csv---//
     const exportOptions = {
         fieldSeparator: ',',
@@ -180,7 +164,7 @@ function MainContainer() {
                                 </div>
                             }
                         </div>
-                        <div className='ps-5 py-4'>
+                        <div className='ps-5 py-4 w-75'>
                             <h5 className='title m-0 d-block'>Veikla</h5>
                         </div>
                     </div>
@@ -221,8 +205,6 @@ function MainContainer() {
                             <ActivitiesChart
                                 expenses={expenses}
                                 incomes={incomes}
-                            // setSeries={setSeries}
-                            //  series={series}
                             />
                             <div className='button col-lg-4 col-md-12 d-sm-none d-md-none d-lg-flex flex-row flex-wrap align-content-center justify-content-center p-md-3 mt-md-2'>
                                 <div className="h-25 text-center">
@@ -254,7 +236,6 @@ function MainContainer() {
                         {filterpopup &&
                             <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
                                 <SortCategory
-                                    handlefilterpopupClose={toggleFilterPopup}
                                     parentCallback={callbackFunction}
                                 />
                                 <SortByDate

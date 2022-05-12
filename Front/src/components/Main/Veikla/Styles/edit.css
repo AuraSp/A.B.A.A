@@ -19,7 +19,7 @@
 .editinputs>td:nth-child(4),
 .editinputs>td:nth-child(5),
 .editinputs>td:nth-child(6) {
-    max-width: 8em;
+    max-width: 6em;
 }
 
 .editinputs>td:nth-child(2) input,
