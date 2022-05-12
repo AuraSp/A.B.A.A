@@ -67,17 +67,21 @@ function MainContainer() {
         setCategory(category)
     }
 
+    let text = localStorage.getItem("user");
+    let obj = JSON.parse(text)
+
+
     //---FetchData---//
     useEffect(() => {
         getAllUsers().then((res) => {
+
             const userdata = res.data.data.transactions; //Fetch all existing data from database
-            let allIds = userdata.filter((data) => data._id)
-            console.log(allIds)
-            let currentId = allIds.filter((data) => data._id === '6266dba0a9fa9d50d4af77bb') //Take current user data
-            setId(...currentId.map((data) => data._id)); //Take current user Id
-            setEditId(userId); //Take current user Id for edit
-            setIncomes(...currentId.map((data) => data.income)); //Take all current user incomes
-            setExpenses(...currentId.map((data) => data.expense)); //Take all current user expenses
+            let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
+            setEditId(...userAllIds.map((data) => data._id === obj)); //Take User Id for edit
+
+            setId(...userAllIds.map((data) => data._id)); //Take User Id
+            setIncomes(...userAllIds.map((data) => data.income)); //Take all User's incomes
+            setExpenses(...userAllIds.map((data) => data.expense)); //Take all User's expenses
             setLoading(false);
         });
     }, [render, userId]);

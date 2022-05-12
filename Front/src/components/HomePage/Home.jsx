@@ -19,7 +19,7 @@ function Home() {
             
           
           <div className="col-5 d-flex justify-content-end my-2 me-3">
-            <Link to="/signin" className='m-2 mt-2 btn btn-light'>Log in</Link>
+            <Link to="/login" className='m-2 mt-2 btn btn-light'>Log in</Link>
             <Link to="/signup" className='m-2 mt-2 btn btn-primary'>Sign up</Link>
           </div>
         </div>
