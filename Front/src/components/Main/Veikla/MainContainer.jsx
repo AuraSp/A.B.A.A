@@ -34,10 +34,13 @@ function MainContainer() {
     const [userId, setId] = useState([]);
     const [render, setRender] = useState(false);
 
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed).toISOString().substring(0, 10);
     //Filters
     const [category, setCategory] = useState();
-    const [firstDate, setFirstDate] = useState('');
-    const [lastDate, setLastDate] = useState();
+
+    const [firstDate, setFirstDate] = useState();
+    const [lastDate, setLastDate] = useState(today);
 
     //User account menu popup
     const toggleAccountPopup = () => {
@@ -79,19 +82,6 @@ function MainContainer() {
         let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
         setAll(tempAll); //Give empty Object all temporarily data(everything inside it)
     }, [incomes, expenses])
-
-    const searchDate = () => {
-        var updateList = [...all];
-        updateList = updateList.map((data) => data.date)
-        console.log(updateList)
-if (updateList = firstDate) {
-    setAll(all.filter((data) => data.date == firstDate))
-  
-} else {
-    setRender(prevState => !prevState)
-}
-    }
-
 
     //---ExpensesConverterIntoFormat-.csv---//
     const exportOptions = {
@@ -249,7 +239,7 @@ if (updateList = firstDate) {
                                     parentCallback={callbackFunction}
                                 />
                                 <SortByDate
-                                    searchDate={searchDate}
+                                    // searchDate={searchDate}
                                     setFirstDate={setFirstDate}
                                     setLastDate={setLastDate}
                                 />
@@ -266,6 +256,8 @@ if (updateList = firstDate) {
                                 setRender={setRender}
                                 render={render}
                                 filterCategory={category}
+                                firstDate={firstDate}
+                                lastDate={lastDate}
                             // setSeries={setSeries}
                             // series={series}
 
