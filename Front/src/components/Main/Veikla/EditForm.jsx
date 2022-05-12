@@ -24,7 +24,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             description: description,
             category: category,
             date: date,
-            amount: amount.replace(/,/, '.'),
+            amount: amount,
         };
         onSubmit(id, subId, dataSet, defaultData)
     }
@@ -41,27 +41,21 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
         { value: 'Santaupos', text: 'Santaupos' },
         { value: 'Alga', text: 'Alga' }
     ]
-    // let test = amount.replace(/,/g, '.')
+
     const budgetSchema = yup.object().shape({
         description: yup
             .string()
             .min(2, 'Galimas minimalus 2-iejų raidžių kiekis')
             .max(30, 'Galimas maksimalus 30-ties raidžių kiekis')
-            .transform((_, description) => {
-                if (!description) {
-                    return errors.description
-                } else if (description.includes(' ')) {
-                    return description.replace(/,/, '.')
-                }
-                return description
-            })
+            .test('description', 'error-label', () =>
+                description.replace(' ', ''))
             .nullable(false)
             .strict()
             .required(),
         amount: yup
             .string()
             .nullable(false)
-            .matches(/^[0-9]\d*(((.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
+            .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
             .trim('Negalimi tarpai')
             .strict()
             .required(),
@@ -78,7 +72,6 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
     })
 
 
-
     const {
         register,
         handleSubmit,
@@ -89,7 +82,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
 
     return (
         <>
-            <tr className='editinputs text-center w-100'>
+            <tr className='editinputs text-center'>
                 <td className='fs-5 cardicons'><MdInventory className={defaultData.type === 'income' ? 'bg-primary p-1 fs-3 text-warning' : 'bg-danger p-1 fs-3 text-warning'} /></td>
                 <td>
 
@@ -97,6 +90,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                         {...register('description')}
                         className='text-center'
                         type='text'
+                        pattern='^[A-Z0-9]{6}$'
                         defaultValue={defaultData.description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
