@@ -22,7 +22,7 @@ function App() {
         <Route path="/*" element={<ErrorPage />} />
         <Route path="/veikla" element={<MainContainer />} />
         <Route path="/valdyba" element={<Valdyba />} />
-        <Route path="/signin" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
       </Routes>
     </Router>
