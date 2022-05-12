@@ -26,7 +26,7 @@ const ActivitiesChart = ({ incomes, expenses }) => {
 
     //BalanceChartData
     balance = incomeTotalSum - expenseTotalSum;
-    let series = [balance, Math.trunc(incomeTotalSum), Math.trunc(expenseTotalSum)]
+    let series = [Math.floor(balance), Math.trunc(incomeTotalSum), Math.trunc(expenseTotalSum)]
 
 
     const options = {
