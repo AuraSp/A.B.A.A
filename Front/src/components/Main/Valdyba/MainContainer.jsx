@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import ActivitiesChart from '../Charts/ActivitiesChart';
 import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 
-function Dashboard() {
+function Valdyba() {
   const [accountpopup, setAccountPopUp] = useState(false);
 
   const [incomes, setIncomes] = useState([]);
@@ -98,4 +98,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default Valdyba

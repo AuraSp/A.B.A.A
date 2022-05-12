@@ -4,7 +4,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Dashboard from './components/Main/Dashboard/Dashboard';
+import Valdyba from './components/Main/Valdyba/MainContainer';
 import Home from './components/HomePage/Home';
 import Login from './components/AccountPages/Login';
 import Register from './components/AccountPages/Register';
@@ -21,7 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/*" element={<ErrorPage />} />
         <Route path="/veikla" element={<MainContainer />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/valdyba" element={<Valdyba />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Register />} />
       </Routes>
