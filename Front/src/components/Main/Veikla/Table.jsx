@@ -150,7 +150,14 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                                 onSubmit={submitEdit}
                                             />
 
-                                        ) : (!firstDate && filterCategory ? (
+                                        ) : (!lastDate && firstDate ? (
+                                            <Card
+                                            subId={filterData._id}
+                                            data={filterData}
+                                            onEdit={handleEdit}
+                                            onDelete={handleDelete}
+                                            />
+                                        ) : !firstDate && filterCategory ? (
 
                                                 filterData.category === filterCategory && filterData.type === "expense"  ? (
                                                     <Card
