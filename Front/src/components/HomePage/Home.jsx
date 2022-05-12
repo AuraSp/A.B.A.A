@@ -53,7 +53,7 @@ function Home() {
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet dicta fugiat nemo pariatur dolores, sed id autem iusto tempora. Fuga sed voluptates molestias! Iure sequi eligendi odio at perspiciatis dolores.
               </p>
-              <Link to="/dashboard"><img src={Dashboard} className="w-100 mb-5" alt="Dashboard" /></Link>
+              <Link to="/valdyba"><img src={Dashboard} className="w-100 mb-5" alt="Dashboard" /></Link>
             </div>
           </div>
               </div>

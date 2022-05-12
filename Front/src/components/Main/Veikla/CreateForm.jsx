@@ -24,6 +24,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             .string()
             .min(2, 'Galimas minimalus 2-iejų raidžių kiekis')
             .max(30, 'Galimas maksimalus 30-ties raidžių kiekis')
+            .trim('Negalima įtraukti daugelio tarpų iš eilės nepridedant antro žodžio')
             .nullable(false)
             .strict()
             .required(),
@@ -31,6 +32,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             .string()
             .nullable(false)
             .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
+            .trim('Negalima įtraukti daugelio tarpų iš eilės')
             .strict()
             .typeError('fvefveve')
             .required(),

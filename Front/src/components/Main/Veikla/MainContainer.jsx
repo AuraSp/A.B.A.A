@@ -55,6 +55,7 @@ function MainContainer() {
     //User filter transactions popup
     const toggleFilterPopup = () => {
         setFilterPopup(!filterpopup);
+        setEditId('')
     }
 
     //User balance utilities popup
@@ -124,10 +125,10 @@ function MainContainer() {
                 <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap'>
                     <Link to="/" className='mt-3 pt-2 pb-1 text-decoration-none'><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></Link>
 
-                    <Link to="/dashboard" className='p-3 mt-5 text-decoration-none text-muted'>
+                    <Link to="/valdyba" className='p-3 mt-5 text-decoration-none text-muted'>
                         <span className='text-center text-primary p-1'><MdOutlineDashboardCustomize />
                         </span>
-                        <span>Dashboard</span>
+                        <span>Valdyba</span>
                     </Link>
                     <Link to="/veikla" className='p-3 text-decoration-none text-muted'>
                         <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
@@ -141,8 +142,8 @@ function MainContainer() {
                         <nav className="d-lg-none d-md-flex d-sm-flex flex-column flex-wrap navbar border-bottom">
                             <Link to="/" className='w-100 p-2 fs-5 text-decoration-none text-muted text-center'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>BudgetSimple</Link>
                             <div className='links d-flex flex-row justify-content-center fs-5'>
-                                <Link to="/dashboard" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Dashboard</Link>
-                                <Link to="/budget" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span>Veikla</Link>
+                                <Link to="/valdyba" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Valdyba</Link>
+                                <Link to="/veikla" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span>Veikla</Link>
                                 <div onClick={toggleAccountPopup} className='account d-flex flex-row justify-content-end p-3'>
                                     <div className='fs-5 ps-1 pe-1 text-warning border-bottom border-warning'><MdAccountCircle /></div>
                                     <div className='fs-5 ps-1 pe-1 text-muted'>User</div>
@@ -237,16 +238,20 @@ function MainContainer() {
                             </div>
                         </div>
                         {filterpopup &&
-                            <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
-                                <SortCategory
-                                    parentCallback={callbackFunction}
-                                />
-                                <SortByDate
-                                    // searchDate={searchDate}
-                                    setFirstDate={setFirstDate}
-                                    setLastDate={setLastDate}
-                                />
-                            </div>
+                            <>
+                                <h5 className='w-100 p-0 m-0'>Filtruoti išlaidas</h5>
+                                <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
+                                    <SortCategory
+                                        parentCallback={callbackFunction}
+                                    />
+                                    <SortByDate
+                                        // searchDate={searchDate}
+                                        setFirstDate={setFirstDate}
+                                        setLastDate={setLastDate}
+                                    />
+                                    <button>Išvalyti</button>
+                                </div>
+                            </>
                         }
                         <div className='row activitiestable mx-auto my-4 shadow text-muted d-flex flex-row'>
                             <Table

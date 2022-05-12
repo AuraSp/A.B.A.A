@@ -47,6 +47,8 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             .string()
             .min(2, 'Galimas minimalus 2-iejų raidžių kiekis')
             .max(30, 'Galimas maksimalus 30-ties raidžių kiekis')
+            .test('description', 'error-label', () =>
+                description.replace(' ', ''))
             .nullable(false)
             .strict()
             .required(),
@@ -54,6 +56,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             .string()
             .nullable(false)
             .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
+            .trim('Negalimi tarpai')
             .strict()
             .required(),
         date: yup
@@ -131,6 +134,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                                 className='text-center'
                                 type='string'
                                 min='0'
+                                step="0.01"
                                 defaultValue={defaultData.amount}
                                 onChange={(e) => setAmount(e.target.value)}>
                             </input>
@@ -148,6 +152,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                                 className='text-center'
                                 type='string'
                                 min='0'
+                                step="0.01"
                                 defaultValue={defaultData.amount}
                                 onChange={(e) => setAmount(e.target.value)}>
                             </input>
