@@ -26,7 +26,6 @@ export default function SortByDate({ searchDate, setFirstDate, setLastDate }) {
                 pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
                 onChange={(e) => setLastDate(e.target.value)}
             ></input>
-            <div><button onClick={(e) => searchDate(e)}>filter</button></div>
         </>
     )
 }

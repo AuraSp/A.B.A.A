@@ -34,10 +34,14 @@ function MainContainer() {
     const [userId, setId] = useState([]);
     const [render, setRender] = useState(false);
 
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed).toISOString().substring(0, 10);
     //Filters
     const [category, setCategory] = useState();
-    const [firstDate, setFirstDate] = useState('');
-    const [lastDate, setLastDate] = useState('');
+    const [firstDate, setFirstDate] = useState();
+    const [lastDate, setLastDate] = useState(today);
+
+    
 
     //User account menu popup
     const toggleAccountPopup = () => {
