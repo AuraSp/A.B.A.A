@@ -112,15 +112,6 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
     }
 
     all.sort(sortByDate);
-
-    console.log(all.map((filterData) => filterData.category === filterCategory && filterData.type === "expense"
-    || !filterCategory && filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" 
-    || filterData.category === filterCategory && filterData.type === "expense" && filterData.date >= firstDate && filterData.date <= lastDate ? true : false ))
-
-
-    console.log(firstDate);
-    console.log(lastDate);
-
     return (
         <>{all.length === 0 ? (
             <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
