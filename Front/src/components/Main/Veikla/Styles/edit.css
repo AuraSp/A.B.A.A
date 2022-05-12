@@ -14,18 +14,30 @@
     -o-transition: 700ms all;
     padding: 0.1em;
 }
+/* 
+.editinputs td:first-of-type {
+    max-width: 10em;
+} */
 
-.editinputs>td:nth-child(3),
-.editinputs>td:nth-child(4),
-.editinputs>td:nth-child(5),
-.editinputs>td:nth-child(6) {
-    max-width: 6em;
+.editinputs>td:nth-of-type(4){
+    max-width: 4em;
 }
 
-.editinputs>td:nth-child(2) input,
-.editinputs>td:nth-child(5) input,
-.editinputs>td:nth-child(6) input {
-    width: 100%;
+.editinputs>td:nth-of-type(5),
+.editinputs>td:nth-of-type(6)  {
+    max-width: 2em;
+}
+.editinputs>td:nth-of-type(2),
+.editinputs>td:nth-of-type(3) {
+    max-width: 5em;
+}
+
+.editinputs>td:nth-child(2)>input:nth-child(1),
+.editinputs>td:nth-child(3)>select:nth-child(1),
+.editinputs>td:nth-child(6)>input:nth-child(1),
+.editinputs>td:nth-child(4)>input:nth-child(1),
+.editinputs>td:nth-child(5)>input:nth-child(1) {
+    max-width: 80%;
 }
 
 .editinputs td>input[type=date] {
@@ -178,5 +190,29 @@
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;
         display: inline-flex;
+    }
+
+    .editinputs>td:nth-child(3)>input:nth-child(1),
+    .editinputs>td:nth-child(2)>input:nth-child(1),
+    .editinputs>td:nth-child(4)>input:nth-child(1),
+    .editinputs>td:nth-child(6)>input:nth-child(1),
+    .editinputs>td:nth-child(5)>input:nth-child(1) {
+        max-width: 100%;
+    }
+
+}
+
+@media screen and (min-width:967px) and (max-width: 1370px) {
+
+    .editinputs>td:nth-child(3)>select:nth-child(1),
+    .editinputs>td:nth-child(2)>input:nth-child(1),
+    .editinputs>td:nth-child(4)>input:nth-child(1),
+    .editinputs>td:nth-child(6)>input:nth-child(1),
+    .editinputs>td:nth-child(5)>input:nth-child(1) {
+        max-width: auto;
+    }
+
+    .editinputs td:nth-child(4) {
+        max-width: 8em;
     }
 }

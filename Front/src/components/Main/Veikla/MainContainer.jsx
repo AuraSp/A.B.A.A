@@ -70,13 +70,16 @@ function MainContainer() {
     useEffect(() => {
         getAllUsers().then((res) => {
             const userdata = res.data.data.transactions; //Fetch all existing data from database
-            setEditId(...userdata.map((data) => data._id)); //Take User Id
-            setId(...userdata.map((data) => data._id));
-            setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
-            setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
+            let allIds = userdata.filter((data) => data._id)
+            console.log(allIds)
+            let currentId = allIds.filter((data) => data._id === '6266dba0a9fa9d50d4af77bb') //Take current user data
+            setId(...currentId.map((data) => data._id)); //Take current user Id
+            setEditId(userId); //Take current user Id for edit
+            setIncomes(...currentId.map((data) => data.income)); //Take all current user incomes
+            setExpenses(...currentId.map((data) => data.expense)); //Take all current user expenses
             setLoading(false);
         });
-    }, [render]);
+    }, [render, userId]);
 
     useEffect(() => {
         let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
@@ -258,9 +261,6 @@ function MainContainer() {
                                 filterCategory={category}
                                 firstDate={firstDate}
                                 lastDate={lastDate}
-                            // setSeries={setSeries}
-                            // series={series}
-
                             />
                         </div>
                         {isOpen &&

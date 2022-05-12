@@ -37,7 +37,7 @@ const ActivitiesChart = ({ incomes, expenses }) => {
                     enabled: true
                 },
             },
-            offsetY: 15,
+            offsetY: 30,
             dropShadow: {
                 enabled: true,
                 color: '#000',
@@ -81,11 +81,11 @@ const ActivitiesChart = ({ incomes, expenses }) => {
                         show: true,
                         name: {
                             show: true,
-                            offsetY: -30
+                            offsetY: -35
                         },
                         value: {
                             show: true,
-                            offsetY: -20
+                            offsetY: -25
                         },
                     }
                 },

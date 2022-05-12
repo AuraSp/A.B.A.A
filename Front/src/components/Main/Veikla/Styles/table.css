@@ -1,14 +1,15 @@
 table th:first-of-type,
-table th:nth-of-type(4),
-table th:nth-of-type(5),
-table th:nth-of-type(6),
-table th:last-of-type {
-    width: 8em;
+table th:nth-of-type(4){
+    width: auto;
 }
 
+table th:nth-of-type(5),
+table th:nth-of-type(6)  {
+    max-width: 2em;
+}
 table th:nth-of-type(2),
 table th:nth-of-type(3) {
-    width: 12em;
+    max-width: 10em;
 }
 
 table tbody td {
