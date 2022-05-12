@@ -37,7 +37,7 @@ function MainContainer() {
     //Filters
     const [category, setCategory] = useState();
     const [firstDate, setFirstDate] = useState('');
-    const [lastDate, setLastDate] = useState('');
+    const [lastDate, setLastDate] = useState();
 
     //User account menu popup
     const toggleAccountPopup = () => {
@@ -81,20 +81,18 @@ function MainContainer() {
     }, [incomes, expenses])
 
     const searchDate = () => {
-        for (let i = 0; i < expenses.length; i++) {
-            let date = expenses.map((data) => data.date)
-
-            if (date === firstDate) {
-                expenses.map((data) => data.date === firstDate)
-                console.log(date)
-            }
-        }
         var updateList = [...all];
-        updateList = updateList.filter((item) => {
-            return item.date === firstDate
-        })
-        return setAll(updateList)
+        updateList = updateList.map((data) => data.date)
+        console.log(updateList)
+if (updateList = firstDate) {
+    setAll(all.filter((data) => data.date == firstDate))
+  
+} else {
+    setRender(prevState => !prevState)
+}
     }
+
+
     //---ExpensesConverterIntoFormat-.csv---//
     const exportOptions = {
         fieldSeparator: ',',
@@ -248,7 +246,6 @@ function MainContainer() {
                         {filterpopup &&
                             <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
                                 <SortCategory
-                                    handlefilterpopupClose={toggleFilterPopup}
                                     parentCallback={callbackFunction}
                                 />
                                 <SortByDate
