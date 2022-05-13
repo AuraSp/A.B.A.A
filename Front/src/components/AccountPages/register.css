@@ -1,39 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 html {
     font-family: 'Nunito', sans-serif;
-    font-size: 22px;
     color: #fff;
 }
 
-body {
-    min-height: 100vh;
-    background-color: dodgerblue;
-}
 .login {
     background-color: aliceblue;
     height: 100vh;
 }
+
 .prisijungimas {
     position: absolute;
-    top:50%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.App {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; 
-  padding: 1rem 0.5rem;
 }
 
 section {
@@ -44,10 +25,10 @@ section {
     flex-direction: column;
     justify-content: flex-start;
     padding: 1rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-form {
+.prisijungimas form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -55,27 +36,30 @@ form {
     padding-bottom: 1rem;
 }
 
-a, a:visited {
+.line a,
+.back a,
+.line a:visited,
+.back a:visited {
     color: #fff;
 }
 
-input[type="text"],
-input[type="password"],
-button,
-textarea {
-  font-family: 'Nunito', sans-serif;
-  font-size: 22px;
-  padding: 0.25rem;
-  border-radius: 0.5rem;
+.login input[type="text"],
+.login input[type="password"],
+.login button,
+.login textarea {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
 }
 
 label,
-button {
-  margin-top: 1rem;
+.login button {
+    margin-top: 1rem;
 }
 
-button {
-  padding: 0.5rem;
+.login button {
+    padding: 0.5rem;
 }
 
 .instructions {
@@ -88,7 +72,7 @@ button {
     bottom: -10px;
 }
 
-.instructions > svg {
+.instructions>svg {
     margin-right: 0.25rem;
 }
 

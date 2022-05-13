@@ -77,16 +77,6 @@ exports.createNewUser = async (req, res) => {
       message: err,
     });
   }
-
-
-
-  //   name: name
-  //   email: email
-  // password: psw
-
-  // limit: kuriant naujus transaction irasus
-  // income: createnewIncome
-  // expense:createNewExpense
 };
 
 exports.getUserById = async (req, res) => {

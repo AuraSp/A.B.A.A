@@ -76,7 +76,7 @@ const Login = () => {
                         <Link to="/signup">Užsiregistruokite</Link>
                         </span>
                         <br/>
-                        <span>
+                        <span className='back'>
                         <Link to="/">Grįžti į pagrindinį</Link>
                         </span>
                     </p>

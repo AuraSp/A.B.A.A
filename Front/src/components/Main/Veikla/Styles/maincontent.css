@@ -1,11 +1,10 @@
-
 .sidemenu {
     min-height: 100vh;
     -ms-flex-preferred-size: 15%;
-        flex-basis: 15%;
+    flex-basis: 15%;
     background-color: whitesmoke;
     -webkit-box-shadow: 0px 3px 40px #aeaeaeea;
-            box-shadow: 0px 3px 40px #aeaeae;
+    box-shadow: 0px 3px 40px #aeaeae;
     padding-left: 0;
     padding-right: 0;
     z-index: 1;
@@ -42,16 +41,16 @@
     background-color: #cfcfcf;
     padding: 0;
     -webkit-transform: scale(1.1, 1.1);
-        -ms-transform: scale(1.1, 1.1);
-            transform: scale(1.1, 1.1);
+    -ms-transform: scale(1.1, 1.1);
+    transform: scale(1.1, 1.1);
 }
 
 .maincontent {
     -ms-flex-preferred-size: 85%;
-        flex-basis: 85%;
+    flex-basis: 85%;
     -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
     min-height: 100vh;
     background-color: #e8e8e8dc;
 }
@@ -80,8 +79,8 @@
     cursor: pointer;
     position: relative;
     -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
 }
 
 .account span svg {
@@ -104,6 +103,28 @@
     padding: 0 5em 0 5em;
 }
 
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.2;
+    }
+    40% {
+        opacity: 0.4;
+    }
+    60% {
+        opacity: 0.6;
+    }
+    80% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .main .button div:first-child,
 .main .button div:nth-child(2),
 .main .button div:last-child {
@@ -112,6 +133,7 @@
 
 .main .button div {
     font-size: 1.1em;
+    animation: appear 1.2s linear;
 }
 
 .main .button button {
@@ -142,25 +164,25 @@
 .add,
 .download {
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
 .main .filter:hover {
     background-color: rgb(66, 66, 66);
     -webkit-box-shadow: 0 0 30px rgb(66, 66, 66);
-            box-shadow: 0 0 30px rgb(66, 66, 66);
+    box-shadow: 0 0 30px rgb(66, 66, 66);
 }
 
 .main .add:hover {
     background-color: rgb(50, 60, 112);
     -webkit-box-shadow: 0 0 30px rgb(50, 60, 112);
-            box-shadow: 0 0 30px rgb(50, 60, 112);
+    box-shadow: 0 0 30px rgb(50, 60, 112);
 }
 
 .main .download:hover {
     background-color: rgb(112, 103, 50);
     -webkit-box-shadow: 0 0 30px rgb(112, 103, 50);
-            box-shadow: 0 0 30px rgb(112, 103, 50);
+    box-shadow: 0 0 30px rgb(112, 103, 50);
 }
 
 .main .activitiestable:first-of-type {
@@ -179,8 +201,8 @@
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-flow: column wrap;
-            flex-flow: column wrap;
+    -ms-flex-flow: column wrap;
+    flex-flow: column wrap;
     background-color: rgb(201, 201, 201);
     position: absolute;
     text-align: left;
@@ -219,8 +241,8 @@
         display: -ms-inline-flexbox;
         display: inline-flex;
         -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
         width: 100%;
     }
 
@@ -230,7 +252,7 @@
         background-color: none;
         -webkit-transform: none;
         -ms-transform: none;
-            transform: none;
+        transform: none;
         border-radius: 0;
         background-color: transparent;
     }
@@ -248,8 +270,8 @@
         display: -ms-inline-flexbox;
         display: inline-flex;
         -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
         width: 100%;
         border: none;
         margin: 0;
@@ -261,8 +283,8 @@
         display: -ms-inline-flexbox;
         display: inline-flex;
         -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
         width: 100%;
         margin: 0;
     }

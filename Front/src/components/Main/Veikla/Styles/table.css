@@ -1,3 +1,7 @@
+table {
+    animation: appear 1.2s linear;
+}
+
 table th:first-of-type,
 table th:nth-of-type(4){
     width: auto;
@@ -20,6 +24,7 @@ table tbody td {
 table thead tr {
     border-bottom: 1px solid lightgrey;
 }
+
 
 .main-exp>div:nth-child(1)>span:before {
     content: '';

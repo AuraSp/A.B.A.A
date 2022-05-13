@@ -10,7 +10,9 @@ const ActivitiesChart = ({ incomes, expenses }) => {
     const expenseAmount = expenses.map((amount) => amount.amount);
 
     let incomeTotalSum = 0;
+    let incomeFullSum = 0;
     let expenseTotalSum = 0;
+    let expenseFullSum = 0;
     let balance = 0;
     var i = 0;
 
@@ -23,10 +25,13 @@ const ActivitiesChart = ({ incomes, expenses }) => {
     for (i = 0; i < expenseAmount.length; i++) {
         expenseTotalSum += expenseAmount[i];
     }
-
     //BalanceChartData
     balance = incomeTotalSum - expenseTotalSum;
-    let series = [balance, Math.trunc(incomeTotalSum), Math.trunc(expenseTotalSum)]
+
+    // incomeFullSum = incomeTotalSum / (incomeTotalSum, expenseTotalSum, balance)
+    // expenseFullSum = expenseTotalSum / (incomeTotalSum, expenseTotalSum, balance)
+
+    let series = [Math.floor(balance), Math.floor(incomeTotalSum), Math.floor(expenseTotalSum)]
 
 
     const options = {
@@ -132,7 +137,7 @@ const ActivitiesChart = ({ incomes, expenses }) => {
                 </div>
             </div>
 
-            <div className='col-lg-4 col-md-6 col-sm-12 col-sm-12 fs-5'>
+            <div className='chart col-lg-4 col-md-6 col-sm-12 col-sm-12 fs-5'>
                 <ApexCharts options={options} series={series} type='donut' width='100%' height={300} />
             </div>
 

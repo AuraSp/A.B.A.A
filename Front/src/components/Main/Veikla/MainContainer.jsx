@@ -64,6 +64,12 @@ function MainContainer() {
         setUtilitiesPopUp(!utilitiespopup)
     }
 
+    const toggleClearFilter = () => {
+        setCategory('');
+        setFirstDate('');
+        setLastDate('');
+    }
+
     const callbackFunction = (category) => {
         setCategory(category)
     }
@@ -73,10 +79,10 @@ function MainContainer() {
 
     let getVardas = localStorage.getItem("name")
     let vardas = getVardas.replace(/['"]+/g, '')
-    function clearUser(){
+    function clearUser() {
         localStorage.clear();
         window.location.href = "http://localhost:3001/";
-        
+
     }
 
 
@@ -163,7 +169,7 @@ function MainContainer() {
                                     <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
                                     {accountpopup &&
                                         <div className="acc-content shadow rounded">
-                                             <button onClick={clearUser}>Atsijungti</button>
+                                            <button onClick={clearUser}>Atsijungti</button>
                                         </div>
                                     }
                                 </div>
@@ -252,17 +258,16 @@ function MainContainer() {
                         </div>
                         {filterpopup &&
                             <>
-                                <h5 className='w-100 p-0 m-0'>Filtruoti išlaidas</h5>
                                 <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
+                                    <h5 className='w-100 p-0 m-0'>Filtruoti išlaidas</h5>
                                     <SortCategory
                                         parentCallback={callbackFunction}
                                     />
                                     <SortByDate
-                                        // searchDate={searchDate}
                                         setFirstDate={setFirstDate}
                                         setLastDate={setLastDate}
                                     />
-                                    <button>Išvalyti</button>
+                                    <button onClick={toggleClearFilter}>Išvalyti</button>
                                 </div>
                             </>
                         }

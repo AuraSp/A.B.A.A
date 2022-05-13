@@ -4,12 +4,8 @@ const cookieSession = require("cookie-session");
 // const {verifySignUp} = require("./middleware")
 // const controller = require("./controllers/auth.controller")
 
-
-// const IncomeRoutes = require("./routes/IncomeRoutes");
-// const CostRoutes = require("./routes/CostRoutes");
 const TransactionsRoutes = require("./routes/TransactionsRoutes");
 const userRoutes = require("./routes/user.routes")
-
 
 const app = express();
 
@@ -29,11 +25,6 @@ app.use(
     httpOnly: true
   })
 );
-
-
-
-// app.use("/api/v1/income", IncomeRoutes);
-// app.use("/api/v1/cost", CostRoutes);
 
 app.use("/api/v1/users/", TransactionsRoutes );
 

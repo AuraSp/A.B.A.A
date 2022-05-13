@@ -18,13 +18,13 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
     const toggleEditPopUp = () => {
         setEditPopUp(!editpopup)
     }
-
+    
     const editFlows = () => {
         let dataSet = {
             description: description,
             category: category,
             date: date,
-            amount: amount,
+            amount: amount.toString().replace(/,/, '.')
         };
         onSubmit(id, subId, dataSet, defaultData)
     }
@@ -47,8 +47,14 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             .string()
             .min(2, 'Galimas minimalus 2-iejų raidžių kiekis')
             .max(30, 'Galimas maksimalus 30-ties raidžių kiekis')
-            .test('description', 'error-label', () =>
-                description.replace(' ', ''))
+            .transform((_, description) => {
+                if (!description) {
+                    return errors.description
+                } else if (description.includes(' ')) {
+                    return description.replace(' ', '')
+                }
+                return description
+            })
             .nullable(false)
             .strict()
             .required(),
@@ -56,7 +62,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             .string()
             .nullable(false)
             .matches(/^[0-9]\d*(((\.\d{2}){0})?(.\d{0,2})?)$/, 'Suma tik teigiama, galimi tik skaičiai ir turi turėti dvejus skaitmenis po taško')
-            .trim('Negalimi tarpai')
+
             .strict()
             .required(),
         date: yup
@@ -90,7 +96,6 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                         {...register('description')}
                         className='text-center'
                         type='text'
-                        pattern='^[A-Z0-9]{6}$'
                         defaultValue={defaultData.description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
