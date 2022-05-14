@@ -1,11 +1,19 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import { useRef, useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import { GiWallet } from "react-icons/gi";
 import Dashboard from './Dashboard.png';
 
 import './Home.css'
 
 function Home() {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.user !== undefined) {
+        navigate('/veikla');
+      }
+}, [])
+
   return (
     <>
       <div className='container-fluid home-page'>

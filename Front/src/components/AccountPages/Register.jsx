@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import axios from './api/axios';
 import { createNewUser } from '../../api/lib/TransactionsAPI';
@@ -29,9 +29,13 @@ const Register = () => {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
-
+    
+    let navigate = useNavigate();
     useEffect(() => {
         userRef.current.focus();
+        if (localStorage.user !== undefined) {
+            navigate('/veikla');
+          }
     }, [])
 
     useEffect(() => {
