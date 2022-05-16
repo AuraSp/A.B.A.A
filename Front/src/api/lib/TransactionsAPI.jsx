@@ -59,3 +59,5 @@ export const findExpensesAndUpdate = (id, subId, data) => axiosUser.patch(`/${id
 
 export const addNewIncome = (data, userId) => axiosUser.patch(`/${userId}/user/addNewIncome/`, JSON.stringify(data));
 export const addNewExpense = (data, userId) => axiosUser.patch(`/${userId}/user/addNewExpense/`, JSON.stringify(data));
+
+export const addNewCategory = (data, userId) => axiosUser.patch(`/${userId}/categories/`, JSON.stringify(data));

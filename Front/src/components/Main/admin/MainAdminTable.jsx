@@ -4,8 +4,10 @@ import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { RiAddFill } from "react-icons/ri";
 import ActivitiesChart from '../Charts/ActivitiesChart';
 import { getAllUsers } from '../../../api/lib/TransactionsAPI';
+import CreateCategoryForm from './CreateCategoryForm';
 
 function MainAdminTable() {
   const [accountpopup, setAccountPopUp] = useState(false);
@@ -13,6 +15,8 @@ function MainAdminTable() {
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [render] = useState(false);
+  const [categoryAddpopup, setCategoryAddpopup] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   //User account menu popup
   const toggleAccountPopup = () => {
@@ -27,6 +31,11 @@ function MainAdminTable() {
       setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
     });
   }, [render]);
+
+  
+  const toggleAddPopup = () => {
+    setIsOpen(!isOpen);
+}
 
   return (
     <div className='container-fluid p-0 m-0'>
@@ -57,6 +66,7 @@ function MainAdminTable() {
               <div className='links d-flex flex-row justify-content-center fs-5'>
                 <Link to="/valdyba" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Valdyba</Link>
                 <Link to="/budget" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span>Veikla</Link>
+                <Link to="/admin" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Admin</Link>
                 <div onClick={toggleAccountPopup} className='account d-flex flex-row justify-content-end p-3'>
                   <div className='fs-5 ps-1 pe-1 text-warning border-bottom border-warning'><MdAccountCircle /></div>
                   <div className='fs-5 ps-1 pe-1 text-muted'>User</div>
@@ -82,18 +92,31 @@ function MainAdminTable() {
               }
             </div>
             <div className='ps-5 py-4'>
-              <h5 className='title m-0 d-block'>Valdyba</h5>
+              <h5 className='title m-0 d-block'>Administravimas</h5>
             </div>
           </div>
           <div className='main pt-3'>
             <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
               <div className='d-flex flex-row position-relative'>
-                <h5 className='w-100 p-0 m-0'>Balansas</h5>
+                <h5 className='w-100 p-0 m-0'>...</h5>
+                  <>
+                    <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
+                        <h5 className='w-100 p-0 m-0'>Kategorios</h5>
+                        <div>
+                            <button
+                                onClick={toggleAddPopup}
+                                className='btn bg-transparent border-0'>
+                                <RiAddFill className='text-center me-3' />
+                                <span>Pridėti  kategorija</span>
+                            </button>
+                        </div>
+                    </div>
+                    {isOpen &&
+                            <CreateCategoryForm
+                                handlepopupClose={toggleAddPopup}
+                            />}
+                  </> 
               </div>
-              <ActivitiesChart
-                expenses={expenses}
-                incomes={incomes}
-              />
             </div>
           </div>
         </div>
