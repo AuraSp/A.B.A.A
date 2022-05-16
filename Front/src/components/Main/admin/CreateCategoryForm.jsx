@@ -9,6 +9,7 @@ import { addNewCategory } from '../../../api/lib/TransactionsAPI';
 function CreateCategoryForm({handlepopupClose, userId, render, setRender}) {
 
   const [category, setCategory] = useState("");
+  const [ text, setText] = useState("")
   
   const budgetSchema = yup.object().shape({
     category: yup
@@ -25,6 +26,22 @@ function CreateCategoryForm({handlepopupClose, userId, render, setRender}) {
 } = useForm({
     resolver: yupResolver(budgetSchema)
 });
+
+function onSubmit(e) {
+
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({name: name, surname: surname, birthdate:birthdate, program:program,town:town,group:group})
+  };
+
+  fetch('http://localhost:3000/api/v1/categories', requestOptions)
+  .then(response => response.json())
+}
+
+function refreshPage() {
+  window.location.reload(false);
+}
 
 const onSubmit = async (data) => {
   if (category != "") { 
