@@ -99,7 +99,7 @@ const Register = () => {
 
                           <label htmlFor="email">
                             El. paštas:
-                            <br/>
+                            </label>
                           <input
                           id="email"
                           type="text"
@@ -110,7 +110,7 @@ const Register = () => {
                           >
                           
                           </input>
-                          </label>
+                          
 
                         <label htmlFor="password">
                             Slaptažodis:
