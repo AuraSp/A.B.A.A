@@ -5,6 +5,7 @@ import {
   Route
 } from "react-router-dom";
 import Valdyba from './components/Main/Valdyba/MainContainer';
+import MainAdminTable from './components/Main/admin/MainAdminTable';
 import Home from './components/HomePage/Home';
 import Login from './components/AccountPages/Login';
 import Register from './components/AccountPages/Register';
@@ -22,6 +23,7 @@ function App() {
         <Route path="/*" element={<ErrorPage />} />
         <Route path="/veikla" element={localStorage.user === undefined ? (<ErrorPage />) : (<MainContainer />)} />
         <Route path="/valdyba" element={localStorage.user === undefined ? (<ErrorPage />) : (<Valdyba /> )} />
+        <Route path="/admin" element={localStorage.user === undefined ? (<ErrorPage />) : (<MainAdminTable /> )} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
       </Routes>

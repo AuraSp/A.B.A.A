@@ -162,6 +162,10 @@ function MainContainer() {
                         <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
                         <span>Veikla</span>
                     </Link>
+                    <Link to="/admin" className='p-3 text-decoration-none text-muted'>
+                        <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
+                        <span>Admin</span>
+                    </Link>
                 </div>
                 <div className='maincontent p-0 m-0'>
                     <div className='header'>
