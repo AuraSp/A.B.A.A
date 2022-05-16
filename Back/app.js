@@ -5,6 +5,7 @@ const cookieSession = require("cookie-session");
 // const controller = require("./controllers/auth.controller")
 
 const TransactionsRoutes = require("./routes/TransactionsRoutes");
+const category = require("./routes/category");
 const userRoutes = require("./routes/user.routes")
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(
 );
 
 app.use("/api/v1/users/", TransactionsRoutes );
+app.use("/api/v1/categories/", category );
 
 
 module.exports = app;
