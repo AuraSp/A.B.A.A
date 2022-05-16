@@ -292,7 +292,7 @@ import React, { useEffect, useState } from 'react';
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { HiOutlineDatabase } from "react-icons/hi";
 import './chart.css';
-import { VictoryPie, VictoryTooltip } from 'victory';
+import { VictoryPie, VictoryTooltip, VictoryLabel } from 'victory';
 
 function ActivitiesChart({ incomes, expenses }) {
 
@@ -318,13 +318,15 @@ function ActivitiesChart({ incomes, expenses }) {
     //BalanceChartData
     balance = incomeTotalSum - expenseTotalSum;
 
-    let sampleData = [];
-    sampleData.push(
+    let sampleData = [
         { x: balance, y: balance, label: 'Likutis' },
         { x: incomeTotalSum, y: incomeTotalSum, label: 'Pajamos' },
         { x: expenseTotalSum, y: expenseTotalSum, label: 'Išlaidos' }
-    )
-
+    ]
+    let sampleData2 = [
+        { x: incomeTotalSum, y: incomeTotalSum, label: 'Pajamos' },
+        { x: expenseTotalSum, y: expenseTotalSum, label: 'Išlaidos' }
+    ]
     return (
         <>
             <div className='balancesummary col-lg-4 col-md-6 d-sm-none d-md-flex d-lg-flex flex-row flex-wrap align-content-center justify-content-center'>
@@ -347,11 +349,14 @@ function ActivitiesChart({ incomes, expenses }) {
 
             <div style={{ height: '25em' }} className='chart col-lg-4 col-md-6 col-sm-12 col-sm-12 text-center'>
                 <VictoryPie
-                    data={sampleData}
-                    colorScale={["darkgoldenrod", "#0d6efd", "#dc3545"]}
+                    data={balance <= 0 ? sampleData2 : sampleData}
+                    colorScale={balance <= 0 ? ["#0d6efd", "#dc3545"] : ["darkgoldenrod", "#0d6efd", "#dc3545"]}
                     padAngle={0}
                     animate={{ duration: 2000, easing: "bounce" }}
                     innerRadius={100}
+                    labelComponent={<VictoryLabel
+                        verticalAnchor='start' textAnchor='middle'
+                    />}
                     cornerRadius={({ datum }) => datum.y * 1}
                     startAngle={90}
                     endAngle={-90}
@@ -362,18 +367,14 @@ function ActivitiesChart({ incomes, expenses }) {
                     }
                     labelPlacement={({ index }) => index
                         ? "vertical"
-                        : "vertical"
+                        : "perpendicular"
                     }
                     style={{
-                        data: {
-                            boxShadow: 10
-                        },
                         labels: {
                             fontWeight: 700,
                             fontSize: 15,
-                            fill: ({ index }) =>
-                                index === 0 ? 'darkgoldenrod' : index === 1 ? '#0d6efd' : '#dc3545',
-                        },
+                            padding: 40
+                        }
                     }}
                 />
             </div>
