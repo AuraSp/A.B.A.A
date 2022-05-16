@@ -44,3 +44,56 @@ class SortCategory extends React.Component {
   }
 }
 export default SortCategory
+
+
+// {
+//   "status": "success",
+//   "data": {
+//       "category": [
+//           { 
+//               "value": "", 
+//               "text": "Visos kategorijos"
+//           },
+//           { 
+//               "value": "Išsiėmimas",
+//               "text": "Pinigų išsiėmimas" 
+//           },
+//           { 
+//               "value": "Drabužiai",
+//               "text": "Rūbai/Batai" 
+//           },
+//           { 
+//               "value": "Maistas/Gėrimai",
+//               "text": "Maistas/Gėrimai" 
+//           },
+//           {
+//               "value": "Elektronika", 
+//               "text": "Elektronika" 
+//           },
+//           { 
+//               "value": "Dovanos",
+//               "text": "Dovanos" 
+//           },
+//           {
+//               "value": "Namų priežiūra",
+//               "text": "Namų priežiūra" 
+//           },
+//           {
+//               "value": "Sąskaitos/Mokesčiai",
+//               "text": "Sąskaitos/Mokesčiai" 
+//           },
+//           { 
+//               "value": "Nuoma", 
+//               "text": "Namo nuoma" 
+//           },
+//           { 
+//               "value": "Santaupos", 
+//               "text": "Santaupos" 
+//           },
+//           { 
+//               "value": "Alga", 
+//               "text": "Alga" 
+//           }
+//       ]
+//   }
+// }

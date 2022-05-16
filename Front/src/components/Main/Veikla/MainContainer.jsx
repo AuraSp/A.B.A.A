@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 // import {Redirect} from "react-router-dom"
 import { IoIosArrowDown } from "react-icons/io";
 import { IoFilterOutline } from "react-icons/io5";
@@ -44,6 +44,8 @@ function MainContainer() {
     const [lastDate, setLastDate] = useState(today);
 
     let navigate = useNavigate();
+
+    
     //User account menu popup
     const toggleAccountPopup = () => {
         setAccountPopUp(!accountpopup);
