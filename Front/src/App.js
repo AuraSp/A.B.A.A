@@ -20,8 +20,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/*" element={<ErrorPage />} />
-        <Route path="/veikla" element={<MainContainer />} />
-        <Route path="/valdyba" element={<Valdyba />} />
+        <Route path="/veikla" element={localStorage.user === undefined ? (<ErrorPage />) : (<MainContainer />)} />
+        <Route path="/valdyba" element={localStorage.user === undefined ? (<ErrorPage />) : (<Valdyba /> )} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
       </Routes>

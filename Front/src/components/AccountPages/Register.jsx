@@ -29,7 +29,7 @@ const Register = () => {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
-    
+
     let navigate = useNavigate();
     useEffect(() => {
         userRef.current.focus();
@@ -54,7 +54,7 @@ const Register = () => {
     const handleSubmit = async  (e, data) => {
           e.preventDefault();
       
-          await createNewUser(name, password)
+          await createNewUser(name, password, email)
           setSuccess(true)
         }
 
@@ -97,7 +97,7 @@ const Register = () => {
                             Raidės, skaičiai ir brukšniai yra leidžiami.
                         </p>
 
-                          {/* <label htmlFor="email">
+                          <label htmlFor="email">
                             El. paštas:
                             <br/>
                           <input
@@ -110,7 +110,7 @@ const Register = () => {
                           >
                           
                           </input>
-                          </label> */}
+                          </label>
 
                         <label htmlFor="password">
                             Slaptažodis:
