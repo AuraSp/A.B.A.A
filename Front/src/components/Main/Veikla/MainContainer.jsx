@@ -89,7 +89,9 @@ function MainContainer() {
 
     //---FetchData---//
     useEffect(() => {
-        if (localStorage.user !== undefined) {
+        if (localStorage.user === undefined) {
+            navigate('/');
+    }else{
         getAllUsers().then((res) => {
 
             const userdata = res.data.data.transactions; //Fetch all existing data from database
@@ -101,14 +103,18 @@ function MainContainer() {
             setExpenses(...userAllIds.map((data) => data.expense)); //Take all User's expenses
             setLoading(false);
         });
-    }else{
-        navigate('/');
     }
 
     }, [render, userId]);
 
-        let getVardas = localStorage.getItem("name")
-        let vardas = getVardas.replace(/['"]+/g, '')
+    function vardas(){
+        if(localStorage.user !== undefined){
+            let getVardas = localStorage.getItem("name")
+            return getVardas.replace(/['"]+/g, '')
+        }
+    }
+    
+        
         
     useEffect(() => {
         let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
@@ -174,7 +180,7 @@ function MainContainer() {
                                 <Link to="/veikla" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span>Veikla</Link>
                                 <div onClick={toggleAccountPopup} className='account d-flex flex-row justify-content-end p-3'>
                                     <div className='fs-5 ps-1 pe-1 text-warning border-bottom border-warning'><MdAccountCircle /></div>
-                                    <div className='fs-5 ps-1 pe-1 text-muted'> {vardas} </div>
+                                    <div className='fs-5 ps-1 pe-1 text-muted'>  </div>
                                     <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
                                     {accountpopup &&
                                         <div className="acc-content shadow rounded">
@@ -188,7 +194,7 @@ function MainContainer() {
                         {/* Visible on large screens */}
                         <div onClick={toggleAccountPopup} className='account d-lg-flex d-md-none d-sm-none flex-row justify-content-end py-4 border-bottom'>
                             <div className='fs-5 ps-1 pe-1'><MdAccountCircle /></div>
-                            <div className='fs-5 ps-1 pe-1'>  {vardas}  </div>
+                            <div className='fs-5 ps-1 pe-1'>  {vardas()}  </div>
                             <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
                             {accountpopup &&
                                 <div className="acc-content shadow rounded">

@@ -48,20 +48,19 @@ function Home() {
                 Biudžeto sudarymo meno įvaldymas prasideda nuo svarbiausių gero biudžeto komponentų supratimo. Kurdami namų ūkio biudžetą nepamirškite įtraukti šių devynių funkcijų.
               </p>
               <div className='col-5'>
-                <h3>Accurate Spending Categories</h3>
+                <h3>Tikslios išlaidų kategorijos</h3>
                 <p>
                   Nors biudžeto darbalapiai gali būti naudingas išteklius nustatant biudžetą, jie gali visiškai neatitikti jūsų išlaidų įpročių. Kurdami biudžetą sutelkite dėmesį į išlaidų kategorijas, kurios atspindi, kur eina jūsų pinigai. Išlaidų stebėjimas naudojant biudžeto sudarymo programą yra geras būdas suprasti savo mėnesio išlaidas.
                 </p>
                 <h3>Pakanka išlaidų kategorijų</h3>
                 <p>
-                  Inventore aliquid ullam qui voluptas id ad sequi mollitia corrupti dicta sapiente, fugit nihil consequatur enim, esse nostrum. Quisquam similique voluptatem quae iusto dolorem quasi voluptatum consequatur maxime esse incidunt.
+                  Jūsų biudžete turi būti ne tik tikslios išlaidų kategorijos, bet ir tinkamas išlaidų kategorijų skaičius. Nors nenorite persistengti, suskirstę platesnes išlaidų kategorijas į mažesnius segmentus galite susidaryti aiškesnį vaizdą, kur keliauja jūsų pinigai. Tai naudinga norint suprasti savo išlaidų modelius ir taip pat gali padėti tiksliai nustatyti sritis, kuriose galite sumažinti išlaidas. Tiesiog stenkitės, kad nepaskęstumėte detalėse.
                 </p>
               </div>
               <img src="https://www.zambianguardian.com/wp-content/uploads/2021/12/budget-696x365.jpg" className='col-5 w-50 h-50 m-2 rounded' alt="Budget" />
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet dicta fugiat nemo pariatur dolores, sed id autem iusto tempora. Fuga sed voluptates molestias! Iure sequi eligendi odio at perspiciatis dolores.
               </p>
-              <Link to="/valdyba"><img src={Dashboard} className="w-100 mb-5" alt="Dashboard" /></Link>
             </div>
           </div>
               </div>

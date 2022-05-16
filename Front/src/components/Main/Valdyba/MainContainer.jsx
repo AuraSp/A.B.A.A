@@ -3,7 +3,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { GiWallet } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ActivitiesChart from '../Charts/ActivitiesChart';
 import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 
@@ -13,20 +13,39 @@ function Valdyba() {
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [render] = useState(false);
+  let navigate = useNavigate();
 
   //User account menu popup
   const toggleAccountPopup = () => {
     setAccountPopUp(!accountpopup);
   }
 
+  function clearUser() {
+    localStorage.clear();
+    navigate('/');
+
+}
+
   //---FetchData---//
   useEffect(() => {
-    getAllUsers().then((res) => {
-      const userdata = res.data.data.transactions; //Fetch all existing data from database
-      setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
-      setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
-    });
+    if (localStorage.user === undefined) {
+      navigate('/');
+    }else{
+      getAllUsers().then((res) => {
+        const userdata = res.data.data.transactions; //Fetch all existing data from database
+        setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
+        setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
+      });
+    }
   }, [render]);
+
+
+  function vardas(){
+    if(localStorage.user !== undefined){
+        let getVardas = localStorage.getItem("name")
+        return getVardas.replace(/['"]+/g, '')
+    }
+}
 
   return (
     <div className='container-fluid p-0 m-0'>
@@ -55,11 +74,11 @@ function Valdyba() {
                 <Link to="/budget" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span>Veikla</Link>
                 <div onClick={toggleAccountPopup} className='account d-flex flex-row justify-content-end p-3'>
                   <div className='fs-5 ps-1 pe-1 text-warning border-bottom border-warning'><MdAccountCircle /></div>
-                  <div className='fs-5 ps-1 pe-1 text-muted'>User</div>
+                  <div className='fs-5 ps-1 pe-1 text-muted'>{vardas()}</div>
                   <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
                   {accountpopup &&
                     <div className="acc-content shadow rounded">
-                      <p className='text-muted'>Atsijungti</p>
+                      <button onClick={clearUser}>Atsijungti</button>
                     </div>
                   }
                 </div>
@@ -69,11 +88,11 @@ function Valdyba() {
             {/* Visible on large screens */}
             <div onClick={toggleAccountPopup} className='account d-lg-flex d-md-none d-sm-none flex-row justify-content-end py-4 border-bottom'>
               <div className='fs-5 ps-1 pe-1'><MdAccountCircle /></div>
-              <div className='fs-5 ps-1 pe-1'>user</div>
+              <div className='fs-5 ps-1 pe-1'>{vardas()}</div>
               <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
               {accountpopup &&
                 <div className="acc-content shadow rounded">
-                  <p className='text-muted'>Atsijungti</p>
+                  <button onClick={clearUser}>Atsijungti</button>
                 </div>
               }
             </div>
