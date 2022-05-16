@@ -144,10 +144,10 @@ function MainContainer() {
                 <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap'>
                     <Link to="/" className='mt-3 pt-2 pb-1 text-decoration-none'><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></Link>
 
-                    <Link to="/valdyba" className='p-3 mt-5 text-decoration-none text-muted'>
+                    <Link to="/analize" className='p-3 mt-5 text-decoration-none text-muted'>
                         <span className='text-center text-primary p-1'><MdOutlineDashboardCustomize />
                         </span>
-                        <span>Valdyba</span>
+                        <span>Finansų analizė</span>
                     </Link>
                     <Link to="/veikla" className='p-3 text-decoration-none text-muted'>
                         <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
@@ -161,7 +161,7 @@ function MainContainer() {
                         <nav className="d-lg-none d-md-flex d-sm-flex flex-column flex-wrap navbar border-bottom">
                             <Link to="/" className='w-100 p-2 fs-5 text-decoration-none text-muted text-center'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>BudgetSimple</Link>
                             <div className='links d-flex flex-row justify-content-center fs-5'>
-                                <Link to="/valdyba" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Valdyba</Link>
+                                <Link to="/analize" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Finansų</Link>
                                 <Link to="/veikla" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span>Veikla</Link>
                                 <div onClick={toggleAccountPopup} className='account d-flex flex-row justify-content-end p-3'>
                                     <div className='fs-5 ps-1 pe-1 text-warning border-bottom border-warning'><MdAccountCircle /></div>

@@ -27,11 +27,9 @@ const ActivitiesChart = ({ incomes, expenses }) => {
     }
     //BalanceChartData
     balance = incomeTotalSum - expenseTotalSum;
+    
+    let series = [balance, incomeTotalSum, expenseTotalSum]
 
-    // incomeFullSum = incomeTotalSum / (incomeTotalSum, expenseTotalSum, balance)
-    // expenseFullSum = expenseTotalSum / (incomeTotalSum, expenseTotalSum, balance)
-
-    let series = [Math.floor(balance), Math.floor(incomeTotalSum), Math.floor(expenseTotalSum)]
 
 
     const options = {
@@ -50,7 +48,7 @@ const ActivitiesChart = ({ incomes, expenses }) => {
                 left: 0,
                 blur: 3,
                 opacity: 1
-            }
+            },
         },
         labels: ['Likutis', 'Pajamos', 'Išlaidos'],
         legend: {
@@ -60,8 +58,9 @@ const ActivitiesChart = ({ incomes, expenses }) => {
         stroke: {
             show: false
         },
+
         dataLabels: {
-            enabled: true,
+            enabled: false,
             offsetY: -5
         },
         fill: {
@@ -81,6 +80,7 @@ const ActivitiesChart = ({ incomes, expenses }) => {
                 startAngle: -90,
                 endAngle: 90,
                 donut: {
+
                     size: '75%',
                     labels: {
                         show: true,

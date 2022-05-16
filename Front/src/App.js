@@ -4,10 +4,11 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Valdyba from './components/Main/Valdyba/MainContainer';
+
 import Home from './components/HomePage/Home';
 import Login from './components/AccountPages/Login';
 import Register from './components/AccountPages/Register';
+import Analize from './components/Main/FinansuAnalize/MainContainer';
 import MainContainer from './components/Main/Veikla/MainContainer';
 import ErrorPage from './components/ErrorPages/ErrorPage';
 
@@ -21,7 +22,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/*" element={<ErrorPage />} />
         <Route path="/veikla" element={<MainContainer />} />
-        <Route path="/valdyba" element={<Valdyba />} />
+        <Route path="/analize" element={<Analize />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
       </Routes>
