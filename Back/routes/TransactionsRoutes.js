@@ -16,6 +16,7 @@ const {
   findExpensesAndUpdate,
   addNewIncome,
   addNewExpense,
+  deleteUser
 } = require("../controllers/TransactionsController");
 
 const {signup} = require("../controllers/auth.controller")
@@ -23,8 +24,9 @@ const {signup} = require("../controllers/auth.controller")
 const router = express.Router();
 
 //User
-router.route("/").get(getAllUsers);
+router.route("/").get(getAllUsers)
 router.route("/:id").get(getUserById).patch(updateUser);
+router.route("/").delete(deleteUser);
 router.route("/:id/user/update").patch(updateUser);
 
 //User's transactions

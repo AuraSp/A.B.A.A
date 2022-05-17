@@ -2,31 +2,71 @@ import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from "react-icons/io";
 import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
+import Swal from 'sweetalert2';
 import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import ActivitiesChart from '../Charts/ActivitiesChart';
 import { getAllUsers } from '../../../api/lib/TransactionsAPI';
+import AdminUsers from './AdminUsers';
+import { deleteUser } from '../../../api/lib/TransactionsAPI';
 
 function MainAdminTable() {
   const [accountpopup, setAccountPopUp] = useState(false);
 
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
-  const [render] = useState(false);
+  const [render, setRender] = useState(false);
+  const [isAdmin, setIsAdmin] = useState("")
+  const [username, setUsername] = useState("")
+  const [userData, setUserData] = useState("")
 
   //User account menu popup
   const toggleAccountPopup = () => {
     setAccountPopUp(!accountpopup);
   }
 
+  let text = localStorage.getItem("user");
+  let obj = JSON.parse(text)
+  function lol(e){
+    console.log("lol")
+  }
+
+ async function  handleDelete(data){
+  Swal.fire({
+    title: 'Ar esate tikri?',
+    text: 'Dėmesio, vartotojas bus pašalintas!',
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonText: 'Atšaukti',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Taip, pašalinti!'
+  }).then(async (result) => {
+    if (result.isConfirmed){
+      await deleteUser(data)
+      setRender(prevState => !prevState)
+    }
+   
+  })}
+
   //---FetchData---//
   useEffect(() => {
     getAllUsers().then((res) => {
+
       const userdata = res.data.data.transactions; //Fetch all existing data from database
-      setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
-      setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
+      let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
+      setUsername(userdata.map((data) => data.id));
+      setUserData(userdata.map((data) => <div>
+        <p>{data.email} {data.username} <button onClick={(e) => handleDelete(data._id)} >istrinti </button></p>
+        </div> ));
+      setIncomes(...userAllIds.map((data) => data.income)); //Take all User's incomes
+      setExpenses(...userAllIds.map((data) => data.expense)); //Take all User's expenses
+      setIsAdmin(...userAllIds.map((data) => data.roles))
     });
-  }, [render]);
+  }, []);
+
+  // console.log(username)
+  console.log(userData)
 
   return (
     <div className='container-fluid p-0 m-0'>
@@ -86,18 +126,18 @@ function MainAdminTable() {
             </div>
           </div>
           <div className='main pt-3'>
-            <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
-              <div className='d-flex flex-row position-relative'>
-                <h5 className='w-100 p-0 m-0'>Balansas</h5>
-              </div>
-              <ActivitiesChart
-                expenses={expenses}
-                incomes={incomes}
-              />
-            </div>
+              
+                <AdminUsers
+                id={username}
+                data={userData}
+                />
+             
           </div>
+        
         </div>
+        
       </div >
+      
     </div>
   )
 }

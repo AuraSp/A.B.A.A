@@ -79,6 +79,24 @@ exports.createNewUser = async (req, res) => {
   }
 };
 
+exports.deleteUser = async (req, res) => {
+	try {
+		await Transactions.findByIdAndDelete(req.body.id);
+
+		res.status(204).json({
+			status: 'success',
+			data: null,
+      message: "deleted user",
+		});
+	} catch (err) {
+		res.status(404).json({
+			status: 'fail',
+			message: err
+		});
+	}
+};
+
+
 exports.getUserById = async (req, res) => {
   try {
     const users = await Transactions.findById(req.params.id);

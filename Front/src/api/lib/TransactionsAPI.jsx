@@ -49,6 +49,20 @@ export const createNewUser = (name, password, email, data) => axiosClient.post('
 
 export const updateUser = (data) => axiosClient.patch('/', JSON.stringify(data));
 
+export const deleteUser = (data, setRender) => fetch("http://localhost:3000/api/v1/users/", {
+  method: 'DELETE',
+  headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+      id: data
+  })
+})
+.then(response => {
+  console.log("sekmingai istrinta")
+})
+
 
 //User's transactions
 export async function deleteIncomeTransactions(userId, subId) { await axiosClient.patch(`/${userId}/income/delete/${subId}`) };
