@@ -15,8 +15,8 @@ const Categories = new mongoose.model("Categories", categoriesSchema);
 
 // Duomenų siuntimas į DB
 // const testCategories = new Categories({
-//   value: "",
-//   text: "Visos kategorijos"
+//   value: 'Alga',
+//   text: 'Alga'
 // });
 
 // testCategories.save();

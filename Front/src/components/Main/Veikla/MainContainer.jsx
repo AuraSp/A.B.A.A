@@ -73,10 +73,6 @@ function MainContainer() {
         setLastDate('');
     }
 
-    const callbackFunction = (category) => {
-        setCategory(category)
-    }
-
     let text = localStorage.getItem("user");
     let obj = JSON.parse(text)
 
@@ -282,7 +278,7 @@ function MainContainer() {
                                 <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
                                     <h5 className='w-100 p-0 m-0'>Filtruoti išlaidas</h5>
                                     <SortCategory
-                                        parentCallback={callbackFunction}
+                                        setCategory={setCategory}
                                     />
                                     <SortByDate
                                         setFirstDate={setFirstDate}
