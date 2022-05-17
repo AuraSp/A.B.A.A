@@ -18,20 +18,22 @@ Asmenio biudžeto analizės aplikacija
        - Aura https://github.com/AuraSp, https://www.linkedin.com/in/auraspejeraite/;
 
 ## Paleidimas
+```
 # Projekto klonavimas
 git clone https://github.com/AuraSp/A.B.A.A.git
 cd A.B.A.A
 
-# Programos, Visual Studio code, paleidimas
+Programos, Visual Studio code, paleidimas
 code .
 
-# Duombazės paleidimas naudojant terminalą
+Duombazės paleidimas naudojant terminalą
 cd Back
 npm install
 npm start
 
-# UI paleidimas naudojant terminalą
+UI paleidimas naudojant terminalą
 cd Front
 npm install
 npm start
    - Aplikacija pasileidžia per http://localhost:3000 nuorodą
+```
