@@ -100,19 +100,9 @@ function MainAdminTable() {
             <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
               <div className='d-flex flex-row position-relative'>
                 <h5 className='w-100 p-0 m-0'>...</h5>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Reikšmė</th>
-                      <th>tekstas</th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                  <>
                     <CategoryTable />
-                  </tbody>
-                </table>
+                  </>
                   <>
                   
                     <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow text-muted d-flex flex-row'>
