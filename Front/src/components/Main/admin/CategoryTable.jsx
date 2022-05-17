@@ -56,39 +56,49 @@ function CategoryTable() {
     }
 
     
-    const taskData = categories.map((data) => {
-        return (
-            <>
-                {data.value === "" ?(
-                        <></>
+    return (
+        <>
+        <table>
+            <thead>
+                <tr>
+                    <th>Reikšmė</th>
+                    <th>tekstas</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {categories.map((data) => (
+                    <React.Fragment key={data._id}>
+                    {data.value === "" ? (
+                            <></>
                     ) : (
-                        <React.Fragment key={data._id}>
-                        {editId === data._id ? (
-                                <EditCategory
-                                    subId ={data._id}
-                                    defaultData={data}
-                                    onCancel={cancelEdit}
-                                    onSubmit={submitEdit}
-                                />
-                            ) : (
-                                <ListCategory
-                                    key={data._id}
-                                    subId ={data._id}
-                                    defaultData={data}
-                                    value={data.value}
-                                    text={data.text}
-                                    onEdit={handleEdit}
-                                    onDelete={handleDelete}
-                                />
-                            )
-                        }
-                        </React.Fragment>
+                        editId === data._id ? (
+                            <EditCategory
+                                subId ={data._id}
+                                defaultData={data}
+                                onCancel={cancelEdit}
+                                onSubmit={submitEdit}
+                            />
+                        ) : (
+                            <ListCategory
+                                key={data._id}
+                                subId ={data._id}
+                                defaultData={data}
+                                value={data.value}
+                                text={data.text}
+                                onEdit={handleEdit}
+                                onDelete={handleDelete}
+                            />
+                        )
                     )
-                }
-            </>
-        );
-      });
-      return <>{taskData}</>;
+                    }
+                    </React.Fragment>
+                ))}
+            </tbody>
+        </table>
+        </>
+    );
 }
 
 export default CategoryTable
