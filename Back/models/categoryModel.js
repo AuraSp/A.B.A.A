@@ -23,8 +23,8 @@ const CategoryModel = new mongoose.model("Categories", CategoriesSchema);
 // const testCategories = CategoryModel({
 //   category: [
 //     {
-//       value: 'Išsiėmimas',
-//       text: 'Pinigų išsiėmimas',
+//       value: 'Drabužiai',
+//       text: 'Drabužiai',
 //     }
 //   ]
 // });

@@ -38,7 +38,6 @@ function MainAdminTable() {
     setAll(tempAll);
 }, [category])
 
-  // console.log(category);
   
   const toggleAddPopup = () => {
     setIsOpen(!isOpen);

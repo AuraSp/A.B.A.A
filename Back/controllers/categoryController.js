@@ -40,15 +40,10 @@ exports.createCategory = async (req, res) => {
 };
 
 exports.addNewCategory = async (req, res) => {
-  console.log(req.params.id);
-  console.log(req.params.subId);
   try {
-    const updated = await Transactions.findOneAndUpdate(
+    const updated = await Categories.findOneAndUpdate(
       { _id: req.params.id },
-      { $push: { category: req.body } },
-      {
-        new: true,
-      }
+      { $push: { category: req.body } }
     );
     console.log(updated);
     res.status(200).json({
