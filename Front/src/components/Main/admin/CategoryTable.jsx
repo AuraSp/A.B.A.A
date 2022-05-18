@@ -1,23 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import ListCategory from './ListCategory'
 import EditCategory from './EditCategory'
+import { updateCategories } from '../../../api/lib/TransactionsAPI';
 
-function CategoryTable() {
+function CategoryTable({setAll}) {
 
     const [editId, setEditId] = useState([]);
     let [categories, setCategories] = useState([]);
-
-    const getAllCategories = async () => {
-        fetch('http://localhost:3000/api/v1/categories')
-        .then(res => res.json())
-        .then((json) => {
-            setCategories(json.data.categories);
-        })
-    }
-
-    useEffect( ()=>{
-      getAllCategories();
-    }, [])
 
     //---OpenEditForm---//
     const handleEdit = (e, subId) => {
@@ -37,17 +26,17 @@ function CategoryTable() {
         });
     }
 
-    //---HandleDelete---//
-    const handleDelete = (_id) => {
-        fetch(`http://localhost:3000/api/v1/cateories/${_id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }).then((res) => {
-          console.log(res);
-        });
-      };
+    // //---HandleDelete---//
+    // const handleDelete = (_id) => {
+    //     fetch(`http://localhost:3000/api/v1/cateories/${_id}`, {
+    //       method: "DELETE",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }).then((res) => {
+    //       console.log(res);
+    //     });
+    //   };
     
     //---CancelEdit---//
     function cancelEdit() {
@@ -88,7 +77,7 @@ function CategoryTable() {
                                 value={data.value}
                                 text={data.text}
                                 onEdit={handleEdit}
-                                onDelete={handleDelete}
+                                // onDelete={handleDelete}
                             />
                         )
                     )

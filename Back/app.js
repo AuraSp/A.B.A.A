@@ -5,7 +5,7 @@ const cookieSession = require("cookie-session");
 // const controller = require("./controllers/auth.controller")
 
 const TransactionsRoutes = require("./routes/TransactionsRoutes");
-const category = require("./routes/category");
+const category = require("./routes/categoryRoutes");
 const userRoutes = require("./routes/user.routes")
 
 const app = express();

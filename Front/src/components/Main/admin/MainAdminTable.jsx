@@ -12,9 +12,8 @@ import CategoryTable from './CategoryTable';
 
 function MainAdminTable() {
   const [accountpopup, setAccountPopUp] = useState(false);
-
-  const [incomes, setIncomes] = useState([]);
-  const [expenses, setExpenses] = useState([]);
+  const [all, setAll] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [render] = useState(false);
   const [categoryAddpopup, setCategoryAddpopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +26,15 @@ function MainAdminTable() {
   //---FetchData---//
   useEffect(() => {
     getAllUsers().then((res) => {
-      const userdata = res.data.data.transactions; //Fetch all existing data from database
-      setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
-      setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
+      const userdata = res.data.data.categories; //Fetch all existing data from database
+      setCategories(...userdata.map((data) => data.income)); //Take all User's incomes
     });
   }, [render]);
+
+  useEffect(() => {
+    let tempAll = [...categories]; //Put all taken incomes and expenses into new temporarily Object
+    setAll(tempAll); //Give empty Object all temporarily data(everything inside it)
+}, [categories])
 
   
   const toggleAddPopup = () => {
@@ -101,7 +104,10 @@ function MainAdminTable() {
               <div className='d-flex flex-row position-relative'>
                 <h5 className='w-100 p-0 m-0'>...</h5>
                   <>
-                    <CategoryTable />
+                    <CategoryTable 
+                      setAll={setAll}
+                      all={all}
+                    />
                   </>
                   <>
                   

@@ -11,7 +11,7 @@ const categoriesSchema = new mongoose.Schema({
 });
 
 // Modelis DB lentelės pavadinimas
-const Categories = new mongoose.model("Categories", categoriesSchema);
+const CategoryModel = new mongoose.model("Categories", categoriesSchema);
 
 // Duomenų siuntimas į DB
 // const testCategories = new Categories({
@@ -22,4 +22,4 @@ const Categories = new mongoose.model("Categories", categoriesSchema);
 // testCategories.save();
 
 
-module.exports = Categories;
+module.exports = CategoryModel;
