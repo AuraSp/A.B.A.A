@@ -6,35 +6,39 @@ import { GiWallet } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { RiAddFill } from "react-icons/ri";
 import ActivitiesChart from '../Charts/ActivitiesChart';
-import { getAllUsers } from '../../../api/lib/TransactionsAPI';
+import { getAllCategories } from '../../../api/lib/CategoriesAPI';
 import CreateCategoryForm from './CreateCategoryForm';
 import CategoryTable from './CategoryTable';
 
 function MainAdminTable() {
   const [accountpopup, setAccountPopUp] = useState(false);
   const [all, setAll] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [render] = useState(false);
-  const [categoryAddpopup, setCategoryAddpopup] = useState(false);
+  const [category, setCategory] = useState([]);
+  const [render, setRender] = useState(false);
+  // const [categoryAddpopup, setCategoryAddpopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
 
   //User account menu popup
   const toggleAccountPopup = () => {
     setAccountPopUp(!accountpopup);
   }
 
+// console.log(category);
+
   //---FetchData---//
   useEffect(() => {
-    getAllUsers().then((res) => {
-      const userdata = res.data.data.categories; //Fetch all existing data from database
-      setCategories(...userdata.map((data) => data.income)); //Take all User's incomes
+    getAllCategories().then((res) => {
+
+      const categorydata = res.data.data.categories;
+      setCategory(...categorydata.map((data) => data.category));
     });
-  }, [render]);
+  });
 
   useEffect(() => {
-    let tempAll = [...categories]; //Put all taken incomes and expenses into new temporarily Object
-    setAll(tempAll); //Give empty Object all temporarily data(everything inside it)
-}, [categories])
+    let tempAll = [...category]; 
+    setAll(tempAll);
+}, [category])
 
   
   const toggleAddPopup = () => {
@@ -104,9 +108,10 @@ function MainAdminTable() {
               <div className='d-flex flex-row position-relative'>
                 <h5 className='w-100 p-0 m-0'>...</h5>
                   <>
-                    <CategoryTable 
+                    <CategoryTable
                       setAll={setAll}
                       all={all}
+                      setRender={setRender}
                     />
                   </>
                   <>
@@ -125,6 +130,7 @@ function MainAdminTable() {
                     {isOpen &&
                             <CreateCategoryForm
                                 handlepopupClose={toggleAddPopup}
+                                setRender={setRender}
                             />}
                   </> 
               </div>

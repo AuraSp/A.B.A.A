@@ -3,7 +3,7 @@ import ListCategory from './ListCategory'
 import EditCategory from './EditCategory'
 import { updateCategories } from '../../../api/lib/TransactionsAPI';
 
-function CategoryTable({setAll}) {
+function CategoryTable({setAll, all, setRender}) {
 
     const [editId, setEditId] = useState([]);
     let [categories, setCategories] = useState([]);
@@ -57,7 +57,7 @@ function CategoryTable({setAll}) {
                 </tr>
             </thead>
             <tbody>
-                {categories.map((data) => (
+                {all.map((data) => (
                     <React.Fragment key={data._id}>
                     {data.value === "" ? (
                             <></>

@@ -84,7 +84,6 @@ function MainContainer() {
 
     }
 
-
     //---FetchData---//
     useEffect(() => {
         if (localStorage.user === undefined) {
@@ -94,8 +93,7 @@ function MainContainer() {
 
             const userdata = res.data.data.transactions; //Fetch all existing data from database
             let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
-            setEditId(...userAllIds.map((data) => data._id === obj)); //Take User Id for edit
-
+            setEditId(...userAllIds.map((data) => data._id === obj)); //Take User Id for edit 
             setId(...userAllIds.map((data) => data._id)); //Take User Id
             setIncomes(...userAllIds.map((data) => data.income)); //Take all User's incomes
             setExpenses(...userAllIds.map((data) => data.expense)); //Take all User's expenses

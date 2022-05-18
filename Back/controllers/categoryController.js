@@ -39,6 +39,32 @@ exports.createCategory = async (req, res) => {
   }
 };
 
+exports.addNewCategory = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.params.subId);
+  try {
+    const updated = await Transactions.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { category: req.body } },
+      {
+        new: true,
+      }
+    );
+    console.log(updated);
+    res.status(200).json({
+      status: "success",
+      data: {
+        categories: updated,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
 // Gauti kategorija pagal ID
 exports.getCategoryById = async (req, res) => {
   try {
