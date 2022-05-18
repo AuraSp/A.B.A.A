@@ -24,8 +24,6 @@ function MainAdminTable() {
     setAccountPopUp(!accountpopup);
   }
 
-// console.log(category);
-
   //---FetchData---//
   useEffect(() => {
     getAllCategories().then((res) => {
@@ -33,13 +31,14 @@ function MainAdminTable() {
       const categorydata = res.data.data.categories;
       setCategory(...categorydata.map((data) => data.category));
     });
-  });
+  }, [category]);
 
   useEffect(() => {
     let tempAll = [...category]; 
     setAll(tempAll);
 }, [category])
 
+  // console.log(category);
   
   const toggleAddPopup = () => {
     setIsOpen(!isOpen);
