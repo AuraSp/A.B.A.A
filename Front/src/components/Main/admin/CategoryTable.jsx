@@ -15,16 +15,16 @@ function CategoryTable({setAll, all, setRender}) {
     };
 
     //---HandleEdit---//
-    const submitEdit = async (_id, subId, data) => {
-        fetch(`http://localhost:3000/api/v1/cateories/${_id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }).then((res) => {
-          console.log(res);
-        });
-    }
+    // const submitEdit = async (_id, subId, data) => {
+    //     fetch(`http://localhost:3000/api/v1/cateories/${_id}`, {
+    //       method: "PUT",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }).then((res) => {
+    //       console.log(res);
+    //     });
+    // }
 
     // //---HandleDelete---//
     // const handleDelete = (_id) => {
@@ -51,7 +51,6 @@ function CategoryTable({setAll, all, setRender}) {
             <thead>
                 <tr>
                     <th>Reikšmė</th>
-                    <th>tekstas</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -67,7 +66,7 @@ function CategoryTable({setAll, all, setRender}) {
                                 subId ={data._id}
                                 defaultData={data}
                                 onCancel={cancelEdit}
-                                onSubmit={submitEdit}
+                                // onSubmit={submitEdit}
                             />
                         ) : (
                             <ListCategory

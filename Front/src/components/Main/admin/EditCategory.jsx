@@ -4,10 +4,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-function EditCategory({defaultData, subId, onCancel, onSubmit}) {
+function EditCategory({defaultData, subId, onCancel}) {
 
     const [value, setValue] = useState(defaultData.value)
-    const [text, setText] = useState(defaultData.text);
 
     const [editpopup, setEditPopUp] = useState(false);
 
@@ -67,7 +66,6 @@ function EditCategory({defaultData, subId, onCancel, onSubmit}) {
 
   return (
         <>
-                <td className='fs-5 cardicons'><MdInventory className={defaultData.type === 'income' ? 'bg-primary p-1 fs-3 text-warning' : 'bg-danger p-1 fs-3 text-warning'} /></td>
                 <td>
 
                     <input
@@ -80,21 +78,9 @@ function EditCategory({defaultData, subId, onCancel, onSubmit}) {
                     {/* {errors.description &&
                         <p className='error1 p-1 pt-4'>{errors.description?.message}</p>} */}
                 </td>
-                <td>
-                    <input
-                        // {...register('text')}
-                        className='text-center'
-                        type='text'
-                        defaultValue={defaultData.text}
-                        required
-                        onChange={(e) => setText(e.target.value)}>
-                    </input>
-                    {/* {errors.date &&
-                        <p className='error3 p-1 pt-4'>{errors.date?.message}</p>} */}
-                </td>
-                < td className='editbuttons'>
+                <td className='editbuttons'>
                     <button onClick={() => onCancel()} className='btn border-0 me-1'><MdCancel /></button>
-                    <button onClick={onSubmit()} className='btn border-0 me-1' type='submit'><MdOutlineCheckBox /></button>
+                    <button className='btn border-0 me-1' type='submit'><MdOutlineCheckBox /></button>
                     <button onClick={toggleEditPopUp} className='btn bg-transparent text-dark'>...</button>
                     {editpopup &&
                         <div className='tools-content'>
@@ -104,7 +90,7 @@ function EditCategory({defaultData, subId, onCancel, onSubmit}) {
                                 </button>
                             </div>
                             <div>
-                                <button onClick={onSubmit()} className='btn bg-transparent border-0'><MdOutlineCheckBox className='text-primary me-3' />
+                                <button className='btn bg-transparent border-0'><MdOutlineCheckBox className='text-primary me-3' />
                                     <span className='text-secondary'>Koreguoti</span>
                                 </button>
                             </div>

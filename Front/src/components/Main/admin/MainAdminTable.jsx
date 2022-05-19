@@ -27,12 +27,12 @@ function MainAdminTable() {
   //---FetchData---//
   useEffect(() => {
     getAllCategories().then((res) => {
-
       const categorydata = res.data.data.categories;
       setCategory(...categorydata.map((data) => data.category));
     });
-  }, [category]);
+  }, [render]);
 
+  console.log("asd");
   useEffect(() => {
     let tempAll = [...category]; 
     setAll(tempAll);
