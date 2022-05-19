@@ -7,7 +7,6 @@ import * as yup from "yup";
 function EditCategory({defaultData, subId, onCancel}) {
 
     const [value, setValue] = useState(defaultData.value)
-
     const [editpopup, setEditPopUp] = useState(false);
 
     console.log(subId);

@@ -32,7 +32,6 @@ function MainAdminTable() {
     });
   }, [render]);
 
-  console.log("asd");
   useEffect(() => {
     let tempAll = [...category]; 
     setAll(tempAll);

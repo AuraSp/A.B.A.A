@@ -9,7 +9,6 @@ import { addNewCategory } from '../../../api/lib/CategoriesAPI';
 function CreateCategoryForm({handlepopupClose, userId, render, setRender}) {
 
   const [category, setCategory] = useState("");
-  const [ text, setText] = useState("")
   
   const budgetSchema = yup.object().shape({
     category: yup
@@ -37,16 +36,7 @@ const onSubmit = async (data) => {
           icon: 'success',
           confirmButtonText: 'Puiku!'
       });
-      const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({text:category, value:category})
-      };
-        
-        fetch('http://localhost:3000/api/v1/categories', requestOptions)
-        .then(response => response.json())
-
-      await addNewCategory(data, userId).then(setRender(!render))            //send data into database(depending on current UserId)
+      await addNewCategory(data, userId).then(setRender(!render))   //send data into database(depending on current UserId)
       handlepopupClose(false); //close create-pop-up after submit
       reset(''); //reset input values
       

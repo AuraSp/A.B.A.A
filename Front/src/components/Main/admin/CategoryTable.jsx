@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import ListCategory from './ListCategory'
 import EditCategory from './EditCategory'
-import { updateCategories } from '../../../api/lib/TransactionsAPI';
+import { updateCategories } from '../../../api/lib/CategoriesAPI';
 
 function CategoryTable({setAll, all, setRender}) {
 
