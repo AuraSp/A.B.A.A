@@ -4,10 +4,8 @@ const mongoose = require("mongoose");
 
 const categorySchema = mongoose.Schema(
   {
-    value: { type: String, },
-    text: { type: String,  },
-  },
-  { timestamps: true }
+    value: { type: String, }
+  }
 );
 
 const CategoriesSchema = new mongoose.Schema(

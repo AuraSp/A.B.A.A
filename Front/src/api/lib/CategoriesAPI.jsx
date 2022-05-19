@@ -1,4 +1,6 @@
 import axiosCategory from '../apiCategories';
+import axiosUser from '../apiCategories';
+import axios from "axios";
 
 export async function getAllCategories() {
     const res = await axiosCategory.get('/');
@@ -10,4 +12,6 @@ export const updateCategories = (data) => axiosCategory.patch('/', JSON.stringif
 //Categories
 export async function deleteCategories(subId) { await axiosCategory.patch(`/categories/delete/${subId}`) };
 
-export const updateCategory = (subId, data) => axiosCategory.patch(`/categories/update/${subId}`, JSON.stringify(data));
+export const updateCategory = (subId, data) => axiosCategory.patch(`/628533a8be098f1544108229/categories/update/${subId}`, JSON.stringify(data));
+
+export const addNewCategory = (data, userId) => axiosUser.patch(`/${userId}/addNewCategory/`, JSON.stringify(data));

@@ -4,7 +4,7 @@ import { GrTransaction } from "react-icons/gr";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { addNewCategory } from '../../../api/lib/TransactionsAPI';
+import { addNewCategory } from '../../../api/lib/CategoriesAPI';
 
 function CreateCategoryForm({handlepopupClose, userId, render, setRender}) {
 

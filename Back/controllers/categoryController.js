@@ -23,8 +23,15 @@ exports.getAllCategories = async (req, res) => {
 
 // Sukurti kategorija
 exports.createCategory = async (req, res) => {
-  try {
-    const newCategory = await Categories.create(req.body);
+  console.log(req.params.id);
+  console.log(req.params.subId);
+    try {
+    const newCategory = await Categories.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        new: true,
+      }
+      );
     res.status(201).json({
       status: "success",
       data: {
@@ -37,19 +44,37 @@ exports.createCategory = async (req, res) => {
       message: err,
     });
   }
+  // try {
+  //   const newCategory = await Categories.create(req.body);
+  //   res.status(201).json({
+  //     status: "success",
+  //     data: {
+  //       category: newCategory,
+  //     },
+  //   });
+  // } catch (err) {
+  //   res.status(400).json({
+  //     status: "fail",
+  //     message: err,
+  //   });
+  // }
 };
 
 exports.addNewCategory = async (req, res) => {
+  console.log(req.params.id);
   try {
     const updated = await Categories.findOneAndUpdate(
       { _id: req.params.id },
-      { $push: { category: req.body } }
+      { $push: { category: req.body } },
+      {
+        new: true,
+      }
     );
     console.log(updated);
     res.status(200).json({
       status: "success",
       data: {
-        categories: updated,
+        category: updated,
       },
     });
   } catch (err) {
@@ -91,7 +116,7 @@ exports.updateCategory = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        category: category,
+        categories: category,
       },
     });
   } catch (err) {
