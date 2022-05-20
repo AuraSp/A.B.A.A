@@ -12,6 +12,6 @@ export const updateCategories = (data) => axiosCategory.patch('/', JSON.stringif
 //Categories
 export async function deleteCategories(subId) { await axiosCategory.patch(`/categories/delete/${subId}`) };
 
-export const updateCategory = (subId, data) => axiosCategory.patch(`/628533a8be098f1544108229/categories/update/${subId}`, JSON.stringify(data));
+export const updateCategory = (id, subId, data) => axiosCategory.patch(`/category/${subId}/update`, JSON.stringify(data));
 
-export const addNewCategory = (data, userId) => axiosUser.patch(`/${userId}/addNewCategory/`, JSON.stringify(data));
+export const addNewCategory = (data, userId) => axiosCategory.patch(`/${userId}/addNewCategory/`, JSON.stringify(data));

@@ -105,12 +105,15 @@ exports.getCategoryById = async (req, res) => {
 
 // Atnaujinti esamą kategorija
 exports.updateCategory = async (req, res) => {
+  console.log( req.params.id)
+  console.log( req.params.subId)
   try {
-    const category = await Categories.findByIdAndUpdate(req.params.id, req.body, {
-      // atnaujinus duomenis - gauti atnaujintą kategorijo informaciją
-      new: true,
-      // papildomai patikrintų duomenis pagal DB schemą (categoryModel)
-      runValidators: true,
+    const category = await Categories.findOneAndUpdate(
+      {'category._id': req.params.subId},
+      {
+        $set: {
+          "category.$.value": req.body.value,
+        },    
     });
 
     res.status(200).json({

@@ -15,6 +15,7 @@ function MainAdminTable() {
   const [all, setAll] = useState([]);
   const [category, setCategory] = useState([]);
   const [render, setRender] = useState(false);
+  const [categoryId, setCategoryId] = useState(false);
   // const [categoryAddpopup, setCategoryAddpopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,11 +29,11 @@ function MainAdminTable() {
   useEffect(() => {
     getAllCategories().then((res) => {
       const categorydata = res.data.data.categories;
+      setCategoryId(...categorydata.map((data) => data._id)); //Take User Id
       setCategory(...categorydata.map((data) => data.category));
     });
-  }, [render]);
+  }, [render, categoryId]);
 
-  console.log("asd");
   useEffect(() => {
     let tempAll = [...category]; 
     setAll(tempAll);
@@ -107,6 +108,7 @@ function MainAdminTable() {
                 <h5 className='w-100 p-0 m-0'>...</h5>
                   <>
                     <CategoryTable
+                      categoryId={categoryId}
                       setAll={setAll}
                       all={all}
                       setRender={setRender}

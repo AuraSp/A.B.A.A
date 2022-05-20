@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import ListCategory from './ListCategory'
 import EditCategory from './EditCategory'
-import { updateCategories } from '../../../api/lib/TransactionsAPI';
+import { updateCategory, getAllCategories } from '../../../api/lib/CategoriesAPI';
 
-function CategoryTable({setAll, all, setRender}) {
+function CategoryTable({setAll, categoryId, all, setRender}) {
 
     const [editId, setEditId] = useState([]);
     let [categories, setCategories] = useState([]);
@@ -13,31 +13,17 @@ function CategoryTable({setAll, all, setRender}) {
         e.preventDefault();
         setEditId(subId); //Open edit form on choosen transaction type
     };
-
-    //---HandleEdit---//
-    // const submitEdit = async (_id, subId, data) => {
-    //     fetch(`http://localhost:3000/api/v1/cateories/${_id}`, {
-    //       method: "PUT",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }).then((res) => {
-    //       console.log(res);
-    //     });
-    // }
-
-    // //---HandleDelete---//
-    // const handleDelete = (_id) => {
-    //     fetch(`http://localhost:3000/api/v1/cateories/${_id}`, {
-    //       method: "DELETE",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }).then((res) => {
-    //       console.log(res);
-    //     });
-    //   };
     
+    //---HandleEdit---//
+    const submitEdit = async (id, subId, data) => {
+        await updateCategory(id, subId, data).then(() =>
+            getAllCategories()
+        );
+
+        setRender(prevState => !prevState)
+    }
+
+
     //---CancelEdit---//
     function cancelEdit() {
         setEditId('');
@@ -64,9 +50,10 @@ function CategoryTable({setAll, all, setRender}) {
                         editId === data._id ? (
                             <EditCategory
                                 subId ={data._id}
+                                id={categoryId}
                                 defaultData={data}
                                 onCancel={cancelEdit}
-                                // onSubmit={submitEdit}
+                                onSubmit={submitEdit}
                             />
                         ) : (
                             <ListCategory

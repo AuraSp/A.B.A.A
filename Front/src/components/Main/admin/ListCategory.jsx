@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ListCategory({value, text, defaultData, subId, onEdit, onDelete}) {
+function ListCategory({value, defaultData, subId, onEdit, onDelete}) {
   return (
     <tr>
         <td>{value}</td>
