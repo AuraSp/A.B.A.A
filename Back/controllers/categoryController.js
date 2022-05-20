@@ -21,47 +21,10 @@ exports.getAllCategories = async (req, res) => {
   }
 };
 
-// Sukurti kategorija
-// exports.createCategory = async (req, res) => {
-//   console.log(req.params.id);
-//   console.log(req.params.subId);
-//     try {
-//     const newCategory = await Categories.findOneAndUpdate(
-//       { _id: req.params.id },
-//       {
-//         new: true,
-//       }
-//       );
-//     res.status(201).json({
-//       status: "success",
-//       data: {
-//         category: newCategory,
-//       },
-//     });
-//   } catch (err) {
-//     res.status(400).json({
-//       status: "fail",
-//       message: err,
-//     });
-//   }
-  // try {
-  //   const newCategory = await Categories.create(req.body);
-  //   res.status(201).json({
-  //     status: "success",
-  //     data: {
-  //       category: newCategory,
-  //     },
-  //   });
-  // } catch (err) {
-  //   res.status(400).json({
-  //     status: "fail",
-  //     message: err,
-  //   });
-  // }
-// };
 
 exports.addNewCategory = async (req, res) => {
   console.log(req.params.id);
+  console.log(req.params.subId);
   try {
     const updated = await Categories.findOneAndUpdate(
       { _id: req.params.id },
@@ -70,6 +33,8 @@ exports.addNewCategory = async (req, res) => {
         new: true,
       }
     );
+    console.log(req.params.id);
+   console.log(req.params.subId);
     console.log(updated);
     res.status(200).json({
       status: "success",

@@ -15,7 +15,7 @@ function MainAdminTable() {
   const [all, setAll] = useState([]);
   const [category, setCategory] = useState([]);
   const [render, setRender] = useState(false);
-  // const [categoryAddpopup, setCategoryAddpopup] = useState(false);
+  const [userId, setId] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
 
@@ -128,6 +128,9 @@ function MainAdminTable() {
                             <CreateCategoryForm
                                 handlepopupClose={toggleAddPopup}
                                 setRender={setRender}
+                                userId={userId}
+                                render={render}
+                                setId={setId}
                             />}
                   </> 
               </div>

@@ -6,12 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { addNewCategory } from '../../../api/lib/CategoriesAPI';
 
-function CreateCategoryForm({handlepopupClose, userId, render, setRender}) {
+function CreateCategoryForm({handlepopupClose, render, setRender}) {
 
   const [category, setCategory] = useState("");
   
   const budgetSchema = yup.object().shape({
-    category: yup
+    value: yup
         .string()
         .nullable(false)
         .strict()
@@ -36,10 +36,9 @@ const onSubmit = async (data) => {
           icon: 'success',
           confirmButtonText: 'Puiku!'
       });
-      await addNewCategory(data, userId).then(setRender(!render))   //send data into database(depending on current UserId)
+      await addNewCategory(data).then(setRender(!render))   //send data into database(depending on current UserId)
       handlepopupClose(false); //close create-pop-up after submit
       reset(''); //reset input values
-      
   } else {
 
       Swal.fire({
@@ -63,7 +62,8 @@ const onSubmit = async (data) => {
                 <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column flex-wrap text-center'>
                     <label className='text-start'>Kategoriją</label>
                     <input
-                        {...register('category')}
+                        {...register('value')}
+                        type='text'
                         defaultValue=''
                         onChange={(e) => setCategory(e.target.value)}
                         className='border bg-transparent text-muted'>
