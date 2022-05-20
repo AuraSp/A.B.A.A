@@ -36,5 +36,5 @@ UI paleidimas naudojant terminalą
 cd Front
 npm install
 npm start
-   - Aplikacija pasileidžia per http://localhost:3000 nuorodą
+   - Aplikacija pasileidžia per http://localhost:3001 nuorodą
 ```
