@@ -10,7 +10,7 @@ export async function getAllCategories() {
 export const updateCategories = (data) => axiosCategory.patch('/', JSON.stringify(data));
 
 //Categories
-export async function deleteCategories(subId) { await axiosCategory.patch(`/categories/delete/${subId}`) };
+export async function deleteCategory(subId) { await axiosCategory.patch(`/category/${subId}/delete`) };
 
 export const updateCategory = (id, subId, data) => axiosCategory.patch(`/category/${subId}/update`, JSON.stringify(data));
 

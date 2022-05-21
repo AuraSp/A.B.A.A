@@ -130,12 +130,13 @@ exports.updateCategory = async (req, res) => {
   }
 };
 
-// Pašalinti kategorija pagal ID
 exports.deleteCategory = async (req, res) => {
   try {
-    await Categories.findByIdAndDelete(req.params.id);
-
-    res.status(204).json({
+    await Categories.findOneAndUpdate(
+      {'category._id': req.params.subId},
+      { $pull: { category: { _id: req.params.subId } } }
+    );
+    res.status(200).json({
       status: "success",
       data: null,
     });

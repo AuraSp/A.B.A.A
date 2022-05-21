@@ -16,7 +16,7 @@ router.route("/").get(getAllCategories);
 router.route("/:id").get(getCategoryById).patch(updateCategory);
 
 router.route("/category/:subId/update").patch(updateCategory);
-router.route("/:id/categories/delete/:subId").patch(deleteCategory);
+router.route("/category/:subId/delete").patch(deleteCategory);
 
 router.route("/:id/addNewCategory").patch(addNewCategory);
 

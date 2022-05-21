@@ -14,8 +14,8 @@ function MainAdminTable() {
   const [accountpopup, setAccountPopUp] = useState(false);
   const [all, setAll] = useState([]);
   const [category, setCategory] = useState([]);
-  const [render, setRender] = useState(false);
   const [categoryId, setCategoryId] = useState(false);
+  const [render, setRender] = useState(false);
   // const [categoryAddpopup, setCategoryAddpopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,9 +27,10 @@ function MainAdminTable() {
 
   //---FetchData---//
   useEffect(() => {
+    
     getAllCategories().then((res) => {
       const categorydata = res.data.data.categories;
-      setCategoryId(...categorydata.map((data) => data._id)); //Take User Id
+      setCategoryId(...categorydata.map((data) => data._id));
       setCategory(...categorydata.map((data) => data.category));
     });
   }, [render, categoryId]);
@@ -112,6 +113,7 @@ function MainAdminTable() {
                       setAll={setAll}
                       all={all}
                       setRender={setRender}
+                      render={render}
                     />
                   </>
                   <>
@@ -120,18 +122,18 @@ function MainAdminTable() {
                         <h5 className='w-100 p-0 m-0'>Kategorios</h5>
                         <div>
                             <button
-                                onClick={toggleAddPopup}
-                                className='btn bg-transparent border-0'>
-                                <RiAddFill className='text-center me-3' />
-                                <span>Pridėti  kategorija</span>
+                              onClick={toggleAddPopup}
+                              className='btn bg-transparent border-0'>
+                              <RiAddFill className='text-center me-3' />
+                              <span>Pridėti  kategorija</span>
                             </button>
                         </div>
                     </div>
                     {isOpen &&
-                            <CreateCategoryForm
-                                handlepopupClose={toggleAddPopup}
-                                setRender={setRender}
-                            />}
+                      <CreateCategoryForm
+                        handlepopupClose={toggleAddPopup}
+                        setRender={setRender}
+                      />}
                   </> 
               </div>
             </div>

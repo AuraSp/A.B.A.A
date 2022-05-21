@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
+import Swal from 'sweetalert2';
 import ListCategory from './ListCategory'
 import EditCategory from './EditCategory'
-import { updateCategory, getAllCategories } from '../../../api/lib/CategoriesAPI';
+import { updateCategory, getAllCategories, deleteCategory } from '../../../api/lib/CategoriesAPI';
 
 function CategoryTable({setAll, categoryId, all, setRender}) {
 
@@ -19,15 +20,45 @@ function CategoryTable({setAll, categoryId, all, setRender}) {
         await updateCategory(id, subId, data).then(() =>
             getAllCategories()
         );
-
         setRender(prevState => !prevState)
+        setEditId()
+        
     }
-
+    
 
     //---CancelEdit---//
     function cancelEdit() {
         setEditId('');
         console.log('canceling');
+    }
+
+    const handleDelete = (e, data, subId) => {
+        e.preventDefault();        
+            Swal
+                .fire({
+                    title: 'Ar tikrai norite pašalinti?',
+                    text: 'Šio įrašo informacija bus prarasta negražinamai',
+                    icon: 'question',
+                    showCancelButton: true,
+                    cancelButtonText: 'Atšaukti',
+                    confirmButtonText: 'Panaikinti',
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Swal
+                            .fire({
+                                title: 'Jūsų kategorijų įrašas sėkmingai pašalintas!',
+                                icon: 'success',
+                                confirmButtonText: 'Puiku!'
+                            })
+
+                        deleteCategory(subId) //Delete choosen transaction type form database;
+                        setAll(all.filter((data) => data._id !== subId))
+                        setRender(prevState => !prevState)
+                    } else if (result.isDenied) {
+                        Swal.close()
+                    }
+                })
     }
 
     
@@ -63,7 +94,7 @@ function CategoryTable({setAll, categoryId, all, setRender}) {
                                 value={data.value}
                                 text={data.text}
                                 onEdit={handleEdit}
-                                // onDelete={handleDelete}
+                                onDelete={handleDelete}
                             />
                         )
                     )
