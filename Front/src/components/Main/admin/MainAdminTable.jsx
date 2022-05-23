@@ -3,12 +3,12 @@ import { IoIosArrowDown } from "react-icons/io";
 import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { GiWallet } from "react-icons/gi";
-import { Link } from "react-router-dom";
 import { RiAddFill } from "react-icons/ri";
 import ActivitiesChart from '../Charts/ActivitiesChart';
 import { getAllCategories } from '../../../api/lib/CategoriesAPI';
 import CreateCategoryForm from './CreateCategoryForm';
 import CategoryTable from './CategoryTable';
+import { Link, useNavigate } from "react-router-dom";
 
 function MainAdminTable() {
   const [accountpopup, setAccountPopUp] = useState(false);
@@ -18,7 +18,7 @@ function MainAdminTable() {
   const [userId, setId] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-
+  let navigate = useNavigate();
   //User account menu popup
   const toggleAccountPopup = () => {
     setAccountPopUp(!accountpopup);
@@ -38,6 +38,19 @@ function MainAdminTable() {
 }, [category])
 
   
+  function vardas(){
+        if(localStorage.user !== undefined){
+            let getVardas = localStorage.getItem("name")
+            return getVardas.replace(/['"]+/g, '')
+        }
+    }
+
+    function clearUser() {
+      localStorage.clear();
+      navigate('/');
+
+  }
+
   const toggleAddPopup = () => {
     setIsOpen(!isOpen);
 }    
@@ -74,11 +87,11 @@ function MainAdminTable() {
                 <Link to="/admin" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Admin</Link>
                 <div onClick={toggleAccountPopup} className='account d-flex flex-row justify-content-end p-3'>
                   <div className='fs-5 ps-1 pe-1 text-warning border-bottom border-warning'><MdAccountCircle /></div>
-                  <div className='fs-5 ps-1 pe-1 text-muted'>User</div>
+                  <div className='fs-5 ps-1 pe-1 text-muted'>{vardas()}</div>
                   <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
                   {accountpopup &&
                     <div className="acc-content shadow rounded">
-                      <p className='text-muted'>Atsijungti</p>
+                      <p className='text-muted'onClick={clearUser}>Atsijungti</p>
                     </div>
                   }
                 </div>
@@ -88,11 +101,11 @@ function MainAdminTable() {
             {/* Visible on large screens */}
             <div onClick={toggleAccountPopup} className='account d-lg-flex d-md-none d-sm-none flex-row justify-content-end py-4 border-bottom'>
               <div className='fs-5 ps-1 pe-1'><MdAccountCircle /></div>
-              <div className='fs-5 ps-1 pe-1'>user</div>
+              <div className='fs-5 ps-1 pe-1'>{vardas()}</div>
               <span className='fs-5 ps-2 pe-5 text-muted'><IoIosArrowDown style={accountpopup ? { transform: 'rotate(180deg)' } : ''} /></span>
               {accountpopup &&
                 <div className="acc-content shadow rounded">
-                  <p className='text-muted'>Atsijungti</p>
+                  <p className='text-muted'onClick={clearUser}>Atsijungti</p>
                 </div>
               }
             </div>

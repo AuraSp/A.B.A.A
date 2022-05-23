@@ -36,7 +36,7 @@ const onSubmit = async (data) => {
           icon: 'success',
           confirmButtonText: 'Puiku!'
       });
-      await addNewCategory(data).then(setRender(!render))   //send data into database(depending on current UserId)
+      await addNewCategory(data).then(()=>{setRender(!render)})   //send data into database(depending on current UserId)
       handlepopupClose(false); //close create-pop-up after submit
       reset(''); //reset input values
   } else {
