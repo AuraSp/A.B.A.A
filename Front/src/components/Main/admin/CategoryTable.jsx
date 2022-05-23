@@ -44,47 +44,64 @@ function CategoryTable({setAll, all, setRender}) {
         console.log('canceling');
     }
 
-    
+
+    function sortByDate(a, b) {
+        
+        if (a.createdAt < b.createdAt) {
+            return 1;
+        }
+        if (a.createdAt > b.createdAt) {
+            return -1;
+        }
+        return 0;
+    }
+
+      all.sort(sortByDate);
     return (
-        <>
-        <table>
-            <thead>
-                <tr>
-                    <th>Reikšmė</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {all.map((data) => (
-                    <React.Fragment key={data._id}>
-                    {data.value === "" ? (
-                            <></>
-                    ) : (
-                        editId === data._id ? (
-                            <EditCategory
-                                subId ={data._id}
-                                defaultData={data}
-                                onCancel={cancelEdit}
-                                // onSubmit={submitEdit}
-                            />
+        <>{all.length === 0 ? (
+            <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
+        ) : (
+            <>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Reikšmė</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {all.map((data) => (
+                        <React.Fragment key={data._id}>
+                        {data.value === "" ? (
+                                <></>
                         ) : (
-                            <ListCategory
-                                key={data._id}
-                                subId ={data._id}
-                                defaultData={data}
-                                value={data.value}
-                                text={data.text}
-                                onEdit={handleEdit}
-                                // onDelete={handleDelete}
-                            />
+                            editId === data._id ? (
+                                <EditCategory
+                                    subId ={data._id}
+                                    defaultData={data}
+                                    onCancel={cancelEdit}
+                                    // onSubmit={submitEdit}
+                                />
+                            ) : (
+                                <ListCategory
+                                    key={data._id}
+                                    subId ={data._id}
+                                    defaultData={data}
+                                    value={data.value}
+                                    text={data.text}
+                                    onEdit={handleEdit}
+                                    // onDelete={handleDelete}
+                                />
+                            )
                         )
-                    )
-                    }
-                    </React.Fragment>
-                ))}
-            </tbody>
-        </table>
+                        }
+                        </React.Fragment>
+                    ))}
+                </tbody>
+            </table>
+            </>
+            )}
         </>
     );
 }
