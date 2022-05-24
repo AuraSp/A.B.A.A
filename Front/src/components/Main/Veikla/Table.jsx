@@ -30,6 +30,16 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
+                            const postToLogs = {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ 
+                                    userId: userId,
+                                    text: 'entry deleted',
+                                    value: "Ištrynė"
+                                })
+                            };
+                            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
 
                         deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database;
@@ -58,6 +68,16 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
+                            const postToLogs = {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ 
+                                    userId: userId,
+                                    text: 'entry deleted',
+                                    value: "Ištrynė"
+                                })
+                            };
+                            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
                         deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
                         setAll(all.filter((data) => data._id !== subId))

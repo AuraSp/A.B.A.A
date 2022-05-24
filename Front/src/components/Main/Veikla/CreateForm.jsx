@@ -16,6 +16,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
+    const [load, setLoad] = useState(true)
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
 
@@ -62,8 +63,17 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                 icon: 'success',
                 confirmButtonText: 'Puiku!'
             });
+            const postToLogs = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    userId: userId,
+                    text: 'add new income',
+                })
+            };
+            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
-            await addNewIncome(data, userId).then(setRender(!render))            //send data into database(depending on current UserId)
+            await addNewIncome(data, userId).then(()=>{setRender(!render)})            //send data into database(depending on current UserId)
             handlepopupClose(false); //close create-pop-up after submit
             reset(''); //reset input values
         } else if (expenses) { // if choosen incomes type button
@@ -74,8 +84,18 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                 icon: 'success',
                 confirmButtonText: 'Puiku!'
             })
+            const postToLogs = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    userId: userId,
+                    text: 'add new expense',
+                    value: "Pridėjo",
+                })
+            };
+            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
-            await addNewExpense(data, userId).then(setRender(!render)); //send data into database(depending on current UserId)
+            await addNewExpense(data, userId).then(()=>{setRender(!render)}); //send data into database(depending on current UserId)
 
             handlepopupClose(false); //close create-pop-up after submit
             reset(''); //reset input values
@@ -104,10 +124,12 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
     let [categories, setCategories] = useState([]);
 
     const getAllCategories = async () => {
+        
         fetch('http://localhost:3000/api/v1/categories')
         .then(res => res.json())
         .then((json) => {
-            setCategories(json.data.categories);
+            setCategories(json.data.categories[0].category);
+            setLoad(false)
         })
     }
 
@@ -167,16 +189,16 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                         </div>
                     </div>
                     <label className='text-start'>Kategoriją</label>
-                    <select
+                    {!load && <select
                         {...register('category')}
                         defaultValue=''
                         onChange={(e) => setCategory(e.target.value)}
                         className='border bg-transparent text-muted'>
                         <option value='' disabled>--Pasirinkite kategoriją--</option>
                         {categories.map(item => {
-                            return (<option key={item.value} value={item.value}>{item.text}</option>)
+                            return (<option key={item.value} value={item.value}>{item.value}</option>)
                         })}
-                    </select>
+                    </select>}
                     <p className=' p-0 text-danger'>{errors.category?.message}</p>
                     <div className='formfooter d-flex flex-row flex-wrap mt-5'>
                         <div className='me-4'>
