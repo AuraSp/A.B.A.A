@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ApexCharts from 'react-apexcharts';
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { HiOutlineDatabase } from "react-icons/hi";
 import './chart.css';
+import { getUserIncomeByMonth, getUserExpenseByMonth } from '../../../api/lib/TransactionsAPI';
 
-const ActivitiesChart = ({ incomes, expenses }) => {
+const ActivitiesChart = ({ userId, incomes, expenses }) => {
+
+    // let [sampleData1, setData1] = useState();
+    let [totalNum, setTotalNum] = useState(0);
+    let [sampleData2, setData2] = useState();
+    const [loading, setLoading] = useState(true);
+    let [incomeThisMonth, setIncomeThisMonth] = useState(0);
+    let [expenseThisMonth, setExpenseThisMonth] = useState(0);
+
+    // const balance = fullBalance - expenseThisMonth;
+
+    useEffect(() => {
+        getUserIncomeByMonth(userId).then((res) => {
+            setIncomeThisMonth(res.data.data.income)
+        });
+        getUserExpenseByMonth(userId).then((res) => {
+            setExpenseThisMonth(res.data.data.income)
+        });
+        setTotalNum(+incomeThisMonth - expenseThisMonth);
+        setLoading(false)
+    }, [])
+
+    console.log(incomeThisMonth)
 
     const incomeAmount = incomes.map((amount) => amount.amount);
     const expenseAmount = expenses.map((amount) => amount.amount);
@@ -27,7 +50,7 @@ const ActivitiesChart = ({ incomes, expenses }) => {
     }
     //BalanceChartData
     balance = incomeTotalSum - expenseTotalSum;
-    
+
     let series = [balance, incomeTotalSum, expenseTotalSum]
 
 

@@ -45,7 +45,7 @@ function MainContainer() {
 
     let navigate = useNavigate();
 
-    
+
     //User account menu popup
     const toggleAccountPopup = () => {
         setAccountPopUp(!accountpopup);
@@ -76,7 +76,7 @@ function MainContainer() {
     let text = localStorage.getItem("user");
     let obj = JSON.parse(text)
 
-    
+
 
     function clearUser() {
         localStorage.clear();
@@ -88,30 +88,30 @@ function MainContainer() {
     useEffect(() => {
         if (localStorage.user === undefined) {
             navigate('/');
-    }else{
-        getAllUsers().then((res) => {
+        } else {
+            getAllUsers().then((res) => {
 
-            const userdata = res.data.data.transactions; //Fetch all existing data from database
-            let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
-            setEditId(...userAllIds.map((data) => data._id === obj)); //Take User Id for edit 
-            setId(...userAllIds.map((data) => data._id)); //Take User Id
-            setIncomes(...userAllIds.map((data) => data.income)); //Take all User's incomes
-            setExpenses(...userAllIds.map((data) => data.expense)); //Take all User's expenses
-            setLoading(false);
-        });
-    }
+                const userdata = res.data.data.transactions; //Fetch all existing data from database
+                let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
+                setEditId(...userAllIds.map((data) => data._id === obj)); //Take User Id for edit 
+                setId(...userAllIds.map((data) => data._id)); //Take User Id
+                setIncomes(...userAllIds.map((data) => data.income)); //Take all User's incomes
+                setExpenses(...userAllIds.map((data) => data.expense)); //Take all User's expenses
+                setLoading(false);
+            });
+        }
 
     }, [render, userId]);
 
-    function vardas(){
-        if(localStorage.user !== undefined){
+    function vardas() {
+        if (localStorage.user !== undefined) {
             let getVardas = localStorage.getItem("name")
             return getVardas.replace(/['"]+/g, '')
         }
     }
-    
-        
-        
+
+
+
     useEffect(() => {
         let tempAll = [...incomes, ...expenses]; //Put all taken incomes and expenses into new temporarily Object
         setAll(tempAll); //Give empty Object all temporarily data(everything inside it)
@@ -240,10 +240,13 @@ function MainContainer() {
                                     </div>
                                 }
                             </div>
-                            <ActivitiesChart
-                                expenses={expenses}
-                                incomes={incomes}
-                            />
+                            {!loading &&
+                                <ActivitiesChart
+                                    expenses={expenses}
+                                    incomes={incomes}
+                                    userId={userId}
+                                />
+                            }
                             <div className='button col-lg-4 col-md-12 d-sm-none d-md-none d-lg-flex flex-row flex-wrap align-content-center justify-content-center p-md-3 mt-md-2'>
                                 <div className="h-25 text-center">
                                     <button

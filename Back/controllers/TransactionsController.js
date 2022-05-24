@@ -275,3 +275,182 @@ exports.findExpensesAndUpdate = async (req, res) => {
     });
   }
 };
+
+exports.getUserIncomeByMonth = async (req, res) => {
+  try {
+    const users = await Transactions.find({ _id: req.params.id });
+    const { income } = users[0];
+
+    const currentYear = new Date().getFullYear(); // 2022
+    const currentMonth = new Date().getMonth() + 1; // 5
+
+    const filteredYear = income.filter((item) => new Date(item.date).getFullYear() === currentYear);
+    const filteredMonth = filteredYear.filter((item) => new Date(item.date).getMonth() + 1 === currentMonth);
+
+    const allIncomeCurrentMonth = filteredMonth.reduce((n, { amount }) => n + amount, 0);
+
+    res.status(200).json({
+      status: "success",
+      results: users.length,
+      data: {
+        income: allIncomeCurrentMonth,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "error",
+      message: err,
+    });
+  }
+};
+
+exports.getUserExpenseByMonth = async (req, res) => {
+  console.log(req.params.id)
+  try {
+    const users = await Transactions.find({ _id: req.params.id });
+    const { expense } = users[0];
+
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;
+
+    const filteredYear = expense.filter((item) => new Date(item.date).getFullYear() === currentYear)
+    const filteredMonth = filteredYear.filter((item) => new Date(item.date).getMonth() + 1 === currentMonth);
+    const allExpenseCurrentMonth = filteredMonth.reduce((n, { amount }) => n + amount, 0);
+
+    res.status(200).json({
+      status: "success",
+      results: filteredMonth.length,
+      data: {
+        expense: allExpenseCurrentMonth
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "error",
+      message: err,
+    });
+  }
+};
+
+
+// exports.getAllUserIncomeByMonth = async (req, res) => {
+//   try {
+//     const users = await Transactions.findById(req.params.id);
+//     if (users.income.length > 0) {
+//       const { income } = users;
+
+//       var sortedExpenseByDate = income.sort(function (a, b) {
+//         var c = new Date(a.date);
+//         var d = new Date(b.date);
+//         return c - d;
+//       });
+
+//       const startYear = new Date(sortedExpenseByDate[0].date).getFullYear();
+//       console.log(startYear)
+//       const endYear = new Date(sortedExpenseByDate[sortedExpenseByDate.length - 1].date).getFullYear();
+//       console.log(endYear)
+//       const incomeArray = [];
+
+//       for (var i = startYear; i <= endYear; i++) {
+//         var filteredYear = sortedExpenseByDate.filter((item) => new Date(item.date).getFullYear() === i);
+//         console.log(filteredYear)
+//         var yearArray = [];
+//         yearArray.push({ year: i });
+//         var monthArray = [];
+
+//         for (var y = 1; y <= 12; y++) {
+//           if (filteredYear.filter((item) => new Date(item.date).getMonth() + 1 === y)) {
+//             var filteredMonth = filteredYear.filter((item) => new Date(item.date).getMonth() + 1 === y);
+//             var allIncome = filteredMonth.reduce((n, { amount }) => n + amount, 0);
+//             monthArray.push(allIncome);
+//           } else {
+//             monthArray.push(0);
+//           }
+//         }
+
+//         var merged = [];
+
+//         yearArray.map((year) => {
+//           merged.push({
+//             yearInc: year.year,
+//             dataInc: monthArray,
+//           });
+//         });
+//         incomeArray.push(...merged);
+//       }
+
+//       res.status(200).json({
+//         status: "success",
+//         results: users.length,
+//         data: {
+//           income: incomeArray,
+//         },
+//       });
+//     }
+//   } catch (err) {
+//     res.status(404).json({
+//       status: "error",
+//       message: err,
+//     });
+//   }
+// };
+
+// exports.getAllUserExpenseByMonth = async (req, res) => {
+//   try {
+//     const users = await Transactions.findById(req.params.id);
+//     if (users.expense.length > 0) {
+//       const { expense } = users;
+
+//       var sortedExpenseByDate = expense.sort(function (a, b) {
+//         var c = new Date(a.date);
+//         var d = new Date(b.date);
+//         return c - d;
+//       });
+
+//       const startYear = new Date(sortedExpenseByDate[0].date).getFullYear();
+//       const endYear = new Date(sortedExpenseByDate[sortedExpenseByDate.length - 1].date).getFullYear();
+//       const expenseArray = [];
+
+//       for (var i = startYear; i <= endYear; i++) {
+//         var filteredYear = sortedExpenseByDate.filter((item) => new Date(item.date).getFullYear() === i);
+//         console.log(filteredYear)
+//         var yearArray = [];
+//         yearArray.push({ year: i });
+//         var monthArray = [];
+
+//         for (var y = 1; y <= 12; y++) {
+//           if (filteredYear.filter((item) => new Date(item.date).getMonth() + 1 === y)) {
+//             var filteredMonth = filteredYear.filter((item) => new Date(item.date).getMonth() + 1 === y);
+//             var allExpense = filteredMonth.reduce((n, { amount }) => n + amount, 0);
+//             monthArray.push(allExpense);
+//           } else {
+//             monthArray.push(0);
+//           }
+//         }
+
+//         var merged = [];
+
+//         yearArray.map((year) => {
+//           merged.push({
+//             yearInc: year.year,
+//             dataInc: monthArray,
+//           });
+//         });
+//         expenseArray.push(...merged);
+//       }
+
+//       res.status(200).json({
+//         status: "success",
+//         results: users.length,
+//         data: {
+//           expense: expenseArray,
+//         },
+//       });
+//     }
+//   } catch (err) {
+//     res.status(404).json({
+//       status: "error",
+//       message: err,
+//     });
+//   }
+// };

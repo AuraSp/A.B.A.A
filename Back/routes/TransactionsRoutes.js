@@ -16,6 +16,8 @@ const {
   findExpensesAndUpdate,
   addNewIncome,
   addNewExpense,
+  getUserIncomeByMonth,
+  getUserExpenseByMonth
 } = require("../controllers/TransactionsController");
 
 const {signup} = require("../controllers/auth.controller")
@@ -37,6 +39,11 @@ router.route("/:id/expense/update/:subId").patch(findExpensesAndUpdate);
 router.route("/:id/user/addNewIncome").patch(addNewIncome);
 router.route("/:id/user/addNewExpense").patch(addNewExpense);
 
+router.route("/:id/user/addNewIncome").patch(addNewIncome).get(getUserIncomeByMonth);
+router.route("/:id/user/addNewExpense").patch(addNewExpense).get(getUserExpenseByMonth);
+
+router.route("/:id/income/getByCurrentMonth").get(getUserIncomeByMonth);
+router.route("/:id/expense/getByCurrentMonth").get(getUserExpenseByMonth);
 
 
 //Auth
