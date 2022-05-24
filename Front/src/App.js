@@ -4,7 +4,6 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Valdyba from './components/Main/Valdyba/MainContainer';
 import MainAdminTable from './components/Main/admin/MainAdminTable';
 import Home from './components/HomePage/Home';
 import Login from './components/AccountPages/Login';
@@ -23,7 +22,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/*" element={<ErrorPage />} />
         <Route path="/veikla" element={<MainContainer />} />
-        <Route path="/valdyba" element={<Valdyba />} />
+        <Route path="/analize" element={<Analize />} />
         <Route path="/admin" element={<MainAdminTable />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
