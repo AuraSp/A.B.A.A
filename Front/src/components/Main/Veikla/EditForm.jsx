@@ -27,6 +27,16 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             amount: amount.toString().replace(/,/, '.')
         };
         onSubmit(id, subId, dataSet, defaultData)
+        const postToLogs = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                userId: id,
+                text: 'edited entry',
+                value: "Atnaujino",
+            })
+        };
+        fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
     }
 
     let [categories, setCategories] = useState([]);

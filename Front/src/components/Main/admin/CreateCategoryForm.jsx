@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { addNewCategory } from '../../../api/lib/CategoriesAPI';
 
-function CreateCategoryForm({handlepopupClose, render, setRender}) {
+function CreateCategoryForm({handlepopupClose, render, setRender, userId}) {
 
   const [category, setCategory] = useState("");
   
@@ -36,6 +36,17 @@ const onSubmit = async (data) => {
           icon: 'success',
           confirmButtonText: 'Puiku!'
       });
+      const postToLogs = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            userId: userId,
+            text: 'add new category',
+            value: "Pridėjo",
+        })
+    };
+    fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
+
       await addNewCategory(data).then(()=>{setRender(!render)})   //send data into database(depending on current UserId)
       handlepopupClose(false); //close create-pop-up after submit
       reset(''); //reset input values

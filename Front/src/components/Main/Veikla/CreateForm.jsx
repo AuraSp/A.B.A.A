@@ -63,6 +63,15 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                 icon: 'success',
                 confirmButtonText: 'Puiku!'
             });
+            const postToLogs = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    userId: userId,
+                    text: 'add new income',
+                })
+            };
+            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
             await addNewIncome(data, userId).then(()=>{setRender(!render)})            //send data into database(depending on current UserId)
             handlepopupClose(false); //close create-pop-up after submit
@@ -75,6 +84,16 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                 icon: 'success',
                 confirmButtonText: 'Puiku!'
             })
+            const postToLogs = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    userId: userId,
+                    text: 'add new expense',
+                    value: "Pridėjo",
+                })
+            };
+            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
             await addNewExpense(data, userId).then(()=>{setRender(!render)}); //send data into database(depending on current UserId)
 

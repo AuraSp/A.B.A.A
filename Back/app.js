@@ -6,10 +6,12 @@ const cookieSession = require("cookie-session");
 
 const TransactionsRoutes = require("./routes/TransactionsRoutes");
 const category = require("./routes/categoryRoutes");
+const log = require("./routes/logRoutes");
 const userRoutes = require("./routes/user.routes")
 
 const app = express();
-
+var cors = require("cors");
+app.use(cors());
 app.use(express.json());
 
 app.use(function (req, res, next) {
@@ -29,6 +31,7 @@ app.use(
 
 app.use("/api/v1/users/", TransactionsRoutes );
 app.use("/api/v1/categories/", category );
+app.use("/api/v1/logs/", log );
 
 
 module.exports = app;

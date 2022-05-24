@@ -146,6 +146,16 @@ function MainContainer() {
             )
         }
         csvExporter.generateCsv(data);
+        const postToLogs = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                userId: userId,
+                text: 'download',
+                value: "Atsiunte",
+            })
+        };
+        fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
     }
 
 
