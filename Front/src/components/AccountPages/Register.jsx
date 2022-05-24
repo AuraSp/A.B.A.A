@@ -36,7 +36,7 @@ const Register = () => {
         if (localStorage.user !== undefined) {
             navigate('/veikla');
           }
-    })
+    }, [])
 
     useEffect(() => {
         setValidName(USER_REGEX.test(name));
