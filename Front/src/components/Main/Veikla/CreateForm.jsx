@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { GrTransaction } from "react-icons/gr";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
@@ -101,19 +101,19 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
         setExpenses(true);
     };
 
-    const options = [
-        { value: 'Išsiėmimas', text: 'Pinigų išsiėmimas' },
-        { value: 'Drabužiai', text: 'Rūbai/Batai' },
-        { value: 'Maistas/Gėrimai', text: 'Maistas/Gėrimai' },
-        { value: 'Elektronika', text: 'Elektronika' },
-        { value: 'Dovanos', text: 'Dovanos' },
-        { value: 'Namų priežiūra', text: 'Namų priežiūra' },
-        { value: 'Sąskaitos/Mokesčiai', text: 'Sąskaitos/Mokesčiai' },
-        { value: 'Nuoma', text: 'Namo nuoma' },
-        { value: 'Santaupos', text: 'Santaupos' },
-        { value: 'Alga', text: 'Alga' }
-    ]
+    let [categories, setCategories] = useState([]);
 
+    const getAllCategories = async () => {
+        fetch('http://localhost:3000/api/v1/categories')
+        .then(res => res.json())
+        .then((json) => {
+            setCategories(json.data.categories);
+        })
+    }
+
+    useEffect( ()=>{
+        getAllCategories();
+      }, [])
 
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
@@ -173,7 +173,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                         onChange={(e) => setCategory(e.target.value)}
                         className='border bg-transparent text-muted'>
                         <option value='' disabled>--Pasirinkite kategoriją--</option>
-                        {options.map(item => {
+                        {categories.map(item => {
                             return (<option key={item.value} value={item.value}>{item.text}</option>)
                         })}
                     </select>

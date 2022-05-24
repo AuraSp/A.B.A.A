@@ -1,11 +1,12 @@
 import { useRef, useState, useEffect, useContext } from 'react';
-import {Link} from "react-router-dom"
+import {Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import {loginUser, signout} from "../../api/lib/TransactionsAPI"
 // import axios from './api/axios';
 const LOGIN_URL = '/auth';
 
 const Login = () => {
+    let navigate = useNavigate();
     // const { setAuth } = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
@@ -16,21 +17,30 @@ const Login = () => {
     const [success, setSuccess] = useState(false);
     
 
+    
     useEffect(() => {
         userRef.current.focus();
+        if (localStorage.user !== undefined) {
+            navigate('/veikla');
+          }
     }, [])
+
+
+
 
     useEffect(() => {
         setErrMsg('');
     }, [name, password])
 
+    
+
     const handleSubmit = async (e, data) => {
         e.preventDefault();
-            
+        
             await loginUser(name, password)
             setSuccess(true)
             setTimeout(function(){
-                window.location.href = 'http://localhost:3001/veikla';
+                navigate('/veikla');
              }, 3500);
             }
 

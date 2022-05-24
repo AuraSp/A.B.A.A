@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdCancel, MdInventory, MdOutlineCheckBox } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -29,18 +29,19 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
         onSubmit(id, subId, dataSet, defaultData)
     }
 
-    const options = [
-        { value: 'Išsiėmimas', text: 'Pinigų išsiėmimas' },
-        { value: 'Drabužiai', text: 'Rūbai/Batai' },
-        { value: 'Maistas/Gėrimai', text: 'Maistas/Gėrimai' },
-        { value: 'Elektronika', text: 'Elektronika' },
-        { value: 'Dovanos', text: 'Dovanos' },
-        { value: 'Namų priežiūra', text: 'Namų priežiūra' },
-        { value: 'Sąskaitos/Mokesčiai', text: 'Sąskaitos/Mokesčiai' },
-        { value: 'Nuoma', text: 'Namo nuoma' },
-        { value: 'Santaupos', text: 'Santaupos' },
-        { value: 'Alga', text: 'Alga' }
-    ]
+    let [categories, setCategories] = useState([]);
+
+    const getAllCategories = async () => {
+        fetch('http://localhost:3000/api/v1/categories')
+        .then(res => res.json())
+        .then((json) => {
+            setCategories(json.data.categories);
+        })
+    }
+
+    useEffect( ()=>{
+        getAllCategories();
+      }, [])
 
     const budgetSchema = yup.object().shape({
         description: yup
@@ -109,7 +110,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                         onChange={(e) => setCategory(e.target.value)}
                     >
                         <option value={defaultData.category}>{defaultData.category}</option>
-                        {options.map(item => {
+                        {categories.map(item => {
                             return (<option key={item.value} value={item.value}>{item.text}</option>);
                         })}
                     </select>

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import axios from './api/axios';
 import { createNewUser } from '../../api/lib/TransactionsAPI';
@@ -30,9 +30,13 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    let navigate = useNavigate();
     useEffect(() => {
         userRef.current.focus();
-    }, [])
+        if (localStorage.user !== undefined) {
+            navigate('/veikla');
+          }
+    })
 
     useEffect(() => {
         setValidName(USER_REGEX.test(name));
@@ -50,7 +54,7 @@ const Register = () => {
     const handleSubmit = async  (e, data) => {
           e.preventDefault();
       
-          await createNewUser(name, password)
+          await createNewUser(name, password, email)
           setSuccess(true)
         }
 
@@ -93,9 +97,9 @@ const Register = () => {
                             Raidės, skaičiai ir brukšniai yra leidžiami.
                         </p>
 
-                          {/* <label htmlFor="email">
+                          <label htmlFor="email">
                             El. paštas:
-                            <br/>
+                            </label>
                           <input
                           id="email"
                           type="text"
@@ -106,7 +110,7 @@ const Register = () => {
                           >
                           
                           </input>
-                          </label> */}
+                          
 
                         <label htmlFor="password">
                             Slaptažodis:

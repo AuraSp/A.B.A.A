@@ -23,7 +23,7 @@ const {signup} = require("../controllers/auth.controller")
 const router = express.Router();
 
 //User
-router.route("/").get(getAllUsers);
+router.route("/").get(getAllUsers); 
 router.route("/:id").get(getUserById).patch(updateUser);
 router.route("/:id/user/update").patch(updateUser);
 
@@ -36,6 +36,8 @@ router.route("/:id/expense/update/:subId").patch(findExpensesAndUpdate);
 
 router.route("/:id/user/addNewIncome").patch(addNewIncome);
 router.route("/:id/user/addNewExpense").patch(addNewExpense);
+
+
 
 //Auth
 // app.get("/login", (req, res) => {
