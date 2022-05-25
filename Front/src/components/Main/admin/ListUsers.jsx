@@ -151,7 +151,6 @@ function ListUsers() {
                       setAll={setAll}
                       all={all}
                       setRender={setRender}
-                      render={render}
                     />}
                   </>
               </div>

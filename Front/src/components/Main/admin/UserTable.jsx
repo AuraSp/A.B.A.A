@@ -3,9 +3,9 @@ import Swal from 'sweetalert2';
 import UserList from './UserList'
 import { deleteUserById } from '../../../api/lib/TransactionsAPI';
 
-function UserTable({all, userId, setAll}) {
+function UserTable({all, userId, setAll, setRender}) {
 
-    const handleDelete = (e, data, subId, id, setRender) => {
+    const handleDelete = (e, data, subId, id) => {
         e.preventDefault();
             Swal
                 .fire({
@@ -25,17 +25,6 @@ function UserTable({all, userId, setAll}) {
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
-                            const postToUser = {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ 
-                                    userId: userId,
-                                    text: 'delete category',
-                                    value: "Ištrynė",
-                                })
-                            };
-                            fetch('http://localhost:3000/api/v1/users/', postToUser)
-
                         deleteUserById(subId)
                         setAll(all.filter((data) => data._id !== subId))
                         setRender(prevState => !prevState)
