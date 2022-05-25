@@ -23,6 +23,7 @@ export const createNewUser = (name, password, email, data) => axiosClient.post('
   .then((response) => {
     localStorage.setItem("user",  JSON.stringify(response.data.id))
     localStorage.setItem("name",  JSON.stringify(response.data.username))
+    return response;
   });
   
   export const signout = () => axios.post('http://localhost:3000/api/auth/signout')

@@ -10,7 +10,7 @@ import CreateCategoryForm from './CreateCategoryForm';
 import CategoryTable from './CategoryTable';
 import { Link, useNavigate } from "react-router-dom";
 
-function MainAdminTable() {
+function MainAdminTable({admin}) {
   const [accountpopup, setAccountPopUp] = useState(false);
   const [all, setAll] = useState([]);
   const [category, setCategory] = useState([]);
@@ -28,12 +28,15 @@ function MainAdminTable() {
 
   //---FetchData---//
   useEffect(() => {
-    
-    getAllCategories().then((res) => {
-      const categorydata = res.data.data.categories;
-      setCategoryId(...categorydata.map((data) => data._id));
-      setCategory(...categorydata.map((data) => data.category));
-    });
+    {admin ? (navigate('/')) : (
+
+      getAllCategories().then((res) => {
+        const categorydata = res.data.data.categories;
+        setCategoryId(...categorydata.map((data) => data._id));
+        setCategory(...categorydata.map((data) => data.category));
+      })
+  
+  )}
   }, [render, categoryId]);
 
   useEffect(() => {
@@ -80,7 +83,7 @@ function MainAdminTable() {
             <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
             <span>Veikla</span>
           </Link>
-          <Link to="/admin" className='p-3 text-decoration-none text-muted'>
+          <Link to="/admin" admin={admin} className='p-3 text-decoration-none text-muted'>
             <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
             <span>Admin</span>
           </Link>

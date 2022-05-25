@@ -27,7 +27,9 @@ function MainContainer() {
     const [utilitiespopup, setUtilitiesPopUp] = useState(false);
 
     //Data
+    const [admin, setAdmin] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [show, setShow] = useState(false);
     const [incomes, setIncomes] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [all, setAll] = useState([]);
@@ -90,11 +92,14 @@ function MainContainer() {
             navigate('/');
     }else{
         getAllUsers().then((res) => {
-
+            // console.log(res.data.data.transactions);
             const userdata = res.data.data.transactions; //Fetch all existing data from database
             let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
             setEditId(...userAllIds.map((data) => data._id === obj)); //Take User Id for edit 
             setId(...userAllIds.map((data) => data._id)); //Take User Id
+            let roles = userAllIds.map((data) => data._id === obj ? (data.roles[0]):(''));
+            setAdmin(roles[0] === 'admin');
+            setTimeout(() => setShow(true), 1);
             setIncomes(...userAllIds.map((data) => data.income)); //Take all User's incomes
             setExpenses(...userAllIds.map((data) => data.expense)); //Take all User's expenses
             setLoading(false);
@@ -164,7 +169,8 @@ function MainContainer() {
             <div className='row d-flex flex-row flex-nowrap p-0 m-0'>
                 <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap'>
                     <Link to="/" className='mt-3 pt-2 pb-1 text-decoration-none'><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></Link>
-
+                {show &&
+                    <>
                     <Link to="/analize" className='p-3 mt-5 text-decoration-none text-muted'>
                         <span className='text-center text-primary p-1'><MdOutlineDashboardCustomize />
                         </span>
@@ -174,10 +180,16 @@ function MainContainer() {
                         <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
                         <span>Veikla</span>
                     </Link>
-                    <Link to="/admin" className='p-3 text-decoration-none text-muted'>
-                        <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
-                        <span>Admin</span>
-                    </Link>
+                    {!admin ? (
+                        <></>
+                    ) : (
+                        <Link to="/admin" admin={admin} className='p-3 text-decoration-none text-muted'>
+                            <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
+                            <span>Admin</span>
+                        </Link>
+                    )}
+                    </>
+                }
                 </div>
                 <div className='maincontent p-0 m-0'>
                     <div className='header'>

@@ -10,6 +10,8 @@ import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 function Analize() {
   const [accountpopup, setAccountPopUp] = useState(false);
 
+  const [admin, setAdmin] = useState([]);
+  const [show, setShow] = useState(false);
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [render] = useState(false);
@@ -26,19 +28,26 @@ function Analize() {
 
 }
 
+let text = localStorage.getItem("user");
+let obj = JSON.parse(text)
+
   //---FetchData---//
+  
   useEffect(() => {
     if (localStorage.user === undefined) {
       navigate('/');
     }else{
       getAllUsers().then((res) => {
         const userdata = res.data.data.transactions; //Fetch all existing data from database
-        setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
-        setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
+        let userAllIds = userdata.filter((data) => data._id === obj);
+        let roles = userAllIds.map((data) => data._id === obj ? (data.roles[0]):(''));
+        setAdmin(roles[0] === 'admin');
+        setTimeout(() => setShow(true), 1);
       });
     }
   }, [render]);
 
+  console.log(admin);
 
   function vardas(){
     if(localStorage.user !== undefined){
@@ -52,7 +61,9 @@ function Analize() {
       <div className='row d-flex flex-row flex-nowrap p-0 m-0'>
         <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap'>
           <Link to="/" className='mt-3 pt-2 pb-1 text-decoration-none'><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></Link>
-
+          
+          {show &&
+            <>
           <Link to="/analize" className='p-3 mt-5 text-decoration-none text-muted'>
             <span className='text-center text-primary p-1'><MdOutlineDashboardCustomize />
             </span>
@@ -62,10 +73,16 @@ function Analize() {
             <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
             <span>Veikla</span>
           </Link>
-          <Link to="/admin" className='p-3 text-decoration-none text-muted'>
-            <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
-            <span>Admin</span>
-          </Link>
+          {!admin ? (
+            <></>
+          ) : (
+            <Link to="/admin" admin={admin} className='p-3 text-decoration-none text-muted'>
+                <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
+                <span>Admin</span>
+            </Link>
+          )}
+          </>
+          };
         </div>
         <div className='maincontent p-0 m-0'>
           <div className='header'>

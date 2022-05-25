@@ -7,7 +7,7 @@ import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 import { Link, useNavigate } from "react-router-dom";
 import UserTable from './UserTable'
 
-function ListUsers() {
+function ListUsers({admin}) {
   const [accountpopup, setAccountPopUp] = useState(false);
   const [all, setAll] = useState([]);
   const [logs, setLogs] = useState([]);
@@ -25,11 +25,13 @@ function ListUsers() {
 
   //---FetchData---//
   useEffect(() => {
-    getAllUsers().then((res) => {
-      const usersdata = res.data.data.transactions;
-      setAll(usersdata);
-      setLoad(false);
-    });
+    {admin ? (navigate('/')) : (
+      getAllUsers().then((res) => {
+        const usersdata = res.data.data.transactions;
+        setAll(usersdata);
+        setLoad(false);
+      }) 
+    )};
   }, [render]);
  
   function vardas(){

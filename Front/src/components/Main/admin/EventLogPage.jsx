@@ -7,7 +7,7 @@ import { getAllLogs } from '../../../api/lib/LogsAPI';
 import { Link, useNavigate } from "react-router-dom";
 import EventLogTable from './EventLogTable'
 
-function MainAdminTable() {
+function EventLogPage({admin}) {
   const [accountpopup, setAccountPopUp] = useState(false);
   const [all, setAll] = useState([]);
   const [logs, setLogs] = useState([]);
@@ -25,11 +25,13 @@ function MainAdminTable() {
 
   //---FetchData---//
   useEffect(() => {
-    getAllLogs().then((res) => {
-      const logdata = res.data.data.logs;
-      setAll(logdata);
-      setLoad(false);
-    });
+    {admin ? (navigate('/')) : (
+      getAllLogs().then((res) => {
+        const logdata = res.data.data.logs;
+        setAll(logdata);
+        setLoad(false);
+      }) 
+    )};
   }, [render]);
  
 
@@ -140,6 +142,7 @@ function MainAdminTable() {
             <div className='ps-5 py-4'>
             <Link to="/admin" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Kategorijos</Link>
             <Link to="/eventLog" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Žurnalas</Link>
+            <Link to="/users" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Vartotojai</Link>
             </div>
           </div>
             <div>
@@ -173,4 +176,4 @@ function MainAdminTable() {
   )
 }
 
-export default MainAdminTable
+export default EventLogPage
