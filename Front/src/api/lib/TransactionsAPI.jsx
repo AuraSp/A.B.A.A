@@ -1,6 +1,7 @@
 import axiosClient from '../apiTransactions';
 import axiosUser from '../apiTransactions'
 import axios from "axios"
+import Swal from 'sweetalert2'
 
 //User
 export async function getAllUsers() {
@@ -13,9 +14,6 @@ export const createNewUser = (name, password, email, data) => axiosClient.post('
     email: email,
     password: password
   })
-  .then((response) => {
-    console.log(response);
-  });
 
   export const loginUser = (name, password, email, data) => axiosClient.post('/auth/signin', {
     username: name,
@@ -49,6 +47,7 @@ export const createNewUser = (name, password, email, data) => axiosClient.post('
 
 export const updateUser = (data) => axiosClient.patch('/', JSON.stringify(data));
 
+export async function deleteUserById(subId) { await axiosClient.patch(`/deleteUser/${subId}`) };
 
 //User's transactions
 export async function deleteIncomeTransactions(userId, subId) { await axiosClient.patch(`/${userId}/income/delete/${subId}`) };

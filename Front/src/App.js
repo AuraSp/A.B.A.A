@@ -12,6 +12,7 @@ import Analize from './components/Main/FinansuAnalize/MainContainer';
 import MainContainer from './components/Main/Veikla/MainContainer';
 import ErrorPage from './components/ErrorPages/ErrorPage';
 import EventLogPage from './components/Main/admin/EventLogPage';
+import ListUsers from './components/Main/admin/ListUsers';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/eventLog" element={<EventLogPage />} />
+        <Route path="/users" element={<ListUsers />} />
       </Routes>
     </Router>
   )

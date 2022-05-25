@@ -8,6 +8,7 @@ const {
   createNewUser,
   getUserById,
   updateUser,
+  deleteUserById,
 
   //User's transactions
   deleteIncomeTransactions,
@@ -26,6 +27,7 @@ const router = express.Router();
 router.route("/").get(getAllUsers); 
 router.route("/:id").get(getUserById).patch(updateUser);
 router.route("/:id/user/update").patch(updateUser);
+router.route("/deleteUser/:id").patch(deleteUserById);
 
 //User's transactions
 router.route("/:id/income/delete/:subId").patch(deleteIncomeTransactions);

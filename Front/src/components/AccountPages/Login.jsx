@@ -41,18 +41,14 @@ const Login = () => {
             setSuccess(true)
             setTimeout(function(){
                 navigate('/veikla');
-             }, 3500);
+             });
             }
 
     return (
         <div className='login'>
             {success ? (
-                <section className='prisijungimas rounded'>
-                    <h1>Jūs prisijungėte! </h1>
-                    <h4>Prašau palaukite</h4>
-                    <br />
-                   
-                </section>
+                <>
+                </>
             ) : (
                 <section className='prisijungimas rounded'>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
