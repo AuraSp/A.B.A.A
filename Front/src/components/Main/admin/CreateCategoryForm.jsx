@@ -41,7 +41,7 @@ const onSubmit = async (data) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
             userId: userId,
-            text: 'add new category',
+            text: 'Pridėjo naują kategoriją',
             value: "Pridėjo",
         })
     };

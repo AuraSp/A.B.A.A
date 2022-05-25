@@ -27,7 +27,7 @@ function CategoryTable({setAll, categoryId, all, setRender, userId}) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 userId: userId,
-                text: 'edited category',
+                text: 'Atnaujino kategoriją',
                 value: "Atnaujino",
             })
         };
@@ -66,7 +66,7 @@ function CategoryTable({setAll, categoryId, all, setRender, userId}) {
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ 
                                     userId: userId,
-                                    text: 'delete category',
+                                    text: 'Ištrynė kategoriją',
                                     value: "Ištrynė",
                                 })
                             };

@@ -35,7 +35,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ 
                                     userId: userId,
-                                    text: 'entry deleted',
+                                    text: 'Ištrynė įrašą',
                                     value: "Ištrynė"
                                 })
                             };

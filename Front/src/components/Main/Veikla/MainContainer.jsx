@@ -60,6 +60,9 @@ function MainContainer() {
     const toggleFilterPopup = () => {
         setFilterPopup(!filterpopup);
         setEditId('')
+        setCategory('');
+        setFirstDate('');
+        setLastDate('');
     }
 
     //User balance utilities popup
@@ -151,7 +154,7 @@ function MainContainer() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 userId: userId,
-                text: 'download',
+                text: 'Atsiunte',
                 value: "Atsiunte",
             })
         };
@@ -228,7 +231,7 @@ function MainContainer() {
                                                 onClick={toggleFilterPopup}
                                                 className='btn bg-transparent border-0'>
                                                 <IoFilterOutline className='text-center me-3' />
-                                                <span>Filtruoti</span>
+                                                <span >Filtruoti</span>
                                             </button>
                                         </div>
                                         <div>

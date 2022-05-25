@@ -68,7 +68,8 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     userId: userId,
-                    text: 'add new income',
+                    text: 'Pridėjo pajamų įrašą',
+                    value: "Pridėjo",
                 })
             };
             fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
@@ -89,7 +90,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     userId: userId,
-                    text: 'add new expense',
+                    text: 'Pridėjo išlaidų įrašą',
                     value: "Pridėjo",
                 })
             };

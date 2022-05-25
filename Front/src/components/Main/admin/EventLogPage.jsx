@@ -6,16 +6,19 @@ import { GiWallet } from "react-icons/gi";
 import { getAllLogs } from '../../../api/lib/LogsAPI';
 import { Link, useNavigate } from "react-router-dom";
 import EventLogTable from './EventLogTable'
+import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 
-function MainAdminTable() {
+function EventLogPage() {
   const [accountpopup, setAccountPopUp] = useState(false);
   const [all, setAll] = useState([]);
   const [logs, setLogs] = useState([]);
   const [render, setRender] = useState(false);
-  const [userId, setId] = useState([]);
   const [load, setLoad] = useState(true)
-  const [catFilter, setCatFilter] = useState([]);
-  const [userFilter, setUserFilter] = useState([]);
+  const [userId, setId] = useState([]);
+  const [name, setname] = useState([]);
+  const [data, setdata] = useState([]);
+  const [catFilterState, setCatFilterState] = useState("");
+  const [userFilterState, setUserFilterState] = useState("");
 
   let navigate = useNavigate();
   //User account menu popup
@@ -28,6 +31,7 @@ function MainAdminTable() {
     getAllLogs().then((res) => {
       const logdata = res.data.data.logs;
       setAll(logdata);
+      setLogs(logdata);
       setLoad(false);
     });
   }, [render]);
@@ -45,42 +49,53 @@ function MainAdminTable() {
       navigate('/');
 
   }
-  
-  function filterLogs(filter, user){
+  useEffect(() => {
+    getAllUsers().then((res) => {
+      const userdata = res.data.data.transactions; //Fetch all existing data from database
+      setdata(...userdata)
+      // let userAllIds = userdata.filter((data) => data._id); //Take All users Ids
+      // setId(...userAllIds.map((data) => data._id)); //Take User Id
+      // setname(...userdata.map((data) => data));
+    });
+  }, [render]);
+  console.log(data)
+  function filterLogs(){
     let tempLogs = [];
     let catFilter = false;
     let userFilter = false;
-    if (filter){
+    if (catFilterState){
       catFilter = true;
     }
-    if(user){
+    if(userFilterState){
       userFilter = true;
     }
     logs.forEach((log)=>{
       if (catFilter && userFilter){
-        if (log.ActionType.includes(filter) && log.UserId === user){
+        if (log.text.includes(catFilterState) && log.userId === userFilterState){
           tempLogs.push(log);
         }
       }else if(catFilter && !userFilter){
-        if(log.ActionType.includes(filter)){
+        if(log.text.includes(catFilterState)){
           tempLogs.push(log);
         }
       }else if(!catFilter && userFilter){
-        if(log.UserId === user){
+        if(log.userId === userFilterState){
           tempLogs.push(log);
+          
         }
       }
     });
     if(!catFilter && !userFilter){
-      setLogs(logs);
+      setAll(logs);
     }else{
-      setLogs(tempLogs);
+      setAll(tempLogs);
     }
+    console.log(tempLogs)
   }
 
   useEffect(() => {
-    filterLogs(catFilter, userFilter);
-  }, [catFilter, userFilter]);
+    filterLogs();
+  }, [catFilterState, userFilterState]);
   
 
   return (
@@ -143,14 +158,21 @@ function MainAdminTable() {
             </div>
           </div>
             <div>
-            <select defaultValue={""} onChange={(e)=>{setCatFilter(e.target.value)}} className="historyPageSelectOption">
-        <option value={""}>Rodyti visus veiksmus</option>
-        <option value={"Pridėjo"}>Rodyti tik pridėjimus</option>
-        <option value={"Ištrynė"}>Rodyti tik pašalinimus</option>
-        <option value={"Atnaujino"}>Rodyti tik atnaujinimus</option>
-        <option value={"Atsiunte"}>Rodyti tik atsisiuntimus</option>
-      </select>
-              <input type="select" /> 
+    {!load &&<select
+                  defaultValue='' 
+                  onChange={(e) => setCatFilterState(e.target.value)}>
+                    <option value={""}>Rodyti visus veiksmus</option>
+                    <option value={"Pridėjo"}>Rodyti tik pridėjimus</option>
+                    <option value={"Ištrynė"}>Rodyti tik pašalinimus</option>
+                    <option value={"Atnaujino"}>Rodyti tik atnaujinimus</option>
+                    <option value={"Atsiunte"}>Rodyti tik atsisiuntimus</option>
+              </select>}
+              {!load &&<select
+                  defaultValue='' 
+                  onChange={(e) => setUserFilterState(e.target.value)}>
+                    <option value={userId}>s</option>
+              </select>}
+              {/* <button onClick={filterLogs}>button</button>  */}
             </div>
           <div className='main pt-3'>
             <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
@@ -173,4 +195,4 @@ function MainAdminTable() {
   )
 }
 
-export default MainAdminTable
+export default EventLogPage
