@@ -28,8 +28,6 @@ function Analize() {
   let text = localStorage.getItem("user");
   let obj = JSON.parse(text)
 
-
-
   function clearUser() {
     localStorage.clear();
     navigate('/');
