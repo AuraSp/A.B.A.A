@@ -8,7 +8,7 @@ import './Styles/table.css';
 
 function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory, firstDate, lastDate }) {
 
-
+console.log(all)
     const handleDelete = (e, data, subId) => {
         e.preventDefault();
         console.log(data.type) //Check type
@@ -98,7 +98,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
 
     //---SortByCreationDate---//
     function sortByDate(a, b) {
-        
+
         if (a.createdAt < b.createdAt) {
             return 1;
         }
@@ -116,10 +116,13 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
             <>
                 <div className='d-flex flex-row flex-nowrap justify-content-end w-100 pb-2 pt-2 main-exp'>
                     <div>
+                        <span className='p-0 m-0 text-secondary'>Likutis</span> {/* exp*/}
+                    </div>
+                    <div>
                         <span className='p-0 m-0 text-secondary'>Pajamos</span> {/* exp*/}
                     </div>
                     <div>
-                        <span className='p-0 m-0 text-secondary'>Išlaidos</span> {/* exp*/}
+                        <span className='p-0 m-0 me-4 text-secondary'>Išlaidos</span> {/* exp*/}
                     </div>
                 </div>
                 <table className='table table-borderless mx-auto'>
@@ -142,66 +145,66 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 <React.Fragment key={filterData._id}>
 
                                     {editId === filterData._id ? (
-                                            <EditForm
-                                                subId={filterData._id}
-                                                id={userId}
-                                                defaultData={filterData}
-                                                onCancel={cancelEdit}
-                                                onSubmit={submitEdit}
-                                            />
+                                        <EditForm
+                                            subId={filterData._id}
+                                            id={userId}
+                                            defaultData={filterData}
+                                            onCancel={cancelEdit}
+                                            onSubmit={submitEdit}
+                                        />
 
-                                        ) : (!lastDate && firstDate ? (
-                                            <Card
+                                    ) : (!lastDate && firstDate ? (
+                                        <Card
                                             subId={filterData._id}
                                             data={filterData}
                                             onEdit={handleEdit}
                                             onDelete={handleDelete}
+                                        />
+                                    ) : !firstDate && filterCategory ? (
+
+                                        filterData.category === filterCategory && filterData.type === "expense" ? (
+                                            <Card
+                                                subId={filterData._id}
+                                                data={filterData}
+                                                onEdit={handleEdit}
+                                                onDelete={handleDelete}
                                             />
-                                        ) : !firstDate && filterCategory ? (
-
-                                                filterData.category === filterCategory && filterData.type === "expense"  ? (
-                                                    <Card
-                                                        subId={filterData._id}
-                                                        data={filterData}
-                                                        onEdit={handleEdit}
-                                                        onDelete={handleDelete}
-                                                    />
-                                                ) : (
-                                                    <></>
-                                                )
-                                            ) : firstDate && !filterCategory ? (
-
-                                                filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
-                                                    <Card
-                                                        subId={filterData._id}
-                                                        data={filterData}
-                                                        onEdit={handleEdit}
-                                                        onDelete={handleDelete}
-                                                    />
-                                                ) : (
-                                                    <></>
-                                                )
-                                            ) : firstDate && filterCategory ? (
-
-                                                filterData.category === filterCategory && filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
-                                                    <Card
-                                                        subId={filterData._id}
-                                                        data={filterData}
-                                                        onEdit={handleEdit}
-                                                        onDelete={handleDelete}
-                                                    />
-                                                ) : (
-                                                    <></>
-                                                )
-                                            ) : (
-                                                <Card
-                                                    subId={filterData._id}
-                                                    data={filterData}
-                                                    onEdit={handleEdit}
-                                                    onDelete={handleDelete}
-                                                />
-                                            )
+                                        ) : (
+                                            <></>
                                         )
+                                    ) : firstDate && !filterCategory ? (
+
+                                        filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
+                                            <Card
+                                                subId={filterData._id}
+                                                data={filterData}
+                                                onEdit={handleEdit}
+                                                onDelete={handleDelete}
+                                            />
+                                        ) : (
+                                            <></>
+                                        )
+                                    ) : firstDate && filterCategory ? (
+
+                                        filterData.category === filterCategory && filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
+                                            <Card
+                                                subId={filterData._id}
+                                                data={filterData}
+                                                onEdit={handleEdit}
+                                                onDelete={handleDelete}
+                                            />
+                                        ) : (
+                                            <></>
+                                        )
+                                    ) : (
+                                        <Card
+                                            subId={filterData._id}
+                                            data={filterData}
+                                            onEdit={handleEdit}
+                                            onDelete={handleDelete}
+                                        />
+                                    )
+                                    )
                                     }
 
                                 </React.Fragment>

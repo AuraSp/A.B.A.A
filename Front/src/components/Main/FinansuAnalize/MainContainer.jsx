@@ -5,47 +5,58 @@ import { AiOutlineTransaction } from "react-icons/ai";
 import { GiWallet } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom";
 import ActivitiesChart from '../Charts/ActivitiesChart';
+import YearsActivitiesChart from '../Charts/YearsActivitiesChart';
 import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 
 function Analize() {
+  //Pop up
   const [accountpopup, setAccountPopUp] = useState(false);
+  //Data
+  const [loading, setLoading] = useState(true);
+  const [userId, setId] = useState([]);
+  const [render, setRender] = useState(false);
 
-  const [incomes, setIncomes] = useState([]);
-  const [expenses, setExpenses] = useState([]);
-  const [render] = useState(false);
+
   let navigate = useNavigate();
+
 
   //User account menu popup
   const toggleAccountPopup = () => {
     setAccountPopUp(!accountpopup);
   }
 
+  let text = localStorage.getItem("user");
+  let obj = JSON.parse(text)
+
+
+
   function clearUser() {
     localStorage.clear();
     navigate('/');
 
-}
+  }
 
   //---FetchData---//
   useEffect(() => {
     if (localStorage.user === undefined) {
       navigate('/');
-    }else{
+    } else {
       getAllUsers().then((res) => {
         const userdata = res.data.data.transactions; //Fetch all existing data from database
-        setIncomes(...userdata.map((data) => data.income)); //Take all User's incomes
-        setExpenses(...userdata.map((data) => data.expense)); //Take all User's expenses
+        let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
+        setId(...userAllIds.map((data) => data._id)); //Take User Id
+        setLoading(false);
       });
     }
-  }, [render]);
 
+  }, [navigate, obj, userId]);
 
-  function vardas(){
-    if(localStorage.user !== undefined){
-        let getVardas = localStorage.getItem("name")
-        return getVardas.replace(/['"]+/g, '')
+  function vardas() {
+    if (localStorage.user !== undefined) {
+      let getVardas = localStorage.getItem("name")
+      return getVardas.replace(/['"]+/g, '')
     }
-}
+  }
 
   return (
     <div className='container-fluid p-0 m-0'>
@@ -72,7 +83,7 @@ function Analize() {
             {/* Visible on medium and small screens */}
 
             <nav className="d-lg-none d-md-flex d-sm-flex flex-column flex-wrap navbar border-bottom">
-              <Link to="/" className='w-100 p-2 fs-5 text-decoration-none text-muted text-center'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>BudgetSimple</Link>
+              <p className='w-100 p-2 fs-5 text-decoration-none text-muted text-center'></p><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>BudgetSimple
               <div className='links d-flex flex-row justify-content-center fs-5'>
                 <Link to="/analize" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Finansų analizė</Link>
                 <Link to="/veikla" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span>Veikla</Link>
@@ -101,18 +112,31 @@ function Analize() {
               }
             </div>
             <div className='ps-5 py-4'>
-              <h5 className='title m-0 d-block'>Analizė</h5>
+              <h5 className='title m-0 d-block'>Finansų Analizė</h5>
             </div>
           </div>
           <div className='main pt-3'>
             <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
               <div className='d-flex flex-row position-relative'>
-                <h5 className='w-100 p-0 m-0'>Balansas</h5>
+                <h5 className='w-100 p-0 m-0'>Šio mėnesio balansas</h5>
               </div>
-              <ActivitiesChart
-                expenses={expenses}
-                incomes={incomes}
-              />
+              {!loading &&
+                <ActivitiesChart
+                  userId={userId}
+                  render={render}
+                />
+              }
+            </div>
+            <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
+              <div className='d-flex flex-row position-relative'>
+                <h5 className='w-100 p-0 m-0'>Šių metų finansų analizė</h5>
+              </div>
+              {!loading &&
+                <YearsActivitiesChart
+                  userId={userId}
+                  render={render}
+                />
+              }
             </div>
           </div>
         </div>

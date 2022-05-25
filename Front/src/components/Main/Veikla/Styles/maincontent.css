@@ -11,6 +11,7 @@
 }
 
 .sidemenu a:nth-child(2) span:first-of-type,
+.sidemenu a:nth-child(3) span:first-of-type,
 .sidemenu a:last-child span:first-of-type {
     border-left: 5px solid #ffc107;
     -webkit-transition: 500ms linear;
@@ -21,6 +22,7 @@
 }
 
 .sidemenu a:nth-child(2),
+.sidemenu a:nth-child(3),
 .sidemenu a:last-child {
     -webkit-transition: 500ms all;
     -o-transition: 500ms all;
@@ -33,8 +35,8 @@
     padding-left: 2em;
 }
 
-
 .sidemenu a:nth-child(2):hover,
+.sidemenu a:nth-child(3):hover,
 .sidemenu a:last-child:hover {
     border-radius: 15px;
     width: 105%;

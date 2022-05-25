@@ -101,19 +101,20 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
         setExpenses(true);
     };
 
-    let [categories, setCategories] = useState([]);
+    let [categories, setDataCategories] = useState([]);
 
     const getAllCategories = async () => {
         fetch('http://localhost:3000/api/v1/categories')
-        .then(res => res.json())
-        .then((json) => {
-            setCategories(json.data.categories);
-        })
+            .then(res => res.json())
+            .then((json) => {
+                setDataCategories(json.data.categories[0].category);
+            })
     }
 
-    useEffect( ()=>{
+    console.log(categories.map((item) => item.value))
+    useEffect(() => {
         getAllCategories();
-      }, [])
+    }, [])
 
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
@@ -174,7 +175,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                         className='border bg-transparent text-muted'>
                         <option value='' disabled>--Pasirinkite kategoriją--</option>
                         {categories.map(item => {
-                            return (<option key={item.value} value={item.value}>{item.text}</option>)
+                            return (<option key={item._id} value={item.value}>{item.value}</option>)
                         })}
                     </select>
                     <p className=' p-0 text-danger'>{errors.category?.message}</p>

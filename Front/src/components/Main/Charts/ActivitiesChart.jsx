@@ -5,56 +5,25 @@ import { HiOutlineDatabase } from "react-icons/hi";
 import './chart.css';
 import { getUserIncomeByMonth, getUserExpenseByMonth } from '../../../api/lib/TransactionsAPI';
 
-const ActivitiesChart = ({ userId, incomes, expenses }) => {
+const ActivitiesChart = ({ userId, render }) => {
 
-    // let [sampleData1, setData1] = useState();
     let [totalNum, setTotalNum] = useState(0);
-    let [sampleData2, setData2] = useState();
-    const [loading, setLoading] = useState(true);
     let [incomeThisMonth, setIncomeThisMonth] = useState(0);
     let [expenseThisMonth, setExpenseThisMonth] = useState(0);
-
-    // const balance = fullBalance - expenseThisMonth;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getUserIncomeByMonth(userId).then((res) => {
             setIncomeThisMonth(res.data.data.income)
         });
         getUserExpenseByMonth(userId).then((res) => {
-            setExpenseThisMonth(res.data.data.income)
+            setExpenseThisMonth(res.data.data.expense)
         });
         setTotalNum(+incomeThisMonth - expenseThisMonth);
         setLoading(false)
-    }, [])
+    }, [render, expenseThisMonth, incomeThisMonth, totalNum, userId])
 
-    console.log(incomeThisMonth)
-
-    const incomeAmount = incomes.map((amount) => amount.amount);
-    const expenseAmount = expenses.map((amount) => amount.amount);
-
-    let incomeTotalSum = 0;
-    let incomeFullSum = 0;
-    let expenseTotalSum = 0;
-    let expenseFullSum = 0;
-    let balance = 0;
-    var i = 0;
-
-    //IncomeChartData
-    for (i = 0; i < incomeAmount.length; i++) {
-        incomeTotalSum += incomeAmount[i];
-    }
-
-    //ExpenseChartData
-    for (i = 0; i < expenseAmount.length; i++) {
-        expenseTotalSum += expenseAmount[i];
-    }
-    //BalanceChartData
-    balance = incomeTotalSum - expenseTotalSum;
-
-    let series = [balance, incomeTotalSum, expenseTotalSum]
-
-
-
+    let series = [totalNum, incomeThisMonth, expenseThisMonth]
     const options = {
         chart: {
             type: 'donut',
@@ -126,187 +95,53 @@ const ActivitiesChart = ({ userId, incomes, expenses }) => {
         },
         noData: {
             text: 'Loading...'
-        },
-        responsive: [{
-            breakpoint: 1100,
-            options: {
-                chart: {
-                    height: 250,
-                    offsetY: 15,
-                }
-            }
-        }]
+        }
     }
 
 
     return (
         <>
-
             <div className='balancesummary col-lg-4 col-md-6 d-sm-none d-md-flex d-lg-flex flex-row flex-wrap align-content-center justify-content-center'>
                 <div className="h-25 text-center">
                     <span><BsArrowUpShort className='bg-danger text-center p-1' />
-                        <span className="ms-2">{Math.trunc(expenseTotalSum) + '€'}</span>
+                        <span className="ms-2">{Math.trunc(expenseThisMonth) + '€'}</span>
                     </span>
                 </div>
                 <div className="h-25 text-center">
                     <span><BsArrowDownShort className='bg-primary text-center p-1' />
-                        <span className="ms-2">{Math.trunc(incomeTotalSum) + '€'}</span>
+                        <span className="ms-2">{Math.trunc(incomeThisMonth) + '€'}</span>
                     </span>
                 </div>
                 <div className="h-25 text-center">
                     <span><HiOutlineDatabase className='bg-warning text-center p-1' />
-                        <span className="ms-2">{Math.trunc(balance) + '€'}</span>
+                        <span className="ms-2">{Math.trunc(totalNum) + '€'}</span>
                     </span>
                 </div>
             </div>
-
-            <div className='chart col-lg-4 col-md-6 col-sm-12 col-sm-12 fs-5'>
-                <ApexCharts options={options} series={series} type='donut' width='100%' height={300} />
-            </div>
-
+            {!loading &&
+                <div className='chart col-lg-4 col-md-6 col-sm-12 col-sm-12 fs-lg-5'>
+                    <ApexCharts options={options} series={series} type='donut' width='100%' height={280} />
+                </div>
+            }
             <div className='balancesummary col-sm-12 d-lg-none d-md-none d-sm-flex flex-row flex-wrap align-content-center justify-content-center my-4'>
                 <div className="h-25 text-center">
                     <span><BsArrowUpShort className='bg-danger text-center p-1' />
-                        <span className="ms-2">{Math.trunc(expenseTotalSum) + '€'}</span>
+                        <span className="ms-2">{Math.trunc(expenseThisMonth) + '€'}</span>
                     </span>
                 </div>
                 <div className="h-25 text-center">
                     <span><HiOutlineDatabase className='bg-warning text-center p-1' />
-                        <span className="ms-2">{Math.trunc(balance) + '€'}</span>
+                        <span className="ms-2">{Math.trunc(totalNum) + '€'}</span>
                     </span>
                 </div>
                 <div className="h-25 text-center">
                     <span><BsArrowDownShort className='bg-primary text-center p-1' />
-                        <span className="ms-2">{Math.trunc(incomeTotalSum) + '€'}</span>
+                        <span className="ms-2">{Math.trunc(incomeThisMonth) + '€'}</span>
                     </span>
                 </div>
             </div>
-
         </>
     );
 };
-
-
-// import React, { useState, useEffect } from "react";
-// import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
-// import { HiOutlineDatabase } from "react-icons/hi";
-// import { Chart as ChartJs, Tooltip, Title, ArcElement } from 'chart.js';
-// import { Doughnut } from 'react-chartjs-2';
-// import './chart.css';
-
-// ChartJs.register(
-//     Tooltip, Title, ArcElement
-// );
-
-
-// function ActivitiesChart({ incomes, expenses }) {
-//     const [data, setData] = useState({
-//         datasets: [{
-//             data: []
-//         }]
-//     });
-
-//     const incomeAmount = incomes.map((amount) => amount.amount);
-//     const expenseAmount = expenses.map((amount) => amount.amount);
-
-//     let incomeTotalSum = 0;
-//     let expenseTotalSum = 0;
-//     let balance = 0;
-//     var i = 0;
-
-//     //IncomeChartData
-//     for (i = 0; i < incomeAmount.length; i++) {
-//         incomeTotalSum += incomeAmount[i];
-//     }
-
-//     //ExpenseChartData
-//     for (i = 0; i < expenseAmount.length; i++) {
-//         expenseTotalSum += expenseAmount[i];
-//     }
-
-//     let minusBalance;
-
-//     //BalanceChartData
-//     balance = incomeTotalSum - expenseTotalSum;
-
-//     if (balance < 0) {
-//         minusBalance = incomeTotalSum - expenseTotalSum;
-//         balance = 0;
-//     } else {
-//         minusBalance = 0;
-//     }
-
-//     useEffect(() => {
-//         const data = [];
-//         data.push(balance, minusBalance, incomeTotalSum, expenseTotalSum)
-//         setData({
-//             datasets: [{
-//                 data: data,
-//                 backgroundColor: [
-//                     'Yellow',
-//                     'Black',
-//                     'Blue',
-//                     'Red'
-//                 ],
-//                 borderWidth: 0,
-
-//             }
-//             ],
-//             labels: [
-//                 'Likutis',
-//                 'Minusinis likutis',
-//                 'Pajamos',
-//                 'Išlaidos'
-//             ]
-//         })
-//     }, [incomeTotalSum, expenseTotalSum])
-
-
-//     return (
-//         <>
-//             <div className='balancesummary col-lg-4 col-md-6 d-sm-none d-md-flex d-lg-flex flex-row flex-wrap align-content-center justify-content-center'>
-//                 <div className="h-25 text-center">
-//                     <span><BsArrowUpShort className='bg-danger text-center p-1' />
-//                         <span className="ms-2">{Math.trunc(expenseTotalSum) + '€'}</span>
-//                     </span>
-//                 </div>
-//                 <div className="h-25 text-center">
-//                     <span><BsArrowDownShort className='bg-primary text-center p-1' />
-//                         <span className="ms-2">{Math.trunc(incomeTotalSum) + '€'}</span>
-//                     </span>
-//                 </div>
-//                 <div className="h-25 text-center">
-//                     <span><HiOutlineDatabase className='bg-warning text-center p-1' />
-//                         <span className="ms-2">{Math.trunc(balance) + '€'}</span>
-//                     </span>
-//                 </div>
-//             </div>
-//             <div className='col-lg-4 col-md-6 col-sm-12 col-sm-12 text-center'>
-//                 <Doughnut data={data}
-//                     height={300}
-//                     width={300}
-//                     />
-//             </div>
-//         </>
-//         //  <div className='balancesummary col-sm-12 d-lg-none d-md-none d-sm-flex flex-row flex-wrap align-content-center justify-content-center my-4'>
-//         //    <div className="h-25 text-center">
-//         //      <span><BsArrowUpShort className='bg-danger text-center p-1' />
-//         //        <span className="ms-2">{Math.trunc(expenseTotalSum) + '€'}</span>
-//         //      </span>
-//         //    </div>
-//         //    <div className="h-25 text-center">
-//         //      <span><HiOutlineDatabase className='bg-warning text-center p-1' />
-//         //        <span className="ms-2">{Math.trunc(balance) + '€'}</span>
-//         //      </span>
-//         //    </div>
-//         //    <div className="h-25 text-center">
-//         //      <span><BsArrowDownShort className='bg-primary text-center p-1' />
-//         //        <span className="ms-2">{Math.trunc(incomeTotalSum) + '€'}</span>
-//         //      </span>
-//         //    </div>
-//         //  </div>
-
-//     )
-// }
 
 export default ActivitiesChart

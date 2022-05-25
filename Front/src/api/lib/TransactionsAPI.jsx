@@ -62,3 +62,6 @@ export const addNewExpense = (data, userId) => axiosUser.patch(`/${userId}/user/
 
 export const getUserIncomeByMonth = (userId) => axiosUser.get(`/${userId}/income/getByCurrentMonth`)
 export const getUserExpenseByMonth = (userId) => axiosUser.get(`/${userId}/expense/getByCurrentMonth`)
+
+export const getAllUserIncomesOffAllMonth = (userId) => axiosUser.get(`/${userId}/income/getByCurrentMonth`)
+export const getAllUserExpenseOffAllMonth = (userId) => axiosUser.get(`/${userId}/expense/getByCurrentMonth`)
