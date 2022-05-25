@@ -136,9 +136,21 @@ function MainContainer() {
                 }
             );
         };
-
         generator.download({ settings: settings, fileName: 'Išlaidų_dokumentinė_kopija', dataArray: allExpenses });
+
+
+        const postToLogs = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userId: userId,
+                text: 'download',
+                value: "Atsiunte",
+            })
+        };
+        fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
     }
+
 
 
     return (
