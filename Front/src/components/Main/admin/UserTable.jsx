@@ -59,6 +59,7 @@ function UserTable({all, userId, setAll, setRender}) {
                         <th>Email</th>
                         <th>Slaptažodis</th>
                         <th>Registracijos data</th>
+                        <th>Role</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -72,6 +73,7 @@ function UserTable({all, userId, setAll, setRender}) {
                             email = {data.email}
                             password = {data.password}
                             createdAt = {data.createdAt}
+                            roles={data.roles}
                             defaultData = {data}
                             onDelete={handleDelete}
                         />
