@@ -46,9 +46,9 @@ export const createNewUser = (name, password, email, data) => axiosClient.post('
 //     await createNewUser(name, password, email)
 //   }
 
-export const updateUser = (data) => axiosClient.patch('/', JSON.stringify(data));
+export async function deleteUserById(userId) { await axiosClient.patch(`/deleteUser/${userId}`) };
 
-export async function deleteUserById(subId) { await axiosClient.patch(`/deleteUser/${subId}`) };
+export const updateUser = (data, subId) => axiosClient.patch(`/${subId}/update`, JSON.stringify(data));
 
 //User's transactions
 export async function deleteIncomeTransactions(userId, subId) { await axiosClient.patch(`/${userId}/income/delete/${subId}`) };

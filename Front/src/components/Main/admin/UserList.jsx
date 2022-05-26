@@ -1,18 +1,20 @@
 import React from 'react'
 
-function UserLog({id, user, email, password, createdAt, roles, defaultData, onDelete, subId}) {
+function UserLog({id, user, email, password, createdAt, roles, defaultData, onDelete, userId, subId, onEdit}) {
     let data = createdAt.substr(0, 10);
-    var bcrypt = require("bcryptjs");
-    let password2 = hashSync(password, 8)
+
   return (
     <tr>
-        <td>{subId}</td>
+        <td>{userId}</td>
         <td>{user}</td>
         <td>{email}</td>
-        <td>{password2}</td>
+        <td>{password}</td>
         <td>{data}</td>
         <td>{roles}</td>
-        <td><button onClick={(e) => onDelete(e, defaultData, subId)}>Ištrinti</button><button>redaguoti</button></td>
+        <td>
+          <button onClick={(e) => onDelete(e, defaultData, subId)}>Ištrinti</button>
+          <button onClick={(e) => onEdit(e, subId)}>redaguoti</button>
+        </td>
     </tr>
   )
 }

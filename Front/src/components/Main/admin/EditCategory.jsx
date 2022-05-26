@@ -16,8 +16,6 @@ function EditCategory({defaultData, id, data, subId, onCancel, onSubmit}) {
     }
 
 
-    // console.log(subId);
-
     const toggleEditPopUp = () => {
         setEditPopUp(!editpopup)
     }

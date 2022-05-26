@@ -1,9 +1,34 @@
 import React, {useState, useEffect} from 'react'
 import Swal from 'sweetalert2';
 import UserList from './UserList'
-import { deleteUserById } from '../../../api/lib/TransactionsAPI';
+import { deleteUserById, updateUser, getAllUsers } from '../../../api/lib/TransactionsAPI';
+import EditUserList from './EditUserList'
 
 function UserTable({all, userId, setAll, setRender}) {
+
+    const [editId, setEditId] = useState([]);
+
+    //---OpenEditForm---//
+    const handleEdit = (e, subId) => {
+        e.preventDefault();
+        setEditId(subId); //Open edit form on choosen transaction type
+    };
+
+    //---HandleEdit---//
+    const submitEdit = async (data, subId) => {
+        await updateUser(subId, data).then(() =>
+            getAllUsers()
+        );
+        setRender(prevState => !prevState)
+        setEditId()
+    }
+    
+
+    //---CancelEdit---//
+    function cancelEdit() {
+        setEditId('');
+        console.log('canceling');
+    }
 
     const handleDelete = (e, data, subId, id) => {
         e.preventDefault();
@@ -47,10 +72,8 @@ function UserTable({all, userId, setAll, setRender}) {
 
       all.sort(sortByDate);
     return (
-        <>{all.length === 0 ? (
-            <p className='fs-5 text-center'>Nėra pridėtų vartotojų</p>
-        ) : (
-            <>
+
+  
             <table>
                 <thead>
                     <tr>
@@ -65,25 +88,37 @@ function UserTable({all, userId, setAll, setRender}) {
                 </thead>
                 <tbody>
                     {all.map((data) => (
-                       
-                        <UserList
-                            key = {data._id}
-                            subId = {data._id}
-                            user = {data.username}
-                            email = {data.email}
-                            password = {data.password}
-                            createdAt = {data.createdAt}
-                            roles={data.roles}
-                            defaultData = {data}
-                            onDelete={handleDelete}
-                        />
+
+                        <React.Fragment key={data._id}>
+                        {editId === data._id ? (
+                            <EditUserList
+                                subId ={data._id}
+                                id={userId}
+                                defaultData={data}
+                                onCancel={cancelEdit}
+                                onSubmit={submitEdit}
+                            />
+                        ) : (
+                            <UserList
+                                key = {data._id}
+                                userId ={data._id}
+                                subId = {data._id}
+                                user = {data.username}
+                                email = {data.email}
+                                password = {data.password}
+                                createdAt = {data.createdAt}
+                                roles={data.roles}
+                                defaultData = {data}
+                                onDelete={handleDelete}
+                                onEdit={handleEdit}
+                            />
+                        )}
+                        </React.Fragment>
                     ))}
                 </tbody>
             </table>
-            </>
-            )}
-        </>
-    );
+ 
+    )
 }
 
 export default UserTable

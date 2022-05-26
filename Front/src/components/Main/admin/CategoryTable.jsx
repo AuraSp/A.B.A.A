@@ -7,14 +7,13 @@ import { updateCategory, getAllCategories, deleteCategory } from '../../../api/l
 function CategoryTable({setAll, categoryId, all, setRender, userId}) {
 
     const [editId, setEditId] = useState([]);
-    // let [categories, setCategories] = useState([]);
 
     //---OpenEditForm---//
     const handleEdit = (e, subId) => {
         e.preventDefault();
         setEditId(subId); //Open edit form on choosen transaction type
     };
-    
+    console.log(editId);
     //---HandleEdit---//
     const submitEdit = async (id, subId, data) => {
         await updateCategory(id, subId, data).then(() =>

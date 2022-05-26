@@ -45,9 +45,6 @@ const User = mongoose.model(
         type: String,
         required: true,
       },
-      balance: {
-        type: Number,
-      },
       roles:{
           // type: mongoose.Schema.Types.ObjectId,
           // ref: "Role",

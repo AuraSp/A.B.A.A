@@ -4,11 +4,13 @@ import { MdAccountCircle, MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { GiWallet } from "react-icons/gi";
 import { getAllUsers } from '../../../api/lib/TransactionsAPI';
+import  CreateNewUser from './CreateNewUser';
 import { Link, useNavigate } from "react-router-dom";
 import UserTable from './UserTable'
 
 function ListUsers({admin}) {
   const [accountpopup, setAccountPopUp] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [all, setAll] = useState([]);
   const [logs, setLogs] = useState([]);
   const [render, setRender] = useState(false);
@@ -22,6 +24,10 @@ function ListUsers({admin}) {
   const toggleAccountPopup = () => {
     setAccountPopUp(!accountpopup);
   }
+
+  const toggleAddPopup = () => {
+    setIsOpen(!isOpen);
+}
 
   //---FetchData---//
   useEffect(() => {
@@ -148,6 +154,9 @@ function ListUsers({admin}) {
             <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
               <div className='d-flex flex-row position-relative'>
               <>
+              <div>
+            <button  onClick={toggleAddPopup} className='btn border border1'>+ SUKURti vartotoja</button>
+        </div>
                 {!load &&
                     <UserTable
                       setAll={setAll}
@@ -155,6 +164,12 @@ function ListUsers({admin}) {
                       setRender={setRender}
                     />}
                   </>
+                  {isOpen &&
+                            <CreateNewUser
+                                handlepopupClose={toggleAddPopup}
+                                render={render}
+                                setRender={setRender}
+                            />}  
               </div>
             </div>
           </div>

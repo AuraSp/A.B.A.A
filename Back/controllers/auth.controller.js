@@ -9,6 +9,9 @@ exports.signup = async (req, res) => {
     let email = req.body.email;
     let user = await User.findOne({ email });
     if (user) return res.status(400).send("User already registered.");
+    // var roles = await Role.create({
+    //   roles: req.body.roles
+    // })
     var result = await User.create({
       username: req.body.username,
       email: req.body.email,

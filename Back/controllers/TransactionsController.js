@@ -21,6 +21,33 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+// // Atnaujinti esamą kategorija
+// exports.updateUserId = async (req, res) => {
+//   console.log( req.params.id)
+//   console.log( req.params.subId)
+//   try {
+//     const user = await Transactions.findOneAndUpdate(
+//       {'users._id': req.params.subId},
+//       {
+//         $set: {
+//           "user.$.value": req.body.value,
+//         },    
+//     });
+
+//     res.status(200).json({
+//       status: "success",
+//       transaction: {
+//         users: user,
+//       },
+//     });
+//   } catch (err) {
+//     res.status(404).json({
+//       status: "fail",
+//       message: err,
+//     });
+//   }
+// };
+
 exports.signin = (req, res) => {
   User.findOne({
     username: req.body.username,
@@ -98,10 +125,11 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   console.log(req.params.id);
+  console.log(req.body);
   try {
     const user = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true,
+      runValidators: false,
     });
 
     res.status(200).json({
