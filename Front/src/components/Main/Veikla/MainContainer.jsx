@@ -92,7 +92,7 @@ function MainContainer() {
             navigate('/');
     }else{
         getAllUsers().then((res) => {
-            // console.log(res.data.data.transactions);
+            console.log(res.data.data.transactions);
             const userdata = res.data.data.transactions; //Fetch all existing data from database
             let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
             setEditId(...userAllIds.map((data) => data._id === obj)); //Take User Id for edit 

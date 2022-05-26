@@ -4,55 +4,86 @@ const User = db.user;
 const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-exports.signup = (req, res) => {
-  const user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8),
-  });
-  user.save((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-    if (req.body.roles) {
-      Role.find(
-        {
-          name: { $in: req.body.roles },
-        },
-        (err, roles) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-          user.roles = roles.map((role) => role._id);
-          user.save((err) => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-            res.send({ message: "User was registered successfully!" });
-          });
-        }
-      );
-    } else {
-      Role.findOne({ name: "user" }, (err, role) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-        user.roles = [role];
-        user.save((err) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-          res.send({ message: "User was registered successfully!" });
-        });
-      });
-    }
-  });
+exports.signup = async (req, res) => {
+  try {
+    let email = req.body.email;
+    console.log(1)
+    let user = await User.findOne({ email });
+    if (user) return res.status(400).send("User already registered.");
+    console.log(2)
+    var result = await User.create({
+      username: req.body.username,
+      email: req.body.email,
+      password: bcrypt.hashSync(req.body.password, 8),
+    });
+    console.log(4)
+    const token = jwt.sign({ id: result._id }, "labas", {
+      expiresIn: "90d",
+    });
+    console.log(3)
+    //const newUser = awai`t Users.create(req.body);
+    res.status(200).json({
+      status: "success",
+      data: {
+        user: result,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
 };
+// exports.signup = (req, res) => {
+//   const user = new User({
+//     username: req.body.username,
+//     email: req.body.email,
+//     password: bcrypt.hashSync(req.body.password, 8),
+//   });
+//   user.save((err, user) => {
+//     if (err) {
+//       res.status(500).send({ message: err });
+//       return;
+//     }
+//     if (req.body.roles) {
+//       Role.find(
+//         {
+//           name: { $in: req.body.roles },
+//         },
+//         (err, roles) => {
+//           if (err) {
+//             res.status(500).send({ message: err });
+//             return;
+//           }
+//           user.roles = roles.map((role) => role._id);
+//           user.save((err) => {
+//             if (err) {
+//               res.status(500).send({ message: err });
+//               return;
+//             }
+//             res.send({ message: "User was registered successfully!" });
+//           });
+//         }
+//       );
+//     } else {
+//       Role.findOne({ name: "user" }, (err, role) => {
+//         if (err) {
+//           res.status(500).send({ message: err });
+//           return;
+//         }
+//         user.roles = [role];
+//         user.save((err) => {
+//           if (err) {
+//             res.status(500).send({ message: err });
+//             return;
+//           }
+//           res.send({ message: "User was registered successfully!" });
+//         });
+//       });
+//     }
+//   });
+// };
 exports.signin = (req, res) => {
   User.findOne({
     username: req.body.username,
