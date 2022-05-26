@@ -38,6 +38,9 @@ function CreateForm({handlepopupClose}) {
                 </div>
               
                 <form onSubmit={handleSubmit()} className='d-flex flex-column flex-wrap text-center'>
+
+                    <input type="text" />
+                    
                     <div className='formfooter d-flex flex-row flex-wrap mt-5'>
                         <div className='me-4'>
                             {/* <button

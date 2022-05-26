@@ -155,7 +155,7 @@ function ListUsers({admin}) {
               <div className='d-flex flex-row position-relative'>
               <>
               <div>
-            <button  onClick={toggleAddPopup} className='btn border border1'>+ SUKURti vartotoja</button>
+            {/* <button  onClick={toggleAddPopup} className='btn border border1'>+ SUKURti vartotoja</button> */}
         </div>
                 {!load &&
                     <UserTable

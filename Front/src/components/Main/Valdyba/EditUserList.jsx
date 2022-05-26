@@ -94,7 +94,7 @@ function EditUserList({ defaultData, onCancel, subId, onSubmit }) {
                     <input
                         {...register('email')}
                         className='text-center'
-                        type='text'
+                        type='email'
                         defaultValue={defaultData.email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -103,14 +103,15 @@ function EditUserList({ defaultData, onCancel, subId, onSubmit }) {
                 </td>
 
                 <td>
-                    <input
+                    {/* <input
                         {...register('password')}
                         type='text'
                         defaultValue={defaultData.password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     {errors.password &&
-                        <p className='error1 p-1 pt-4'>{errors.password?.message}</p>}
+                        <p className='error1 p-1 pt-4'>{errors.password?.message}</p>} */}
+                        {defaultData.password}
                 </td>
 
                 <td>{data}</td>
