@@ -20,7 +20,7 @@ function YearsActivitiesChart({ userId, render }) {
     }, [userId])
     let category = ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis',
         'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis']
-    console.log(new Date().getMonth())
+    // console.log(new Date().getMonth())
     const options = {
         chart: {
             type: 'bar',

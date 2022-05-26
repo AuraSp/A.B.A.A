@@ -1,6 +1,7 @@
 import axiosClient from '../apiTransactions';
 import axiosUser from '../apiTransactions';
 import axios from "axios"
+import Swal from 'sweetalert2'
 
 //User
 export async function getAllUsers() {
@@ -9,13 +10,10 @@ export async function getAllUsers() {
 }
 
 export const createNewUser = (name, password, email, data) => axiosClient.post('/auth/signup', {
-  username: name,
-  email: email,
-  password: password
-})
-  .then((response) => {
-    console.log(response);
-  });
+    username: name,
+    email: email,
+    password: password
+  })
 
 export const loginUser = (name, password, email, data) => axiosClient.post('/auth/signin', {
   username: name,
@@ -23,8 +21,9 @@ export const loginUser = (name, password, email, data) => axiosClient.post('/aut
   // email: email
 })
   .then((response) => {
-    localStorage.setItem("user", JSON.stringify(response.data.id))
-    localStorage.setItem("name", JSON.stringify(response.data.username))
+    localStorage.setItem("user",  JSON.stringify(response.data.id))
+    localStorage.setItem("name",  JSON.stringify(response.data.username))
+    return response;
   });
 
 export const signout = () => axios.post('http://localhost:3000/api/auth/signout')
@@ -47,8 +46,9 @@ export const signout = () => axios.post('http://localhost:3000/api/auth/signout'
 //     await createNewUser(name, password, email)
 //   }
 
-export const updateUser = (data) => axiosClient.patch('/', JSON.stringify(data));
+export async function deleteUserById(userId) { await axiosClient.patch(`/deleteUser/${userId}`) };
 
+export const updateUser = (data, subId) => axiosClient.patch(`/${subId}/update`, JSON.stringify(data));
 
 //User's transactions
 export async function deleteIncomeTransactions(userId, subId) { await axiosClient.patch(`/${userId}/income/delete/${subId}`) };

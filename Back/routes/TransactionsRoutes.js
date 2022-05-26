@@ -8,6 +8,8 @@ const {
   createNewUser,
   getUserById,
   updateUser,
+  // updateUserId,
+  deleteUserById,
 
   //User's transactions
   deleteIncomeTransactions,
@@ -29,7 +31,9 @@ const router = express.Router();
 //User
 router.route("/").get(getAllUsers);
 router.route("/:id").get(getUserById).patch(updateUser);
-router.route("/:id/user/update").patch(updateUser);
+router.route("/newUsers/create").patch(createNewUser);
+router.route("/:id/update").patch(updateUser);
+router.route("/deleteUser/:id").patch(deleteUserById);
 
 //User's transactions
 router.route("/:id/income/delete/:subId").patch(deleteIncomeTransactions);

@@ -45,15 +45,14 @@ const User = mongoose.model(
         type: String,
         required: true,
       },
-      balance: {
-        type: Number,
-      },
-      roles: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Role"
-        }
-      ],
+      roles:{
+          // type: mongoose.Schema.Types.ObjectId,
+          // ref: "Role",
+          type: String,
+          default:'user',
+          enum: ["user", "admin"]
+        },
+        
       limit: [LimitSchema],
       income: [IncomesSchema],
       expense: [ExpensesSchema],

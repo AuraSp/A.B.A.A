@@ -22,6 +22,7 @@ const Register = () => {
     const [pwdFocus, setPwdFocus] = useState(false);
 
     const [email, setEmail] = useState("")
+    const [roles] = useState("users")
 
     const [matchPwd, setMatchPwd] = useState('');
     const [validMatch, setValidMatch] = useState(false);
@@ -54,7 +55,7 @@ const Register = () => {
     const handleSubmit = async  (e, data) => {
           e.preventDefault();
       
-          await createNewUser(name, password, email)
+          await createNewUser(name, password, email, roles)
           setSuccess(true)
         }
 

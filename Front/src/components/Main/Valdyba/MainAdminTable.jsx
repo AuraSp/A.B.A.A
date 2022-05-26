@@ -6,6 +6,7 @@ import { BsJournals } from "react-icons/bs";
 import { GiWallet } from "react-icons/gi";
 import { RiAddFill } from "react-icons/ri";
 import { getAllCategories } from '../../../api/lib/CategoriesAPI';
+import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 import CreateCategoryForm from './CreateCategoryForm';
 import CategoryTable from './CategoryTable';
 import { Link, useNavigate } from "react-router-dom";
@@ -56,6 +57,15 @@ function MainAdminTable() {
     }
   }, []);
 
+  useEffect(() => {
+    getAllUsers().then((res) => {
+        const userdata = res.data.data.transactions; 
+        let userAllIds = userdata.filter((data) => data._id === localStorage.user); //Take All users Ids
+        let roles = userAllIds.map((data) => data._id === localStorage.user ? (data.roles):(''));
+        if(roles[0] === 'users'){navigate('/veikla')}
+    });
+}, [render, userId]);
+
   function clearUser() {
     localStorage.clear();
     navigate('/');
@@ -94,7 +104,7 @@ function MainAdminTable() {
               <div className='links d-flex flex-row justify-content-center fs-5'>
                 <Link to="/analize" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span><span className='text-light'>Finansų analizė</span></Link>
                 <Link to="/veikla" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span><span className='text-light'>Veikla</span></Link>
-                <Link to="/veikla" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><MdOutlineAdminPanelSettings /></span><span className='text-light'>Valdyba</span></Link>
+                <Link to="/admin" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><MdOutlineAdminPanelSettings /></span><span className='text-light'>Valdyba</span></Link>
                 <div className='account d-flex flex-row justify-content-end p-3'>
                   <div className='d-flex user' onClick={toggleAccountPopup}>
                     <div className='fs-5 ps-1 pe-1 text-warning border-bottom border-warning'><MdOutlineAccountCircle className='text-light' /></div>
@@ -126,6 +136,7 @@ function MainAdminTable() {
             <div className='nav ps-5'>
               <Link to="/admin" className='p-2 text-decoration-none text-light'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineCategory /></span>Kategorijos</Link>
               <Link to="/eventLog" className='p-2 text-decoration-none text-light'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><BsJournals /></span>Žurnalas</Link>
+              <Link to="/users" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Vartotojai</Link>
             </div>
           </div>
           <div className='mainadmin pt-5 text-light'>

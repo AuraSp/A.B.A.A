@@ -41,7 +41,7 @@ const LimitSchema = mongoose.Schema(
 
 const usersSchema = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
     },
@@ -53,8 +53,12 @@ const usersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    balance: {
-      type: Number,
+    roles:{
+      // type: mongoose.Schema.Types.ObjectId,
+      // ref: "Role",
+      type: String,
+      default:'user',
+      enum: ["user", "admin"]
     },
     limit: [LimitSchema],
     income: [IncomesSchema],

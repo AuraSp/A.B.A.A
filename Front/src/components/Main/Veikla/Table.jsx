@@ -106,10 +106,9 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
         setEditId(subId); //Open edit form on choosen transaction type
     };
 
-
     //---HandleEdit---//
     const submitEdit = async (id, subId, data) => {
-        console.log(id, subId, data)
+
         await findIncomesAndUpdate(id, subId, data).then(() =>
             getAllUsers()
         );
@@ -126,7 +125,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
         setEditId('');
         console.log('canceling');
     }
-
+    
     //---SortByCreationDate---//
     function sortByDate(a, b) {
 
