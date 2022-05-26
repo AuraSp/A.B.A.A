@@ -189,7 +189,7 @@ function MainContainer() {
                     {!admin ? (
                         <></>
                     ) : (
-                        <Link to="/admin" admin={admin} className='p-3 text-decoration-none text-muted'>
+                        <Link to="/admin" className='p-3 text-decoration-none text-muted'>
                             <span className='text-center text-primary p-1 text-decoration-none'><AiOutlineTransaction /></span>
                             <span>Valdyba</span>
                         </Link>

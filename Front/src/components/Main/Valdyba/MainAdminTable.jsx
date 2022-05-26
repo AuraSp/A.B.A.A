@@ -21,6 +21,8 @@ function MainAdminTable() {
   const [userId, setId] = useState([]);
   const [user, setUser] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  let text = localStorage.getItem("user");
+  let obj = JSON.parse(text)
 
   let navigate = useNavigate();
   //User account menu popup
@@ -29,6 +31,18 @@ function MainAdminTable() {
   }
 
   //---FetchData---//
+
+  useEffect(() => {
+    getAllUsers().then((res) => {
+        const userdata = res.data.data.transactions; //Fetch all existing data from database
+        let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
+        setId(...userAllIds.map((data) => data._id)); //Take User Id
+        let roles = userAllIds.map((data) => data._id === obj ? (data.roles):(''));
+        if(roles[0] !== 'admin'){navigate('/veikla')};
+    });
+  })
+
+
   useEffect(() => {
 
     getAllCategories().then((res) => {
@@ -56,15 +70,6 @@ function MainAdminTable() {
       setUser(localStorage.getItem("user").replace(/['"]+/g, ''))
     }
   }, []);
-
-  useEffect(() => {
-    getAllUsers().then((res) => {
-        const userdata = res.data.data.transactions; 
-        let userAllIds = userdata.filter((data) => data._id === localStorage.user); //Take All users Ids
-        let roles = userAllIds.map((data) => data._id === localStorage.user ? (data.roles):(''));
-        if(roles[0] === 'users'){navigate('/veikla')}
-    });
-}, [render, userId]);
 
   function clearUser() {
     localStorage.clear();
