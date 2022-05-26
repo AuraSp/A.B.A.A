@@ -57,6 +57,7 @@ function UserTable({all, userId, setAll, setRender}) {
                         <th>Id</th>
                         <th>Slapyvardis</th>
                         <th>Email</th>
+                        <th>Slaptažodis</th>
                         <th>Registracijos data</th>
                         <th>Role</th>
                         <th></th>
@@ -70,6 +71,7 @@ function UserTable({all, userId, setAll, setRender}) {
                             subId = {data._id}
                             user = {data.username}
                             email = {data.email}
+                            password = {data.password}
                             createdAt = {data.createdAt}
                             roles={data.roles}
                             defaultData = {data}

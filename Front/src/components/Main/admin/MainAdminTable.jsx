@@ -27,16 +27,21 @@ function MainAdminTable({admin}) {
   }
 
   //---FetchData---//
-  useEffect(() => {
-    {admin ? (navigate('/')) : (
 
-      getAllCategories().then((res) => {
-        const categorydata = res.data.data.categories;
-        setCategoryId(...categorydata.map((data) => data._id));
-        setCategory(...categorydata.map((data) => data.category));
-      })
-  
-  )}
+  useEffect(() => {
+    if (localStorage.user === undefined) {
+      navigate('/');
+    }else{
+        {admin ? (navigate('/')) : (
+
+          getAllCategories().then((res) => {
+            const categorydata = res.data.data.categories;
+            setCategoryId(...categorydata.map((data) => data._id));
+            setCategory(...categorydata.map((data) => data.category));
+          })
+      
+      )}
+    }
   }, [render, categoryId]);
 
   useEffect(() => {
