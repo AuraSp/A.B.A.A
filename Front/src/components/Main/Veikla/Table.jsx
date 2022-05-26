@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import Card from './Card';
 import EditForm from './EditForm';
 import { getAllUsers, deleteIncomeTransactions, deleteExpenseTransactions, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
+import ReactPaginate from "react-paginate";
 
 import './Styles/table.css';
 
 function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory, firstDate, lastDate, amount }) {
+
+    const [page, setPage] = useState(0);
+    const dataPerPage = 5;
+    const numberOfDataVistited = page * dataPerPage;
+    const totalPages = Math.ceil(all.length / dataPerPage);
+    const changePage = ({ selected }) => {
+        setPage(selected);
+    };
 
 
     const handleDelete = (e, data, subId) => {
@@ -120,7 +129,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
 
     //---SortByCreationDate---//
     function sortByDate(a, b) {
-        
+
         if (a.createdAt < b.createdAt) {
             return 1;
         }
@@ -138,10 +147,13 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
             <>
                 <div className='d-flex flex-row flex-nowrap justify-content-end w-100 pb-2 pt-2 main-exp'>
                     <div>
+                        <span className='p-0 m-0 text-secondary'>Likutis</span> {/* exp*/}
+                    </div>
+                    <div>
                         <span className='p-0 m-0 text-secondary'>Pajamos</span> {/* exp*/}
                     </div>
                     <div>
-                        <span className='p-0 m-0 text-secondary'>Išlaidos</span> {/* exp*/}
+                        <span className='p-0 m-0 me-4 text-secondary'>Išlaidos</span> {/* exp*/}
                     </div>
                 </div>
                 <table className='table table-borderless mx-auto'>
@@ -160,10 +172,14 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                     </thead >
                     <tbody className='text-center'>
                         {!loading ?
-                            all.map((filterData) => (
-                                <React.Fragment key={filterData._id}>
+                            all.slice(
+                                numberOfDataVistited,
+                                numberOfDataVistited + dataPerPage
+                            )
+                                .map((filterData) => (
+                                    <React.Fragment key={filterData._id}>
 
-                                    {editId === filterData._id ? (
+                                        {editId === filterData._id ? (
                                             <EditForm
                                                 subId={filterData._id}
                                                 id={userId}
@@ -174,64 +190,77 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
 
                                         ) : (!lastDate && firstDate ? (
                                             <Card
-                                            subId={filterData._id}
-                                            data={filterData}
-                                            onEdit={handleEdit}
-                                            onDelete={handleDelete}
+                                                subId={filterData._id}
+                                                data={filterData}
+                                                onEdit={handleEdit}
+                                                onDelete={handleDelete}
                                             />
                                         ) : !firstDate && filterCategory ? (
 
-                                                filterData.category === filterCategory && filterData.type === "expense"  ? (
-                                                    <Card
-                                                        subId={filterData._id}
-                                                        data={filterData}
-                                                        onEdit={handleEdit}
-                                                        onDelete={handleDelete}
-                                                    />
-                                                ) : (
-                                                    <></>
-                                                )
-                                            ) : firstDate && !filterCategory ? (
-
-                                                filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
-                                                    <Card
-                                                        subId={filterData._id}
-                                                        data={filterData}
-                                                        onEdit={handleEdit}
-                                                        onDelete={handleDelete}
-                                                    />
-                                                ) : (
-                                                    <></>
-                                                )
-                                            ) : firstDate && filterCategory ? (
-
-                                                filterData.category === filterCategory && filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
-                                                    <Card
-                                                        subId={filterData._id}
-                                                        data={filterData}
-                                                        onEdit={handleEdit}
-                                                        onDelete={handleDelete}
-                                                    />
-                                                ) : (
-                                                    <></>
-                                                )
-                                            ) : (
+                                            filterData.category === filterCategory && filterData.type === "expense" ? (
                                                 <Card
                                                     subId={filterData._id}
                                                     data={filterData}
                                                     onEdit={handleEdit}
                                                     onDelete={handleDelete}
                                                 />
+                                            ) : (
+                                                <></>
                                             )
-                                        )
-                                    }
+                                        ) : firstDate && !filterCategory ? (
 
-                                </React.Fragment>
-                            ))
+                                            filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
+                                                <Card
+                                                    subId={filterData._id}
+                                                    data={filterData}
+                                                    onEdit={handleEdit}
+                                                    onDelete={handleDelete}
+                                                />
+                                            ) : (
+                                                <p></p>
+                                            )
+                                        ) : firstDate && filterCategory ? (
+
+                                            filterData.category === filterCategory && filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
+                                                <Card
+                                                    subId={filterData._id}
+                                                    data={filterData}
+                                                    onEdit={handleEdit}
+                                                    onDelete={handleDelete}
+                                                />
+                                            ) : (
+                                                <p></p>
+                                            )
+                                        ) : (
+                                            <Card
+                                                subId={filterData._id}
+                                                data={filterData}
+                                                onEdit={handleEdit}
+                                                onDelete={handleDelete}
+                                            />
+                                        )
+                                        )
+                                        }
+
+                                    </React.Fragment>
+                                ))
                             : <tr><td className='loader'>Laukiama...</td></tr>
                         }
                     </tbody>
-                </table >
+                </table>
+                {!loading &&
+                    <div className='h-100 m-0 mb-4'>
+                        <ReactPaginate
+                            previousLabel={"Atgal"}
+                            nextLabel={"Pirmyn"}
+                            pageCount={totalPages}
+                            onPageChange={changePage}
+                            containerClassName={"navigationButtons"}
+                            disabledClassName={"navigationDisabled"}
+                            activeClassName={"navigationActive"}
+                        />
+                    </div>
+                }
             </>
         )
         }

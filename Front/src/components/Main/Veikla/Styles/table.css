@@ -2,18 +2,24 @@ table {
     animation: appear 1.2s linear;
 }
 
-table th:first-of-type,
-table th:nth-of-type(4){
-    width: auto;
+table th:first-of-type {
+    width: 6%;
+}
+table th:nth-of-type(4) {
+    width: 8%;
 }
 
 table th:nth-of-type(5),
-table th:nth-of-type(6)  {
-    max-width: 2em;
+table th:nth-of-type(6) {
+    width: 8%;
 }
+table th:nth-of-type(7) {
+    width: 8%;
+}
+
 table th:nth-of-type(2),
 table th:nth-of-type(3) {
-    max-width: 10em;
+    width: 10%;
 }
 
 table tbody td {
@@ -25,8 +31,19 @@ table thead tr {
     border-bottom: 1px solid lightgrey;
 }
 
-
 .main-exp>div:nth-child(1)>span:before {
+    content: '';
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 2.2em;
+    height: 0.7em;
+    border-radius: 15px;
+    margin: 0 0.2em;
+    background-color: #ffc107;
+}
+
+.main-exp>div:nth-child(2)>span:before {
     content: '';
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
@@ -38,7 +55,7 @@ table thead tr {
     background-color: #0d6efd;
 }
 
-.main-exp>div:nth-child(2)>span:before {
+.main-exp>div:nth-child(3)>span:before {
     content: '';
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
@@ -52,6 +69,58 @@ table thead tr {
 
 div.justify-content-end:nth-child(1)>div:nth-child(2) {
     margin: 0 2em;
+}
+
+.navigationButtons {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    height: 3em;
+    position: relative;
+}
+
+.navigationButtons li:nth-child(1),
+.navigationButtons li:nth-child(2),
+.navigationButtons li:nth-child(3),
+.navigationButtons li:nth-child(4),
+.navigationButtons li:nth-child(5) {
+    display: block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    border: 2px solid #ffc1078e;
+    background-color: #dddddd;
+    padding: .360rem .85rem;
+    margin: 0 0.3em;
+    font-size: 0.8rem;
+    border-radius: .35rem;
+    transition: 700ms linear;
+}
+
+.navigationButtons li:nth-child(1) a,
+.navigationButtons li:nth-child(2) a,
+.navigationButtons li:nth-child(3) a,
+.navigationButtons li:nth-child(4) a,
+.navigationButtons li:nth-child(5) a {
+    color: #000;
+    text-decoration: none;
+}
+
+.navigationButtons li:nth-child(1):hover,
+.navigationButtons li:nth-child(2):hover,
+.navigationButtons li:nth-child(3):hover,
+.navigationButtons li:nth-child(4):hover,
+.navigationButtons li:nth-child(5):hover {
+    background-color: #ac9898;
 }
 
 @media screen and (min-width:576px) and (max-width: 767px) {

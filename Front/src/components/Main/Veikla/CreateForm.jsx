@@ -17,6 +17,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
     const [load, setLoad] = useState(true)
+    let [categories, setDataCategories] = useState([]);
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toISOString().substring(0, 10);
 
@@ -25,7 +26,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             .string()
             .min(2, 'Galimas minimalus 2-iejų raidžių kiekis')
             .max(30, 'Galimas maksimalus 30-ties raidžių kiekis')
-            .trim('Negalima įtraukti daugelio tarpų iš eilės nepridedant antro žodžio')
+             .trim('Negalima įtraukti daugelio tarpų iš eilės ar priešais primąją raidę')
             .nullable(false)
             .strict()
             .required(),
@@ -66,7 +67,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             const postToLogs = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     userId: userId,
                     text: 'Pridėjo pajamų įrašą',
                     amount: amount,
@@ -74,7 +75,8 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                 })
             };
             fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
-            await addNewIncome(data, userId).then(()=>{setRender(!render)})            //send data into database(depending on current UserId)
+
+            await addNewIncome(data, userId).then(() => { setRender(!render) })            //send data into database(depending on current UserId)
             handlepopupClose(false); //close create-pop-up after submit
             reset(''); //reset input values
         } else if (expenses) { // if choosen incomes type button
@@ -88,7 +90,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             const postToLogs = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     userId: userId,
                     text: 'Pridėjo išlaidų įrašą',
                     amount: amount,
@@ -97,7 +99,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             };
             fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
-            await addNewExpense(data, userId).then(()=>{setRender(!render)}); //send data into database(depending on current UserId)
+            await addNewExpense(data, userId).then(() => { setRender(!render) }); //send data into database(depending on current UserId)
 
             handlepopupClose(false); //close create-pop-up after submit
             reset(''); //reset input values
@@ -123,21 +125,19 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
         setExpenses(true);
     };
 
-    let [categories, setCategories] = useState([]);
-
     const getAllCategories = async () => {
-        
+
         fetch('http://localhost:3000/api/v1/categories')
-        .then(res => res.json())
-        .then((json) => {
-            setCategories(json.data.categories[0].category);
-            setLoad(false)
-        })
+            .then(res => res.json())
+            .then((json) => {
+                setDataCategories(json.data.categories[0].category);
+                setLoad(false)
+            })
     }
 
-    useEffect( ()=>{
+    useEffect(() => {
         getAllCategories();
-      }, [])
+    }, [])
 
     return (
         <div className='popupform d-flex flex-column flex-nowrap'>
@@ -198,7 +198,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                         className='border bg-transparent text-muted'>
                         <option value='' disabled>--Pasirinkite kategoriją--</option>
                         {categories.map(item => {
-                            return (<option key={item.value} value={item.value}>{item.value}</option>)
+                            return (<option key={item._id} value={item.value}>{item.value}</option>)
                         })}
                     </select>}
                     <p className=' p-0 text-danger'>{errors.category?.message}</p>
@@ -206,7 +206,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit' id="btn" disabled={!description || !amount || !category}>Sukūrti
+                                type='submit' id="btn" disabled={!description || !amount || !category}>Sukurti
                             </button>
                         </div>
                         <div className='me-4'>

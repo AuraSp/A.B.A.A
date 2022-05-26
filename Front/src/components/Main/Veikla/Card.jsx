@@ -28,12 +28,12 @@ function Card({ subId, data, onEdit, onDelete }) {
                         <span className='cardicons text-center'><AiFillTags className={data.type === 'income' ? 'bg-primary text-yellow p-1 fs-4' : 'bg-danger text-yellow p-1 fs-4'} /></span>
                         <div>
                             <button onClick={(e) => onDelete(e, data, subId)} className='btn bg-transparent border-0'><MdDelete className='text-danger me-3' />
-                                <span className='text-secondary'>Delete</span>
+                                <span className='text-secondary'>Ištrinti</span>
                             </button>
                         </div>
                         <div>
                             <button onClick={(e) => onEdit(e, subId)} className='btn bg-transparent border-0'><AiFillEdit className='text-primary me-3' />
-                                <span className='text-secondary'>Edit</span>
+                                <span className='text-secondary'>Koreguoti</span>
                             </button>
                         </div>
                     </div>

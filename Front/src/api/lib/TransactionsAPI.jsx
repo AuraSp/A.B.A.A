@@ -4,34 +4,34 @@ import axios from "axios"
 
 //User
 export async function getAllUsers() {
-    const res = await axiosClient.get('/');
-    return res;
+  const res = await axiosClient.get('/');
+  return res;
 }
 
 export const createNewUser = (name, password, email, data) => axiosClient.post('/auth/signup', {
-    username: name,
-    email: email,
-    password: password
-  })
+  username: name,
+  email: email,
+  password: password
+})
   .then((response) => {
     console.log(response);
   });
 
-  export const loginUser = (name, password, email, data) => axiosClient.post('/auth/signin', {
-    username: name,
-    password: password
-    // email: email
-  })
+export const loginUser = (name, password, email, data) => axiosClient.post('/auth/signin', {
+  username: name,
+  password: password
+  // email: email
+})
   .then((response) => {
-    localStorage.setItem("user",  JSON.stringify(response.data.id))
-    localStorage.setItem("name",  JSON.stringify(response.data.username))
+    localStorage.setItem("user", JSON.stringify(response.data.id))
+    localStorage.setItem("name", JSON.stringify(response.data.username))
   });
-  
-  export const signout = () => axios.post('http://localhost:3000/api/auth/signout')
+
+export const signout = () => axios.post('http://localhost:3000/api/auth/signout')
   .then((response) => {
     console.log(response);
   });
-  
+
 // return res.redirect(/home)
 
 // export async function createNewUser() {
@@ -59,3 +59,9 @@ export const findExpensesAndUpdate = (id, subId, data) => axiosUser.patch(`/${id
 
 export const addNewIncome = (data, userId) => axiosUser.patch(`/${userId}/user/addNewIncome/`, JSON.stringify(data));
 export const addNewExpense = (data, userId) => axiosUser.patch(`/${userId}/user/addNewExpense/`, JSON.stringify(data));
+
+export const getUserIncomeByMonth = (userId) => axiosUser.get(`/${userId}/income/getByCurrentMonth`)
+export const getUserExpenseByMonth = (userId) => axiosUser.get(`/${userId}/expense/getByCurrentMonth`)
+
+export const getAllUserIncomesOffAllMonth = (userId) => axiosUser.get(`/${userId}/income/getOfAllMonths`)
+export const getAllUserExpenseOffAllMonth = (userId) => axiosUser.get(`/${userId}/expense/getOfAllMonths`)

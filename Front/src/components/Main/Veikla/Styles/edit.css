@@ -14,20 +14,28 @@
     -o-transition: 700ms all;
     padding: 0.1em;
 }
-.editinputs>td:first-of-type{
-    max-width: 2%;
+
+.editinputs td:first-of-type {
+width: 6%;
 }
 
+.editinputs>td:nth-of-type(2),
+.editinputs>td:nth-of-type(3) {
+    width: 10%;
+}
 
 .editinputs>td:nth-of-type(5),
 .editinputs>td:nth-of-type(6) {
-    max-width: 4%;
+    width: 6%;
 } 
 .editinputs>td:nth-of-type(4) {
-    max-width: 6%;
+    width: 8%;
+} 
+.editinputs>td:nth-of-type(7) {
+    width: 8%;
 } 
 
-.editinputs>td:nth-child(6)>input:nth-child(1),
+/* .editinputs>td:nth-child(6)>input:nth-child(1),
 .editinputs>td:nth-child(4)>input:nth-child(1),
 .editinputs>td:nth-child(5)>input:nth-child(1) {
     max-width: 70%;
@@ -39,7 +47,7 @@
 
 .editinputs>td:nth-child(3)>select:nth-child(1) {
     max-width: 80%;
-}
+} */
 /* .editinputs td:first-of-type {
     max-width: 12em;
 }
@@ -73,8 +81,6 @@
 }
 
 .editinputs td>select {
-    text-align: center;
-    outline: darkgrey;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -130,7 +136,7 @@
 .error4 {
     position: absolute;
     width: 12em;
-    height: 7em;
+    height: 8em;
     font-size: 1em;
     color: rgb(98, 0, 0);
     background-color: #ebebeb;
@@ -145,17 +151,17 @@
 
 .error1 {
     left: 5.5em;
-    bottom: -8em;
+    bottom: -9em;
 }
 
 .error3 {
     left: 2em;
-    bottom: -8em;
+    bottom: -9em;
 }
 
 .error4 {
     left: 5em;
-    bottom: -8em;
+    bottom: -9em;
 }
 
 .error1::before,

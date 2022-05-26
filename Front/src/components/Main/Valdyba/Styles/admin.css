@@ -1,0 +1,166 @@
+.sidenav {
+    min-height: 100vh;
+    -ms-flex-preferred-size: 15%;
+    flex-basis: 15%;
+    background: radial-gradient(circle, #141834 0%, #13162f 100%);
+    padding-left: 0;
+    padding-right: 0;
+    z-index: 2;
+    color: #fff;
+    border-right: 1px solid #fff;
+}
+
+.sidenav a:first-of-type span:first-of-type,
+.sidenav a:nth-of-type(2) span:first-of-type,
+.sidenav a:last-of-type span:first-of-type {
+    border-left: 5px solid #ffc107;
+    -webkit-transition: 500ms linear;
+    -o-transition: 500ms linear;
+    transition: 500ms linear;
+    cursor: pointer;
+    margin-right: 0.9em;
+    position: relative;
+}
+
+.sidenav a:first-of-type,
+.sidenav a:nth-of-type(2),
+.sidenav a:last-of-type {
+    -webkit-transition: 500ms all;
+    -o-transition: 500ms all;
+    transition: 500ms all;
+    width: 90%;
+}
+
+.sidenav p {
+    color: #c59503d5;
+    padding-left: 2em;
+}
+
+.sidenav a:first-of-type:hover,
+.sidenav a:nth-of-type(2):hover,
+.sidenav a:last-of-type:hover {
+    border-radius: 15px;
+    width: 105%;
+    background: linear-gradient(to left, #141834 0%, #141e31 51%, #393c5e 100%);
+    padding: 0;
+    -webkit-transform: scale(1.1, 1.1);
+    -ms-transform: scale(1.1, 1.1);
+    transform: scale(1.1, 1.1);
+}
+
+.mainadmincontent .header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: -1px;
+    padding-bottom: 0.1em;
+    z-index: 1;
+    background: radial-gradient(circle, #141834 0%, #13162f 100%);
+}
+
+.header .nav {
+    border-radius: 10px;
+    margin: 0.8em 2em;
+}
+
+.header .nav a {
+    background: linear-gradient(to left, #141834 0%, #0f1625 51%, #2b2c3f 100%);
+    margin: 0.2rem;
+    border-radius: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    border-radius: 10px;
+    display: block;
+}
+
+.header .nav a:hover {
+    background-position: top center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+.mainadmincontent {
+    -ms-flex-preferred-size: 85%;
+    flex-basis: 85%;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    min-height: 100vh;
+    background-color: #0e0e23;
+}
+
+.mainadmin {
+    padding: 0 5em 0 5em;
+}
+
+.mainadmin .activitiestable:first-of-type {
+    background: radial-gradient(circle, #141834 0%, #13162f 100%);
+}
+
+.mainadmin button {
+    color: #f7f8f9;
+}
+
+.mainadmin button:hover {
+    background-color: whitesmoke;
+    color: #000;
+}
+
+
+.admintable th:nth-of-type(2) {
+    box-sizing: border-box;
+}
+
+.admintablelist {
+    font-size: 1.1em;
+}
+
+.editcategory>td {
+    max-width: 3em;
+}
+
+.editcategory input.text-center {
+    text-align: center;
+    border: 2px solid rgb(164, 164, 164);
+    background-color: grey;
+    border-radius: 15px;
+    outline: darkgrey;
+    -webkit-transition: 700ms all;
+    -o-transition: 700ms all;
+    padding: 0.1em;
+}
+
+.adminerror1 {
+    left: 16em;
+    bottom: -9em;
+}
+
+.adminerror1 {
+    position: absolute;
+    width: 12em;
+    height: 8em;
+    font-size: 1em;
+    color: rgb(98, 0, 0);
+    background-color: #ebebeb;
+    text-align: center;
+    display: block;
+    font-weight: 500;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.adminerror1::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -12px;
+    border-width: 12px;
+    border-radius: 2px;
+    border-style: solid;
+    border-color: transparent transparent #c6c6c6 transparent;
+}

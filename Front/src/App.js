@@ -4,14 +4,14 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import MainAdminTable from './components/Main/admin/MainAdminTable';
+import MainAdminTable from './components/Main/Valdyba/MainAdminTable';
 import Home from './components/HomePage/Home';
 import Login from './components/AccountPages/Login';
 import Register from './components/AccountPages/Register';
 import Analize from './components/Main/FinansuAnalize/Analize';
 import MainContainer from './components/Main/Veikla/MainContainer';
 import ErrorPage from './components/ErrorPages/ErrorPage';
-import EventLogPage from './components/Main/admin/EventLogPage';
+import EventLogPage from './components/Main/Valdyba/EventLogPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
