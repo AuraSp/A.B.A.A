@@ -46,7 +46,7 @@ function CategoryTable({ setAll, categoryId, all, setRender, userId }) {
         Swal
             .fire({
                 title: 'Ar tikrai norite pašalinti?',
-                text: 'Šio įrašo informacija bus prarasta negražinamai',
+                text: 'Ši kategorija bus prarasta negražinamai',
                 icon: 'question',
                 showCancelButton: true,
                 cancelButtonText: 'Atšaukti',
@@ -57,7 +57,7 @@ function CategoryTable({ setAll, categoryId, all, setRender, userId }) {
                 if (result.isConfirmed) {
                     Swal
                         .fire({
-                            title: 'Jūsų kategorijų įrašas sėkmingai pašalintas!',
+                            title: 'Jūsų pasirinkta kategorija sėkmingai pašalinta!',
                             icon: 'success',
                             confirmButtonText: 'Puiku!'
                         })
@@ -95,18 +95,17 @@ function CategoryTable({ setAll, categoryId, all, setRender, userId }) {
 
     all.sort(sortByDate);
     return (
-
         <>
-            <table className='table table-borderless mx-auto'>
+            <table className='table admintable table-borderless mx-auto'>
                 <thead className='thead text-center'>
-                    <tr className='text-secondary'>
+                    <tr className='text-light'>
                         <th>Kategorijos pavadinimas</th>
-                        <th className='text-secondary'>
+                        <th className='text-light'>
                             <span>{all.length} {all.length < 10 && all.length > 1 ? 'Kategorijos' : all.length === 1 ? 'Kategorija' : 'Kategorijų'}</span>
                         </th>
                     </tr>
                 </thead>
-                <tbody className='text-center'>
+                <tbody className='text-center text-light'>
                     {all.map((data) => (
                         <React.Fragment key={data._id}>
                             {data.value === "" ? (
@@ -139,7 +138,6 @@ function CategoryTable({ setAll, categoryId, all, setRender, userId }) {
             </table>
         </>
     )
-
 }
 
 export default CategoryTable

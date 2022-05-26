@@ -26,7 +26,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             .string()
             .min(2, 'Galimas minimalus 2-iejų raidžių kiekis')
             .max(30, 'Galimas maksimalus 30-ties raidžių kiekis')
-            .trim('Negalima įtraukti daugelio tarpų iš eilės nepridedant antro žodžio')
+             .trim('Negalima įtraukti daugelio tarpų iš eilės ar priešais primąją raidę')
             .nullable(false)
             .strict()
             .required(),
@@ -67,14 +67,14 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             const postToLogs = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     userId: userId,
                     text: 'add new income',
                 })
             };
             fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
-            await addNewIncome(data, userId).then(()=>{setRender(!render)})            //send data into database(depending on current UserId)
+            await addNewIncome(data, userId).then(() => { setRender(!render) })            //send data into database(depending on current UserId)
             handlepopupClose(false); //close create-pop-up after submit
             reset(''); //reset input values
         } else if (expenses) { // if choosen incomes type button
@@ -88,7 +88,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             const postToLogs = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     userId: userId,
                     text: 'add new expense',
                     value: "Pridėjo",
@@ -96,7 +96,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
             };
             fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
-            await addNewExpense(data, userId).then(()=>{setRender(!render)}); //send data into database(depending on current UserId)
+            await addNewExpense(data, userId).then(() => { setRender(!render) }); //send data into database(depending on current UserId)
 
             handlepopupClose(false); //close create-pop-up after submit
             reset(''); //reset input values
@@ -123,7 +123,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
     };
 
     const getAllCategories = async () => {
-        
+
         fetch('http://localhost:3000/api/v1/categories')
             .then(res => res.json())
             .then((json) => {

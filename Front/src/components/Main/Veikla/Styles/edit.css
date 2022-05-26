@@ -136,7 +136,7 @@ width: 6%;
 .error4 {
     position: absolute;
     width: 12em;
-    height: 7em;
+    height: 8em;
     font-size: 1em;
     color: rgb(98, 0, 0);
     background-color: #ebebeb;
@@ -151,17 +151,17 @@ width: 6%;
 
 .error1 {
     left: 5.5em;
-    bottom: -8em;
+    bottom: -9em;
 }
 
 .error3 {
     left: 2em;
-    bottom: -8em;
+    bottom: -9em;
 }
 
 .error4 {
     left: 5em;
-    bottom: -8em;
+    bottom: -9em;
 }
 
 .error1::before,

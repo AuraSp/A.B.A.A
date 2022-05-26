@@ -59,14 +59,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             .string()
             .min(2, 'Galimas minimalus 2-iejų raidžių kiekis')
             .max(30, 'Galimas maksimalus 30-ties raidžių kiekis')
-            .transform((_, description) => {
-                if (!description) {
-                    return errors.description
-                } else if (description.includes(' ')) {
-                    return description.replace(' ', '')
-                }
-                return description
-            })
+            .trim('Negalima įtraukti daugelio tarpų iš eilės nepridedant antro žodžio')
             .nullable(false)
             .strict()
             .required(),

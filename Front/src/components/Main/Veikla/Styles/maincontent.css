@@ -202,7 +202,7 @@
     box-shadow: 0 0 30px rgb(66, 66, 66);
 }
 
-button.border:hover {
+.main button.border:hover {
     background-color: lightgrey;
     color: #000;
     font-weight: 500;
