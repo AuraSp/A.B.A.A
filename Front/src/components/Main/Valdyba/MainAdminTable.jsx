@@ -1,53 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from "react-icons/io";
-import { MdAccountCircle, MdOutlineDashboardCustomize, MdOutlineAdminPanelSettings } from "react-icons/md";
+import { MdAccountCircle, MdOutlineDashboardCustomize, MdOutlineAdminPanelSettings, MdOutlineCategory } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
+import { BsJournals } from "react-icons/bs";
 import { GiWallet } from "react-icons/gi";
+import { RiAddFill } from "react-icons/ri";
+import { getAllCategories } from '../../../api/lib/CategoriesAPI';
+import CreateCategoryForm from './CreateCategoryForm';
+import CategoryTable from './CategoryTable';
 import { Link, useNavigate } from "react-router-dom";
-import ActivitiesChart from '../Charts/ActivitiesChart';
-import YearsActivitiesChart from '../Charts/YearsActivitiesChart';
-import { getAllUsers } from '../../../api/lib/TransactionsAPI';
+import './Styles/admin.css';
 
-function Analize() {
-  //Pop up
+function MainAdminTable() {
   const [accountpopup, setAccountPopUp] = useState(false);
-  //Data
-  const [loading, setLoading] = useState(true);
-  const [userId, setId] = useState([]);
+  const [all, setAll] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [categoryId, setCategoryId] = useState(false);
   const [render, setRender] = useState(false);
-
+  const [userId, setId] = useState([]);
+  const [user, setUser] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   let navigate = useNavigate();
-
-
   //User account menu popup
   const toggleAccountPopup = () => {
     setAccountPopUp(!accountpopup);
   }
 
-  let text = localStorage.getItem("user");
-  let obj = JSON.parse(text)
-
-  function clearUser() {
-    localStorage.clear();
-    navigate('/');
-
-  }
-
   //---FetchData---//
   useEffect(() => {
-    if (localStorage.user === undefined) {
-      navigate('/');
-    } else {
-      getAllUsers().then((res) => {
-        const userdata = res.data.data.transactions; //Fetch all existing data from database
-        let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
-        setId(...userAllIds.map((data) => data._id)); //Take User Id
-        setLoading(false);
-      });
-    }
 
-  }, [navigate, obj, userId]);
+    getAllCategories().then((res) => {
+      const categorydata = res.data.data.categories;
+      setCategoryId(...categorydata.map((data) => data._id));
+      setCategory(...categorydata.map((data) => data.category));
+    });
+  }, [render, categoryId]);
+
+  useEffect(() => {
+    let tempAll = [...category];
+    setAll(tempAll);
+  }, [category])
+
 
   function vardas() {
     if (localStorage.user !== undefined) {
@@ -56,10 +50,26 @@ function Analize() {
     }
   }
 
+  useEffect(() => {
+    if (localStorage.user !== undefined) {
+      setUser(localStorage.getItem("user").replace(/['"]+/g, ''))
+    }
+  }, []);
+
+  function clearUser() {
+    localStorage.clear();
+    navigate('/');
+
+  }
+
+  const toggleAddPopup = () => {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <div className='container-fluid p-0 m-0'>
       <div className='row d-flex flex-row flex-nowrap p-0 m-0'>
-        <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap'>
+        <div className='sidenav text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap'>
           <p className='mt-3 pt-2 pb-1 text-decoration-none'><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></p>
           <Link to="/analize" className='p-3 mt-5 text-decoration-none text-muted'>
             <span className='text-center text-primary p-1'><MdOutlineDashboardCustomize />
@@ -75,7 +85,7 @@ function Analize() {
             <span>Valdyba</span>
           </Link>
         </div>
-        <div className='maincontent p-0 m-0'>
+        <div className='mainadmincontent p-0 m-0'>
           <div className='header'>
             {/* Visible on medium and small screens */}
 
@@ -114,31 +124,41 @@ function Analize() {
               </div>
             </div>
             <div className='ps-5 py-4'>
-              <h5 className='title m-0 d-block'>Finansų Analizė</h5>
+              <Link to="/admin" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineCategory /></span>Kategorijos</Link>
+              <Link to="/eventLog" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><BsJournals /></span>Žurnalas</Link>
             </div>
           </div>
           <div className='main pt-3'>
             <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
-              <div className='d-flex flex-row position-relative'>
-              <h5 className='w-100 p-0 ms-2 m-0'>Šio mėnesio balansas</h5>
+              <div className='row d-flex flex-row'>
+                <h5 className='w-25 p-0 m-0 me-5 pb-3'>Kategorijų sąrašas</h5>
+                <div className='w-25 ms-5'>
+                  <button
+                    onClick={toggleAddPopup}
+                    className='btn'>
+                    <RiAddFill className='text-center me-3' />
+                    <span>Pridėti kategoriją</span>
+                  </button>
+                </div>
               </div>
-              {!loading &&
-                <ActivitiesChart
-                  userId={userId}
+              {isOpen &&
+                <CreateCategoryForm
+                  handlepopupClose={toggleAddPopup}
+                  setRender={setRender}
+                  userId={user}
                   render={render}
-                />
-              }
-            </div>
-            <div className='row activitiestable border border-1 border-muted mx-auto my-4 p-3 shadow w-100'>
-              <div className='d-flex flex-row position-relative'>
-                <h5 className='w-100 p-0 ms-2 m-0'>Šių metų finansų analizė</h5>
-              </div>
-              {!loading &&
-                <YearsActivitiesChart
-                  userId={userId}
+                  setId={setId}
+                />}
+              <>
+                <CategoryTable
+                  categoryId={categoryId}
+                  setAll={setAll}
+                  all={all}
+                  setRender={setRender}
                   render={render}
+                  userId={user}
                 />
-              }
+              </>
             </div>
           </div>
         </div>
@@ -147,4 +167,4 @@ function Analize() {
   )
 }
 
-export default Analize
+export default MainAdminTable

@@ -413,7 +413,7 @@ exports.getAllUserExpenseOffAllMonth = async (req, res) => {
 
       for (var i = startYear; i <= endYear; i++) {
         var filteredYear = sortedExpenseByDate.filter((item) => new Date(item.date).getFullYear() === i);
-        console.log(filteredYear)
+
         var yearArray = [];
         yearArray.push({ year: i });
         var monthArray = [];
@@ -422,7 +422,7 @@ exports.getAllUserExpenseOffAllMonth = async (req, res) => {
           if (filteredYear.filter((item) => new Date(item.date).getMonth() + 1 === y)) {
             var filteredMonth = filteredYear.filter((item) => new Date(item.date).getMonth() + 1 === y);
             var allExpense = filteredMonth.reduce((n, { amount }) => n + amount, 0);
-            monthArray.push(allExpense);
+            monthArray.push(-allExpense);
           } else {
             monthArray.push(0);
           }
@@ -432,13 +432,13 @@ exports.getAllUserExpenseOffAllMonth = async (req, res) => {
 
         yearArray.map((year) => {
           merged.push({
-            yearInc: year.year,
-            dataInc: monthArray,
+            yearEx: year.year,
+            dataEx: monthArray,
           });
         });
         expenseArray.push(...merged);
       }
-
+      console.log(expenseArray)
       res.status(200).json({
         status: "success",
         results: users.length,

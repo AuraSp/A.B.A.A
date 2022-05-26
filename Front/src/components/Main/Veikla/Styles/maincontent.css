@@ -10,34 +10,53 @@
     z-index: 1;
 }
 
-.sidemenu a:nth-child(2) span:first-of-type,
-.sidemenu a:nth-child(3) span:first-of-type,
-.sidemenu a:last-child span:first-of-type {
+.sidemenu a:first-of-type span:first-of-type,
+.sidemenu a:nth-of-type(2) span:first-of-type,
+.sidemenu a:last-of-type span:first-of-type {
     border-left: 5px solid #ffc107;
     -webkit-transition: 500ms linear;
     -o-transition: 500ms linear;
     transition: 500ms linear;
     cursor: pointer;
     margin-right: 0.9em;
+    position: relative;
 }
 
-.sidemenu a:nth-child(2),
-.sidemenu a:nth-child(3),
-.sidemenu a:last-child {
+.sidemenu a:first-of-type span:first-of-type:after,
+.sidemenu a:nth-of-type(2) span:first-of-type:after,
+.sidemenu a:last-of-type span:first-of-type:after {
+    content: "";
+    border-bottom: 2px solid #dc35469d;
+    bottom: -2px;
+    left: 2.2em;
+    position: absolute;
+    width: 30px;
+    transition: 500ms linear;
+}
+
+.sidemenu a:first-of-type:hover span:first-of-type:after,
+.sidemenu a:nth-of-type(2):hover span:first-of-type:after,
+.sidemenu a:last-of-type:hover span:first-of-type:after {
+    transform: translateX(5em);
+}
+
+.sidemenu a:first-of-type,
+.sidemenu a:nth-of-type(2),
+.sidemenu a:last-of-type {
     -webkit-transition: 500ms all;
     -o-transition: 500ms all;
     transition: 500ms all;
     width: 90%;
 }
 
-.sidemenu a:first-child {
+.sidemenu p {
     color: #c59503d5;
     padding-left: 2em;
 }
 
-.sidemenu a:nth-child(2):hover,
-.sidemenu a:nth-child(3):hover,
-.sidemenu a:last-child:hover {
+.sidemenu a:first-of-type:hover,
+.sidemenu a:nth-of-type(2):hover,
+.sidemenu a:last-of-type:hover {
     border-radius: 15px;
     width: 105%;
     background-color: #cfcfcf;
@@ -78,7 +97,6 @@
 }
 
 .account {
-    cursor: pointer;
     position: relative;
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;
@@ -91,13 +109,17 @@
     transition: 500ms all;
 }
 
+.user {
+    cursor: pointer;
+}
+
 .acc-content {
     background-color: whitesmoke;
     position: absolute;
     top: 3.5em;
     right: 2.5em;
     min-width: 7em;
-    min-height: 5em;
+    min-height: 3em;
     padding: 0.5em;
 }
 
@@ -110,18 +132,23 @@
     0% {
         opacity: 0;
     }
+
     20% {
         opacity: 0.2;
     }
+
     40% {
         opacity: 0.4;
     }
+
     60% {
         opacity: 0.6;
     }
+
     80% {
         opacity: 0.8;
     }
+
     100% {
         opacity: 1;
     }
@@ -175,6 +202,12 @@
     box-shadow: 0 0 30px rgb(66, 66, 66);
 }
 
+button.border:hover {
+    background-color: lightgrey;
+    color: #000;
+    font-weight: 500;
+}
+
 .main .add:hover {
     background-color: rgb(50, 60, 112);
     -webkit-box-shadow: 0 0 30px rgb(50, 60, 112);
@@ -188,7 +221,7 @@
 }
 
 .main .activitiestable:first-of-type {
-    background-color: rgba(167, 167, 167, 0.192);
+    background-color: rgba(207, 207, 207, 0.39);
 }
 
 .activitiestable {
@@ -234,11 +267,11 @@
 
 @media screen and (min-width:992px) and (max-width: 1370px) {
 
-    .sidemenu a:first-child {
+    .sidemenu p {
         padding: 0;
     }
 
-    .sidemenu a:first-child span {
+    .sidemenu p span {
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;
         display: inline-flex;
@@ -248,8 +281,9 @@
         width: 100%;
     }
 
-    .sidemenu a:nth-child(2):hover,
-    .sidemenu a:last-child:hover {
+    .sidemenu a:first-of-type:hover,
+    .sidemenu a:nth-of-type(2):hover,
+    .sidemenu a:last-of-type:hover {
         width: 100%;
         background-color: none;
         -webkit-transform: none;
@@ -259,15 +293,17 @@
         background-color: transparent;
     }
 
-    .sidemenu a:nth-child(2),
-    .sidemenu a:last-child {
+    .sidemenu a:first-of-type,
+    .sidemenu a:nth-of-type(2),
+    .sidemenu a:last-of-type {
         width: 100%;
         padding: 0;
         margin: 0;
     }
 
-    .sidemenu a:nth-child(2) span:first-of-type,
-    .sidemenu a:last-child span:first-of-type {
+    .sidemenu a:first-of-type span:first-of-type,
+    .sidemenu a:nth-of-type(2) span:first-of-type,
+    .sidemenu a:last-of-type span:first-of-type {
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;
         display: inline-flex;
@@ -275,12 +311,12 @@
         -ms-flex-pack: center;
         justify-content: center;
         width: 100%;
-        border: none;
         margin: 0;
     }
 
-    .sidemenu a:nth-child(2)>span:nth-child(2),
-    .sidemenu a:last-child>span:nth-child(2) {
+    .sidemenu a:first-of-type>span:nth-child(2),
+    .sidemenu a:nth-of-type(2)>span:nth-child(2),
+    .sidemenu a:last-of-type>span:nth-child(2) {
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;
         display: inline-flex;

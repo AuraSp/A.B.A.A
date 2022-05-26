@@ -14,11 +14,13 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
     const [amount, setAmount] = useState(defaultData.amount);
 
     const [editpopup, setEditPopUp] = useState(false);
+    const [load, setLoad] = useState(true)
+    let [categories, setDataCategories] = useState([]);
 
     const toggleEditPopUp = () => {
         setEditPopUp(!editpopup)
     }
-    
+
     const editFlows = () => {
         let dataSet = {
             description: description,
@@ -30,7 +32,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
         const postToLogs = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 userId: id,
                 text: 'edited entry',
                 value: "Atnaujino",
@@ -39,19 +41,18 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
         fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
     }
 
-    let [categories, setCategories] = useState([]);
-
     const getAllCategories = async () => {
-        fetch('http://localhost:3000/api/v1/categories')
-        .then(res => res.json())
-        .then((json) => {
-            setCategories(json.data.categories);
-        })
-    }
 
-    useEffect( ()=>{
+        fetch('http://localhost:3000/api/v1/categories')
+            .then(res => res.json())
+            .then((json) => {
+                setDataCategories(json.data.categories[0].category);
+                setLoad(false)
+            })
+    }
+    useEffect(() => {
         getAllCategories();
-      }, [])
+    }, [])
 
     const budgetSchema = yup.object().shape({
         description: yup
@@ -114,16 +115,17 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
                         <p className='error1 p-1 pt-4'>{errors.description?.message}</p>}
                 </td>
                 <td>
-                    <select
+                    {!load && <select
                         {...register('category')}
                         className='text-center'
                         onChange={(e) => setCategory(e.target.value)}
                     >
                         <option value={defaultData.category}>{defaultData.category}</option>
                         {categories.map(item => {
-                            return (<option key={item.value} value={item.value}>{item.text}</option>);
+                            return (<option key={item._id} value={item.value}>{item.value}</option>)
                         })}
                     </select>
+                    }
                     {errors.category &&
                         <p className='error2 p-1 pt-4'>{errors.category?.message}</p>}
                 </td>

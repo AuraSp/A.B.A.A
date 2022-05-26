@@ -1,0 +1,19 @@
+.sidenav {
+    min-height: 100vh;
+    -ms-flex-preferred-size: 15%;
+    flex-basis: 15%;
+    background-color: #262626;
+    padding-left: 0;
+    padding-right: 0;
+    z-index: 1;
+}
+
+.mainadmincontent {
+    -ms-flex-preferred-size: 85%;
+    flex-basis: 85%;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    min-height: 100vh;
+    background-color: #222222;
+}

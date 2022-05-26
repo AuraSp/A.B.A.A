@@ -203,7 +203,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit' id="btn" disabled={!description || !amount || !category}>Sukūrti
+                                type='submit' id="btn" disabled={!description || !amount || !category}>Sukurti
                             </button>
                         </div>
                         <div className='me-4'>

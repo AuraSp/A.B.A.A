@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import Card from './Card';
 import EditForm from './EditForm';
 import { getAllUsers, deleteIncomeTransactions, deleteExpenseTransactions, findIncomesAndUpdate, findExpensesAndUpdate } from '../../../api/lib/TransactionsAPI';
+import ReactPaginate from "react-paginate";
 
 import './Styles/table.css';
 
 function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory, firstDate, lastDate }) {
 
-console.log(all)
+    const [page, setPage] = useState(0);
+    const dataPerPage = 5;
+    const numberOfDataVistited = page * dataPerPage;
+    const totalPages = Math.ceil(all.length / dataPerPage);
+    const changePage = ({ selected }) => {
+        setPage(selected);
+    };
+
+
     const handleDelete = (e, data, subId) => {
         e.preventDefault();
         console.log(data.type) //Check type
@@ -30,16 +39,16 @@ console.log(all)
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
-                            const postToLogs = {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ 
-                                    userId: userId,
-                                    text: 'entry deleted',
-                                    value: "Ištrynė"
-                                })
-                            };
-                            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
+                        const postToLogs = {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                userId: userId,
+                                text: 'entry deleted',
+                                value: "Ištrynė"
+                            })
+                        };
+                        fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
 
                         deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database;
@@ -68,16 +77,16 @@ console.log(all)
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
-                            const postToLogs = {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ 
-                                    userId: userId,
-                                    text: 'entry deleted',
-                                    value: "Ištrynė"
-                                })
-                            };
-                            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
+                        const postToLogs = {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                userId: userId,
+                                text: 'entry deleted',
+                                value: "Ištrynė"
+                            })
+                        };
+                        fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
                         deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
                         setAll(all.filter((data) => data._id !== subId))
@@ -161,78 +170,95 @@ console.log(all)
                     </thead >
                     <tbody className='text-center'>
                         {!loading ?
-                            all.map((filterData) => (
-                                <React.Fragment key={filterData._id}>
+                            all.slice(
+                                numberOfDataVistited,
+                                numberOfDataVistited + dataPerPage
+                            )
+                                .map((filterData) => (
+                                    <React.Fragment key={filterData._id}>
 
-                                    {editId === filterData._id ? (
-                                        <EditForm
-                                            subId={filterData._id}
-                                            id={userId}
-                                            defaultData={filterData}
-                                            onCancel={cancelEdit}
-                                            onSubmit={submitEdit}
-                                        />
+                                        {editId === filterData._id ? (
+                                            <EditForm
+                                                subId={filterData._id}
+                                                id={userId}
+                                                defaultData={filterData}
+                                                onCancel={cancelEdit}
+                                                onSubmit={submitEdit}
+                                            />
 
-                                    ) : (!lastDate && firstDate ? (
-                                        <Card
-                                            subId={filterData._id}
-                                            data={filterData}
-                                            onEdit={handleEdit}
-                                            onDelete={handleDelete}
-                                        />
-                                    ) : !firstDate && filterCategory ? (
-
-                                        filterData.category === filterCategory && filterData.type === "expense" ? (
+                                        ) : (!lastDate && firstDate ? (
                                             <Card
                                                 subId={filterData._id}
                                                 data={filterData}
                                                 onEdit={handleEdit}
                                                 onDelete={handleDelete}
                                             />
-                                        ) : (
-                                            <></>
-                                        )
-                                    ) : firstDate && !filterCategory ? (
+                                        ) : !firstDate && filterCategory ? (
 
-                                        filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
+                                            filterData.category === filterCategory && filterData.type === "expense" ? (
+                                                <Card
+                                                    subId={filterData._id}
+                                                    data={filterData}
+                                                    onEdit={handleEdit}
+                                                    onDelete={handleDelete}
+                                                />
+                                            ) : (
+                                                <></>
+                                            )
+                                        ) : firstDate && !filterCategory ? (
+
+                                            filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
+                                                <Card
+                                                    subId={filterData._id}
+                                                    data={filterData}
+                                                    onEdit={handleEdit}
+                                                    onDelete={handleDelete}
+                                                />
+                                            ) : (
+                                                <p></p>
+                                            )
+                                        ) : firstDate && filterCategory ? (
+
+                                            filterData.category === filterCategory && filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
+                                                <Card
+                                                    subId={filterData._id}
+                                                    data={filterData}
+                                                    onEdit={handleEdit}
+                                                    onDelete={handleDelete}
+                                                />
+                                            ) : (
+                                                <p></p>
+                                            )
+                                        ) : (
                                             <Card
                                                 subId={filterData._id}
                                                 data={filterData}
                                                 onEdit={handleEdit}
                                                 onDelete={handleDelete}
                                             />
-                                        ) : (
-                                            <></>
                                         )
-                                    ) : firstDate && filterCategory ? (
-
-                                        filterData.category === filterCategory && filterData.date >= firstDate && filterData.date <= lastDate && filterData.type === "expense" ? (
-                                            <Card
-                                                subId={filterData._id}
-                                                data={filterData}
-                                                onEdit={handleEdit}
-                                                onDelete={handleDelete}
-                                            />
-                                        ) : (
-                                            <></>
                                         )
-                                    ) : (
-                                        <Card
-                                            subId={filterData._id}
-                                            data={filterData}
-                                            onEdit={handleEdit}
-                                            onDelete={handleDelete}
-                                        />
-                                    )
-                                    )
-                                    }
+                                        }
 
-                                </React.Fragment>
-                            ))
+                                    </React.Fragment>
+                                ))
                             : <tr><td className='loader'>Laukiama...</td></tr>
                         }
                     </tbody>
-                </table >
+                </table>
+                {!loading &&
+                    <div className='h-100 m-0 mb-4'>
+                        <ReactPaginate
+                            previousLabel={"Atgal"}
+                            nextLabel={"Pirmyn"}
+                            pageCount={totalPages}
+                            onPageChange={changePage}
+                            containerClassName={"navigationButtons"}
+                            disabledClassName={"navigationDisabled"}
+                            activeClassName={"navigationActive"}
+                        />
+                    </div>
+                }
             </>
         )
         }

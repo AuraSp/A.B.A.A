@@ -40,7 +40,7 @@ const ActivitiesChart = ({ userId, render }) => {
                 left: 0,
                 blur: 3,
                 opacity: 1
-            },
+            }
         },
         labels: ['Likutis', 'Pajamos', 'Išlaidos'],
         legend: {
@@ -50,7 +50,6 @@ const ActivitiesChart = ({ userId, render }) => {
         stroke: {
             show: false
         },
-
         dataLabels: {
             enabled: false,
             offsetY: -5
@@ -72,7 +71,6 @@ const ActivitiesChart = ({ userId, render }) => {
                 startAngle: -90,
                 endAngle: 90,
                 donut: {
-
                     size: '75%',
                     labels: {
                         show: true,
@@ -83,9 +81,9 @@ const ActivitiesChart = ({ userId, render }) => {
                         value: {
                             show: true,
                             offsetY: -25
-                        },
+                        }
                     }
-                },
+                }
             }
         },
         grid: {
@@ -94,7 +92,7 @@ const ActivitiesChart = ({ userId, render }) => {
             }
         },
         noData: {
-            text: 'Loading...'
+            text: 'Trūksta duomenų...'
         }
     }
 
