@@ -70,6 +70,8 @@ transition: 500ms linear;
     }
 }
 
+
+
 @media screen and (min-width:1370px) and (max-width: 1717px) {
 
     .balancesummary div:first-child,
