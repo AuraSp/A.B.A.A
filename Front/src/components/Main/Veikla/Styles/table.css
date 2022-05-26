@@ -1,5 +1,7 @@
+
 table {
-    animation: appear 1.2s linear;
+    -webkit-animation: appear 1.2s linear;
+            animation: appear 1.2s linear;
 }
 
 table th:first-of-type {
@@ -73,9 +75,15 @@ div.justify-content-end:nth-child(1)>div:nth-child(2) {
 
 .navigationButtons {
     list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: baseline;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: baseline;
+        -ms-flex-align: baseline;
+            align-items: baseline;
     color: #000;
     margin: 0;
     padding: 0;
@@ -92,13 +100,17 @@ div.justify-content-end:nth-child(1)>div:nth-child(2) {
     text-decoration: none;
     cursor: pointer;
     -webkit-user-select: none;
-    user-select: none;
+    -moz-user-select: none;
+     -ms-user-select: none;
+         user-select: none;
     border: 2px solid #ffc1078e;
     background-color: #dddddd;
     padding: .360rem .85rem;
     margin: 0 0.3em;
     font-size: 0.8rem;
     border-radius: .35rem;
+    -webkit-transition: 700ms linear;
+    -o-transition: 700ms linear;
     transition: 700ms linear;
 }
 

@@ -1,5 +1,4 @@
 
-
 .balancesummary div:first-child>span:first-child>svg,
 .balancesummary div:nth-child(2)>span:first-child>svg,
 .balancesummary div:last-child>span:first-child>svg {
@@ -7,14 +6,10 @@
     height: 2em;
     border-radius: 50%;
     font-size: 1.6em;
-    animation: appear 1.5s linear;
+    -webkit-animation: appear 1.5s linear;
+            animation: appear 1.5s linear;
 }
 
-/* .balancesummary div:first-child,
-.balancesummary div:nth-child(2),
-.balancesummary div:last-child {
-    width: 50%;
-} */
 .balancesummary div:first-child,
 .balancesummary div:nth-child(2),
 .balancesummary div:last-child {
@@ -30,7 +25,8 @@
 .balancesummary>div:nth-child(3)>span:nth-child(1)>span:nth-child(2) {
     font-size: 1.2em;
     color: rgb(77, 77, 77);
-    animation: appear 1.2s linear;
+    -webkit-animation: appear 1.2s linear;
+            animation: appear 1.2s linear;
 }
 
 .balancesummary>div:nth-child(1)>span:nth-child(1)>svg:nth-child(1),

@@ -92,7 +92,16 @@ const ActivitiesChart = ({ userId, render }) => {
             }
         },
         noData: {
-            text: 'Trūksta duomenų...'
+            text: 'Laukiu duomenų!...',
+            align: 'center',
+            verticalAlign: 'middle',
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+                color: '#000',
+                fontSize: '18px',
+                fontFamily: 'Verdana'
+            }
         }
     }
 
