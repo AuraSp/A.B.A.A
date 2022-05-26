@@ -23,7 +23,7 @@ const ActivitiesChart = ({ userId, render }) => {
         setLoading(false)
     }, [render, expenseThisMonth, incomeThisMonth, totalNum, userId])
 
-    let series = [totalNum, incomeThisMonth, expenseThisMonth]
+    let series = [Math.trunc(totalNum), incomeThisMonth, expenseThisMonth]
     const options = {
         chart: {
             type: 'donut',

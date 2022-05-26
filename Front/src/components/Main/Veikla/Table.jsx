@@ -7,7 +7,7 @@ import ReactPaginate from "react-paginate";
 
 import './Styles/table.css';
 
-function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory, firstDate, lastDate }) {
+function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory, firstDate, lastDate, amount }) {
 
     const [page, setPage] = useState(0);
     const dataPerPage = 5;
@@ -39,16 +39,17 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
-                        const postToLogs = {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                userId: userId,
-                                text: 'entry deleted',
-                                value: "Ištrynė"
-                            })
-                        };
-                        fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
+                            const postToLogs = {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ 
+                                    userId: userId,
+                                    text: 'Ištrynė įrašą',
+                                    amount: amount,
+                                    value: "Ištrynė"
+                                })
+                            };
+                            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
 
                         deleteIncomeTransactions(userId, subId) //Delete choosen transaction type form database;
@@ -77,16 +78,17 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
-                        const postToLogs = {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                userId: userId,
-                                text: 'entry deleted',
-                                value: "Ištrynė"
-                            })
-                        };
-                        fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
+                            const postToLogs = {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ 
+                                    userId: userId,
+                                    text: 'Ištrynė įrašą',
+                                    amount: amount,
+                                    value: "Ištrynė"
+                                })
+                            };
+                            fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
 
                         deleteExpenseTransactions(userId, subId) //Delete choosen transaction type form database
                         setAll(all.filter((data) => data._id !== subId))
@@ -255,7 +257,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                             onPageChange={changePage}
                             containerClassName={"navigationButtons"}
                             disabledClassName={"navigationDisabled"}
-                            activeClassName={"navigationActive"}
+                            activeClassName={"bg-warning fw-bold"}
                         />
                     </div>
                 }

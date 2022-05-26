@@ -1,5 +1,5 @@
 import axiosClient from '../apiTransactions';
-import axiosUser from '../apiTransactions'
+import axiosUser from '../apiTransactions';
 import axios from "axios"
 
 //User

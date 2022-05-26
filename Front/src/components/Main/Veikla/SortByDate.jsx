@@ -11,7 +11,7 @@ export default function SortByDate({ setFirstDate, setLastDate }) {
             <div className='d-flex flex-column'>
                 <label className='text-center'><h6>Pagal datos pradžią</h6></label>
                 <input id="date-start"
-                    className='btn border-1 border-secondary p-2'
+                    className='btn border-1 border-secondary p-1'
                     type='date'
                     min='1990-01-01'
                     max='2030-01-01'
@@ -22,7 +22,7 @@ export default function SortByDate({ setFirstDate, setLastDate }) {
             <div className='d-flex flex-column ms-5'>
                 <label className='text-center'><h6>Pagal datos pabaigą</h6></label>
                 <input id="date-stop"
-                    className='btn border-1 border-secondary p-2'
+                    className='btn border-1 border-secondary p-1'
                     type='date'
                     defaultValue={today}
                     min='1990-01-01'

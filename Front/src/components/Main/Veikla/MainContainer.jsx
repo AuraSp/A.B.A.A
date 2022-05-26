@@ -150,7 +150,7 @@ function MainContainer() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userId: userId,
-                text: 'download',
+                text: 'Atsiunte',
                 value: "Atsiunte",
             })
         };
@@ -232,7 +232,7 @@ function MainContainer() {
                                                 onClick={toggleFilterPopup}
                                                 className='btn bg-transparent border-0'>
                                                 <IoFilterOutline className='text-center me-3' />
-                                                <span>Filtruoti</span>
+                                                <span >Filtruoti</span>
                                             </button>
                                         </div>
                                         <div>
@@ -289,24 +289,24 @@ function MainContainer() {
                         </div>
                         {filterpopup &&
                             <>
-                                <div className='row activitiestable border-muted  mx-auto my-4 p-3 shadow d-flex flex-row'>
+                                <div className='row activitiestable border-muted mx-auto my-4 pb-5 p-3 shadow d-flex flex-row'>
                                     <h5 className='w-100 p-0 m-0 ms-2 pb-4'>Filtruoti išlaidas</h5>
-                                    <div className='row d-flex flex-row flex-nowrap'>
-                                        <div className='col-6 ms-5'>
+                                    <div className='row d-flex flex-row flex-nowrap align-items-center'>
+                                        <div className='col-4 ms-2'>
                                             <SortCategory
                                                 setCategory={setCategory}
                                             />
                                         </div>
-                                        <div className='col-6 d-flex flex-row align-items-center justify-content-center'>
+                                        <div className='col-4 d-flex flex-row align-items-center justify-content-center'>
                                             <SortByDate
                                                 setFirstDate={setFirstDate}
                                                 setLastDate={setLastDate}
                                             />
                                         </div>
-                                    </div>
-                                    <div className='text-center'>
-                                        <button className='btn border border-2 p-2 me-2' onClick={toggleClearFilter}>Išvalyti</button>
-                                        <button className='btn border border-2 p-2' onClick={toggleFilterPopup}>Išeiti</button>
+                                        <div className='col-4 d-flex flex-row justify-content-center'>
+                                            <button className='btn border border-2 border-dark me-2 h-55' onClick={toggleClearFilter}>Išvalyti</button>
+                                            <button className='btn border border-2 border-dark ms-4 h-55' onClick={toggleFilterPopup}>Išeiti</button>
+                                        </div>
                                     </div>
                                 </div>
                             </>

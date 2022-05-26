@@ -34,7 +34,8 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userId: id,
-                text: 'edited entry',
+                text: 'Atnaujino įrašą',
+                amount: amount,
                 value: "Atnaujino",
             })
         };

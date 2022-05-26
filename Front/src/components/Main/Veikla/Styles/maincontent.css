@@ -202,12 +202,6 @@
     box-shadow: 0 0 30px rgb(66, 66, 66);
 }
 
-.main button.border:hover {
-    background-color: lightgrey;
-    color: #000;
-    font-weight: 500;
-}
-
 .main .add:hover {
     background-color: rgb(50, 60, 112);
     -webkit-box-shadow: 0 0 30px rgb(50, 60, 112);
@@ -228,6 +222,15 @@
     height: 100%;
     border-radius: 20px;
     font-size: 0.8em;
+}
+
+div.col-4:nth-child(3) {
+    height: 100%;
+    align-items: end;
+}
+
+div.col-4:nth-child(3) button{
+    height: 50%;
 }
 
 .utilities {

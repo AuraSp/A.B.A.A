@@ -64,17 +64,8 @@ function YearsActivitiesChart({ userId, render }) {
             type: 'date',
             categories:
                 category
-
         },
-        colors: [
-            function ({ value }) {
-                if (value < 0) {
-                    return '#dc3545'
-                } else {
-                    return '#0d6efd'
-                }
-            }
-        ],
+        colors: ['#0d6efd', '#dc3545'],
         legend: {
             offsetY: 10
         },

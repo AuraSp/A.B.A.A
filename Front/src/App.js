@@ -8,7 +8,7 @@ import MainAdminTable from './components/Main/Valdyba/MainAdminTable';
 import Home from './components/HomePage/Home';
 import Login from './components/AccountPages/Login';
 import Register from './components/AccountPages/Register';
-import Analize from './components/Main/FinansuAnalize/MainContainer';
+import Analize from './components/Main/FinansuAnalize/Analize';
 import MainContainer from './components/Main/Veikla/MainContainer';
 import ErrorPage from './components/ErrorPages/ErrorPage';
 import EventLogPage from './components/Main/Valdyba/EventLogPage';

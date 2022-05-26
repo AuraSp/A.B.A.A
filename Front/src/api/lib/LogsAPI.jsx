@@ -8,4 +8,4 @@ export async function getAllLogs() {
 
 
 
-export const addNewLog = (data) => axiosLog.patch(`/addNewLog/`, JSON.stringify(data));
+export const addNewLog = (data) => axiosLog.patch(`/addNewLog/`,JSON.stringify(data));

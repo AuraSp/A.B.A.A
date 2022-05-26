@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import ListLog from './ListLog';
 import ReactPaginate from "react-paginate";
-// import { updateLogs } from '../../../api/lib/LogsAPI';
 
-function EventLogTable({ setAll, all, load, setRender, setCatFilter }) {
+function EventLogTable({ all, data, user, load, setCatFilter, setUserFilterState }) {
 
     const [page, setPage] = useState(0);
     const dataPerPage = 10;
@@ -23,11 +22,20 @@ function EventLogTable({ setAll, all, load, setRender, setCatFilter }) {
         }
         return 0;
     }
-
     all.sort(sortByDate);
+
     return (
         <>
-            <div className='w-25 d-flex flex-flow align-items-center'>
+            <div className='w-100 d-flex flex-flow justify-content-center align-items-center pb-5'>
+                {!load && <select
+                    defaultValue=''
+                    onChange={(e) => setUserFilterState(e.target.value)}
+                    className='btn border-1 border-secondary text-light historyPageSelectOption me-5'>
+                    <option value={""}>--Rodyti visus vartotojus--</option>
+                    {user.map((data) => {
+                        return <option key={data._id} value={data._id}>{data.username}</option>
+                    })}
+                </select>}
                 <select defaultValue={""} onChange={(e) => { setCatFilter(e.target.value) }} className='btn border-1 border-secondary text-light historyPageSelectOption'>
                     <option value={""}>Rodyti visus veiksmus</option>
                     <option value={"Pridėjo"}>Rodyti tik pridėjimus</option>
@@ -35,31 +43,38 @@ function EventLogTable({ setAll, all, load, setRender, setCatFilter }) {
                     <option value={"Atnaujino"}>Rodyti tik atnaujinimus</option>
                     <option value={"Atsiunte"}>Rodyti tik atsisiuntimus</option>
                 </select>
-                <input type="select" className='p-1 ms-4' />
             </div>
+
             <table className='table table-borderless mx-auto adminlogtable'>
                 <thead className='thead text-center text-light'>
                     <tr>
-                        <th>Vartotojo ID</th>
-                        <th>Atliktas veiksmas</th>
-                        <th>Atlikto veiksmo data</th>
+                        <th>vartotojo ID</th>
+                        <th>Slapyvardis</th>
+                        <th>El paštas</th>
+                        <th>Rolė</th>
+                        <th>Veiksmas</th>
+                        <th>Suma</th>
+                        <th>Data</th>
                     </tr>
                 </thead>
                 <tbody className='text-center text-light'>
-                    {all.slice(
-                        numberOfDataVistited,
+                    {data.slice(numberOfDataVistited,
                         numberOfDataVistited + dataPerPage
                     ).map((data) => (
-                        <ListLog
-                            userId={data.userId}
-                            text={data.text}
-                            createdAt={data.createdAt}
-                        />
+                        <React.Fragment key={data._id}>
+
+                            <ListLog
+                                key={data._id}
+                                createdAt={data.createdAt}
+                                datas={data}
+                                user={user}
+                            />
+                        </React.Fragment>
                     ))}
                 </tbody>
             </table>
             {!load &&
-                <div className='m-0 mb-4'>
+                <div className='m-0 mb-3 mt-4'>
                     <ReactPaginate
                         previousLabel={"Atgal"}
                         nextLabel={"Pirmyn"}
@@ -67,12 +82,11 @@ function EventLogTable({ setAll, all, load, setRender, setCatFilter }) {
                         onPageChange={changePage}
                         containerClassName={"navigationButtons"}
                         disabledClassName={"navigationDisabled"}
-                        activeClassName={"navigationActive"}
+                        activeClassName={"bg-warning fw-bold"}
                     />
                 </div>
             }
         </>
-    )
+    );
 }
-
 export default EventLogTable

@@ -55,7 +55,7 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
     });
 
     //Duomenų siuntimas į duombazę
-    const onSubmit = async (data) => {
+    const onSubmit = async (data, username) => {
         if (incomes) { // if choosen incomes type button
 
             Swal.fire({
@@ -69,7 +69,9 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     userId: userId,
-                    text: 'add new income',
+                    text: 'Pridėjo pajamų įrašą',
+                    amount: amount,
+                    value: "Pridėjo",
                 })
             };
             fetch('http://localhost:3000/api/v1/logs/addNewLog', postToLogs)
@@ -90,7 +92,8 @@ function CreateForm({ handlepopupClose, userId, render, setRender }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     userId: userId,
-                    text: 'add new expense',
+                    text: 'Pridėjo išlaidų įrašą',
+                    amount: amount,
                     value: "Pridėjo",
                 })
             };

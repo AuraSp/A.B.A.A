@@ -9,7 +9,8 @@ const logSchema = mongoose.Schema(
   {
     userId: { type: String, },
     text: { type: String, },
-    value: {type: String, },
+    amount: { type: Number, },
+    value: {type: String, }
   },
   { timestamps: true }
 );

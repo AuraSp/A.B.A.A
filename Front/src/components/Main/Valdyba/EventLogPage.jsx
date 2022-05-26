@@ -7,16 +7,19 @@ import { GiWallet } from "react-icons/gi";
 import { getAllLogs } from '../../../api/lib/LogsAPI';
 import { Link, useNavigate } from "react-router-dom";
 import EventLogTable from './EventLogTable'
+import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 
-function MainAdminTable() {
+function EventLogPage() {
   const [accountpopup, setAccountPopUp] = useState(false);
   const [all, setAll] = useState([]);
   const [logs, setLogs] = useState([]);
   const [render, setRender] = useState(false);
-  const [userId, setId] = useState([]);
   const [load, setLoad] = useState(true)
-  const [catFilter, setCatFilter] = useState([]);
-  const [userFilter, setUserFilter] = useState([]);
+  const [user, setuser] = useState([]);
+  const [username, setUsername] = useState([]);
+  const [data, setdata] = useState([]);
+  const [catFilterState, setCatFilterState] = useState("");
+  const [userFilterState, setUserFilterState] = useState("");
 
   let navigate = useNavigate();
   //User account menu popup
@@ -29,7 +32,13 @@ function MainAdminTable() {
     getAllLogs().then((res) => {
       const logdata = res.data.data.logs;
       setAll(logdata);
+      setLogs(logdata);
       setLoad(false);
+    });
+    getAllUsers().then((res) => {
+      const userdata = res.data.data.transactions;//Fetch all existing data from database
+      setuser(userdata);
+      setUsername(userdata)
     });
   }, [render]);
 
@@ -47,42 +56,49 @@ function MainAdminTable() {
 
   }
 
-  function filterLogs(filter, user) {
+  useEffect(() => {
+    let temp = []
+    temp.push(...all)
+    setdata(temp)
+  }, [all, username])
+
+
+  function filterLogs() {
     let tempLogs = [];
     let catFilter = false;
     let userFilter = false;
-    if (filter) {
+    if (catFilterState) {
       catFilter = true;
     }
-    if (user) {
+    if (userFilterState) {
       userFilter = true;
     }
     logs.forEach((log) => {
       if (catFilter && userFilter) {
-        if (log.ActionType.includes(filter) && log.UserId === user) {
+        if (log.text.includes(catFilterState) && log.userId === userFilterState) {
           tempLogs.push(log);
         }
       } else if (catFilter && !userFilter) {
-        if (log.ActionType.includes(filter)) {
+        if (log.text.includes(catFilterState)) {
           tempLogs.push(log);
         }
       } else if (!catFilter && userFilter) {
-        if (log.UserId === user) {
+        if (log.userId === userFilterState) {
           tempLogs.push(log);
+
         }
       }
     });
     if (!catFilter && !userFilter) {
-      setLogs(logs);
+      setAll(logs);
     } else {
-      setLogs(tempLogs);
+      setAll(tempLogs);
     }
   }
 
   useEffect(() => {
-    filterLogs(catFilter, userFilter);
-  }, [catFilter, userFilter]);
-
+    filterLogs();
+  }, [catFilterState, userFilterState]);
 
   return (
     <div className='container-fluid p-0 m-0'>
@@ -146,18 +162,23 @@ function MainAdminTable() {
               <Link to="/eventLog" className='p-2 text-decoration-none text-light'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><BsJournals /></span>Žurnalas</Link>
             </div>
           </div>
-          <div className='mainadmin pt-5 text-light'>
-            <div className='row activitiestable mx-auto p-3 w-100'>
-              <div className='row d-flex flex-row pb-3'>
-                <h5 className='w-25 p-0 m-0 pb-3 pt-2'>Veiksmų žurnalas</h5>
-                  {!load &&
-                    <EventLogTable
-                      setAll={setAll}
-                      all={all}
-                      setRender={setRender}
-                      load={load}
-                      setCatFilter={setCatFilter}
-                    />}
+          <div>
+            <div className='mainadmin pt-5 text-light'>
+              <div className='row activitiestable mx-auto p-3 w-100'>
+                <div className='row d-flex flex-row pb-3'>
+                  <h5 className='w-25 p-0 m-0 pb-3 pt-1'>Veiksmų žurnalas</h5>
+                </div>
+                {!load &&
+                  <EventLogTable
+                    setAll={setAll}
+                    all={all}
+                    data={data}
+                    setRender={setRender}
+                    load={load}
+                    setCatFilter={setCatFilterState}
+                    setUserFilterState={setUserFilterState}
+                    user={user}
+                  />}
               </div>
             </div>
           </div>
@@ -167,4 +188,4 @@ function MainAdminTable() {
   )
 }
 
-export default MainAdminTable
+export default EventLogPage
