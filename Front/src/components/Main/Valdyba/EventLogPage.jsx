@@ -7,16 +7,19 @@ import { GiWallet } from "react-icons/gi";
 import { getAllLogs } from '../../../api/lib/LogsAPI';
 import { Link, useNavigate } from "react-router-dom";
 import EventLogTable from './EventLogTable'
+import { getAllUsers } from '../../../api/lib/TransactionsAPI';
 
-function MainAdminTable() {
+function EventLogPage() {
   const [accountpopup, setAccountPopUp] = useState(false);
   const [all, setAll] = useState([]);
   const [logs, setLogs] = useState([]);
   const [render, setRender] = useState(false);
-  const [userId, setId] = useState([]);
   const [load, setLoad] = useState(true)
-  const [catFilter, setCatFilter] = useState([]);
-  const [userFilter, setUserFilter] = useState([]);
+  const [user, setuser] = useState([]);
+  const [username, setUsername] = useState([]);
+  const [data, setdata] = useState([]);
+  const [catFilterState, setCatFilterState] = useState("");
+  const [userFilterState, setUserFilterState] = useState("");
 
   let navigate = useNavigate();
   //User account menu popup
@@ -29,60 +32,76 @@ function MainAdminTable() {
     getAllLogs().then((res) => {
       const logdata = res.data.data.logs;
       setAll(logdata);
+      setLogs(logdata);
       setLoad(false);
     });
   }, [render]);
+ 
 
-
-  function vardas() {
-    if (localStorage.user !== undefined) {
-      let getVardas = localStorage.getItem("name")
-      return getVardas.replace(/['"]+/g, '')
+  function vardas(){
+        if(localStorage.user !== undefined){
+            let getVardas = localStorage.getItem("name")
+            return getVardas.replace(/['"]+/g, '')
+        }
     }
+
+    function clearUser() {
+      localStorage.clear();
+      navigate('/');
+
   }
+  useEffect(() => {
+    getAllUsers().then((res) => {
+      const userdata = res.data.data.transactions;//Fetch all existing data from database
+      setuser(userdata);
+      setUsername(userdata)
+    });
+  }, [render]);
 
-  function clearUser() {
-    localStorage.clear();
-    navigate('/');
+  useEffect(() => {
+    let temp = []
+    temp.push(...all)
+setdata(temp)
+  }, [all, username])
+  
 
-  }
-
-  function filterLogs(filter, user) {
+  function filterLogs(){
     let tempLogs = [];
     let catFilter = false;
     let userFilter = false;
-    if (filter) {
+    if (catFilterState){
       catFilter = true;
     }
-    if (user) {
+    if(userFilterState){
       userFilter = true;
     }
-    logs.forEach((log) => {
-      if (catFilter && userFilter) {
-        if (log.ActionType.includes(filter) && log.UserId === user) {
+    logs.forEach((log)=>{
+      if (catFilter && userFilter){
+        if (log.text.includes(catFilterState) && log.userId === userFilterState){
           tempLogs.push(log);
         }
-      } else if (catFilter && !userFilter) {
-        if (log.ActionType.includes(filter)) {
+      }else if(catFilter && !userFilter){
+        if(log.text.includes(catFilterState)){
           tempLogs.push(log);
         }
-      } else if (!catFilter && userFilter) {
-        if (log.UserId === user) {
+      }else if(!catFilter && userFilter){
+        if(log.userId === userFilterState){
           tempLogs.push(log);
+          
         }
       }
     });
-    if (!catFilter && !userFilter) {
-      setLogs(logs);
-    } else {
-      setLogs(tempLogs);
+    if(!catFilter && !userFilter){
+      setAll(logs);
+    }else{
+      setAll(tempLogs);
     }
   }
 
   useEffect(() => {
-    filterLogs(catFilter, userFilter);
-  }, [catFilter, userFilter]);
-
+    filterLogs();
+  }, [catFilterState, userFilterState]);
+  
 
   return (
     <div className='container-fluid p-0 m-0'>
@@ -142,23 +161,44 @@ function MainAdminTable() {
               </div>
             </div>
             <div className='ps-5 py-4'>
-              <Link to="/admin" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineCategory /></span>Kategorijos</Link>
-              <Link to="/eventLog" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><BsJournals /></span>Žurnalas</Link>
+            <Link to="/admin" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Kategorijos</Link>
+            <Link to="/eventLog" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Žurnalas</Link>
             </div>
           </div>
+
+
+            <div>
+    {!load &&<select
+                  defaultValue='' 
+                  onChange={(e) => setCatFilterState(e.target.value)}>
+                    <option value={""}>Rodyti visus veiksmus</option>
+                    <option value={"Pridėjo"}>Rodyti tik pridėjimus</option>
+                    <option value={"Ištrynė"}>Rodyti tik pašalinimus</option>
+                    <option value={"Atnaujino"}>Rodyti tik atnaujinimus</option>
+                    <option value={"Atsiunte"}>Rodyti tik atsisiuntimus</option>
+              </select>}
+              {!load &&<select
+                  defaultValue='' 
+                  onChange={(e) => setUserFilterState(e.target.value)}>
+                    <option value={""}>Rodyti visus vartotojus</option>
+                    {user.map((data)=>{
+                      return <option key={data._id} value={data._id}>{data.username}</option>
+                    })}
+              </select>}
+            </div>
           <div className='main pt-3'>
             <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
-              <div className='d-flex flex-column position-relative'>
-                <h5 className='w-100 p-0 m-0 ms-2'>Veiksmų žurnalas</h5>
+              <div className='d-flex flex-row position-relative'>
                 <>
-                  {!load &&
+                {!load &&
                     <EventLogTable
                       setAll={setAll}
                       all={all}
+                      data={data}
                       setRender={setRender}
-                      setCatFilter={setCatFilter}
+                      user = {user}
                     />}
-                </>
+                  </>
               </div>
             </div>
           </div>
@@ -168,4 +208,4 @@ function MainAdminTable() {
   )
 }
 
-export default MainAdminTable
+export default EventLogPage

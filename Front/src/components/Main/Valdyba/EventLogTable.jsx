@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import ListLog from './ListLog'
 // import { updateLogs } from '../../../api/lib/LogsAPI';
 
-function EventLogTable({ setAll, all, setRender, setCatFilter }) {
-
+function EventLogTable({all, data, user}) {
+//   console.log(data.map((data)=> data.username))
     function sortByDate(a, b) {
-
+        
         if (a.createdAt < b.createdAt) {
             return 1;
         }
@@ -15,39 +15,43 @@ function EventLogTable({ setAll, all, setRender, setCatFilter }) {
         return 0;
     }
 
-    all.sort(sortByDate);
+      all.sort(sortByDate);
     return (
-        <>
-            <div>
-                <select defaultValue={""} onChange={(e) => { setCatFilter(e.target.value) }} className='btn border-1 border-secondary historyPageSelectOption'>
-                    <option value={""}>Rodyti visus veiksmus</option>
-                    <option value={"Pridėjo"}>Rodyti tik pridėjimus</option>
-                    <option value={"Ištrynė"}>Rodyti tik pašalinimus</option>
-                    <option value={"Atnaujino"}>Rodyti tik atnaujinimus</option>
-                    <option value={"Atsiunte"}>Rodyti tik atsisiuntimus</option>
-                </select>
-                <input type="select" className='p-1'/>
-            </div>
-            <table className='table table-borderless mx-auto'>
-                <thead className='thead text-center'>
-                    <tr className='text-secondary'>
-                        <th>Vartotojo ID</th>
-                        <th>Atliktas veiksmas</th>
-                        <th>Atlikto veiksmo data</th>
+        <>{all.length === 0 ? (
+            <p className='fs-5 text-center'>Nėra pridėtų išrašų</p>
+        ) : (
+            <>
+            <table>
+                <thead>
+                    <tr>
+                        <th>vartotojo ID</th>
+                        <th>Slapyvardis</th>
+                        <th>El paštas</th>
+                        <th>Rolė</th>
+                        <th>Veiksmas</th>
+                        <th>Suma</th>
+                        <th>Data</th>
                     </tr>
                 </thead>
-                <tbody className='text-center'>
-                    {all.map((data) => (
+                <tbody>
+                    {data.map((datas) => (
+                       
                         <ListLog
-                            userId={data.userId}
-                            text={data.text}
-                            createdAt={data.createdAt}
+                            // userId={data.userId}
+                            // // username={username}
+                            // text ={data.text}
+                            // amount={data.amount}
+                            createdAt = {datas.createdAt}
+                            datas={datas}
+                            user={user}
                         />
                     ))}
                 </tbody>
             </table>
+            </>
+            )}
         </>
-    )
+    );
 }
 
 export default EventLogTable
