@@ -17,14 +17,7 @@ function CreateCategoryForm({ handlepopupClose, render, setRender, userId }) {
             .strict()
             .min(2, 'Galimas minimalus 4-rių raidžių kiekis')
             .max(30, 'Galimas maksimalus 10-ties raidžių kiekis')
-            .transform((_, description) => {
-                if (!description) {
-                    return errors.description
-                } else if (description.includes(' ')) {
-                    return description.replace(' ', '')
-                }
-                return description
-            })
+            .trim('Negalima įtraukti daugelio tarpų iš eilės ar priešais primąją raidę')
     })
     const {
         register,

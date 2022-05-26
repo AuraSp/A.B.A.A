@@ -164,3 +164,7 @@
     border-style: solid;
     border-color: transparent transparent #c6c6c6 transparent;
 }
+
+.adminlogtable {
+    font-size: 1.1em;
+}

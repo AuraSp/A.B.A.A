@@ -86,6 +86,7 @@ function MainContainer() {
 
     }
 
+    let [users, setUsers] = useState([])
     //---FetchData---//
     useEffect(() => {
         if (localStorage.user === undefined) {
@@ -99,6 +100,8 @@ function MainContainer() {
                 setId(...userAllIds.map((data) => data._id)); //Take User Id
                 setIncomes(...userAllIds.map((data) => data.income)); //Take all User's incomes
                 setExpenses(...userAllIds.map((data) => data.expense)); //Take all User's expenses
+                setUsers(...userdata.map((data) => data))
+                console.log(users)
                 setLoading(false);
             });
         }

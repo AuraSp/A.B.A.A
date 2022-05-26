@@ -29,7 +29,7 @@ function EditCategory({ defaultData, id, data, subId, onCancel, onSubmit }) {
             .string()
             .min(2, 'Galimas minimalus 2-iejų raidžių kiekis')
             .max(30, 'Galimas maksimalus 30-ties raidžių kiekis')
-            .trim('Negalima įtraukti daugelio tarpų iš eilės nepridedant antro žodžio')
+            .trim('Negalima įtraukti daugelio tarpų iš eilės ar priešais primąją raidę')
             .nullable(false)
             .strict()
             .required()

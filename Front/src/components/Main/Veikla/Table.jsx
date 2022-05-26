@@ -247,7 +247,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                     </tbody>
                 </table>
                 {!loading &&
-                    <div className='h-100 m-0 mb-4'>
+                    <div className='m-0 mb-4'>
                         <ReactPaginate
                             previousLabel={"Atgal"}
                             nextLabel={"Pirmyn"}

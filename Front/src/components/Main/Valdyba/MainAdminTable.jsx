@@ -87,8 +87,8 @@ function MainAdminTable() {
         </div>
         <div className='mainadmincontent p-0 m-0'>
           <div className='header'>
-            {/* Visible on medium and small screens */}
 
+            {/* Visible on medium and small screens */}
             <nav className="d-lg-none d-md-flex d-sm-flex flex-column flex-wrap navbar border-bottom">
               <p className='w-100 p-2 fs-5 text-decoration-none text-muted text-center'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>BudgetSimple</p>
               <div className='links d-flex flex-row justify-content-center fs-5'>
@@ -131,7 +131,7 @@ function MainAdminTable() {
           <div className='mainadmin pt-5 text-light'>
             <div className='row activitiestable mx-auto p-3 w-100'>
               <div className='row d-flex flex-row pb-3'>
-                <h5 className='w-25 p-0 m-0 pb-3'>Kategorijų sąrašas</h5>
+                <h5 className='w-25 p-0 m-0 pb-3 pt-1'>Kategorijų sąrašas</h5>
                 <div className='w-25'>
                   <button
                     onClick={toggleAddPopup}
