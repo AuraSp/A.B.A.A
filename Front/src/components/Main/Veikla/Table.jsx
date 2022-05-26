@@ -6,7 +6,7 @@ import { getAllUsers, deleteIncomeTransactions, deleteExpenseTransactions, findI
 
 import './Styles/table.css';
 
-function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory, firstDate, lastDate }) {
+function Table({ setAll, all, setEditId, editId, userId, loading, setRender, filterCategory, firstDate, lastDate, amount }) {
 
 
     const handleDelete = (e, data, subId) => {
@@ -36,6 +36,7 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 body: JSON.stringify({ 
                                     userId: userId,
                                     text: 'Ištrynė įrašą',
+                                    amount: amount,
                                     value: "Ištrynė"
                                 })
                             };
@@ -73,7 +74,8 @@ function Table({ setAll, all, setEditId, editId, userId, loading, setRender, fil
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ 
                                     userId: userId,
-                                    text: 'entry deleted',
+                                    text: 'Ištrynė įrašą',
+                                    amount: amount,
                                     value: "Ištrynė"
                                 })
                             };

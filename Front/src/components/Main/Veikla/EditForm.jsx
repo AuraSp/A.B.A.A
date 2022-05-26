@@ -33,6 +33,7 @@ function EditUserDataForm({ defaultData, id, subId, onCancel, onSubmit }) {
             body: JSON.stringify({ 
                 userId: id,
                 text: 'Atnaujino įrašą',
+                amount: amount,
                 value: "Atnaujino",
             })
         };

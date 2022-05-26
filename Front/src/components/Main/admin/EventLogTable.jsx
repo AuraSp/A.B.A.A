@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react'
 import ListLog from './ListLog'
 // import { updateLogs } from '../../../api/lib/LogsAPI';
 
-function EventLogTable({setAll, all, setRender}) {
-
+function EventLogTable({all, data, user}) {
+//   console.log(data.map((data)=> data.username))
     function sortByDate(a, b) {
         
         if (a.createdAt < b.createdAt) {
@@ -24,18 +24,26 @@ function EventLogTable({setAll, all, setRender}) {
             <table>
                 <thead>
                     <tr>
-                        <th>userId</th>
-                        <th>veiksmas</th>
-                        <th>data</th>
+                        <th>vartotojo ID</th>
+                        <th>Slapyvardis</th>
+                        <th>El paštas</th>
+                        <th>Rolė</th>
+                        <th>Veiksmas</th>
+                        <th>Suma</th>
+                        <th>Data</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {all.map((data) => (
+                    {data.map((datas) => (
                        
                         <ListLog
-                            userId={data.userId}
-                            text ={data.text}
-                            createdAt = {data.createdAt}
+                            // userId={data.userId}
+                            // // username={username}
+                            // text ={data.text}
+                            // amount={data.amount}
+                            createdAt = {datas.createdAt}
+                            datas={datas}
+                            user={user}
                         />
                     ))}
                 </tbody>

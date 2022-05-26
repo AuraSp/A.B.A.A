@@ -1,10 +1,16 @@
 import React from 'react'
 
-function ListLog({userId, text, createdAt}) {
+function ListLog({userId, text, createdAt, username, user, amount, datas}) {
+// console.log(user)
+
   return (
     <tr>
-        <td>{userId}</td>
-        <td>{text}</td>
+        <td>{datas.userId}</td>
+        {user.map((users) => (users._id === datas.userId ? (<td>{users.username}</td>) : ('')))}
+        {user.map((users) => (users._id === datas.userId ? (<td>{users.email}</td>) : ('')))}
+        {user.map((users) => (users._id === datas.userId ? (<td>{users.roles}</td>) : ('')))}
+        <td>{datas.text}</td>
+        <td>{datas.amount}</td>
         <td>{createdAt}</td>
     </tr>
   )

@@ -14,8 +14,8 @@ function EventLogPage() {
   const [logs, setLogs] = useState([]);
   const [render, setRender] = useState(false);
   const [load, setLoad] = useState(true)
-  const [userId, setId] = useState([]);
-  const [name, setname] = useState([]);
+  const [user, setuser] = useState([]);
+  const [username, setUsername] = useState([]);
   const [data, setdata] = useState([]);
   const [catFilterState, setCatFilterState] = useState("");
   const [userFilterState, setUserFilterState] = useState("");
@@ -51,14 +51,19 @@ function EventLogPage() {
   }
   useEffect(() => {
     getAllUsers().then((res) => {
-      const userdata = res.data.data.transactions; //Fetch all existing data from database
-      setdata(...userdata)
-      // let userAllIds = userdata.filter((data) => data._id); //Take All users Ids
-      // setId(...userAllIds.map((data) => data._id)); //Take User Id
-      // setname(...userdata.map((data) => data));
+      const userdata = res.data.data.transactions;//Fetch all existing data from database
+      setuser(userdata);
+      setUsername(userdata)
     });
   }, [render]);
-  console.log(data)
+
+  useEffect(() => {
+    let temp = []
+    temp.push(...all)
+setdata(temp)
+  }, [all, username])
+  
+
   function filterLogs(){
     let tempLogs = [];
     let catFilter = false;
@@ -90,7 +95,6 @@ function EventLogPage() {
     }else{
       setAll(tempLogs);
     }
-    console.log(tempLogs)
   }
 
   useEffect(() => {
@@ -170,20 +174,23 @@ function EventLogPage() {
               {!load &&<select
                   defaultValue='' 
                   onChange={(e) => setUserFilterState(e.target.value)}>
-                    <option value={userId}>s</option>
+                    <option value={""}>Rodyti visus vartotojus</option>
+                    {user.map((data)=>{
+                      return <option key={data._id} value={data._id}>{data.username}</option>
+                    })}
               </select>}
-              {/* <button onClick={filterLogs}>button</button>  */}
             </div>
           <div className='main pt-3'>
             <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
               <div className='d-flex flex-row position-relative'>
-                <h5 className='w-100 p-0 m-0'>...</h5>
                 <>
                 {!load &&
                     <EventLogTable
                       setAll={setAll}
                       all={all}
+                      data={data}
                       setRender={setRender}
+                      user = {user}
                     />}
                   </>
               </div>
