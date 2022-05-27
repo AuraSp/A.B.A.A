@@ -67,9 +67,9 @@
 }
 
 .header .nav a {
-    background: -webkit-gradient(linear, right top, left top, from(#141834), color-stop(51%, #0f1625), to(#2b2c3f));
-    background: -o-linear-gradient(right, #141834 0%, #0f1625 51%, #2b2c3f 100%);
-    background: linear-gradient(to left, #141834 0%, #0f1625 51%, #2b2c3f 100%);
+    background: -webkit-gradient(linear, right top, left top, from(#141834), color-stop(51%, #0f1625), to(#46498c));
+    background: -o-linear-gradient(right, #141834 0%, #0f1625 51%, #46498c 100%);
+    background: linear-gradient(to left, #141834 0%, #0f1625 51%, #46498c 100%);
     margin: 0.2rem;
     border-radius: 10px;
     padding: 15px 45px;
@@ -177,4 +177,23 @@
 
 .adminlogtable {
     font-size: 1.1em;
+}
+
+.mainadmin h5 {
+    position: relative;
+    letter-spacing: 0.1em;
+}
+
+.mainadmincontent:hover > .mainadmin h5:after{
+    transform: translateX(3em);
+    border-color: '#fff';
+}
+.mainadmin h5:after {
+    content: "";
+    border-bottom: 2px solid #dc3545;
+    bottom: 0;
+    left: 0.2em;
+    position: absolute;
+    width: 30px;
+    transition: 500ms linear;
 }

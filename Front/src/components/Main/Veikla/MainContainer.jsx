@@ -174,7 +174,7 @@ function MainContainer() {
         <div className='container-fluid p-0 m-0'>
             <div className='row d-flex flex-row flex-nowrap p-0 m-0'>
                 <div className='sidemenu text-warning d-lg-flex d-md-none d-sm-none flex-column flex-wrap'>
-                    <Link to="/" className='mt-3 pt-2 pb-1 text-decoration-none'><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></Link>
+                    <p className='mt-3 pt-2 pb-1 text-decoration-none'><span className='text-center p-1 me-3 fs-1'><GiWallet /></span><span className='text-secondary'>BudgetSimple</span></p>
                 {show &&
                     <>
                     <Link to="/analize" className='p-3 mt-5 text-decoration-none text-muted'>

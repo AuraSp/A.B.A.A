@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from "react-icons/io";
 import { MdOutlineAccountCircle, MdOutlineDashboardCustomize, MdOutlineAdminPanelSettings, MdOutlineCategory } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
+import { RiUserSettingsLine } from "react-icons/ri";
 import { BsJournals } from "react-icons/bs";
 import { GiWallet } from "react-icons/gi";
 import { getAllLogs } from '../../../api/lib/LogsAPI';
@@ -160,7 +161,7 @@ function EventLogPage() {
             <div className='nav ps-5'>
               <Link to="/admin" className='p-2 text-decoration-none text-light'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineCategory /></span>Kategorijos</Link>
               <Link to="/eventLog" className='p-2 text-decoration-none text-light'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><BsJournals /></span>Žurnalas</Link>
-              <Link to="/users" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineDashboardCustomize /></span>Vartotojai</Link>
+              <Link to="/users" className='p-2 text-decoration-none text-light'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><RiUserSettingsLine className='text-warning'/></span>Vartotojai</Link>
             </div>
           </div>
           <div>
