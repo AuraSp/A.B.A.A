@@ -30,7 +30,7 @@ function EventLogTable({ all, data, user, load, setCatFilter, setUserFilterState
                 {!load && <select
                     defaultValue=''
                     onChange={(e) => setUserFilterState(e.target.value)}
-                    className='btn border-1 border-secondary text-light historyPageSelectOption me-5'>
+                    className='btn border-1 border-secondary me-5'>
                     <option value={""}>--Rodyti visus vartotojus--</option>
                     {user.map((data) => {
                         return <option key={data._id} value={data._id}>{data.username}</option>
