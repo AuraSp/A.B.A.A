@@ -46,7 +46,7 @@ function EditCategory({ defaultData, id, data, subId, onCancel, onSubmit }) {
             <td>
                 <input
                     {...register('value')}
-                    className='text-center'
+                    className='bg-dark text-center text-light'
                     type='text'
                     defaultValue={defaultData.value}
                     onChange={(e) => setValue(e.target.value)}

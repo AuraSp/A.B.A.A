@@ -76,13 +76,13 @@ function EditUserList({ defaultData, onCancel, subId, onSubmit }) {
 
     return (
         <>
-            <tr className='editinputs text-center'>
+            <tr className='editinputss text-center'>
                 <td>{defaultData._id}</td>
                 <td>
 
                     <input
                         {...register('username')}
-                        className='text-center'
+                        className='bg-dark text-center text-light'
                         type='text'
                         defaultValue={defaultData.username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -93,7 +93,7 @@ function EditUserList({ defaultData, onCancel, subId, onSubmit }) {
                 <td>
                     <input
                         {...register('email')}
-                        className='text-center'
+                        className='bg-dark text-center  text-light'
                         type='email'
                         defaultValue={defaultData.email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -119,7 +119,7 @@ function EditUserList({ defaultData, onCancel, subId, onSubmit }) {
                 <td>
                     <select
                         {...register('role')}
-                        className='text-center'
+                        className='bg-dark text-center text-light'
                         onChange={(e) => setRole(e.target.value)}
                     >
                         <option value={defaultData.roles}>{defaultData.roles}</option>

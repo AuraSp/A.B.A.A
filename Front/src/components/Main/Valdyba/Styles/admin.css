@@ -133,8 +133,8 @@
 
 .editcategory input.text-center {
     text-align: center;
+    color: 'white';
     border: 2px solid rgb(164, 164, 164);
-    background-color: grey;
     border-radius: 15px;
     outline: darkgrey;
     -webkit-transition: 700ms all;
@@ -196,4 +196,16 @@
     position: absolute;
     width: 30px;
     transition: 500ms linear;
+}
+
+.editinputss input,
+.editinputss select {
+    text-align: center;
+    border: 2px solid rgb(164, 164, 164);
+    color: '#fff';
+    border-radius: 15px;
+    outline: darkgrey;
+    -webkit-transition: 700ms all;
+    -o-transition: 700ms all;
+    padding: 0.1em;
 }

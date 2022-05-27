@@ -30,13 +30,13 @@ function EventLogTable({ all, data, user, load, setCatFilter, setUserFilterState
                 {!load && <select
                     defaultValue=''
                     onChange={(e) => setUserFilterState(e.target.value)}
-                    className='btn border-1 border-secondary text-light historyPageSelectOption me-5'>
-                    <option value={""}>--Rodyti visus vartotojus--</option>
+                    className='btn border-1 border-secondary text-light bg-dark me-5'>
+                    <option className='text-light' value={""}>--Rodyti visus vartotojus--</option>
                     {user.map((data) => {
-                        return <option key={data._id} value={data._id}>{data.username}</option>
+                        return <option className='text-light' key={data._id} value={data._id}>{data.username}</option>
                     })}
                 </select>}
-                <select defaultValue={""} onChange={(e) => { setCatFilter(e.target.value) }} className='btn border-1 border-secondary text-light historyPageSelectOption'>
+                <select defaultValue={""} onChange={(e) => { setCatFilter(e.target.value) }} className='btn border-1 border-secondary text-light bg-dark'>
                     <option value={""}>Rodyti visus veiksmus</option>
                     <option value={"Pridėjo"}>Rodyti tik pridėjimus</option>
                     <option value={"Ištrynė"}>Rodyti tik pašalinimus</option>
