@@ -1,8 +1,8 @@
 const express = require("express");
 const { get } = require("http");
 const cookieSession = require("cookie-session");
-// const {verifySignUp} = require("./middleware")
-// const controller = require("./controllers/auth.controller")
+const {verifySignUp} = require("./middleware")
+const controller = require("./controllers/auth.controller")
 
 const TransactionsRoutes = require("./routes/TransactionsRoutes");
 const category = require("./routes/categoryRoutes");
